@@ -18,7 +18,7 @@ Route::get('/footer', function () {
     return view('footer.footer');
 });
 Route::get('/', function () {
-    return view('home');
+    return view('search');
 });
 Route::get('/login', function () {
     return view('login.login');
