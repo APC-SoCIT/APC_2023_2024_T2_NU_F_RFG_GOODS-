@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id('id');
+            $table->string('image');
             $table->string('sku');
             $table->string('name');
             $table->decimal('price');
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('product_category');
+            $table->foreign('category_id')->references('id')->on('product_categories');
             $table->text('desc');
             $table->timestamps();
         });
