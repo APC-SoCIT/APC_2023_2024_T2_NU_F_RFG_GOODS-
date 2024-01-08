@@ -10,6 +10,7 @@
 </head>
 <body>
     @include('navbar.navbar')
+    {{-- filter start --}}
     <div class="flex justify-center">
         <div class="grid grid-cols-3 gap-8 mt-10">
             <div class="bg-slate-200 w-80 h-52 rounded-3xl border-4 border-black">
@@ -78,7 +79,9 @@
 
         </div>
     </div>
+    {{-- filter end --}}
     <hr class="w-1/4 h-1 mx-auto bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
+    {{-- search container start --}}
     <div class="flex justify-center">
         <div class="grid grid-cols-4 gap-10 h-full px-20 mb-10">
                 <div class="relative bg-slate-200 w-60 h-80">
@@ -193,8 +196,40 @@
                         </div>
                     </div>
                 </div>
+                @forelse($products as $product)
+                    <div class="relative bg-slate-200 w-60 h-80">
+                        <img src="./Img/chili.jpg" alt="">
+                        <div class="my-1 px-6">
+                            <p class="text-xs text-center">RG’S CHILI FLAKES 100G</p>
+                        </div>
+                        <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
+                            <div class="mx-auto">
+                                <p class="font-bold">₱140</p>
+                            </div>
+                            <div class="mx-auto">
+                                <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="relative bg-slate-200 w-60 h-80">
+                        <img src="./Img/chili.jpg" alt="">
+                        <div class="my-1 px-6">
+                            <p class="text-xs text-center">EMPTY</p>
+                        </div>
+                        <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
+                            <div class="mx-auto">
+                                <p class="font-bold">₱140</p>
+                            </div>
+                            <div class="mx-auto">
+                                <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                @endforelse
         </div>
     </div>
+    {{-- search container end --}}
     @include('footer.footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 </body>
