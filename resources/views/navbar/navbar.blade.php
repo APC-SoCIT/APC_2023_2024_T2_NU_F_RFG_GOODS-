@@ -45,14 +45,21 @@
             <a href="{{ route('home') }}" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 md:dark:hover:text-orange-500" aria-current="page">Home</a>
           </li>
           <li>
-            <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-orange-500 md:dark:hover:bg-transparent">About</a>
+            <a href="#" class="block py-2 px-3 text-gray-900 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-orange-500 md:dark:hover:bg-transparent">About</a>
           </li>
           <li>
-            <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-orange-500 md:dark:hover:bg-transparent">Services</a>
+            <a href="#" class="block py-2 px-3 text-gray-900 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-orange-500 md:dark:hover:bg-transparent">Services</a>
           </li>
+
+          @if (Auth::user()!=null)
           <li>
-            <a href="{{ route('login') }}" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 md:dark:hover:text-orange-500" aria-current="page">Login</a>
+            <a href="{{ route('dashboard') }}" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 md:dark:hover:text-orange-500" aria-current="page">{{Auth::user()->first_name}} {{Auth::user()->last_name}} </a>
           </li>
+          @else
+            <li>
+              <a href="{{ route('login') }}" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 md:dark:hover:text-orange-500" aria-current="page">Login</a>
+            </li>
+          @endif
         </ul>
       </div>
     </div>
