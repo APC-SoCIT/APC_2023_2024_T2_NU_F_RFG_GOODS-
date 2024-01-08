@@ -33,14 +33,14 @@
                 <h1 class="text-center font-bold mt-3">Price Range</h1>
                 <div class="flex justify-center">
                     <form>
-                        <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Min</label>
-                        <input type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-white border-2 border-black text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" required>
+                        <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900">Min</label>
+                        <input type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-white border-2 border-black text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="90210" required>
                     </form>
                 </div>
                 <div class="flex justify-center">
                     <form>
-                        <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Max</label>
-                        <input type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-white border-2 border-black text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" required>
+                        <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900">Max</label>
+                        <input type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-white border-2 border-black text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="90210" required>
                     </form>
                 </div>
             </div>
@@ -57,19 +57,19 @@
                         <a href="" class=""><span>Top Sales</span></a>
                     </div>
                     <div>
-                    <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="border-black border-2 text-black bg-white hover:bg-slate-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-2xl text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-white dark:hover:bg-slate-300 dark:focus:ring-white h-8" type="button">Dropdown hover <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="border-black border-2 text-black bg-white hover:bg-slate-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-2xl text-sm px-5 py-2.5 text-center inline-flex items-center h-8" type="button">Dropdown hover <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                         </svg>
                     </button>
 
                     <!-- Dropdown menu -->
-                        <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-white">
-                            <ul class="py-2 text-sm text-black dark:black" aria-labelledby="dropdownHoverButton">
+                        <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                            <ul class="py-2 text-sm text-black" aria-labelledby="dropdownHoverButton">
                             <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-slate-300 dark:hover:bg-slate-300 dark:hover:text-black">Low to High</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-slate-300">Low to High</a>
                             </li>
                             <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-slate-300 dark:hover:bg-slate-300 dark:hover:text-black">High to Low</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-slate-300">High to Low</a>
                             </li>
                             </ul>
                         </div>
@@ -80,11 +80,11 @@
         </div>
     </div>
     {{-- filter end --}}
-    <hr class="w-1/4 h-1 mx-auto bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
+    <hr class="w-1/4 h-1 mx-auto bg-gray-100 border-0 rounded md:my-10">
     {{-- search container start --}}
     <div class="flex justify-center">
         <div class="grid grid-cols-4 gap-10 h-full px-20 mb-10">
-                <div class="relative bg-slate-200 w-60 h-80">
+                {{-- <div class="relative bg-slate-200 w-60 h-80">
                     <img src="./Img/prod 1.jpg" alt="">
                     <div class="my-1 px-6">
                         <p class="text-xs text-center">RG’S DISTILLED CANE VINEGAR 500ML</p>
@@ -195,16 +195,18 @@
                             <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
                         </div>
                     </div>
-                </div>
+                </div> --}}
+
+                {{-- product for loop start --}}
                 @forelse($products as $product)
                     <div class="relative bg-slate-200 w-60 h-80">
-                        <img src="./Img/chili.jpg" alt="">
+                        <img src={{$product->image}} alt="">
                         <div class="my-1 px-6">
-                            <p class="text-xs text-center">RG’S CHILI FLAKES 100G</p>
+                            <p class="text-xs text-center">{{ $product->name}}</p>
                         </div>
                         <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
                             <div class="mx-auto">
-                                <p class="font-bold">₱140</p>
+                                <p class="font-bold">₱{{ $product->price}}</p>
                             </div>
                             <div class="mx-auto">
                                 <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
@@ -212,21 +214,9 @@
                         </div>
                     </div>
                 @empty
-                    <div class="relative bg-slate-200 w-60 h-80">
-                        <img src="./Img/chili.jpg" alt="">
-                        <div class="my-1 px-6">
-                            <p class="text-xs text-center">EMPTY</p>
-                        </div>
-                        <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
-                            <div class="mx-auto">
-                                <p class="font-bold">₱140</p>
-                            </div>
-                            <div class="mx-auto">
-                                <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
+                    <p>No Results Found</p>
                 @endforelse
+                {{-- product for loop end --}}
         </div>
     </div>
     {{-- search container end --}}

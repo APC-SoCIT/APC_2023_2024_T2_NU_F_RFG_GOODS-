@@ -20,14 +20,14 @@
                     <div class="py-3">
                         <form class="max-w-96 mx-auto">
                             <div class="mb-5">
-                            <input type="email" id="email" class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:placeholder-black dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Username" required>
+                                <input type="text" id="text" class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Username" required>
                             </div>
                             <div class="mb-5">
-                            <input type="password" id="password" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:placeholder-black dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password" required>
+                                <input type="password" id="password" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Password" required>
                             </div>
                             <p class="mt-3 text-sm text-gray-600 text-center">Don't have an account? <a href="/signup" class="text-black font-bold">Sign up</a></p>
                             <div class="flex justify-center items-center w-full pt-3">
-                            <button type="submit" class="text-black bg-orange-400 hover:bg-orange-400 focus:ring-4 focus:outline-none focus:ring-orange-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-400 dark:hover:bg-orange-400 dark:focus:ring-orange-400">LOGIN</button>
+                                <button type="submit" class="text-black bg-orange-400 hover:bg-orange-400 focus:ring-4 focus:outline-none focus:ring-orange-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">LOGIN</button>
                             </div>
                         </form>
                     </div>
