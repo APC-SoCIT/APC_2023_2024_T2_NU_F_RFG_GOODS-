@@ -47,6 +47,7 @@
         </div>
         <div>
             <input type="submit" value="Update">
+            <button href="admin/product">Cancel</button>
         </div>
         <div>
             @if($errors->any())

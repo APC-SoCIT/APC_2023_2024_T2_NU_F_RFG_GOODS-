@@ -200,7 +200,7 @@
                 {{-- product for loop start --}}
                 @forelse($products as $product)
                     <div class="relative bg-slate-200 w-60 h-80">
-                        <img src={{$product->image}} alt="">
+                        <img src="{{ asset('./products/'.$product->image )}}" alt="">
                         <div class="my-1 px-6">
                             <p class="text-xs text-center">{{ $product->name}}</p>
                         </div>
@@ -209,7 +209,9 @@
                                 <p class="font-bold">₱{{ $product->price}}</p>
                             </div>
                             <div class="mx-auto">
-                                <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
+                                <a href="addtocart/{{$product->id}}">
+                                <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl" >Add to cart</button>
+                                </a>
                             </div>
                         </div>
                     </div>
