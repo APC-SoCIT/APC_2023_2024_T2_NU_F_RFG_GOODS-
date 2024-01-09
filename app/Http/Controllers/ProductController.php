@@ -51,7 +51,6 @@ class ProductController extends Controller
         $categoryList = ProductCategory::select('id','category')->get();
         return view('products.edit', compact('product', 'categoryList'));
     }
-            // return view('products.edit', ['product' => $product])->with('categoryList', $categoryList);
 
     public function update(Product $product, Request $request){
 
@@ -85,5 +84,9 @@ class ProductController extends Controller
         $product = Product::where('id',$product->id)->first();
         $product->delete();
         return redirect(route('product.index'))->with('success', 'Product Deleted Successfully');
+    }
+
+    public function addtocart(Product $product){
+        return redirect(route('product.index'));
     }
 }

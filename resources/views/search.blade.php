@@ -34,13 +34,13 @@
                 <div class="flex justify-center">
                     <form>
                         <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900">Min</label>
-                        <input type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-white border-2 border-black text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="90210" required>
+                        <input type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-white border-2 border-black text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="0" required>
                     </form>
                 </div>
                 <div class="flex justify-center">
                     <form>
                         <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900">Max</label>
-                        <input type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-white border-2 border-black text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="90210" required>
+                        <input type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-white border-2 border-black text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="500" required>
                     </form>
                 </div>
             </div>

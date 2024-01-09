@@ -26,6 +26,18 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/admin', function () {
+        return view('admin');
+    })->name('admin');
+    Route::get('/admin/product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/admin/product/create', [ProductController::class, 'create'])->name('product.create');
+    Route::post('/admin/product/save', [ProductController::class, 'save'])->name('product.save');
+    Route::get('/admin/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+    Route::put('/admin/product/{product}/update', [ProductController::class, 'update'])->name('product.update');
+    Route::get('/admin/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::get('/addtocart/{product}', [ProductController::class, 'addtocart']);
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -34,7 +46,6 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
     /* auth template end */
 
-
 Route::get('/footer', function () {
     return view('footer.footer');
 });
@@ -42,21 +53,14 @@ Route::get('/footer', function () {
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/login2', function () {
+    return view('login.login');
+});
+
 Route::get('/product', function () {
     return view('product');
 });
-
-
-
-Route::get('/admin', function () {
-    return view('admin');
-})->name('admin');
-Route::get('/admin/product', [ProductController::class, 'index'])->name('product.index');
-Route::get('/admin/product/create', [ProductController::class, 'create'])->name('product.create');
-Route::post('/admin/product/save', [ProductController::class, 'save'])->name('product.save');
-Route::get('/admin/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
-Route::put('/admin/product/{product}/update', [ProductController::class, 'update'])->name('product.update');
-Route::get('/admin/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
 
 Route::get('/home', function () {
     if (request('search')) {
@@ -65,10 +69,6 @@ Route::get('/home', function () {
         return view('home');
     }
 })->name('home');
-
-// Route::get('/login', function () {
-//     return view('login.login');
-// })->name('login');
 
 Route::get('/search', function () {
     if (request('search')) {
