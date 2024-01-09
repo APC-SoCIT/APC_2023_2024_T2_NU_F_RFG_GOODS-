@@ -53,6 +53,11 @@ Route::get('/footer', function () {
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/login2', function () {
+    return view('login.login');
+});
+
 Route::get('/product', function () {
     return view('product');
 });

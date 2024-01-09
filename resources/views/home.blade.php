@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/dist/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
+    @vite('resources/css/app.css')
 </head>
 <body>
     @include('navbar.navbar')
@@ -62,31 +63,31 @@
     </div>
     <p class="text-3xl font-bold flex justify-center py-6">Best Sellers</p> 
     <div class="mx-auto grid grid-cols-3 gap-3 flex items-center justify-center py-6 mb-8 max-w-6xl">
-        <div class="mx-auto w-80 h-96 bg-slate-300 rounded-3xl drop-shadow-2xl">
-            <img class="w-full h-64 rounded-t-3xl" src="./Img/chi.jpg" alt="">
+        <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+            <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+            <div class="flex">
+            <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+            </div>
             <div class="h-16 my-2 px-6">
                 <p class="text-center">Ready to fry RG’S Special Pork Chicharon 250g</p>
             </div>
-            <div class="flex">
-            <button class="mx-auto bg-orange-400 rounded-3xl px-6 py-2 font-bold">Buy Now</button>
-            </div>
         </div>
-        <div class="mx-auto w-80 h-96 bg-slate-300 rounded-3xl drop-shadow-2xl">
-            <img class="w-full h-64 rounded-t-3xl" src="./Img/garlic.jpg" alt="">
+        <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+            <img class="w-full h-64" src="./Img/garlic.jpg" alt="">
+            <div class="flex">
+            <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+            </div>
             <div class="h-16 my-2 px-6">
-                <p class="text-center">JAMIE’S CHILI GARLIC (220ML)</p>
-            </div>
-            <div class="flex">
-            <button class="mx-auto bg-orange-400 rounded-3xl px-6 py-2 font-bold">Buy Now</button>
+                <p class="text-center text-xl py-4">JAMIE’S CHILI GARLIC (220ML)</p>
             </div>
         </div>
-        <div class="mx-auto w-80 h-96 bg-slate-300 rounded-3xl drop-shadow-2xl">
-            <img class="w-full h-64 rounded-t-3xl" src="./Img/vini.jpg" alt="">
+        <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+            <img class="w-full h-64" src="./Img/vini.jpg" alt="">
+            <div class="flex">
+            <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+            </div>
             <div class="h-16 my-2 px-6">
                 <p class="text-center">JAMIE’S CHILLI VINEGAR - PREMIUM BLEND (375ML)</p>
-            </div>
-            <div class="flex">
-            <button class="mx-auto bg-orange-400 rounded-3xl px-6 py-2 font-bold">Buy Now</button>
             </div>
         </div>
     </div>
