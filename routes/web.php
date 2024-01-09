@@ -62,6 +62,10 @@ Route::get('/product', function () {
     return view('product');
 });
 
+Route::get('/adminproduct', function () {
+    return view('admin.products');
+});
+
 Route::get('/home', function () {
     if (request('search')) {
         return view('search');
