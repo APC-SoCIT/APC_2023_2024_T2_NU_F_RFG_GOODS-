@@ -54,6 +54,10 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/admin', function () {
+    return view('admin');
+});
+
 Route::get('/login2', function () {
     return view('login.login');
 });
