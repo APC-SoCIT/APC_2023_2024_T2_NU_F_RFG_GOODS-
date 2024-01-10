@@ -92,10 +92,10 @@
                                 Product-ID
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Created-At
+                                Created At
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Updated-At
+                                Updated At
                             </th>
                             <th scope="col" class="p-4">
                             </th>
