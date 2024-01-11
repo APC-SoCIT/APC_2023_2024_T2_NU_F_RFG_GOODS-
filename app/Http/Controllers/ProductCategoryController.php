@@ -20,26 +20,13 @@ class Product_CategoryController extends Controller
     public function save(Request $request){
 
         $request->validate([
-            'image' => 'required|mimes:jpeg,jpg,png,gif|max:20000',
-            'sku' => 'required',
-            'name' => 'required',
-            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'category_id' => 'required',
-            'desc' => 'required',
+            'category' => 'required',
         ]);
 
-        $imageName = $request->sku.'.'.$request->image->extension();
-        $request->image->move(public_path('products'), $imageName);
+        $category = new Product;
+        $category->category = $request->category;
 
-        $product = new Product;
-        $product->image = $imageName;
-        $product->sku = $request->sku;
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->category_id = $request->category_id;
-        $product->desc = $request->desc;
-
-        $product->save();
+        $category->save();
 
         return redirect(route('product.index'))->withSuccess('Product Successfully Added');
     }
