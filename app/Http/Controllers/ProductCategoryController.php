@@ -4,17 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProductCategoryController extends Controller
 {
     public function index(){
         $categoryList = ProductCategory::select('id','category')->get();
         return view('admin.categories', ['categoryList' => $categoryList]);
-    }
-    
-    public function create(){
-        $categoryList = ProductCategory::select('id','category')->get();
-        return view('categories.create')->with('categoryList', $categoryList);
     }
 
     public function save(Request $request){
@@ -30,46 +27,61 @@ class ProductCategoryController extends Controller
         return redirect(route('category.index'))->withSuccess('Product Successfully Added');
     }
 
+    // public function update(ProductCategory $category, Request $request){
+
+    //     $request->validate([
+    //         'category' => 'required',
+    //     ]);
+
+    //     $category->category = $request->category;
+
+    //     $category->update();
+
+    //     return redirect(route('category.index'))->with('success', 'Product Updated Successfully');
+    // }
+
+
     public function update(ProductCategory $category, Request $request){
 
         $request->validate([
-            'image' => 'nullable|mimes:jpeg,jpg,png,gif|max:20000',
-            'sku' => 'required',
-
+            'category' => 'required',
         ]);
 
-        $product->sku = $request->sku;
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->category_id = $request->category_id;
-        $product->desc = $request->desc;
+        // Begin a database transaction
+        DB::beginTransaction();
 
-        if ($request->hasFile('image')) {
-            // Check if an image is present in the request
-            $imageName = $request->sku . '.' . $request->image->extension();
+        try {
+            // Step 1: Update the product category
+            $category->category = $request->category;
+            $category->update();    
 
-            // Move the new image and update the product's image attribute
-            $request->image->move(public_path('products'), $imageName);
-            $product->image = $imageName;
+            // Step 2: Update the foreign key in the products table
+            $oldCategoryId = $category->getOriginal('id');
+            $newCategoryId = $category->id;
 
-            // Remove the old image file if it exists
-            if (file_exists($currentImage) && $product->image !== $imageName) {
-                unlink($currentImage);
+            $products = Product::where('category_id', $oldCategoryId)->get();
+
+            foreach ($products as $product) {
+                $product->category_id = $newCategoryId;
+                $product->save();
             }
+
+            // Commit the transaction if all steps are successful
+            DB::commit();
+
+            return redirect(route('category.index'))->with('success', 'Category Updated Successfully');
+        } catch (\Exception $e) {
+            // An error occurred, rollback the transaction
+            DB::rollback();
+
+            return redirect(route('category.index'))->with('error', 'Failed to update category. ' . $e->getMessage());
         }
-
-        $product->update();
-
-        return redirect(route('product.index'))->with('success', 'Product Updated Successfully');
     }
 
-    public function destroy(Product $product) {
-        $product = Product::where('id',$product->id)->first();
+
+    public function destroy(ProductCategory $category) {
+        $product = ProductCategory::where('id',$product->id)->first();
         $product->delete();
-        return redirect(route('product.index'))->with('success', 'Product Deleted Successfully');
-    }
-
-    public function addtocart(Product $product){
-        return redirect(route('product.index'));
+        return redirect(route('category.index'))->with('success', 'Product Deleted Successfully');
     }
 }

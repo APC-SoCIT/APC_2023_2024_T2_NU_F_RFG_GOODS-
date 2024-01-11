@@ -16,9 +16,9 @@ class Product extends Model
         'price',
         'category_id',
         'desc',
-        'min_quantity',
-        'max_quantity',
-        'reorder_quantity',
+        'min_qty',
+        'max_qty',
+        'reorder_pt',
         'created_at',
         'updated_at',
     ];

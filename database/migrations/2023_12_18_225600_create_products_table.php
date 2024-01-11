@@ -20,9 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('product_categories');
             $table->text('desc');
-            $table->integer('minimum_quantity');
-            $table->integer('maximum_quantity');
-            $table->integer('reorder_quantity');
+            $table->integer('min_qty');
+            $table->integer('max_qty');
+            $table->integer('reorder_pt');
             $table->timestamps();
         });
     }
