@@ -1,5 +1,5 @@
 <nav class="bg-orange-400 z-50">
-  <div class="flex flex-wrap items-center justify-between mx-auto p-2.5">
+  <div class="flex flex-wrap items-center mx-auto p-2.5">
       <div class="flex items-center justify-start rtl:justify-end">
           <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
               <span class="sr-only">Open sidebar</span>
@@ -8,9 +8,11 @@
               </svg>
           </button>
       </div>
-      <a href="/" class="pl-5 flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="/Img/logo1.png" class="h-12 w-12" alt="RFG Logo" />
-      </a>
+      <div>
+        <a href="/" class="pl-5 flex space-x-3 rtl:space-x-reverse pr-8">
+            <img src="/Img/logo1.png" class="h-12 w-12" alt="RFG Logo" />
+        </a>
+      </div>
       <div class="relative hidden md:block w-7/12">
           <!-- Search form for larger screens -->
           <form action="{{ route('search') }}">
@@ -39,7 +41,7 @@
               </svg>
           </button>
       </div>
-      <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
+      <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 ml-auto mr-8" id="navbar-search">
           <!-- Search form for smaller screens -->
           <form action="{{ route('search') }}">
               <div class="relative mt-3 md:hidden">
@@ -54,13 +56,25 @@
           <!-- Navigation links for smaller screens -->
           <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 bg-orange-400">
               <li>
-                  <a href="/" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 md:dark:hover:text-orange-500" aria-current="page">Home</a>
+                  <a href="/" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 md:dark:hover:text-orange-500" aria-current="page">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    </svg>
+                  </a>
               </li>
               <li>
-                  <a href="#" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-orange-500 md:dark:hover:bg-transparent">About</a>
+                  <a href="#" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-orange-500 md:dark:hover:bg-transparent">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                    </svg>
+                  </a>
               </li>
               <li>
-                  <a href="#" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-orange-500 md:dark:hover:bg-transparent">Services</a>
+                  <a href="#" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-orange-500 md:dark:hover:bg-transparent">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                  </a>
               </li>
               <!-- User dropdown for authenticated users -->
               @if (Auth::user()!=null)
