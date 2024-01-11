@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,15 @@ use App\Http\Controllers\HomeController;
 
     /* auth template start */
 Route::get('/', function () {
-    return view('welcome');
+    if (request('search')) {
+        return view('search');
+    } else {
+        return view('home');
+    }
+})->name('home');
+
+Route::get('/home', function () {
+    return redirect('/');
 });
 
 Route::get('/dashboard', function () {
@@ -27,21 +36,32 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard',[HomeController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
+Route::middleware('admin')->group(function () {
     Route::get('/admin', function () {
         return view('admin');
     })->name('admin');
-    Route::get('/admin/product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/admin/products', [ProductController::class, 'index'])->name('product.index');
     Route::get('/admin/product/create', [ProductController::class, 'create'])->name('product.create');
     Route::post('/admin/product/save', [ProductController::class, 'save'])->name('product.save');
     Route::get('/admin/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::put('/admin/product/{product}/update', [ProductController::class, 'update'])->name('product.update');
     Route::get('/admin/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
-    Route::get('/addtocart/{product}', [ProductController::class, 'addtocart']);
+    
+    Route::get('/admin/categories', [ProductController::class, 'index'])->name('category.index');
+    Route::get('/admin/category/create', [ProductController::class, 'create'])->name('category.create');
+    Route::post('/admin/category/save', [ProductController::class, 'save'])->name('category.save');
+    Route::get('/admin/category/{product}/edit', [ProductController::class, 'edit'])->name('category.edit');
+    Route::put('/admin/category/{product}/update', [ProductController::class, 'update'])->name('category.update');
+    Route::get('/admin/category/{product}/destroy', [ProductController::class, 'destroy'])->name('category.destroy');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/addtocart/{product}', [ProductController::class, 'addtocart']);
+    Route::get('/admin/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 });
 
 require __DIR__.'/auth.php';
@@ -53,10 +73,6 @@ Route::get('/footer', function () {
 
 Route::get('/', function () {
     return view('home');
-});
-
-Route::get('/admin', function () {
-    return view('admin');
 });
 
 Route::get('/login2', function () {
@@ -71,17 +87,7 @@ Route::get('/adminproduct', function () {
     return view('admin.products');
 });
 
-// Route::get('/home', function () {
-//     if (request('search')) {
-//         return view('search');
-//     } else {
-//         return view('home');
-//     }
-// })->name('home');
 
-Route::get('/home',[HomeController::class, 'index'])->middleware('auth')->name('home');
-
-Route::get('/admin/products',[ProductController::class, 'index'])->middleware('auth','admin');
 
 Route::get('/search', function () {
     if (request('search')) {
