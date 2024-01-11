@@ -20,19 +20,19 @@
             </div>
             <!-- Item 2 -->
             <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="./Img/banner1.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                <img src="./Img/banner1.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
             </div>
             <!-- Item 3 -->
             <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="./Img/banner2.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                <img src="./Img/banner2.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
             </div>
             <!-- Item 4 -->
             <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="./Img/banner3.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                <img src="./Img/banner3.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
             </div>
             <!-- Item 5 -->
             <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="./Img/banner.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                <img src="./Img/banner.png" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
             </div>
         </div>
         <!-- Slider indicators -->
