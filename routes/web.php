@@ -31,17 +31,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', function () {
         return view('admin');
     })->name('admin');
-    Route::get('/admin/product', [ProductController::class, 'index'])->name('product.index');
+
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/home',[HomeController::class, 'index'])->middleware('auth')->name('home');
+
+Route::middleware('admin')->group(function () {
+    Route::get('/admin/products', [ProductController::class, 'index'])->name('product.index');
     Route::get('/admin/product/create', [ProductController::class, 'create'])->name('product.create');
     Route::post('/admin/product/save', [ProductController::class, 'save'])->name('product.save');
     Route::get('/admin/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::put('/admin/product/{product}/update', [ProductController::class, 'update'])->name('product.update');
     Route::get('/admin/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::get('/addtocart/{product}', [ProductController::class, 'addtocart']);
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/admin/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 });
 
 require __DIR__.'/auth.php';
@@ -53,10 +60,6 @@ Route::get('/footer', function () {
 
 Route::get('/', function () {
     return view('home');
-});
-
-Route::get('/admin', function () {
-    return view('admin');
 });
 
 Route::get('/login2', function () {
@@ -78,10 +81,6 @@ Route::get('/adminproduct', function () {
 //         return view('home');
 //     }
 // })->name('home');
-
-Route::get('/home',[HomeController::class, 'index'])->middleware('auth')->name('home');
-
-Route::get('/admin/products',[ProductController::class, 'index'])->middleware('auth','admin');
 
 Route::get('/search', function () {
     if (request('search')) {
