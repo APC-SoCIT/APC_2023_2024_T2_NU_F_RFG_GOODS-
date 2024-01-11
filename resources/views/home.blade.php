@@ -15,7 +15,7 @@
         <!-- Carousel wrapper -->
         <div class="relative h-2/6 overflow-hidden md:h-96">
             <!-- Item 1 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
+            <div class=" duration-700 ease-in-out" data-carousel-item>
                 <img src="./Img/jam.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
             </div>
             <!-- Item 2 -->
@@ -62,8 +62,8 @@
         </button>
     </div>
     <p class="text-3xl font-bold flex justify-center py-6">Best Sellers</p> 
-    <div class="mx-auto grid grid-cols-3 gap-3 flex items-center justify-center py-6 mb-8 max-w-6xl">
-        <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+    <div class="sm:grid-cols-1 mx-auto grid lg:grid-cols-3 gap-3 flex items-center justify-center py-6 mb-8 max-w-6xl">
+        <div class="relative rounded-sm overflow-hidden">
             <img class="w-full h-64" src="./Img/chi.jpg" alt="">
             <div class="flex">
             <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
@@ -72,7 +72,7 @@
                 <p class="text-center">Ready to fry RG’S Special Pork Chicharon 250g</p>
             </div>
         </div>
-        <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+        <div class="relative rounded-sm overflow-hidden">
             <img class="w-full h-64" src="./Img/garlic.jpg" alt="">
             <div class="flex">
             <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
@@ -81,7 +81,7 @@
                 <p class="text-center text-xl py-4">JAMIE’S CHILI GARLIC (220ML)</p>
             </div>
         </div>
-        <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+        <div class="relative rounded-sm overflow-hidden">
             <img class="w-full h-64" src="./Img/vini.jpg" alt="">
             <div class="flex">
             <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
@@ -91,7 +91,7 @@
             </div>
         </div>
     </div>
-
+ 
 @include('footer.footer')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 </body>
