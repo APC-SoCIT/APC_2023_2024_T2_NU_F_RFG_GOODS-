@@ -18,44 +18,25 @@ class ProductCategoryController extends Controller
     }
 
     public function save(Request $request){
-
         $request->validate([
             'category' => 'required',
         ]);
 
-        $category = new Product;
+        $category = new ProductCategory;
         $category->category = $request->category;
 
         $category->save();
 
-        return redirect(route('product.index'))->withSuccess('Product Successfully Added');
+        return redirect(route('category.index'))->withSuccess('Product Successfully Added');
     }
 
-    public function edit(Product $product){
-        $categoryList = ProductCategory::select('id','category')->get();
-        return view('products.edit', compact('product', 'categoryList'));
-    }
-
-    public function update(Product $product, Request $request){
+    public function update(ProductCategory $category, Request $request){
 
         $request->validate([
             'image' => 'nullable|mimes:jpeg,jpg,png,gif|max:20000',
             'sku' => 'required',
-            'name' => 'required',
-            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'category_id' => 'required',
-            'desc' => 'required',
+
         ]);
-
-        // Get the current image path and name
-        $currentImage = public_path('products') . '/' . $product->image;
-
-        if ($request->sku !== $product->sku) {
-            // If the SKU is updated, rename the existing image file to match the new SKU
-            $newImageName = $request->sku . '.' . pathinfo($product->image, PATHINFO_EXTENSION);
-            rename($currentImage, public_path('products') . '/' . $newImageName);
-            $product->image = $newImageName;
-        }
 
         $product->sku = $request->sku;
         $product->name = $request->name;

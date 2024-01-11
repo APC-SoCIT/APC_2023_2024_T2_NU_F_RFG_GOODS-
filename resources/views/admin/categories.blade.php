@@ -190,7 +190,7 @@
                 <form method="post" action="{{route('category.save')}}" enctype="multipart/form-data">
                     <div class="grid grid-cols-6 gap-6">
                         @csrf
-                        @method('put')
+                        @method('post')
                         <div class="col-span-6 sm:col-span-6">
                             <label for="category" class="text-sm font-medium text-gray-900 block mb-2">Category</label>
                             <input type="text" name="category" id="category" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
