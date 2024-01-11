@@ -11,7 +11,7 @@
 </head>
 <body>
     @include('navbar.navbar')
-    <div id="default-carousel" class="relative w-full" data-carousel="slide">
+    <div id="default-carousel" class="relative w-full z-0" data-carousel="slide">
     <!-- Carousel wrapper -->
     <div class="relative h-64 sm:h-96 lg:h-96 overflow-hidden">
         <!-- Item 1 -->
