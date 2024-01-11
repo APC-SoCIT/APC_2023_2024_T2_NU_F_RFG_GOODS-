@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InventoryController;
 
@@ -53,7 +54,7 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/product/{product}/update', [ProductController::class, 'update'])->name('product.update');
     Route::get('/admin/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
     
-    Route::get('/admin/categories', [ProductController::class, 'index'])->name('category.index');
+    Route::get('/admin/categories', [ProductCategoryController::class, 'index'])->name('category.index');
     Route::get('/admin/category/create', [ProductController::class, 'create'])->name('category.create');
     Route::post('/admin/category/save', [ProductController::class, 'save'])->name('category.save');
     Route::get('/admin/category/{product}/edit', [ProductController::class, 'edit'])->name('category.edit');

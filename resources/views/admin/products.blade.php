@@ -84,10 +84,6 @@
   <div class="p-4 sm:ml-64">
      <div class="mt-16">
 
-
-
-
-
 <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
     <div class="mb-1 w-full">
         <div class="mb-4">
@@ -194,7 +190,16 @@
                                 Category ID
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Desc
+                                Description
+                            </th>
+                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                Minimum Stock
+                            </th>
+                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                Maximum Stock
+                            </th>
+                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                Reorder Point
                             </th>
                             <th scope="col" class="p-4">
                             </th>
