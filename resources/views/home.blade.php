@@ -13,7 +13,7 @@
     @include('navbar.navbar')
     <div id="default-carousel" class="relative w-full z-0" data-carousel="slide">
         <!-- Carousel wrapper -->
-        <div class="flex items-center justify-center h-2/6 md:h-96 bg-gray-100">
+        <div class="flex items-center justify-center h-96 bg-gray-100">
             <!-- Item 1 -->
             <div class="duration-700 ease-in-out" data-carousel-item>
                 <img src="./Img/jam.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
@@ -61,8 +61,9 @@
             </span>
         </button>
     </div>
-    <p class="text-3xl font-bold flex justify-center py-6">Best Sellers</p> 
-        <div class="mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 flex items-center justify-center py-6 mb-8 max-w-6xl">
+    <p class="text-3xl font-bold flex justify-center py-6 bg-orange-400 text-white">BEST SELLERS</p> 
+        <div class="mx-auto grid grid-cols-1
+ md:grid-cols-3 gap-3 items-center justify-center py-14 mb-8 max-w-6xl">
             <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
                 <img class="w-full h-64" src="./Img/chi.jpg" alt="">
                 <div class="flex">
