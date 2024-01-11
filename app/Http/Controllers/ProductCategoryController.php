@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 
-class Product_CategoryController extends Controller
+class ProductCategoryController extends Controller
 {
     public function index(){
         $categoryList = ProductCategory::select('id','category')->get();

@@ -19,8 +19,8 @@
                         @csrf
                         @method('put')
                         <div class="col-span-6 sm:col-span-3">
-                            <label for="sku" class="text-sm font-medium text-gray-900 block mb-2">SKU</label>
-                            <input value="{{$category->category}}" type="text" name="sku" id="sku" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            <label for="category" class="text-sm font-medium text-gray-900 block mb-2">SKU</label>
+                            <input value="{{$category->category}}" type="text" name="category" id="category" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                         </div>
                     </div> 
             </div>

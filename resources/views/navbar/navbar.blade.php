@@ -1,7 +1,7 @@
 <nav class="bg-orange-400 z-50">
     <div class="flex flex-wrap items-center justify-between mx-auto p-2.5">
         <a href="/" class="pl-5 flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="./Img/logo1.png" class="h-12 w-12" alt="RFG Logo" />
+            <img src="/Img/logo1.png" class="h-12 w-12" alt="RFG Logo" />
         </a>
         <div class="relative hidden md:block w-7/12">
             <!-- Search form for larger screens -->
