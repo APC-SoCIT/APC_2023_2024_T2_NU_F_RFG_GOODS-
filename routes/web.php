@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,13 +71,17 @@ Route::get('/adminproduct', function () {
     return view('admin.products');
 });
 
-Route::get('/home', function () {
-    if (request('search')) {
-        return view('search');
-    } else {
-        return view('home');
-    }
-})->name('home');
+// Route::get('/home', function () {
+//     if (request('search')) {
+//         return view('search');
+//     } else {
+//         return view('home');
+//     }
+// })->name('home');
+
+Route::get('/home',[HomeController::class, 'index'])->middleware('auth')->name('home');
+
+Route::get('/admin/products',[ProductController::class, 'index'])->middleware('auth','admin');
 
 Route::get('/search', function () {
     if (request('search')) {
