@@ -12,7 +12,8 @@ class ProductController extends Controller
         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
         ->select('products.id','products.image','products.sku','products.name','products.price','product_categories.category','products.desc')
         ->get();
-        return view('products.index', ['products' => $products]);
+        $categoryList = ProductCategory::select('id','category')->get();
+        return view('admin.products', ['products' => $products,'categoryList' => $categoryList]);
     }
     
     public function create(){
@@ -23,10 +24,10 @@ class ProductController extends Controller
     public function save(Request $request){
 
         $request->validate([
-            'image' => 'required|mimes:jpeg,jpg,png,gif|max:10000',
+            'image' => 'required|mimes:jpeg,jpg,png,gif|max:20000',
             'sku' => 'required',
             'name' => 'required',
-            'price' => 'required|decimal:2',
+            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'category_id' => 'required',
             'desc' => 'required',
         ]);
@@ -55,25 +56,43 @@ class ProductController extends Controller
     public function update(Product $product, Request $request){
 
         $request->validate([
-            'image' => 'nullable|mimes:jpeg,jpg,png,gif|max:10000',
+            'image' => 'nullable|mimes:jpeg,jpg,png,gif|max:20000',
             'sku' => 'required',
             'name' => 'required',
-            'price' => 'required|decimal:2',
+            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
             'category_id' => 'required',
             'desc' => 'required',
         ]);
 
-        if(isset($request->image)){
-            $imageName = $request->sku.'.'.$request->image->extension();
-            $request->image->move(public_path('products'), $imageName);
-            $product->image = $imageName;
+        // Get the current image path and name
+        $currentImage = public_path('products') . '/' . $product->image;
+
+        if ($request->sku !== $product->sku) {
+            // If the SKU is updated, rename the existing image file to match the new SKU
+            $newImageName = $request->sku . '.' . pathinfo($product->image, PATHINFO_EXTENSION);
+            rename($currentImage, public_path('products') . '/' . $newImageName);
+            $product->image = $newImageName;
         }
-        
+
         $product->sku = $request->sku;
         $product->name = $request->name;
         $product->price = $request->price;
         $product->category_id = $request->category_id;
         $product->desc = $request->desc;
+
+        if ($request->hasFile('image')) {
+            // Check if an image is present in the request
+            $imageName = $request->sku . '.' . $request->image->extension();
+
+            // Move the new image and update the product's image attribute
+            $request->image->move(public_path('products'), $imageName);
+            $product->image = $imageName;
+
+            // Remove the old image file if it exists
+            if (file_exists($currentImage) && $product->image !== $imageName) {
+                unlink($currentImage);
+            }
+        }
 
         $product->update();
 

@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
+            $table->integer('quantity_available');
+            $table->integer('minimum_quantity');
+            $table->integer('maximum_quantity');
+            $table->integer('reorder_quantity');
             $table->timestamps();
         });
     }

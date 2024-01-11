@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/dist/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
+    @vite('resources/css/app.css')
 </head>
 <body>
     @include('navbar.navbar')
@@ -19,19 +20,19 @@
             </div>
             <!-- Item 2 -->
             <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="/docs/images/carousel/carousel-2.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                <img src="./Img/banner1.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
             </div>
             <!-- Item 3 -->
             <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="/docs/images/carousel/carousel-3.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                <img src="./Img/banner2.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
             </div>
             <!-- Item 4 -->
             <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="/docs/images/carousel/carousel-4.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                <img src="./Img/banner3.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
             </div>
             <!-- Item 5 -->
             <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="/docs/images/carousel/carousel-5.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                <img src="./Img/banner.png" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
             </div>
         </div>
         <!-- Slider indicators -->
@@ -62,31 +63,31 @@
     </div>
     <p class="text-3xl font-bold flex justify-center py-6">Best Sellers</p> 
     <div class="mx-auto grid grid-cols-3 gap-3 flex items-center justify-center py-6 mb-8 max-w-6xl">
-        <div class="mx-auto w-80 h-96 bg-slate-300 rounded-3xl drop-shadow-2xl">
-            <img class="w-full h-64 rounded-t-3xl" src="./Img/chi.jpg" alt="">
+        <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+            <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+            <div class="flex">
+            <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+            </div>
             <div class="h-16 my-2 px-6">
                 <p class="text-center">Ready to fry RG’S Special Pork Chicharon 250g</p>
             </div>
-            <div class="flex">
-            <button class="mx-auto bg-orange-400 rounded-3xl px-6 py-2 font-bold">Buy Now</button>
-            </div>
         </div>
-        <div class="mx-auto w-80 h-96 bg-slate-300 rounded-3xl drop-shadow-2xl">
-            <img class="w-full h-64 rounded-t-3xl" src="./Img/garlic.jpg" alt="">
+        <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+            <img class="w-full h-64" src="./Img/garlic.jpg" alt="">
+            <div class="flex">
+            <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+            </div>
             <div class="h-16 my-2 px-6">
-                <p class="text-center">JAMIE’S CHILI GARLIC (220ML)</p>
-            </div>
-            <div class="flex">
-            <button class="mx-auto bg-orange-400 rounded-3xl px-6 py-2 font-bold">Buy Now</button>
+                <p class="text-center text-xl py-4">JAMIE’S CHILI GARLIC (220ML)</p>
             </div>
         </div>
-        <div class="mx-auto w-80 h-96 bg-slate-300 rounded-3xl drop-shadow-2xl">
-            <img class="w-full h-64 rounded-t-3xl" src="./Img/vini.jpg" alt="">
+        <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+            <img class="w-full h-64" src="./Img/vini.jpg" alt="">
+            <div class="flex">
+            <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+            </div>
             <div class="h-16 my-2 px-6">
                 <p class="text-center">JAMIE’S CHILLI VINEGAR - PREMIUM BLEND (375ML)</p>
-            </div>
-            <div class="flex">
-            <button class="mx-auto bg-orange-400 rounded-3xl px-6 py-2 font-bold">Buy Now</button>
             </div>
         </div>
     </div>
