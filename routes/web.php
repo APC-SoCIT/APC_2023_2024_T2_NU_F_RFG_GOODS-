@@ -57,11 +57,10 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
     
     Route::get('/admin/categories', [ProductCategoryController::class, 'index'])->name('category.index');
-    Route::get('/admin/category/create', [ProductController::class, 'create'])->name('category.create');
-    Route::post('/admin/category/save', [ProductController::class, 'save'])->name('category.save');
-    Route::get('/admin/category/{product}/edit', [ProductController::class, 'edit'])->name('category.edit');
-    Route::put('/admin/category/{product}/update', [ProductController::class, 'update'])->name('category.update');
-    Route::get('/admin/category/{product}/destroy', [ProductController::class, 'destroy'])->name('category.destroy');
+    Route::post('/admin/category/save', [ProductCategoryController::class, 'save'])->name('category.save');
+    Route::get('/admin/category/{category}/edit', [ProductCategoryController::class, 'edit'])->name('category.edit');
+    Route::put('/admin/category/{category}/update', [ProductCategoryController::class, 'update'])->name('category.update');
+    Route::get('/admin/category/{category}/destroy', [ProductCategoryController::class, 'destroy'])->name('category.destroy');
 
     Route::get('/addtocart/{product}', [ProductController::class, 'addtocart']);
     Route::get('/admin/inventory', [InventoryController::class, 'index'])->name('inventory.index');
