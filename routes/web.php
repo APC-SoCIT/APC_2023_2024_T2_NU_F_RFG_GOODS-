@@ -62,6 +62,12 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/category/{category}/update', [ProductCategoryController::class, 'update'])->name('category.update');
     Route::get('/admin/category/{category}/destroy', [ProductCategoryController::class, 'destroy'])->name('category.destroy');
 
+    Route::get('/admin/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+    Route::post('/admin/inventory/save', [InventoryController::class, 'save'])->name('inventory.save');
+    Route::get('/admin/inventory/{inventory}/edit', [InventoryController::class, 'edit'])->name('inventory.edit');
+    Route::put('/admin/inventory/{inventory}/update', [InventoryController::class, 'update'])->name('inventory.update');
+    Route::get('/admin/inventory/{inventory}/destroy', [InventoryController::class, 'destroy'])->name('inventory.destroy');
+
     Route::get('/addtocart/{product}', [ProductController::class, 'addtocart']);
     Route::get('/admin/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 });
@@ -88,8 +94,6 @@ Route::get('/product', function () {
 Route::get('/adminproduct', function () {
     return view('admin.products');
 });
-
-
 
 Route::get('/search', function () {
     if (request('search')) {

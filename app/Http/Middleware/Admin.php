@@ -28,7 +28,5 @@ class Admin
         } else {
             abort(401);
         }
-
-    
     }
 }
