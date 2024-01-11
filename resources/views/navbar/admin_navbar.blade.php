@@ -42,7 +42,7 @@
         </div>
         <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 bg-orange-400">
           <li>
-            <a href="{{ route('home') }}" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 md:dark:hover:text-orange-300" aria-current="page">Home</a>
+            <a href="/" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 md:dark:hover:text-orange-300" aria-current="page">Home</a>
           </li>
           <li>
             <a href="#" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-orange-300 md:dark:hover:bg-transparent">About</a>
