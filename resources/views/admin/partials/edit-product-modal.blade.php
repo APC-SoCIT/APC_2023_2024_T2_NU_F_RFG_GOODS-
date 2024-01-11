@@ -60,6 +60,18 @@
                             <label for="image" class="text-sm font-medium text-gray-900 block mb-2">Image</label>
                             <input value={{$product->image}} type="file" name="image" id="image" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-.8" placeholder="">
                         </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="min_qty" class="text-sm font-medium text-gray-900 block mb-2">Minimum Stock</label>
+                            <input value="{{$product->min_qty}}" type="number" name="min_qty" id="min_qty" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="max_qty" class="text-sm font-medium text-gray-900 block mb-2">Maximum Stock</label>
+                            <input value="{{$product->max_qty}}" type="number" name="max_qty" id="max_qty" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="reorder_pt" class="text-sm font-medium text-gray-900 block mb-2">Reorder Point</label>
+                            <input value="{{$product->reorder_pt}}" type="number" name="reorder_pt" id="reorder_pt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                        </div>
                     </div> 
             </div>
             <!-- Modal footer -->

@@ -91,6 +91,11 @@
                                   <a href="{{ route('dashboard') }}" class="block px-4 py-2 hover:bg-orange-400 dark:hover:bg-orange-400 dark:hover:text-white">Dashboard</a>
                               </li>
                           </ul>
+                          <ul class="py-2 text-sm text-white dark:text-white" aria-labelledby="dropdownLargeButton">
+                            <li>
+                                <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-orange-400 dark:hover:bg-orange-400 dark:hover:text-white">Profile</a>
+                            </li>
+                        </ul>
                           <div class="py-1">
                               <form method="POST" action="{{ route('logout') }}">
                                   @csrf
