@@ -42,7 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::put('user/address/update', [UserAddressController::class, 'update'])->name('user.address.update');
-    
+    Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
+    Route::get('/addtocart/{product}', [ProductController::class, 'addtocart'])->name('product.addtocart');
 });
 
 Route::middleware('admin')->group(function () {
@@ -67,9 +68,6 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/inventory/{inventory}/edit', [InventoryController::class, 'edit'])->name('inventory.edit');
     Route::put('/admin/inventory/{inventory}/update', [InventoryController::class, 'update'])->name('inventory.update');
     Route::get('/admin/inventory/{inventory}/destroy', [InventoryController::class, 'destroy'])->name('inventory.destroy');
-
-    Route::get('/addtocart/{product}', [ProductController::class, 'addtocart']);
-    Route::get('/admin/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 });
 
 require __DIR__.'/auth.php';
@@ -89,10 +87,6 @@ Route::get('/login2', function () {
 
 Route::get('/product', function () {
     return view('product');
-});
-
-Route::get('/adminproduct', function () {
-    return view('admin.products');
 });
 
 Route::get('/search', function () {

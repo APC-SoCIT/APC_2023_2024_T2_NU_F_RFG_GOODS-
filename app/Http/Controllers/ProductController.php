@@ -5,17 +5,43 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    // public function index(){
+    //     $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
+    //     ->select('products.id','products.image','products.sku','products.name','products.price','product_categories.category','products.desc','products.min_qty',
+    //     'products.max_qty','products.reorder_pt')
+    //     ->get();
+    //     $categoryList = ProductCategory::select('id','category')->get();
+    //     return view('admin.products', ['products' => $products,'categoryList' => $categoryList]);
+    // }
+
     public function index(){
         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
-        ->select('products.id','products.image','products.sku','products.name','products.price','product_categories.category','products.desc','products.min_qty',
-        'products.max_qty','products.reorder_pt')
-        ->get();
-        $categoryList = ProductCategory::select('id','category')->get();
-        return view('admin.products', ['products' => $products,'categoryList' => $categoryList]);
+            ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
+            ->select(
+                'products.id',
+                'products.image',
+                'products.sku',
+                'products.name',
+                'products.price',
+                'product_categories.category',
+                'products.desc',
+                'products.min_qty',
+                'products.max_qty',
+                'products.reorder_pt',
+                DB::raw('SUM(CASE WHEN inventories.is_received = 1 THEN inventories.quantity ELSE -inventories.quantity END) as computed_quantity')
+            )
+            ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt')
+            ->get();
+
+        $categoryList = ProductCategory::select('id', 'category')->get();
+
+        return view('admin.products', ['products' => $products, 'categoryList' => $categoryList]);
     }
+
     
     public function create(){
         $categoryList = ProductCategory::select('id','category')->get();
@@ -118,7 +144,26 @@ class ProductController extends Controller
         return redirect(route('product.index'))->with('success', 'Product Deleted Successfully');
     }
 
-    public function addtocart(Product $product){
-        return redirect(route('product.index'));
+    public function get(Product $product){
+        $productInfo = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
+        ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
+        ->where('products.id', $product->id)
+        ->select(
+            'products.id',
+            'products.image',
+            'products.sku',
+            'products.name',
+            'products.price',
+            'product_categories.category',
+            'products.desc',
+            'products.min_qty',
+            'products.max_qty',
+            'products.reorder_pt',
+            DB::raw('SUM(CASE WHEN inventories.is_received = 1 THEN inventories.quantity ELSE -inventories.quantity END) as computed_quantity')
+        )
+        ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt')
+        ->first();
+
+        return view('product', ['product' => $productInfo]);
     }
 }

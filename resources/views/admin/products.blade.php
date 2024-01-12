@@ -124,13 +124,10 @@
                                 Description
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Minimum Stock
+                                Stock
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Maximum Stock
-                            </th>
-                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Reorder Point
+                                Min | Max | ROP
                             </th>
                             <th scope="col" class="p-4">
                             </th>
@@ -155,9 +152,21 @@
                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">₱{{ $product->price }}</td>
                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $product->category }}</td>
                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $product->desc }}</td>
-                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $product->min_qty }}</td>
-                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $product->max_qty }}</td>
-                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $product->reorder_pt }}</td>
+                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+                                <div class="flex items-center">
+                                    @if ($product->computed_quantity > $product->max_qty)
+                                    <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>
+                                    @elseif ($product->computed_quantity >= $product->min_qty && $product->computed_quantity <= $product->max_qty)
+                                    <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
+                                    @elseif ($product->computed_quantity < $product->reorder_pt)
+                                    <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>
+                                    @elseif ($product->computed_quantity < $product->min_qty)
+                                    <div class="h-2.5 w-2.5 rounded-full bg-orange-500 mr-2"></div>
+                                    @endif
+                                    <span>{{ $product->computed_quantity }}</span>
+                                </div>
+                            </td>
+                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $product->min_qty }} | {{ $product->max_qty }} | {{ $product->reorder_pt }}</td>
 {{-- delete here --}}
                             <td class="p-4 whitespace-nowrap space-x-2">
                                 <button data-modal-target="product-modal-{{ $product->id }}" data-modal-toggle="product-modal-{{ $product->id }}" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">

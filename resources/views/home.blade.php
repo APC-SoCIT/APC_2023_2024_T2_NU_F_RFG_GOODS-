@@ -62,8 +62,7 @@
         </button>
     </div>
     <p class="text-3xl font-bold flex justify-center py-6 bg-orange-400 text-white">BEST SELLERS</p> 
-        <div class="mx-auto grid grid-cols-1
- md:grid-cols-3 gap-3 items-center justify-center py-14 mb-8 max-w-6xl">
+        <div class="mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 items-center justify-center py-14 mb-8 max-w-6xl">
             <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
                 <img class="w-full h-64" src="./Img/chi.jpg" alt="">
                 <div class="flex">

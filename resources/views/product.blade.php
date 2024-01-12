@@ -16,7 +16,7 @@
                 <div class="w-full px-4 md:w-1/2 ">
                     <div class="sticky top-0 z-50 overflow-hidden ">
                         <div class="relative mb-6 lg:mb-10 h-80 py-6 px-12">
-                            <img src="./Img/chi.jpg" alt=""
+                            <img src="/products/{{ $product->image }}" alt=""
                             class="w-full h-68 rounded-3xl">
                         </div>
                         <div class="flex-wrap hidden md:flex pt-28">
@@ -56,7 +56,8 @@
                     <div class="lg:pl-20">
                         <div class="mb-8 ">
                             <h2 class="max-w-xl mt-2 mb-6 text-2xl font-bold dark:text-black md:text-4xl">
-                            RG's Special Pork Chicharon 250g - 260g</h2>
+                            {{ $product->name }}
+                            </h2>
                             <div class="flex items-center mb-6">
                                 <ul class="flex mr-2">
                                     <li>
@@ -103,13 +104,24 @@
                                             </svg>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor"
+                                                class="w-4 mr-1 text-red-500 dark:text-black bi bi-star "
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                            </svg>
+                                        </a>
+                                    </li>
                                 </ul>
-                                <p class="text-xs dark:text-black ">(2 customer reviews)</p>
+                                <p class="text-xs dark:text-black ">(0 customer reviews)</p>
                             </div>
                             <p class="inline-block mb-8 text-4xl font-bold text-gray-700 dark:text-black ">
-                                <span>₱160</span>
+                                <span>₱{{ $product->price }}</span>
                             </p>
-                            <p class="text-green-600 dark:text-green-300 ">7 in stock</p>
+                            <p class="text-green-600 dark:text-green-500 ">stock: {{ $product->computed_quantity }}</p>
                         </div>
                         <div class="w-32 mb-8 ">
                             <label for=""
@@ -152,20 +164,9 @@
                         <h1 class="font-bold text-3xl py-2">Product Specifications</h1>
                         </li>
                         <li class="py-2">
-                        Shelf Life 1 Month
+                        {{$product->desc}}
                         </li>
-                        <li class="py-2">
-                        Country of Origin Philippines
-                        </li>
-                        <li class="py-2">
-                        Food Type Homemade
-                        </li>
-                        <li class="py-2">
-                        Weight 250g
-                        </li>
-                        <li class="py-2">
-                        Specialty Diet Keto Diet
-                        </li>
+
                     </ul>
                     <article class="ml-20 bg-orange-400 px-4 rounded-xl">
                         <h1 class="font-bold flex items-center text-xl py-1">Reviews</h1>
