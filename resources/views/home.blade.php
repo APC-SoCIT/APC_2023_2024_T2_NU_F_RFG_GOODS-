@@ -9,13 +9,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
     @vite('resources/css/app.css')
 </head>
-<body>
+<body class="overflow-x-hidden scrollbar-hide">
     @include('navbar.navbar')
     <div id="default-carousel" class="relative w-full z-0" data-carousel="slide">
         <!-- Carousel wrapper -->
-        <div class="relative h-2/6 overflow-hidden md:h-96">
+        <div class="flex items-center justify-center h-96 bg-gray-100">
             <!-- Item 1 -->
-            <div class=" duration-700 ease-in-out" data-carousel-item>
+            <div class="duration-700 ease-in-out" data-carousel-item>
                 <img src="./Img/jam.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
             </div>
             <!-- Item 2 -->
@@ -61,37 +61,37 @@
             </span>
         </button>
     </div>
-    <p class="text-3xl font-bold flex justify-center py-6">Best Sellers</p> 
-    <div class="sm:grid-cols-1 mx-auto grid lg:grid-cols-3 gap-3 flex items-center justify-center py-6 mb-8 max-w-6xl">
-        <div class="relative rounded-sm overflow-hidden">
-            <img class="w-full h-64" src="./Img/chi.jpg" alt="">
-            <div class="flex">
-            <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+    <p class="text-3xl font-bold flex justify-center py-6 bg-orange-400 text-white">BEST SELLERS</p> 
+        <div class="mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 items-center justify-center py-14 mb-8 max-w-6xl">
+            <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                <div class="flex">
+                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                </div>
+                <div class="h-16 my-2 px-6">
+                    <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                </div>
             </div>
-            <div class="h-16 my-2 px-6">
-                <p class="text-center">Ready to fry RG’S Special Pork Chicharon 250g</p>
+            <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                <img class="w-full h-64" src="./Img/garlic.jpg" alt="">
+                <div class="flex">
+                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                </div>
+                <div class="h-16 my-2 px-6">
+                    <p class="text-center text-lg py-4">JAMIE’S CHILI GARLIC 220ML</p>
+                </div>
+            </div>
+            <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                <img class="w-full h-64" src="./Img/vini.jpg" alt="">
+                <div class="flex">
+                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                </div>
+                <div class="h-16 my-2 px-6">
+                    <p class="text-center text-lg py-4">JAMIE’S CHILLI VINEGAR PREMIUM BLEND 375ML</p>
+                </div>
             </div>
         </div>
-        <div class="relative rounded-sm overflow-hidden">
-            <img class="w-full h-64" src="./Img/garlic.jpg" alt="">
-            <div class="flex">
-            <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
-            </div>
-            <div class="h-16 my-2 px-6">
-                <p class="text-center text-xl py-4">JAMIE’S CHILI GARLIC (220ML)</p>
-            </div>
-        </div>
-        <div class="relative rounded-sm overflow-hidden">
-            <img class="w-full h-64" src="./Img/vini.jpg" alt="">
-            <div class="flex">
-            <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
-            </div>
-            <div class="h-16 my-2 px-6">
-                <p class="text-center">JAMIE’S CHILLI VINEGAR - PREMIUM BLEND (375ML)</p>
-            </div>
-        </div>
-    </div>
- 
+
 @include('footer.footer')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 </body>

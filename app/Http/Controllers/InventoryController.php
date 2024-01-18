@@ -12,10 +12,48 @@ class InventoryController extends Controller
         $inventoryList = Inventory::join('products', 'inventories.product_id', '=', 'products.id')
         ->select('inventories.id','products.sku','products.name','inventories.is_received','inventories.quantity','inventories.created_at','inventories.updated_at')
         ->get();
-        // $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
-        // ->select('products.id','products.image','products.sku','products.name','products.price','product_categories.category','products.desc')
-        // ->get();
-        $productList = Product::select('id','sku','name')->get();
+        $productList = Product::all();
         return view('admin.inventories', ['inventoryList' => $inventoryList,'productList' => $productList]);
+    }
+
+    public function save(Request $request){
+        $request->validate([
+            'product_id' => 'required',
+            'is_received' => 'required|boolean',
+            'quantity' => 'required|integer',
+        ]);
+
+        $inventory = new Inventory;
+        $inventory->product_id = $request->product_id;
+        $inventory->is_received = $request->is_received;
+        $inventory->quantity = $request->quantity;
+
+        $inventory->save();
+
+        return redirect(route('inventory.index'))->withSuccess('Inventory Successfully Added');
+    }
+
+    public function update(Inventory $inventory, Request $request){
+
+        $request->validate([
+            'product_id' => 'required',
+            'is_received' => 'required|boolean',
+            'quantity' => 'required|integer',
+        ]);
+
+        $inventory = new Inventory;
+        $inventory->product_id = $request->product_id;
+        $inventory->is_received = $request->is_received;
+        $inventory->quantity = $request->quantity;
+
+        $inventory->update();
+
+        return redirect(route('inventory.index'))->with('success', 'Inventory Updated Successfully');
+    }
+
+    public function destroy(Inventory $inventory) {
+        $inventory = Inventory::where('id',$inventory->id)->first();
+        $inventory->delete();
+        return redirect(route('inventory.index'))->with('success', 'Inventory Deleted Successfully');
     }
 }

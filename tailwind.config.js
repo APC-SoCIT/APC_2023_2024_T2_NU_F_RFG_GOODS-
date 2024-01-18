@@ -11,7 +11,9 @@ export default {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
-        "./node_modules/flowbite/**/*.js"
+        "./node_modules/flowbite/**/*.js",
+        "./pages/**/*.{js,ts,jsx,tsx}",
+        "./components/**/*.{js,ts,jsx,tsx}"
     ],
     theme: {
         extend: {
@@ -26,6 +28,18 @@ export default {
               'midnight-green': '#1A535C',
               ...colors,
             },
+            screens: {
+                'cellphone': '400px',
+                // => @media (min-width:400px)
+                'tablet': '640px',
+                // => @media (min-width: 640px)
+          
+                'laptop': '1024px',
+                // => @media (min-width: 1024px)
+          
+                'desktop': '1280px',
+                // => @media (min-width: 1280px)
+              },
         },
     },
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InventoryController;
 
@@ -40,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('user/address/update', [UserAddressController::class, 'update'])->name('user.address.update');
+    Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
+    Route::get('/addtocart/{product}', [ProductController::class, 'addtocart'])->name('product.addtocart');
 });
 
 Route::middleware('admin')->group(function () {
@@ -53,15 +57,17 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/product/{product}/update', [ProductController::class, 'update'])->name('product.update');
     Route::get('/admin/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
     
-    Route::get('/admin/categories', [ProductController::class, 'index'])->name('category.index');
-    Route::get('/admin/category/create', [ProductController::class, 'create'])->name('category.create');
-    Route::post('/admin/category/save', [ProductController::class, 'save'])->name('category.save');
-    Route::get('/admin/category/{product}/edit', [ProductController::class, 'edit'])->name('category.edit');
-    Route::put('/admin/category/{product}/update', [ProductController::class, 'update'])->name('category.update');
-    Route::get('/admin/category/{product}/destroy', [ProductController::class, 'destroy'])->name('category.destroy');
+    Route::get('/admin/categories', [ProductCategoryController::class, 'index'])->name('category.index');
+    Route::post('/admin/category/save', [ProductCategoryController::class, 'save'])->name('category.save');
+    Route::get('/admin/category/{category}/edit', [ProductCategoryController::class, 'edit'])->name('category.edit');
+    Route::put('/admin/category/{category}/update', [ProductCategoryController::class, 'update'])->name('category.update');
+    Route::get('/admin/category/{category}/destroy', [ProductCategoryController::class, 'destroy'])->name('category.destroy');
 
-    Route::get('/addtocart/{product}', [ProductController::class, 'addtocart']);
     Route::get('/admin/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+    Route::post('/admin/inventory/save', [InventoryController::class, 'save'])->name('inventory.save');
+    Route::get('/admin/inventory/{inventory}/edit', [InventoryController::class, 'edit'])->name('inventory.edit');
+    Route::put('/admin/inventory/{inventory}/update', [InventoryController::class, 'update'])->name('inventory.update');
+    Route::get('/admin/inventory/{inventory}/destroy', [InventoryController::class, 'destroy'])->name('inventory.destroy');
 });
 
 require __DIR__.'/auth.php';
@@ -82,12 +88,6 @@ Route::get('/login2', function () {
 Route::get('/product', function () {
     return view('product');
 });
-
-Route::get('/adminproduct', function () {
-    return view('admin.products');
-});
-
-
 
 Route::get('/search', function () {
     if (request('search')) {
