@@ -32,6 +32,10 @@ Route::get('/home', function () {
     return redirect('/');
 });
 
+Route::get('/item', function () {
+    return view('products.item');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
