@@ -35,17 +35,7 @@
                 </div>
                 </div>
             </div>
-        
-
-
-
-
-
-
-
-
-
-
+    
             <div class="mx-auto w-80 h-auto mx-2 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
                 <img class="w-full h-64" src="./Img/chi.jpg" alt="">
                 <div class="flex">

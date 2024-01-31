@@ -80,143 +80,48 @@
         </div>
     </div>
     {{-- filter end --}}
-    <hr class="w-1/4 h-1 mx-auto bg-gray-100 border-0 rounded md:my-10">
+    <hr class="w-1/4 h-1 mx-auto bg-gray-100 border-0 rounded my-10">
     {{-- search container start --}}
-    <div class="flex justify-center">
-        <div class="grid grid-cols-4 gap-10 h-full px-20 mb-10">
-                {{-- <div class="relative bg-slate-200 w-60 h-80">
-                    <img src="./Img/prod 1.jpg" alt="">
-                    <div class="my-1 px-6">
-                        <p class="text-xs text-center">RG’S DISTILLED CANE VINEGAR 500ML</p>
-                    </div>
-                    <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
-                        <div class="mx-auto">
-                            <p class="font-bold">₱55</p>
-                        </div>
-                        <div class="mx-auto">
-                            <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative bg-slate-200 w-60 h-80">
-                    <img src="./Img/prod 2.jpg" alt="">
-                    <div class="my-1 px-6">
-                        <p class="text-xs text-center">RG’S SUKANG TUBA (COCONUT SAP VINEGAR) 500ML</p>
-                    </div>
-                    <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
-                        <div class="mx-auto">
-                            <p class="font-bold">₱70</p>
-                        </div>
-                        <div class="mx-auto">
-                            <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative bg-slate-200 w-60 h-80">
-                    <img src="./Img/prod 3.jpg" alt="">
-                    <div class="my-1 px-6">
-                        <p class="text-xs text-center">RG’S SUKANG ILOKO ( SUGAR CANE VINEGAR) 500ML</p>
-                    </div>
-                    <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
-                        <div class="mx-auto">
-                            <p class="font-bold">₱60</p>
-                        </div>
-                        <div class="mx-auto">
-                            <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative bg-slate-200 w-60 h-80">
-                    <img src="./Img/garlic-spice.jpg" alt="">
-                    <div class="my-1 px-6">
-                        <p class="text-xs text-center">JAMIE’S CHILI GARLIC (220ML)</p>
-                    </div>
-                    <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
-                        <div class="mx-auto">
-                            <p class="font-bold">₱160</p>
-                        </div>
-                        <div class="mx-auto">
-                            <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative bg-slate-200 w-60 h-80">
-                    <img src="./Img/chi.jpg" alt="">
-                    <div class="my-1 px-6">
-                        <p class="text-xs text-center">Ready to fry RG’S Special Pork Chicharon 250g</p>
-                    </div>
-                    <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
-                        <div class="mx-auto">
-                            <p class="font-bold">₱55</p>
-                        </div>
-                        <div class="mx-auto">
-                            <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative bg-slate-200 w-60 h-80">
-                    <img src="./Img/vini-spice.jpg" alt="">
-                    <div class="my-1 px-6">
-                        <p class="text-xs text-center">JAMIE’S CHILLI VINEGAR - PREMIUM BLEND (375ML)</p>
-                    </div>
-                    <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
-                        <div class="mx-auto">
-                            <p class="font-bold">₱150</p>
-                        </div>
-                        <div class="mx-auto">
-                            <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative bg-slate-200 w-60 h-80">
-                    <img src="./Img/spicy blend.jpg" alt="">
-                    <div class="my-1 px-6">
-                        <p class="text-xs text-center">RG’S SPICED VINEGAR - SPICY BLEND 500ML</p>
-                    </div>
-                    <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
-                        <div class="mx-auto">
-                            <p class="font-bold">₱130</p>
-                        </div>
-                        <div class="mx-auto">
-                            <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative bg-slate-200 w-60 h-80">
-                    <img src="./Img/chili.jpg" alt="">
-                    <div class="my-1 px-6">
-                        <p class="text-xs text-center">RG’S CHILI FLAKES 100G</p>
-                    </div>
-                    <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
-                        <div class="mx-auto">
-                            <p class="font-bold">₱140</p>
-                        </div>
-                        <div class="mx-auto">
-                            <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl">Add to cart</button>
-                        </div>
-                    </div>
-                </div> --}}
-
+    <div class="flex justify-center mb-10">
+        <div class="grid md:grid-cols-4 grid-cols-2 gap-4 h-full">
                 {{-- product for loop start --}}
                 @forelse($products as $product)
-                    <div class="relative bg-slate-200 w-60 h-80">
-                        <a href="{{route('product.get',['product' => $product])}}">
-                            <img src="{{ asset('./products/'.$product->image )}}" alt="">
-                            <div class="my-1 px-6">
-                                <p class="text-xs text-center">{{ $product->name}}</p>
-                            </div>
-                            <div class="absolute bottom-0 grid grid-cols-2 pt-3 mb-2">
-                                <div class="mx-auto">
-                                    <p class="font-bold">₱{{ $product->price}}</p>
+
+                    <div class="bg-slate-200 w-60 h-[23rem] flex flex-col">
+                        <a href="{{route('product.get',['product' => $product])}}" class="flex flex-col h-full">
+                            <img src="{{ asset('./products/'.$product->image )}}" 
+                            @if ($product->computed_quantity==0 || $product->computed_quantity==null)
+                                class="opacity-0" 
+                            @endif
+                            alt="">
+                            <div class="p-2 flex flex-col flex-grow justify-between">
+                                <div>
+                                    <p class="text-s line-clamp-2">{{ Str::ucfirst($product->name) }}</p>
+                                    <p class="text-xs line-clamp-1">{{ $product->category }}</p>
                                 </div>
-                                <div class="mx-auto">
-                                    <a href="addtocart/{{$product->id}}">
-                                    <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl" >Add to cart</button>
-                                    </a>
+                                <div class="grid grid-cols-2">
+                                    <ul class="flex mr-2">
+                                        <li>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                            </svg>
+                                        </li>
+                                        <li>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star" viewBox="0 0 16 16">
+                                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                            </svg>
+                                        </li>
+                                    </ul>
+                                    <p></p>
+                                    <p class="font-bold">₱{{ $product->price}}</p>
+                                    <form action="addtocart/{{$product->id}}">
+                                        <button class="bg-orange-400 w-28 text-white font-semibold rounded-xl hover:bg-white hover:text-orange-400" >Add to cart</button>
+                                    </form>
                                 </div>
                             </div>
                         </a>
                     </div>
+
                 @empty
                     <p>No Results Found</p>
                 @endforelse

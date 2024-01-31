@@ -5,7 +5,7 @@
         </a>
         <div class="relative hidden md:block w-7/12">
             <!-- Search form for larger screens -->
-            <form action="{{ route('search') }}">
+            <form action="{{ route('search') }}" method="GET">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg class="w-4 h-4 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
@@ -17,12 +17,12 @@
         </div>
         <div class="flex md:order-2">
             <!-- Toggle button for small screens -->
-            <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" class="md:hidden text-white hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-white rounded-lg text-sm p-2.5 me-1">
+            {{-- <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" class="md:hidden text-white hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-white rounded-lg text-sm p-2.5 me-1">
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                 </svg>
                 <span class="sr-only">Search</span>
-            </button>
+            </button> --}}
             <!-- Menu button for small screens -->
             <button data-collapse-toggle="navbar-search" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-white" aria-controls="navbar-search" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
@@ -31,9 +31,9 @@
                 </svg>
             </button>
         </div>
-        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 ml-auto mr-8" id="navbar-search">
+        <div class="justify-self-end hidden w-full md:flex md:w-auto md:order-1 ml-auto mr-4" id="navbar-search">
             <!-- Search form for smaller screens -->
-            <form action="{{ route('search') }}">
+            <form action="{{ route('search') }}" method="GET">
                 <div class="relative mt-3 md:hidden">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
