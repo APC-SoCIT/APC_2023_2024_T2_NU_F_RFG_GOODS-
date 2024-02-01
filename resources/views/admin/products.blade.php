@@ -228,15 +228,18 @@
                                                         goals: [
                                                             {
                                                                 name: 'ROP', value: parseInt("{{ $product->reorder_pt }}"), 
-                                                                strokeWidth: 2, strokeDashArray: 2, strokeColor: '#ff0000'
+                                                                strokeWidth: 2, strokeWidth: 5,
+                                                                strokeHeight: 10, strokeColor: '#ff0000'
                                                             },
                                                             {
                                                                 name: 'MIN', value: parseInt("{{ $product->min_qty }}"), 
-                                                                strokeWidth: 2, strokeDashArray: 2, strokeColor: '#FC6A03'
+                                                                strokeWidth: 2, strokeWidth: 5,
+                                                                strokeHeight: 10, strokeColor: '#FC6A03'
                                                             },
                                                             {
                                                                 name: 'MAX', value: parseInt("{{ $product->max_qty }}"), 
-                                                                strokeWidth: 2, strokeDashArray: 2, strokeColor: '#043927'
+                                                                strokeWidth: 2, strokeWidth: 5,
+                                                                strokeHeight: 10, strokeColor: '#043927'
                                                             }
                                                         ]
                                                     },
@@ -246,6 +249,9 @@
                                         chart: {
                                             height: 105,
                                             type: 'bar',
+                                            toolbar: {
+                                                show: false
+                                            }
                                         },
                                         plotOptions: {
                                             bar: {
