@@ -193,7 +193,7 @@
 @foreach ($products as $product)
 
     <div class="group mx-auto relative">
-        <img class="h-[360px] rounded-3xl object-cover transition-opacity opacity-100 group-hover:opacity-30" src="/products/{{$product->image}}" />
+        <img class="h-[30rem] rounded-3xl object-cover transition-opacity opacity-100 group-hover:opacity-30" src="/products/{{$product->image}}" />
         <div class="absolute top-0 left-0 p-4 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity">
             <div class="h-full flex flex-col justify-between">
                 <div class="line-clamp-2 text-center text-black text-[22px]/[30px] font-bold">{{$product->name}}</div>
@@ -252,7 +252,7 @@
                                                 horizontal: true,
                                             }
                                         },
-                                        colors: ['#00E396'],
+                                        colors: ['#000000'],
                                         dataLabels: {
                                             formatter: function(val, opt) {
                                                 const computedQuantity = opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex].y;
@@ -264,7 +264,7 @@
                                             showForSingleSeries: true,
                                             customLegendItems: ['Stocks', 'ROP', 'MIN', 'MAX'],
                                             markers: {
-                                                fillColors: ['#00E396', '#ff0000', '#FC6A03', '#043927']
+                                                fillColors: ['#000000', '#ff0000', '#FC6A03', '#043927']
                                             }
                                         }
                                     };
