@@ -13,26 +13,26 @@
     @include('navbar.navbar')
     <div id="default-carousel" class="relative w-full z-0" data-carousel="slide">
         <!-- Carousel wrapper -->
-        <div class="flex items-center justify-center h-96 bg-gray-100">
+        <div class="flex items-center justify-center h-[60svh] bg-gray-100">
             <!-- Item 1 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="./Img/jam.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
+            <div class="duration-700 ease-in-out flex items-center justify-center bg-white" data-carousel-item>
+                <img src="./Img/jam.jpg" class="absolute bottom-0 top-0 block h-[60vh] object-cover" alt="...">
             </div>
             <!-- Item 2 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="./Img/banner1.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
+            <div class="duration-700 ease-in-out flex items-center justify-center bg-white" data-carousel-item>
+                <img src="./Img/banner1.jpg" class="absolute bottom-0 top-0 block h-[60vh] object-cover" alt="...">
             </div>
             <!-- Item 3 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="./Img/banner2.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
+            <div class="duration-700 ease-in-out flex items-center justify-center bg-white" data-carousel-item>
+                <img src="./Img/banner2.jpg" class="absolute bottom-0 top-0 block h-[60vh] object-cover" alt="...">
             </div>
             <!-- Item 4 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="./Img/banner3.jpg" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
+            <div class="duration-700 ease-in-out flex items-center justify-center bg-white" data-carousel-item>
+                <img src="./Img/banner3.jpg" class="absolute bottom-0 top-0 block h-[60vh] object-cover" alt="...">
             </div>
             <!-- Item 5 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
-                <img src="./Img/banner.png" class="absolute bottom-0 top-0 block w-full h-full" alt="...">
+            <div class="duration-700 ease-in-out flex items-center justify-center bg-white" data-carousel-item>
+                <img src="./Img/banner.png" class="absolute bottom-0 top-0 block h-[60vh] object-cover" alt="...">
             </div>
         </div>
         <!-- Slider indicators -->
@@ -45,22 +45,23 @@
         </div>
         <!-- Slider controls -->
         <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-orange-400 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-gray-200 group-focus:outline-none">
+                <svg class="mr-[1px] w-4 h-4 text-white group-hover:text-orange-400 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
                 </svg>
                 <span class="sr-only">Previous</span>
             </span>
         </button>
         <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-orange-400 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-gray-200 group-focus:outline-none">
+                <svg class="ml-[2px] w-4 h-4 text-white group-hover:text-orange-400 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
                 <span class="sr-only">Next</span>
             </span>
         </button>
     </div>
+    
     <p class="text-3xl font-bold flex justify-center py-6 bg-orange-400 text-white">BEST SELLERS</p> 
         <div class="mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 items-center justify-center py-14 mb-8 max-w-6xl">
             <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">

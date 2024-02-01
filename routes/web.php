@@ -32,6 +32,10 @@ Route::get('/home', function () {
     return redirect('/');
 });
 
+Route::get('/item', function () {
+    return view('products.item');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -89,12 +93,14 @@ Route::get('/product', function () {
     return view('product');
 });
 
-Route::get('/search', function () {
-    if (request('search')) {
-        $products = Product::where('name','like','%' . request('search'). '%')->get();
-    } else {
-        $products = Product::all();
-    }
-    return view('search')->with('products', $products);
-})->name('search');
+// Route::get('/search', function () {
+//     if (request('search')) {
+//         $products = Product::where('name','like','%' . request('search'). '%')->get();
+//     } else {
+//         $products = Product::all();
+//     }
+//     return view('search')->with('products', $products);
+// })->name('search');
+
+Route::get('/search/{search?}', [ProductController::class, 'search'])->name('search');
 

@@ -123,23 +123,84 @@
                             </p>
                             <p class="text-green-600 dark:text-green-500 ">stock: {{ $product->computed_quantity }}</p>
                         </div>
+
+
                         <div class="w-32 mb-8 ">
-                            <label for=""
-                                class="w-full text-xl font-semibold text-gray-700 dark:text-black">Quantity</label>
+                            <label for="" class="w-full text-xl font-semibold text-gray-700 dark:text-black">Quantity</label>
                             <div class="relative flex flex-row w-full h-10 mt-4 bg-transparent rounded-lg">
                                 <button
+                                    id="decrement"
                                     class="w-20 h-full text-black bg-stone-300 rounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-black hover:text-gray-700 dark:bg-stone-300 hover:bg-gray-400">
                                     <span class="m-auto text-2xl font-thin">-</span>
                                 </button>
-                                <input type="number"
-                                    class="flex items-center w-full font-semibold text-center text-black placeholder-black bg-gray-300 outline-none dark:text-black dark:placeholder-black dark:bg-stone-400 focus:outline-none text-md hover:text-black"
+                                <input 
+                                    id="quantity"
+                                    type="number"
+                                    class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none flex items-center w-full font-semibold text-center text-black placeholder-black bg-gray-300 outline-none dark:text-black dark:placeholder-black dark:bg-stone-400 focus:outline-none text-md hover:text-black"
                                     placeholder="1">
                                 <button
+                                    id="increment"
                                     class="w-20 h-full text-black bg-stone-300 rounded-r outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-black dark:bg-stone-300 hover:text-gray-700 hover:bg-gray-400">
                                     <span class="m-auto text-2xl font-thin">+</span>
                                 </button>
                             </div>
                         </div>
+
+                        <script>
+
+                            var stock = parseInt("{{ $product->computed_quantity }}");
+
+                            document.getElementById('decrement').addEventListener('click', function () {
+                                decrementQuantity();
+                            });
+
+                            document.getElementById('increment').addEventListener('click', function () {
+                                incrementQuantity();
+                            });
+
+                            document.getElementById('quantity').addEventListener('input', function () {
+                                validateQuantity();
+                            });
+
+                            function decrementQuantity() {
+                                var quantityInput = document.getElementById('quantity');
+                                var currentValue = parseInt(quantityInput.value, 10);
+
+                                if (!isNaN(currentValue) && currentValue > 1) {
+                                    quantityInput.value = currentValue - 1;
+                                }
+                                validateQuantity();
+                            }
+
+                            function incrementQuantity() {
+                                var quantityInput = document.getElementById('quantity');
+                                var currentValue = parseInt(quantityInput.value, 10);
+
+                                if (!isNaN(currentValue) && currentValue < stock) {
+                                    quantityInput.value = currentValue + 1;
+                                } else {
+                                    if (quantityInput.value === '') {  // Check if the input is empty
+                                        quantityInput.value = 1;
+                                    } else {
+                                        quantityInput.value = stock;
+                                    }
+                                }
+                                validateQuantity();
+                            }
+
+                            function validateQuantity() {
+                                var quantityInput = document.getElementById('quantity');
+                                var currentValue = parseInt(quantityInput.value, 10);
+
+                                if (isNaN(currentValue) || currentValue < 1) {
+                                    quantityInput.value = 1;
+                                } else if (currentValue > stock) {
+                                    quantityInput.value = stock;
+                                }
+                            }
+
+                        </script>
+
                         <div class="flex flex-wrap items-center -mx-4 ">
                             <div class="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
                                 <button

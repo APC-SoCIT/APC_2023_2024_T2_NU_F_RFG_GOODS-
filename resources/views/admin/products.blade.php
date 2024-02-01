@@ -167,7 +167,6 @@
                                 </div>
                             </td>
                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $product->min_qty }} | {{ $product->max_qty }} | {{ $product->reorder_pt }}</td>
-{{-- delete here --}}
                             <td class="p-4 whitespace-nowrap space-x-2">
                                 <button data-modal-target="product-modal-{{ $product->id }}" data-modal-toggle="product-modal-{{ $product->id }}" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                     <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
@@ -182,17 +181,159 @@
 
 @include('admin.partials.edit-product-modal', ['product' => $product, 'categoryList' => $categoryList])
 @include('admin.partials.delete-product-modal', ['product' => $product, 'categoryList' => $categoryList])
-
-
-
                         @endforeach
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
 </div>
-<div class="bg-white sticky sm:flex items-center w-full sm:justify-between bottom-0 right-0 border-t border-gray-200 p-4">
+<div class="mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 py-14 mb-8 max-w-6xl">
+@foreach ($products as $product)
+
+    <div class="group mx-auto relative">
+        <img class="h-[360px] rounded-3xl object-cover transition-opacity opacity-100 group-hover:opacity-30" src="/products/{{$product->image}}" />
+        <div class="absolute top-0 left-0 p-4 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity">
+            <div class="h-full flex flex-col justify-between">
+                <div class="line-clamp-2 text-center text-black text-3xl font-bold">{{$product->name}}</div>
+                <div class="hover:visible">
+                    <div class="grid grid-cols-2 gap-1">
+                        <span class="text-black text-xl justify-self-start">SKU:</span>
+                        <span class="text-black text-xl justify-self-end line-clamp-1">{{$product->sku}}</span>
+                        <span class="text-black text-xl justify-self-start">PRICE:</span>
+                        <span class="text-black text-xl justify-self-end line-clamp-1">₱{{$product->price}}</span>
+                        <span class="text-black text-xl justify-self-start">CATEGORY:</span>
+                        <span class="text-black text-xl justify-self-end line-clamp-1">{{$product->category}}</span>
+                    </div>
+                </div>
+                <div id="chart_{{ $product->id }}">
+                    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var chart_{{ $product->id }}_rendered = false; // Flag to check if the chart has been rendered
+
+                            var container_{{ $product->id }} = document.querySelector("#chart_{{ $product->id }}").parentNode;
+
+                            container_{{ $product->id }}.addEventListener("mouseover", function() {
+                                if (!chart_{{ $product->id }}_rendered) {
+                                    var options = {
+                                        series: [
+                                            {
+                                                name: 'Stocks',
+                                                data: [
+                                                    {
+                                                        x: '',
+                                                        y: parseInt("{{ $product->computed_quantity ?? 0 }}"),
+                                                        goals: [
+                                                            {
+                                                                name: 'ROP', value: parseInt("{{ $product->reorder_pt }}"), 
+                                                                strokeWidth: 2, strokeDashArray: 2, strokeColor: '#ff0000'
+                                                            },
+                                                            {
+                                                                name: 'MIN', value: parseInt("{{ $product->min_qty }}"), 
+                                                                strokeWidth: 2, strokeDashArray: 2, strokeColor: '#FFA500'
+                                                            },
+                                                            {
+                                                                name: 'MAX', value: parseInt("{{ $product->max_qty }}"), 
+                                                                strokeWidth: 2, strokeDashArray: 2, strokeColor: '#775DD0'
+                                                            }
+                                                        ]
+                                                    },
+                                                ]
+                                            }
+                                        ],
+                                        chart: {
+                                            height: 105,
+                                            type: 'bar'
+                                        },
+                                        plotOptions: {
+                                            bar: {
+                                                horizontal: true,
+                                            }
+                                        },
+                                        colors: ['#00E396'],
+                                        dataLabels: {
+                                            formatter: function(val, opt) {
+                                                const computedQuantity = opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex].y;
+                                                return computedQuantity;
+                                            }
+                                        },
+                                        legend: {
+                                            show: true,
+                                            showForSingleSeries: true,
+                                            customLegendItems: ['Stocks', 'ROP', 'MIN', 'MAX'],
+                                            markers: {
+                                                fillColors: ['#00E396', '#ff0000', '#FFA500', '#775DD0']
+                                            }
+                                        }
+                                    };
+
+                                    var chart_{{ $product->id }} = new ApexCharts(document.querySelector("#chart_{{ $product->id }}"), options);
+                                    chart_{{ $product->id }}.render();
+                                    chart_{{ $product->id }}_rendered = true; // Update the flag
+                                }
+                            });
+
+                            container_{{ $product->id }}.addEventListener("mouseout", function() {
+                                if (chart_{{ $product->id }}) {
+                                    // If chart exists, destroy it
+                                    chart_{{ $product->id }}.destroy();
+                                    chart_{{ $product->id }} = null; // Reset the chart variable
+                                }
+                            });
+                            
+                        });
+                    </script>
+                </div>
+                {{-- <div class="grid grid-cols-2 gap-1">
+                    <p class="text-black text-xl justify-self-start">STOCK:</p>
+                    <div class="flex justify-self-end items-center">
+                        <div class="h-2.5 w-2.5 rounded-full justify-self-center
+                            @if ($product->computed_quantity == null)
+                            bg-gray-500
+                            @elseif ($product->computed_quantity > $product->max_qty)
+                            bg-red-500 mr-2
+                            @elseif ($product->computed_quantity >= $product->min_qty && $product->computed_quantity <= $product->max_qty)
+                            bg-green-500 mr-2
+                            @elseif ($product->computed_quantity < $product->reorder_pt)
+                            bg-red-500 mr-2
+                            @elseif ($product->computed_quantity < $product->min_qty)
+                            bg-orange-500 mr-2
+                            @endif
+                            ">
+                        </div>
+                        <span>{{ $product->computed_quantity }}</span>
+                    </div>
+                    <p class="text-black text-xl justify-self-start">MAX:</p>
+                    <p class="text-black text-xl font-medium justify-self-end line-clamp-1">{{$product->max_qty}}</p>
+                    <p class="text-black text-xl justify-self-start">MIN:</p>
+                    <p class="text-black text-xl font-medium justify-self-end line-clamp-1">{{$product->min_qty}}</p>
+                    <p class="text-black text-xl justify-self-start">ROP:</p>
+                    <p class="text-black text-xl font-medium justify-self-end line-clamp-1">{{$product->reorder_pt}}</p>
+                </div> --}}
+
+                <div class="flex flex-col justify-between">
+                    <button class="bg-blue-400 rounded-3xl">
+                        <div class="px-5 text-center text-black text-xl">Description</div>
+                    </button>
+                    <button class="bg-green-400 rounded-3xl my-3">
+                        <div class="px-5 text-center text-black text-xl">Edit</div>
+                    </button>
+                    <button class="bg-red-500 rounded-3xl">
+                        <div class="px-5 text-center text-black text-xl">Delete</div>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+@endforeach
+
+                    
+
+</div>
+{{-- <div class="bg-white sticky sm:flex items-center w-full sm:justify-between bottom-0 right-0 border-t border-gray-200 p-4">
     <div class="flex items-center mb-4 sm:mb-0">
         <a href="#" class="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
             <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -212,7 +353,7 @@
             <svg class="-mr-1 ml-1 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
         </a>
     </div>
-</div>
+</div> --}}
 
 <!-- Add Product Modal -->
 <div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="add-product-modal">
