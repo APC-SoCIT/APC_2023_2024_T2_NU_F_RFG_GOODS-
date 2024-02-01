@@ -196,7 +196,7 @@
         <img class="h-[360px] rounded-3xl object-cover transition-opacity opacity-100 group-hover:opacity-30" src="/products/{{$product->image}}" />
         <div class="absolute top-0 left-0 p-4 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity">
             <div class="h-full flex flex-col justify-between">
-                <div class="line-clamp-2 text-center text-black text-3xl font-bold">{{$product->name}}</div>
+                <div class="line-clamp-2 text-center text-black text-[22px]/[30px] font-bold">{{$product->name}}</div>
                 <div class="hover:visible">
                     <div class="grid grid-cols-2 gap-1">
                         <span class="text-black text-xl justify-self-start">SKU:</span>
@@ -232,11 +232,11 @@
                                                             },
                                                             {
                                                                 name: 'MIN', value: parseInt("{{ $product->min_qty }}"), 
-                                                                strokeWidth: 2, strokeDashArray: 2, strokeColor: '#FFA500'
+                                                                strokeWidth: 2, strokeDashArray: 2, strokeColor: '#FC6A03'
                                                             },
                                                             {
                                                                 name: 'MAX', value: parseInt("{{ $product->max_qty }}"), 
-                                                                strokeWidth: 2, strokeDashArray: 2, strokeColor: '#775DD0'
+                                                                strokeWidth: 2, strokeDashArray: 2, strokeColor: '#043927'
                                                             }
                                                         ]
                                                     },
@@ -245,7 +245,7 @@
                                         ],
                                         chart: {
                                             height: 105,
-                                            type: 'bar'
+                                            type: 'bar',
                                         },
                                         plotOptions: {
                                             bar: {
@@ -264,7 +264,7 @@
                                             showForSingleSeries: true,
                                             customLegendItems: ['Stocks', 'ROP', 'MIN', 'MAX'],
                                             markers: {
-                                                fillColors: ['#00E396', '#ff0000', '#FFA500', '#775DD0']
+                                                fillColors: ['#00E396', '#ff0000', '#FC6A03', '#043927']
                                             }
                                         }
                                     };
@@ -276,7 +276,7 @@
                             });
 
                             container_{{ $product->id }}.addEventListener("mouseout", function() {
-                                if (chart_{{ $product->id }}) {
+                                if (chart_{{ $product->id }}_rendered) {
                                     // If chart exists, destroy it
                                     chart_{{ $product->id }}.destroy();
                                     chart_{{ $product->id }} = null; // Reset the chart variable
