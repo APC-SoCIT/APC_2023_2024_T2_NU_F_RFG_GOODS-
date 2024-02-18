@@ -336,8 +336,6 @@
     </div>
 @endforeach
 
-                    
-
 </div>
 {{-- <div class="bg-white sticky sm:flex items-center w-full sm:justify-between bottom-0 right-0 border-t border-gray-200 p-4">
     <div class="flex items-center mb-4 sm:mb-0">

@@ -48,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::put('user/address/update', [UserAddressController::class, 'update'])->name('user.address.update');
     Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
     Route::get('/addtocart/{product}', [ProductController::class, 'addtocart'])->name('product.addtocart');
+    Route::get('/cart', function () {
+        return view('cart');
+    });
 });
 
 Route::middleware('admin')->group(function () {
@@ -82,7 +85,23 @@ Route::get('/footer', function () {
 });
 
 Route::get('/', function () {
-    return view('home');
+    if(Auth::id()) {
+        $usertype=Auth()->user()->is_admin;
+        if($usertype==0) 
+        {
+            return view('dashboard');
+        } 
+        else if ($usertype==1) 
+        {
+            return redirect()->to('/dashboard');
+        }
+        else
+        {
+            return redirect()->back();
+        }
+    } else {
+        return view('home');
+    }
 });
 
 Route::get('/login2', function () {
