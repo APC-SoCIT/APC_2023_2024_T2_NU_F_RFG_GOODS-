@@ -1,56 +1,68 @@
-<nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+<nav class="fixed top-0 z-50 w-full bg-rfg-background">
    <div class="">
-       <div class="">
-       @include('navbar.admin_navbar')
-       </div>
+      <div class="">
+      @include('navbar.admin_navbar')
+      </div>
    </div>
 </nav>
 
-<aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-  <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-     <ul class="space-y-2 font-medium">
-        <li>
-           <a href="/dashboard" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                 <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
-                 <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
-              </svg>
-              <span class="ms-3">Dashboard</span>
-           </a>
-        </li>
-        <li>
-           <a href="/admin/products" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                 <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap">Products</span>
-           </a>
-        </li>
-        <li>
-           <a href="/admin/inventory" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                   <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+<aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full sm:translate-x-0 bg-rfg-background" aria-label="Sidebar">
+   <div class="h-full px-3 pb-4 overflow-y-auto bg-rfg-background">
+      <ul class="space-y-2 font-medium">
+
+         <li>
+            <a href="/dashboard" class="flex items-center p-2 rounded-lg hover:bg-gray-700 group">
+               <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015"/>
                </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap">Inventory</span>
-           </a>
-        </li>
-        <li>
-           <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                   <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+               <span class="ms-3 text-white">Dashboard</span>
+            </a>
+         </li>
+
+         <li>
+            <a href="/admin/products" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group">
+               <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 18">
+                  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z"/>
                </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap">Orders</span>
-              <!-- <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span> -->
-           </a>
-        </li>
-        <li>
-           <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                   <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                  
+               <span class="flex-1 ms-3 whitespace-nowrap">Products</span>
+            </a>
+         </li>
+
+         <li>
+            <a href="/admin/inventory" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group">
+               <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003zM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z"/>
                </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap">Delivery</span>
-           </a>
-        </li>
-     </ul>
-  </div>
+               <span class="flex-1 ms-3 whitespace-nowrap">Inventory</span>
+            </a>
+         </li>
+         <li>
+            <a href="/admin/orders" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group">
+               <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zM10 8a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0zm4-3a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1"/>
+               </svg>
+            <span class="flex-1 ms-3 whitespace-nowrap">Orders</span>
+            </a>
+         </li>
+         <li>
+            <a href="#" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group">
+               <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="1.4066 40.9658 252.9 173.776">
+                  <circle cx="77.89" cy="68.42" r="7.5" transform="matrix(2.809999942779541, 0, 0, 2.809999942779541, 1.4065934419631956, 1.40659344196321)"></circle>
+                  <circle cx="21.47" cy="68.42" r="7.5" transform="matrix(2.809999942779541, 0, 0, 2.809999942779541, 1.4065934419631956, 1.40659344196321)"></circle>
+                  <path d="M 89.813 50.305 L 78.995 37.925 L 74.31 32.655 C 73.851 32.138 73.192 31.843 72.501 31.843 L 57.176 31.843 L 57.176 20.792 
+                  C 57.174 17.084 54.735 14.078 51.727 14.078 L 5.448 14.078 C 2.439 14.078 0 17.084 0 20.792 L 0 65.529 C 0 67.317 1.176 68.766 2.626 68.766 
+                  L 8.296 68.766 L 9.061 68.766 L 10.749 68.766 C 10.745 68.651 10.732 68.538 10.732 68.422 C 10.732 62.5 15.55 57.683 21.471 57.683 
+                  C 27.392 57.683 32.21 62.5 32.21 68.422 C 32.21 68.538 32.196 68.651 32.193 68.766 L 35.728 68.766 L 57.174 68.766 L 57.174 68.767 L 64.993 68.767 
+                  L 67.169 68.767 C 67.165 68.652 67.152 68.539 67.152 68.423 C 67.152 62.501 71.969 57.684 77.891 57.684 C 83.813 57.684 88.63 62.501 88.63 68.423 
+                  C 88.63 68.456 88.625 68.488 88.625 68.521 C 89.436 68.129 90 67.306 90 66.346 L 90 51.226 C 90 50.906 89.932 50.595 89.813 50.305 Z M 69.74 50.305 
+                  C 68.544 50.305 67.575 49.336 67.575 48.14 L 67.575 40.09 C 67.575 38.895 68.544 37.925 69.74 37.925 L 76.342 37.925 L 86.622 50.305 L 69.74 50.305 Z" 
+                  transform="matrix(2.809999942779541, 0, 0, 2.809999942779541, 1.4065934419631956, 1.40659344196321)" stroke-linecap="round"></path>
+               </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">Delivery</span>
+            </a>
+         </li>
+      </ul>
+   </div>
 </aside>

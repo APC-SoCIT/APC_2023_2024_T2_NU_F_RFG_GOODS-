@@ -14,7 +14,7 @@
             </div>
             <!-- Modal body -->
             <div class="p-6 space-y-6">
-                <form method="post" action="{{route('inventory.update',['inventory' => $inventory])}}" enctype="multipart/form-data">
+                <form method="post" action="{{route('inventory.update',['inventory' => $inventory])}}">
                     <div class="grid grid-cols-6 gap-6">
                         @csrf
                         @method('put')
@@ -55,7 +55,7 @@
             </div>
             <!-- Modal footer -->
             <div class="items-center p-6 border-t border-gray-200 rounded-b">
-                <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add Inventory</button>
+                <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save all</button>
             </div>
             </form>
         </div>

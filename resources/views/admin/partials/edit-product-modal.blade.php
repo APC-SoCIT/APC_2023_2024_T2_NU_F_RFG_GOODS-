@@ -53,10 +53,6 @@
                             </select>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
-                            <label for="desc" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
-                            <input value="{{$product->desc}}" type="text" name="desc" id="desc" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
                             <label for="image" class="text-sm font-medium text-gray-900 block mb-2">Image</label>
                             <input value={{$product->image}} type="file" name="image" id="image" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-.8" placeholder="">
                         </div>
@@ -71,6 +67,10 @@
                         <div class="col-span-6 sm:col-span-3">
                             <label for="reorder_pt" class="text-sm font-medium text-gray-900 block mb-2">Reorder Point</label>
                             <input value="{{$product->reorder_pt}}" type="number" name="reorder_pt" id="reorder_pt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                        </div>
+                        <div class="col-span-6 sm:col-span-6">
+                            <label for="desc" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
+                            <textarea name="desc" id="desc" rows="4" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>{{$product->desc}}</textarea>
                         </div>
                     </div> 
             </div>

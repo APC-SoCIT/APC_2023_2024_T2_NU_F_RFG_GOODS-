@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Inventory;
-use App\Models\Product;
 
-class InventoryController extends Controller
+class OrderController extends Controller
 {
     public function index() {
         $inventoryList = Inventory::join('products', 'inventories.product_id', '=', 'products.id')
@@ -14,6 +12,9 @@ class InventoryController extends Controller
         ->get();
         $productList = Product::all();
         return view('admin.inventories', ['inventoryList' => $inventoryList,'productList' => $productList]);
+        
+        $ordersList = Order::join('');
+    
     }
 
     public function save(Request $request){
@@ -41,6 +42,7 @@ class InventoryController extends Controller
             'quantity' => 'required|integer',
         ]);
 
+        $inventory = new Inventory;
         $inventory->product_id = $request->product_id;
         $inventory->is_received = $request->is_received;
         $inventory->quantity = $request->quantity;

@@ -17,6 +17,6 @@
         "vite": "^4.5.1"
     },
     "dependencies": {
-        "apexcharts": "^3.45.2"
+        "apexcharts": "^3.46.0"
     }
 }

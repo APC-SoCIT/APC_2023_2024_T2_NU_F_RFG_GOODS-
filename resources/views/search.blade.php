@@ -10,79 +10,91 @@
 </head>
 <body>
     @include('navbar.navbar')
-    {{-- filter start --}}
-    <div class="flex justify-center">
-        <div class="grid grid-cols-3 gap-8 mt-10">
-            <div class="bg-slate-200 w-80 h-52 rounded-3xl border-4 border-black">
-                <h1 class="text-center font-bold mt-3">Categories</h1>
-                <div class="px-8 py-4">
-                    <ul>   
-                        <li>
-                            <a href="" class="font-bold hover:text-orange-500"><span>All Products</span></a>
-                        </li>
-                        <li>
-                            <a href="" class="font-bold hover:text-orange-500"><span>Cooking Essentials</span></a>
-                        </li>
-                        <li>
-                            <a href="" class="font-bold hover:text-orange-500"><span>Snacks</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="bg-slate-200 w-80 h-52 rounded-3xl border-4 border-black">
-                <h1 class="text-center font-bold mt-3">Price Range</h1>
-                <div class="flex justify-center">
-                    <form>
-                        <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900">Min</label>
-                        <input type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-white border-2 border-black text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="0" required>
-                    </form>
-                </div>
-                <div class="flex justify-center">
-                    <form>
-                        <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900">Max</label>
-                        <input type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-white border-2 border-black text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="500" required>
-                    </form>
-                </div>
-            </div>
-            <div class="bg-slate-200 w-80 h-52 rounded-3xl border-4 border-black">
-                <h1 class="text-center font-bold mt-3">Sort</h1>
-                <div class="flex flex-col space-y-2 justify-center items-center my-2">   
-                    <div class="bg-white w-44 text-center rounded-2xl border-black border-2">
-                        <a href="" class=""><span>Relevance</span></a>
-                    </div>
-                    <div class="bg-white w-44 text-center rounded-2xl border-black border-2">
-                        <a href="" class=""><span>Latest</span></a>
-                    </div>
-                    <div class="bg-white w-44 text-center rounded-2xl border-black border-2">
-                        <a href="" class=""><span>Top Sales</span></a>
-                    </div>
-                    <div>
-                    <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="border-black border-2 text-black bg-white hover:bg-slate-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-2xl text-sm px-5 py-2.5 text-center inline-flex items-center h-8" type="button">Dropdown hover <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+
+    <div class="flex h-dvh">
+
+        <div class="w-92 border-black border-4 p-5">
+            <p >Filters</p>
+
+            <hr class="my-2">
+
+            <div id="accordion-collapse" data-accordion="open" class="w-full">
+
+                <h2 id="accordion-collapse-price">
+                    <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-white" 
+                    data-accordion-target="#accordion-collapse-price-body" 
+                    aria-expanded="true" 
+                    aria-controls="accordion-collapse-price-body">
+                        <span>Price</span>
+                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
                         </svg>
                     </button>
-
-                    <!-- Dropdown menu -->
-                        <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                            <ul class="py-2 text-sm text-black" aria-labelledby="dropdownHoverButton">
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-slate-300">Low to High</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-slate-300">High to Low</a>
-                            </li>
-                            </ul>
+                </h2>
+                <div id="accordion-collapse-price-body" class="hidden" aria-labelledby="accordion-collapse-price">
+                    <div class="p-2 pl-5">
+                        <div class="flex justify-between gap-4">
+                            <input type="text" class="w-full">
+                            <input type="text" class="w-full">
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <h2 id="accordion-collapse-availability">
+                    <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-white" 
+                    data-accordion-target="#accordion-collapse-availability-body" 
+                    aria-expanded="true" 
+                    aria-controls="accordion-collapse-availability-body">
+                        <span>Availability</span>
+                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-collapse-availability-body" class="hidden" aria-labelledby="accordion-collapse-availability">
+                    <div class="p-2 pl-5">
+                        <div class="flex items-center gap-2">
+                            <input name="filter.category" type="checkbox">
+                            <label for="filter.category">In Stock</label>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-2">
+
+                <h2 id="accordion-collapse-heading-3">
+                    <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-white" 
+                    data-accordion-target="#accordion-collapse-body-3" 
+                    aria-expanded="true" 
+                    aria-controls="accordion-collapse-body-3">
+                        <span>Category</span>
+                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
+                    <div class="p-2 pl-5">
+                        <div class="flex items-center gap-2">
+                            <input name="filter.category" type="checkbox">
+                            <label for="filter.category">All</label>
+                        </div>
+                        @foreach ($categoryList as $category)
+                            <div class="flex items-center gap-2">
+                                <input name="filter.category" type="checkbox">
+                                <label for="filter.category">{{$category->category}}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
+
+            <hr class="my-2">
     </div>
-    {{-- filter end --}}
-    <hr class="w-1/4 h-1 mx-auto bg-gray-100 border-0 rounded my-10">
+
     {{-- search container start --}}
-    <div class="flex justify-center mb-10">
+    <div class="flex justify-center mb-10 px-5">
         <div class="grid md:grid-cols-4 grid-cols-2 gap-4 h-full">
                 {{-- product for loop start --}}
                 @forelse($products as $product)
@@ -129,6 +141,7 @@
         </div>
     </div>
     {{-- search container end --}}
+
     @include('footer.footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 </body>

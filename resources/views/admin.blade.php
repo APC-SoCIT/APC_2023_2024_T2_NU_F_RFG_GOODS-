@@ -1,193 +1,566 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/dist/output.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
+   @vite('resources/css/app.css')
+   <?php
+      $rfg_canvas = '#010613';
+   ?>
 </head>
-<body>
+<body class="bg-rfg-canvas">
    @include('admin.partials.admin-sidebar')
-  
+
    <div class="p-4 sm:ml-64">
       <div class="mt-16">
-         
-      <div class="grid grid-cols-3 gap-4 mb-4">
-         <div class="flex items-center justify-between p-20 h-52 rounded-2xl bg-gray-50 dark:bg-gray-800">
-            <p class="text-white h-24 w-24" >
-               <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003zM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z"/>
-                </svg>
-            </p>
-            <div class="flex flex-col text-right gap-1">
-               <p class="text-white text-5xl font-bold">10</p>
-               <p class="text-white text-lg">PRODUCTS</p>
-            </div>
-         </div>
-         <div class="flex items-center justify-between p-20 h-52 rounded-2xl bg-gray-50 dark:bg-gray-800">
-            <p class="text-white h-24 w-24" >
-               <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
-                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
-                  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
-                </svg>
-            </p>
-            <div class="flex flex-col text-right gap-1">
-               <p class="text-white text-5xl font-bold">5</p>
-               <p class="text-white text-lg">NEW ORDERS</p>
-            </div>
-         </div>
-         <div class="flex items-center justify-between p-20 h-52 rounded-2xl bg-gray-50 dark:bg-gray-800">
-            <p class="text-white h-24 w-24" >
-               <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg>
-            </p>
-            <div class="flex flex-col text-right gap-1">
-               <p class="text-white text-5xl font-bold">1</p>
-               <p class="text-white text-lg">NEW RATINGS</p>
-            </div>
-         </div>
-      </div>
 
-      <div class="grid grid-cols-2 gap-4 mb-4">
-         <div class="flex flex-col items-center h-[22rem] rounded-2xl bg-gray-800 p-5">
-            <p class="text-left w-full text-xl text-white">UPCOMING DELIVERIES</p>
-            <div class="w-full flex flex-col items-center justify-center h-full gap-4 text-gray-950">
-               <div class="flex flex-col w-full bg-gray-400 p-4 gap-2 rounded-2xl">
-                  <p class="w-full text-center text-lg font-bold">TODAY</p>
-                  <div id="container.list.usernames" class="flex justify-between">
-                     <div id="container.usernames" class="flex flex-col justify-between py-1 text-lg">
-                        <p>Order Number</p>
-                        <p>Order Number</p>
-                     </div>
-                     <div id="container.date">
-                        <p class="font-bold w-full text-center">Feb</p>
-                        <p class="font-bold text-5xl">02</p>
-                     </div>
+         {{-- First Column Start --}}
+
+         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 ">
+            <div class="flex items-center justify-between p-1 h-52 rounded-2xl bg-rfg-background">
+               <div class="flex w-2/4 justify-end">
+                  <p class="text-rfg-accent h-24 w-24" >
+                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+                        <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                     </svg>
+                  </p>
+               </div>
+               <div class="flex flex-col text-center gap-1 w-full">
+                  <div class="h-3"></div>
+                  <p class="font-mono text-rfg-text text-5xl font-bold">5</p>
+                  <p class="text-rfg-text text-lg">NEW ORDERS</p>
+                  <div class="flex justify-center text-center items-center gap-1 text-red-600">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M 10 11.5 C 10 11.776 10.224 12 10.5 12 L 14.5 12 C 14.776 12 15 11.776 15 11.5 L 15 7.5 C 15 7.115 14.583 6.875 14.25 7.067 C 14.095 7.156 14 7.321 14 7.5 L 14 10.1 L 10.387 5.683 C 10.2 5.454 9.856 5.437 9.647 5.646 L 7.06 8.233 L 3.404 3.206 C 3.166 2.903 2.69 2.972 2.547 3.329 C 2.485 3.483 2.504 3.657 2.596 3.794 L 6.596 9.294 C 6.777 9.543 7.137 9.571 7.354 9.354 L 9.963 6.744 L 13.445 11 L 10.5 11 C 10.224 11 10 11.224 10 11.5" transform="matrix(1, 0, 0, 1, 0, -1.1102230246251565e-16)"></path>
+                     </svg>
+                  <p class="font-mono text-red-600 text-base">-2.00%</p>
+               </div>
+               </div>
+            </div>
+            <div class="flex items-center justify-between p-1 h-52 rounded-2xl bg-rfg-background">
+               <div class="flex w-2/4 justify-end">
+                  <p class="text-rfg-accent h-24 w-24" >
+                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-piggy-bank-fill" viewBox="0 0 16 16">
+                        <path d="M7.964 1.527c-2.977 0-5.571 1.704-6.32 4.125h-.55A1 1 0 0 0 .11 6.824l.254 1.46a1.5 1.5 0 0 0 1.478 1.243h.263c.3.513.688.978 1.145 1.382l-.729 2.477a.5.5 0 0 0 .48.641h2a.5.5 0 0 0 .471-.332l.482-1.351c.635.173 1.31.267 2.011.267.707 0 1.388-.095 2.028-.272l.543 1.372a.5.5 0 0 0 .465.316h2a.5.5 0 0 0 .478-.645l-.761-2.506C13.81 9.895 14.5 8.559 14.5 7.069q0-.218-.02-.431c.261-.11.508-.266.705-.444.315.306.815.306.815-.417 0 .223-.5.223-.461-.026a1 1 0 0 0 .09-.255.7.7 0 0 0-.202-.645.58.58 0 0 0-.707-.098.74.74 0 0 0-.375.562c-.024.243.082.48.32.654a2 2 0 0 1-.259.153c-.534-2.664-3.284-4.595-6.442-4.595m7.173 3.876a.6.6 0 0 1-.098.21l-.044-.025c-.146-.09-.157-.175-.152-.223a.24.24 0 0 1 .117-.173c.049-.027.08-.021.113.012a.2.2 0 0 1 .064.199m-8.999-.65a.5.5 0 1 1-.276-.96A7.6 7.6 0 0 1 7.964 3.5c.763 0 1.497.11 2.18.315a.5.5 0 1 1-.287.958A6.6 6.6 0 0 0 7.964 4.5c-.64 0-1.255.09-1.826.254ZM5 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0"/>
+                     </svg>
+                  </p>
+               </div>
+               <div class="flex flex-col text-center gap-1 w-full">
+                  <div class="h-3"></div>
+                  <p class="font-mono text-rfg-text text-5xl font-bold">₱13,000</p>
+                  <p class="text-rfg-text text-lg">TOTAL REVENUE</p>
+                  <div class="flex justify-center text-center gap-1 text-green-600">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                     </svg>
+                     <p class="font-mono text-green-600 text-base">+2.00%</p>
+                  </div>
+                  
+               </div>
+            </div>
+            <div class="flex items-center justify-between p-1 h-52 rounded-2xl bg-rfg-background">
+               <div class="flex w-2/4 justify-end">
+                  <p class="text-rfg-accent h-24 w-24" >
+                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                     </svg>
+                  </p>
+               </div>
+               <div class="flex flex-col text-center gap-1 w-full">
+                  <div class="h-3"></div>
+                  <p class="font-mono text-rfg-text text-5xl font-bold">1</p>
+                  <p class="text-rfg-text text-lg">NEW RATINGS</p>
+                  <div class="flex justify-center text-center items-center gap-1 text-green-600">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5"/>
+                     </svg>
+                     <p class="font-mono text-green-600 text-base">+2.00%</p>
                   </div>
                </div>
-               <div class="flex flex-col w-full bg-gray-400 p-4 gap-2 rounded-2xl">
-                  <div id="container.list.usernames" class="flex justify-between">
-                     <div id="container.usernames" class="flex flex-col justify-between py-1 text-lg">
-                        <p>Order Number</p>
-                        <p>Order Number</p>
-                     </div>
-                     <div id="container.date">
-                        <p class="font-bold w-full text-center">Feb</p>
-                        <p class="font-bold text-5xl">06</p>
-                     </div>
-                  </div>
-               </div>
             </div>
-
          </div>
-         <div class="flex flex-col items-center justify-center h-[22rem] rounded-2xl bg-gray-800 p-5 gap-4">
-            <div class="w-full">
-               <div id="todayChart" class="h-[12rem] w-full bg-white"></div>
 
-            <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-            <script>
-               function generateDateRange(n) {
-                  const dateArray = [];
-                  const currentDate = new Date();
+         {{-- First Column End --}}
 
-                  for (let i = n; i >= 0; i--) {
-                     const date = new Date(currentDate);
-                     date.setDate(currentDate.getDate() - i);
+         {{-- Second Column Start --}}
 
-                     const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-                     dateArray.push(formattedDate);
-                  }
+         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col items-center h-[22rem] rounded-2xl bg-rfg-background p-5">
+               <p class="text-left w-full text-xl text-rfg-text mb-4">UPCOMING DELIVERIES</p>
+               <div class="w-full flex flex-col items-center justify-end h-full gap-4 text-rfg-text">
+                  <div class="flex flex-col w-full bg-rfg-secondary p-4 gap-2 rounded-2xl">
+                     <p class="w-full text-center text-lg font-bold">TODAY</p>
+                     <hr class="border-rfg-text">
 
-                  return dateArray;
-               }
-
-               const dateRange = generateDateRange(6);
-
-               var options = {
-                  chart: {
-                     height: '100%',
-                     type: 'bar'
-                  },
-                  plotOptions: {
-                     bar: {
-                        columnWidth: '60%'
-                     }
-                  },
-                  colors: ['#00E396'],
-                  dataLabels: {
-                     enabled: false
-                  },
-                  legend: {
-                     show: true,
-                     showForSingleSeries: true,
-                     customLegendItems: ['Total', 'Completed'],
-                     markers: {
-                        fillColors: ['#00E396', '#775DD0']
-                     }
-                  },
-                  xaxis: {
-                     categories: dateRange,
-                  }
-               };
-            </script>
-
-             </div>
-             <div class="w-full flex justify-end">
-               <form class="max-w-sm">
-                  <select id="timeline" class=" bg-gray-800 border border-gray-800 text-white text-3xl rounded-lg focus:ring-orange-600 focus:border-orange-600 block w-full p-2.5 ">
-                     <option class="peer" value="today" selected>TODAY</option>
-                     <option value="weekly">WEEKLY</option>
-                     <option value="monthly">MONTHLY</option>
-                     <option value="yearly">YEARLY</option>
-                  </select>
-               </form>
-               </div>
-             </div>
-
-             <script>
-               var chart = new ApexCharts(document.querySelector("#todayChart"), options);
-
-               const timelineSelect = document.getElementById('timeline');
-               timelineSelect.addEventListener('change', function () {
-                  const selectedOption = timelineSelect.options[timelineSelect.selectedIndex].value;
-                  if (selectedOption == "today") {
-                     chart.updateSeries([
-                        {
-                           name: 'Actual',
-                           data: [
-                              { x: dateRange[0], y: 12, goals: [{ name: 'Complete', value: 10, strokeHeight: 5, strokeColor: '#775DD0' }] },
-                              { x: dateRange[1], y: 12, goals: [{ name: 'Complete', value: 10, strokeHeight: 5, strokeColor: '#775DD0' }] },
-                              { x: dateRange[2], y: 12, goals: [{ name: 'Complete', value: 10, strokeHeight: 5, strokeColor: '#775DD0' }] },
-                              { x: dateRange[3], y: 12, goals: [{ name: 'Complete', value: 10, strokeHeight: 5, strokeColor: '#775DD0' }] },
-                              { x: dateRange[4], y: 12, goals: [{ name: 'Complete', value: 10, strokeHeight: 5, strokeColor: '#775DD0' }] },
-                              { x: dateRange[5], y: 12, goals: [{ name: 'Complete', value: 10, strokeHeight: 5, strokeColor: '#775DD0' }] },
-                              { x: dateRange[6], y: 12, goals: [{ name: 'Complete', value: 10, strokeHeight: 5, strokeColor: '#775DD0' }] },
-                           ]
+                     <script>
+                        function changeBackgroundColor(element) {
+                           document.getElementById(element).style.backgroundColor = '<?php echo $rfg_canvas;?>';
                         }
-                     ]);
-                     chart.render(); // Move chart rendering inside the if block
+                        
+                        function resetBackgroundColor(element) {
+                           document.getElementById(element).style.backgroundColor = '';
+                        }
+                     </script>
+
+                     <div id="container.list.usernamest" class="flex justify-between gap-2 rounded-lg">
+                        <div id="container.usernamest" class="flex flex-col w-full justify-between text-lg">
+                           <div class="flex h-full w-full hover:bg-rfg-canvas pl-2 rounded-lg">
+                              <a href="" class="flex items-center h-full w-full">
+                                 <p id="ordernumber1">Order Number</p>
+                              </a>
+                              <button class="hover:bg-rfg-accent hover:text-rfg-text h-full padding-top: 100% px-2 rounded-lg">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                                 </svg>
+                              </button>
+                           </div>
+                           <div class="flex h-full w-full hover:bg-rfg-canvas pl-2 rounded-lg">
+                              <a href="" class="flex items-center h-full w-full">
+                                 <p id="ordernumber2">Order Number</p>
+                              </a>
+                              <button class="hover:bg-rfg-accent hover:text-rfg-text h-full padding-top: 100% px-2 rounded-lg">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                                 </svg>
+                              </button>
+                           </div>
+                        </div>
+                        <div id="container.date" class="rounded-lg px-1 hover:bg-rfg-canvas" onmouseover="changeBackgroundColor('container.list.usernamest')" onmouseout="resetBackgroundColor('container.list.usernamest')">
+                           <a href="">
+                              <p class="font-bold w-full text-center">Feb</p>
+                              <p class="font-bold text-5xl text-center flex item-center pt-[-1rem]">02</p>
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="flex flex-col w-full bg-rfg-secondary p-4 gap-2 rounded-2xl">
+                     <div id="container.list.usernamesb" class="flex justify-between gap-2 rounded-lg">
+                        <div id="container.usernamesb" class="flex flex-col w-full justify-between text-lg">
+                           <div class="flex h-full w-full hover:bg-rfg-canvas pl-2 rounded-lg">
+                              <a href="" class="flex items-center h-full w-full">
+                                 <p id="ordernumber3">Order Number</p>
+                              </a>
+                              <button class="hover:bg-rfg-accent hover:text-rfg-text h-full padding-top: 100% px-2 rounded-lg">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                                 </svg>
+                              </button>
+                           </div>
+                           <div class="flex h-full w-full hover:bg-rfg-canvas pl-2 rounded-lg">
+                              <a href="" class="flex items-center h-full w-full">
+                                 <p id="ordernumber4">Order Number</p>
+                              </a>
+                              <button class="hover:bg-rfg-accent hover:text-rfg-text h-full padding-top: 100% px-2 rounded-lg">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                                 </svg>
+                              </button>
+                           </div>
+                        </div>
+                        <div id="container.date" class="rounded-lg px-1 hover:bg-rfg-canvas" onmouseover="changeBackgroundColor('container.list.usernamesb')" onmouseout="resetBackgroundColor('container.list.usernamesb')">
+                           <a href="">
+                              <p class="font-bold w-full text-center">Feb</p>
+                              <p class="font-bold text-5xl text-center flex item-center pt-[-1rem]">06</p>
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+
+            <div class="flex flex-col items-center h-[22rem] rounded-2xl bg-rfg-background p-5">
+               <p class="text-left w-full text-xl text-rfg-text mb-4">ITEMS LOW ON STOCK</p>
+               <div class="w-full flex flex-col items-center justify-end h-full gap-4 text-rfg-text">
+                  <div class="flex flex-col w-full h-full bg-rfg-secondary p-4 gap-2 rounded-2xl overflow-hidden overflow-x-auto">
+                     <table class="table-fixed min-w-full divide-y divide-gray-200">
+                        <thead class="">
+                           <tr>
+                              <th scope="col" class="p-4">
+                                 <div class="flex items-center">
+                                    <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox"
+                                       class="text-rfg-accent bg-rfg-text border-rfg-text focus:ring-1 focus:ring-rfg-primary h-4 w-4 rounded">
+                                    <label for="checkbox-all" class="sr-only">checkbox</label>
+                                 </div>
+                              </th>
+                              <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                 Stock
+                              </th>
+                              <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                 
+                              </th>
+                              <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                 Item Name
+                              </th>
+                              <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                 Category
+                              </th>
+                              <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                 Actions
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr class="hover:bg-rfg-canvas">
+                              <td class="p-4 w-4">
+                                 <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox"
+                                       class="text-rfg-accent bg-rfg-text border-rfg-text focus:ring-1 focus:ring-rfg-primary h-4 w-4 rounded">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                 </div>
+                              </td>
+                              <td class="p-4 whitespace-nowrap text-base font-medium ">3</td>
+                              <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
+                                 <img class="h-10 w-10 rounded-full" src="{{ asset('./products/sdf' )}}" >
+                              </td>
+                              <td class="p-4 whitespace-nowrap text-base font-medium ">Item Name</td>
+                              <td class="p-4 whitespace-nowrap text-base font-medium ">Category</td>
+                              <td class="p-4 whitespace-nowrap space-x-2">
+                                 <button data-modal-target="product-modal-edit" data-modal-toggle="product-modal-edit" class="text-rfg-text bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
+                                 </button>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         {{-- Second Column End --}}
+
+         {{-- Third Column Start --}}
+         
+         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col h-[22rem] rounded-2xl bg-rfg-background p-5 gap-4">
+               <div class="w-full">
+                  <div class="w-full flex justify-between">
+                     <div>
+                        <p class=" text-rfg-text text-xl my-auto text-left h-full">SALES REPORT</p>
+                     </div>
+                     <div>
+                        <form class="max-w-sm">
+                           <select id="salesTimeline" class=" hover:bg-rfg-canvas bg-rfg-secondary border-none text-rfg-text text-xl rounded-lg focus:ring-orange-600 focus:border-orange-600 block w-full p-2.5 ">
+                              <option value="today">TODAY</option>
+                              <option value="weekly" selected>WEEKLY</option>
+                              <option value="monthly">MONTHLY</option>
+                              <option value="yearly">YEARLY</option>
+                           </select>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+               <div class="w-full h-full">
+                  <div id="salesChart" class="h-full w-full rounded-3xl  "></div>
+               </div>
+            </div>
+            <div class="flex flex-col h-[22rem] rounded-2xl bg-rfg-background p-5 gap-4">
+               <div class="w-full">
+                  <div class="w-full flex justify-between">
+                     <div>
+                        <p class=" text-rfg-text text-xl my-auto text-left h-full">ORDER HISTORY</p>
+                     </div>
+                     <div>
+                        <form class="max-w-sm">
+                           <select id="salesTimeline" class=" hover:bg-rfg-canvas bg-rfg-secondary border-none text-rfg-text text-xl rounded-lg focus:ring-orange-600 focus:border-orange-600 block w-full p-2.5 ">
+                              <option value="today">TODAY</option>
+                              <option value="weekly" selected>WEEKLY</option>
+                              <option value="monthly">MONTHLY</option>
+                              <option value="yearly">YEARLY</option>
+                           </select>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+               <div class="flex flex-col w-full h-full bg-rfg-secondary text-rfg-text p-4 gap-2 rounded-2xl overflow-hidden overflow-x-auto">
+                  <table class="table-fixed min-w-full divide-y divide-gray-200">
+                     <thead class="">
+                        <tr>
+                           <th scope="col" class="p-4">
+                              <div class="flex items-center">
+                                 <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox"
+                                    class="text-rfg-accent bg-rfg-text border-rfg-text focus:ring-1 focus:ring-rfg-primary h-4 w-4 rounded">
+                                 <label for="checkbox-all" class="sr-only">checkbox</label>
+                              </div>
+                           </th>
+                           <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                              Order Number
+                           </th>
+                           <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                              Payment
+                           </th>
+                           <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                              Revenue
+                           </th>
+                           <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                              Status
+                           </th>
+                           <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                              Actions
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr class="hover:bg-rfg-canvas">
+                           <td class="p-4 w-4">
+                              <div class="flex items-center">
+                                 <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox"
+                                    class="text-rfg-accent bg-rfg-text border-rfg-text focus:ring-1 focus:ring-rfg-primary h-4 w-4 rounded">
+                                 <label for="checkbox-1" class="sr-only">checkbox</label>
+                              </div>
+                           </td>
+                           <td class="p-4 whitespace-nowrap text-base font-medium">Order Number</td>
+                           <td class="p-4 whitespace-nowrap text-base font-medium">Payment Method</td>
+                           <td class="p-4 whitespace-nowrap text-base font-medium">₱100</td>
+                           <td class="p-4 whitespace-nowrap text-base font-medium">Pending</td>
+                           <td class="p-4 whitespace-nowrap space-x-2">
+                              <button data-modal-target="product-modal-edit" data-modal-toggle="product-modal-edit" class="text-rfg-text bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
+                              </button>
+                              <button data-modal-target="delete-product-modal-delete" data-modal-toggle="delete-product-modal-delete" class="text-rfg-text bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                              </button>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            </div>
+         </div>
+
+         {{-- Third Column End --}}
+
+      </div>
+   </div>
+
+   {{-- Date Script Start --}}
+
+   <script>
+
+      function generateMonthDateRange() {
+         const dateArray = [];
+         const currentDate = new Date();
+         
+         // Set the date to the first day of the current month
+         currentDate.setDate(1);
+
+         // Loop until the next month starts
+         while (currentDate.getMonth() === new Date().getMonth()) {
+            const formattedDate = `${currentDate.getDate().toString().padStart(2, '0')}`;
+            dateArray.push(formattedDate);
+
+            currentDate.setDate(currentDate.getDate() + 1);
+         }
+
+         return dateArray;
+      }
+
+      const monthRange = generateMonthDateRange();
+      console.log(monthRange);
+
+      function generateDateRange(n) {
+         const dateArray = [];
+         const currentDate = new Date();
+         for (let i = n; i >= 0; i--) {
+            const date = new Date(currentDate);
+            date.setDate(currentDate.getDate() - i);
+            const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+            dateArray.push(formattedDate);
+         }
+         return dateArray;
+      }
+      const dateRange = generateDateRange(6);
+
+      function generateYearRange(n) {
+         const yearsArray = [];
+         const currentDate = new Date();
+
+         for (let i = n; i >= 0; i--) {
+            const date = new Date(currentDate);
+            date.setFullYear(currentDate.getFullYear() - i);
+
+            const year = date.getFullYear();
+            yearsArray.push(year);
+            console.log(year);
+         }
+         return yearsArray;
+      }
+
+      const yearsArray = generateYearRange(4);
+      console.log(yearsArray);
+   </script>
+
+   {{-- Date Script End --}}
+
+   {{-- Chart Script Start --}}
+   <script>
+      var options = {
+         series: [],
+         theme: {
+            mode: 'dark'
+         },
+         chart: { height: '100%', type: 'bar', background: 'transparent'},
+         plotOptions: { bar: { columnWidth: '60%' } },
+         colors: ['#00E396'],
+         dataLabels: { enabled: true },
+         legend: { show: true, showForSingleSeries: true,
+            customLegendItems: ['Completed', 'Total'],
+            markers: { fillColors: ['#00E396', '#f2b472'] }
+         }
+      };
+
+      var areaoptions = {
+         series: [],
+         theme: {
+            mode: 'dark'
+         },
+         chart: {
+            height: '100%',
+            type: 'area',
+            zoom: { enabled: false },
+            background: 'transparent'
+         },
+         dataLabels: {
+            enabled: false
+         },
+         stroke: {
+            curve: 'smooth'
+         },
+         xaxis: {
+            type: 'category',
+            categories: []
+         },
+      };
+      
+      var salesChart = new ApexCharts(document.querySelector("#salesChart"), areaoptions);
+      salesChart.render();
+   </script>
+
+   <script>
+
+      document.addEventListener("DOMContentLoaded", function () {
+         const salesTimeline = document.getElementById('salesTimeline');
+         const strokeHeight = 5;
+         const name = 'Total';
+         const strokeColor = '#f2b472';
+
+         function handleTimelineChange(timeline, anyChart) {
+            const selectedOption = timeline.options[timeline.selectedIndex].value;
+            if (selectedOption == "weekly") {
+               anyChart.updateSeries([
+                  {
+                     name: 'Total',
+                     data: [30,31,32,33,34,35,36]
+                  }, {
+                     name: 'Completed',
+                     data: [16,11,3,19,29,20,1]
+                  }
+                     
+               ]);
+               anyChart.updateOptions({
+                  xaxis: {
+                     type: 'datetime',
+                     categories: dateRange
+                  }
+               });
+            } else if (selectedOption == "today") {
+               anyChart.updateSeries([
+                  {
+                     name: 'Total',
+                     data: [36]
+                  }, {
+                     name: 'Completed',
+                     data: [1]
+                  }
+                     
+               ]);
+               anyChart.updateOptions({
+                  xaxis: {
+                     type: 'category',
+                     categories: dateRange[6]
+                  }
+               });
+            } else if (selectedOption == "yearly") {
+               const Months = [
+                  "Jan", "Feb", "Mar", "Apr",
+                  "May", "Jun", "Jul", "Aug",
+                  "Sep", "Oct", "Nov", "Dec"
+                  ];
+               // anyChart.updateSeries([
+               //    {
+               //       name: 'Completed',
+               //       data: [
+               //          { x: Months[0], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[1], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[2], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[3], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[4], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[5], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[6], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[7], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[8], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[9], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[10], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //          { x: Months[11], y: 12, goals: [{ name: name, value: 30, strokeHeight: strokeHeight, strokeColor: strokeColor }] },
+               //       ]
+               //    }
+               // ]);
+            } else if (selectedOption == "monthly") {
+
+               // First random number generator (produces 29 numbers between 25 and 40)
+               const randomNumbersInRange = Array.from({ length: 29 }, () => Math.floor(Math.random() * (40 - 25 + 1) + 25));
+
+               console.log("First set of random numbers:", randomNumbersInRange);
+
+               // Second random number generator (produces 10 numbers with maximum values based on the corresponding numbers from the first set)
+               const secondRandomNumbers = randomNumbersInRange.map((maxValue) => Math.floor(Math.random() * (maxValue - 10 + 1) + 10));
+
+               console.log("Second set of random numbers:", secondRandomNumbers);
+
+
+               anyChart.updateSeries([
+                  {
+                     name: 'Total',
+                     data: randomNumbersInRange
+                  }, {
+                     name: 'Completed',
+                     data: secondRandomNumbers
+                  }
+               ]);
+               anyChart.updateOptions({
+                  xaxis: {
+                     type: 'category',
+                     categories: monthRange
                   }
                });
 
-               chart.render();
-             </script>
+               // anyChart.updateSeries([
+               //    {
+               //          name: 'Completed',
+               //          data: monthlyData
+               //    }
+               // ]);
+            }
+         }
 
-         </div>
-         <div class="flex items-center justify-center h-[22rem] rounded-2xl bg-gray-800">
+         handleTimelineChange(salesTimeline, salesChart);
 
-         </div>
-         <div class="flex items-center justify-center h-[22rem] rounded-2xl bg-gray-800">
+         salesTimeline.addEventListener('change', function () {
+            handleTimelineChange(salesTimeline, salesChart)
+         });
+      });
 
-         </div>
-      </div>
+   </script>
+   {{-- Chart Script End --}}
 
-
-
-   </div>
-</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 </body>

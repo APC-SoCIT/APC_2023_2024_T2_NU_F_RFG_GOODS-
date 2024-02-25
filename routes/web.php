@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,8 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/inventory/{inventory}/edit', [InventoryController::class, 'edit'])->name('inventory.edit');
     Route::put('/admin/inventory/{inventory}/update', [InventoryController::class, 'update'])->name('inventory.update');
     Route::get('/admin/inventory/{inventory}/destroy', [InventoryController::class, 'destroy'])->name('inventory.destroy');
+
+    Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
 });
 
 require __DIR__.'/auth.php';
@@ -85,11 +88,11 @@ Route::get('/footer', function () {
 });
 
 Route::get('/', function () {
-    if(Auth::id()) {
+    if(Auth::id() && Auth()->user()!=null) {
         $usertype=Auth()->user()->is_admin;
         if($usertype==0) 
         {
-            return view('dashboard');
+            return view('home');
         } 
         else if ($usertype==1) 
         {
