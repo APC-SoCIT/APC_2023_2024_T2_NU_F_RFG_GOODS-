@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body class="bg-rfg-canvas">
@@ -15,103 +16,128 @@
     <div class="p-4 sm:ml-64 ">
         <div class="mt-16">
 
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+            <script>
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            </script>
+            <script>
+                $(document).ready(function() {
+                });
+            </script>
+
             <x-database-layout title="Products" modal="product">
-                <thead class="bg-rfg-canvas text-gray-500">
-                    <tr>
-                        <th scope="col" class="p-4">
-                            <div class="flex items-center">
-                                <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox"
-                                    class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded">
-                                <label for="checkbox-all" class="sr-only">checkbox</label>
-                            </div>
-                        </th>
-                        <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
-                            ID
-                        </th>
-                        <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
-                            Image
-                        </th>
-                        <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
-                            SKU
-                        </th>
-                        <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
-                            Name
-                        </th>
-                        <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
-                            Price
-                        </th>
-                        <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
-                            Category
-                        </th>
-                        <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
-                            Description
-                        </th>
-                        <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
-                            Stock
-                        </th>
-                        <th scope="col" class="p-4 text-center text-xs font-medium uppercase whitespace-nowrap">
-                            ROP | Min | Max
-                        </th>
-                        <th scope="col" class="p-4">
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="bg-rfg-background text-rfg-text ">
-                    @foreach ($products as $product)
-                    <tr class="hover:bg-rfg-canvas">
-                        <td class="p-4 w-4">
-                            <div class="flex items-center">
-                                <input id="checkbox-{{ $product->id }}" aria-describedby="checkbox-1" type="checkbox"
-                                    class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded">
-                                <label for="checkbox-{{ $product->id }}" class="sr-only">checkbox</label>
-                            </div>
-                        </td>
-                        <td class="p-4 whitespace-nowrap text-base font-medium">{{ $product->id }}</td>
-                        <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                            <img class="h-10 w-10 rounded-full" src="{{ asset('./products/'.$product->image )}}" alt="{{ $product->sku }} avatar">
-                        </td>
-                        <td class="p-4 whitespace-nowrap text-base font-medium">{{ $product->sku }}</td>
-                        <td class="p-4 whitespace-nowrap text-base font-medium">{{ $product->name }}</td>
-                        <td class="p-4 whitespace-nowrap text-base font-medium">₱{{ $product->price }}</td>
-                        <td class="p-4 whitespace-nowrap text-base font-medium">{{ $product->category }}</td>
-                        <td class="p-4 whitespace-nowrap text-base font-medium">
-                            {{ substr($product->desc, 0, 50) }}
-                            {{ strlen($product->desc) > 50 ? '...' : '' }}
-                        </td>
-                        <td class="p-4 whitespace-nowrap text-base font-medium">
-                            <div class="flex items-center">
-                                @if ($product->computed_quantity == null)
-                                <div class="h-2.5 w-2.5 rounded-full bg-gray-500 mr-2"></div>
-                                @elseif ($product->computed_quantity > $product->max_qty)
-                                    <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>
-                                @elseif ($product->computed_quantity >= $product->min_qty && $product->computed_quantity <= $product->max_qty)
-                                    <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
-                                @elseif ($product->computed_quantity < $product->reorder_pt)
-                                    <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>
-                                @elseif ($product->computed_quantity < $product->min_qty)
-                                    <div class="h-2.5 w-2.5 rounded-full bg-orange-500 mr-2"></div>
-                                @endif
-                                <span>{{ $product->computed_quantity }}</span>
-                            </div>
-                        </td>
-                        <td class="p-4 whitespace-nowrap text-base font-medium text-center">{{ $product->min_qty }} | {{ $product->max_qty }} | {{ $product->reorder_pt }}</td>
-                        <td class="p-4 whitespace-nowrap space-x-2">
-                            <button data-modal-target="product-modal-{{ $product->id }}" data-modal-toggle="product-modal-{{ $product->id }}" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
-                                <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
-                                Edit
-                            </button>
-                            <button data-modal-target="delete-product-modal-{{ $product->id }}" data-modal-toggle="delete-product-modal-{{ $product->id }}" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
-                                <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
+                <div class="shadow overflow-hidden">
+                    <table class="table-fixed min-w-full ">
+                        <thead class="bg-rfg-canvas text-gray-500">
+                            <tr>
+                                <th scope="col" class="p-4">
+                                    <div class="flex items-center">
+                                        <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox"
+                                            class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded">
+                                        <label for="checkbox-all" class="sr-only">checkbox</label>
+                                    </div>
+                                </th>
+                                <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
+                                    ID
+                                </th>
+                                <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
+                                    Image
+                                </th>
+                                <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
+                                    SKU
+                                </th>
+                                <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
+                                    Name
+                                </th>
+                                <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
+                                    Price
+                                </th>
+                                <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
+                                    Category
+                                </th>
+                                <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
+                                    Description
+                                </th>
+                                <th scope="col" class="p-4 text-left text-xs font-medium uppercase">
+                                    Stock
+                                </th>
+                                <th scope="col" class="p-4 text-center text-xs font-medium uppercase whitespace-nowrap">
+                                    ROP | Min | Max
+                                </th>
+                                <th scope="col" class="p-4">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-rfg-background text-rfg-text ">
+                            @foreach ($products as $product)
+                            <tr class="hover:bg-rfg-canvas">
+                                <td class="p-4 w-4">
+                                    <div class="flex items-center">
+                                        <input id="checkbox-{{ $product->id }}" aria-describedby="checkbox-1" type="checkbox"
+                                            class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded">
+                                        <label for="checkbox-{{ $product->id }}" class="sr-only">checkbox</label>
+                                    </div>
+                                </td>
+                                <td class="p-4 whitespace-nowrap text-base font-medium">{{ $product->id }}</td>
+                                <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
+                                    <img class="h-10 w-10 rounded-full" src="{{ asset('./products/'.$product->image )}}" alt="{{ $product->sku }} avatar">
+                                </td>
+                                <td class="p-4 whitespace-nowrap text-base font-medium">{{ $product->sku }}</td>
+                                <td class="p-4 whitespace-nowrap text-base font-medium">{{ $product->name }}</td>
+                                <td class="p-4 whitespace-nowrap text-base font-medium">₱{{ $product->price }}</td>
+                                <td class="p-4 whitespace-nowrap text-base font-medium">{{ $product->category }}</td>
+                                <td class="p-4 whitespace-nowrap text-base font-medium">
+                                    {{ substr($product->desc, 0, 50) }}
+                                    {{ strlen($product->desc) > 50 ? '...' : '' }}
+                                </td>
+                                <td class="p-4 whitespace-nowrap text-base font-medium">
+                                    <div class="flex items-center">
+                                        @if ($product->computed_quantity == null)
+                                            <div class="h-2.5 w-2.5 rounded-full bg-gray-500 mr-2"></div>
+                                        @elseif ($product->computed_quantity > $product->max_qty)
+                                            <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>
+                                        @elseif ($product->computed_quantity >= $product->min_qty && $product->computed_quantity <= $product->max_qty)
+                                            <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
+                                        @elseif ($product->computed_quantity < $product->reorder_pt)
+                                            <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>
+                                        @elseif ($product->computed_quantity < $product->min_qty)
+                                            <div class="h-2.5 w-2.5 rounded-full bg-orange-500 mr-2"></div>
+                                        @endif
+                                        <span>{{ $product->computed_quantity }}</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 whitespace-nowrap text-base font-medium text-center">{{ $product->reorder_pt }} | {{ $product->min_qty }} | {{ $product->max_qty }}</td>
+                                <td class="p-4 whitespace-nowrap space-x-2">
+                                    <button data-modal-target="product-modal-{{ $product->id }}" data-modal-toggle="product-modal-{{ $product->id }}" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                        <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
+                                        Edit
+                                    </button>
+                                    <button data-modal-target="delete-product-modal-{{ $product->id }}" data-modal-toggle="delete-product-modal-{{ $product->id }}" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                        <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
 
-                        @include('admin.partials.edit-product-modal', ['product' => $product, 'categoryList' => $categoryList])
-                        @include('admin.partials.delete-product-modal', ['product' => $product, 'categoryList' => $categoryList])
+                                @include('admin.partials.edit-product-modal', ['product' => $product, 'categoryList' => $categoryList])
+                                @include('admin.partials.delete-product-modal', ['product' => $product, 'categoryList' => $categoryList])
 
-                    @endforeach
-                </tbody>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <x-slot:pagination>
+                    <div class="pt-2">
+                        {!! $products->links() !!}
+                    </div>
+                    
+                </x-slot>
+                
             </x-database-layout>
 
             {{-- <div class="bg-white sticky sm:flex items-center w-full sm:justify-between bottom-0 right-0 border-t border-gray-200 p-4">

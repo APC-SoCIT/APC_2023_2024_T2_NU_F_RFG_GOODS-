@@ -144,13 +144,13 @@
                 <span>TOTAL</span>
               </div>
               <div class="container mx-auto w-3/4 px-4 py-2 bg-stone-100 font-semibold  rounded-2xl    ">
-               <p class="text-center"> ₱1,030.00 </p>
+              <p class="text-center"> ₱1,030.00 </p>
               </div>
 
             <button class="bg-stone-100 font-bold hover:bg-stone-600 py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4	border-radius: 1rem;">Checkout</button>
           </div>
         </div>
-  
+
       </div>
     </div>
 

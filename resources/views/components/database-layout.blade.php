@@ -6,7 +6,7 @@
             <nav class="flex mb-5" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2">
                 <li class="inline-flex items-center">
-                    <a href="#" class="text-rfg-text hover:text-rfg-accent inline-flex items-center">
+                    <a href="/" class="text-rfg-text hover:text-rfg-accent inline-flex items-center">
                     <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
                     Dashboard
                     </a>
@@ -14,7 +14,7 @@
                 <li>
                     <div class="flex items-center">
                     <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <a href="#" class="text-rfg-text hover:text-rfg-accent ml-1 md:ml-2 text-sm font-medium">{{ $title }}</a>
+                    <p class="select-none text-rfg-text hover:text-rfg-accent ml-1 md:ml-2 text-sm font-medium">{{ $title }}</p>
                     </div>
                 </li>
                 </ol>
@@ -27,9 +27,9 @@
         <div class="sm:flex">
             <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
                 <form class="lg:pr-3" action="#" method="GET">
-                    <label for="products-search" class="sr-only">Search</label>
+                    <label for="search" class="sr-only">Search</label>
                     <div class="mt-1 relative lg:w-64 xl:w-96">
-                        <input type="text" name="email" id="products-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for {{ $title }}">
+                        <input onfocus="this.value='' " type="text" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for {{ $title }}">
                     </div>
                 </form>
                 <div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
@@ -83,5 +83,9 @@
                 </table>
             </div>
         </div>
+        {{ $pagination }}
     </div>
+
+    
+    
 </div>

@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
+use App\Models\Rating;
 use App\Models\ProductCategory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProductController extends Controller
 {
@@ -24,6 +28,7 @@ class ProductController extends Controller
 
         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
             ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
+            ->leftJoin('ratings', 'products.id', '=', 'ratings.product_id') // Add this line
             ->select(
                 'products.id',
                 'products.image',
@@ -35,22 +40,32 @@ class ProductController extends Controller
                 'products.min_qty',
                 'products.max_qty',
                 'products.reorder_pt',
-                DB::raw('SUM(CASE WHEN inventories.is_received = 1 THEN inventories.quantity ELSE -inventories.quantity END) as computed_quantity')
+                DB::raw('SUM(CASE WHEN inventories.is_received = 1 THEN inventories.quantity ELSE -inventories.quantity END) as computed_quantity'),
+                DB::raw('AVG(ratings.rating_score) as avg_rating') // Include the average rating
             )
-            ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt');
+            ->groupBy(
+                'products.id',
+                'products.image',
+                'products.sku',
+                'products.name',
+                'products.price',
+                'product_categories.category',
+                'products.desc',
+                'products.min_qty',
+                'products.max_qty',
+                'products.reorder_pt'
+            );
 
         if ($search) {
             $products = $products->where('products.name', 'LIKE', '%' . $search . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($search) . '%']);
-
         }
     
-        $products = $products->get();
+        $products = $products->paginate(10);
         
         $categoryList = ProductCategory::select('id', 'category')->get();
     
         return view('search', ['products' => $products, 'categoryList' => $categoryList]);
     }
-
 
     public function index(){
         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
@@ -69,17 +84,82 @@ class ProductController extends Controller
                 DB::raw('SUM(CASE WHEN inventories.is_received = 1 THEN inventories.quantity ELSE -inventories.quantity END) as computed_quantity')
             )
             ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt')
-            ->get();
+            ->paginate(10);
 
         $categoryList = ProductCategory::select('id', 'category')->get();
 
         return view('admin.products', ['products' => $products, 'categoryList' => $categoryList]);
     }
 
-    
+    public function livesearch(Request $request) {
+        if($request->ajax()) {
+            $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
+            ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
+            ->select(
+                'products.id',
+                'products.image',
+                'products.sku',
+                'products.name',
+                'products.price',
+                'product_categories.category',
+                'products.desc',
+                'products.min_qty',
+                'products.max_qty',
+                'products.reorder_pt',
+                DB::raw('SUM(CASE WHEN inventories.is_received = 1 THEN inventories.quantity ELSE -inventories.quantity END) as computed_quantity')
+            )
+            ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt')
+            ->where('id','like','%'.$request->search. '%')
+            ->orwhere('sku','like','%'.$request->search. '%')
+            ->orwhere('name','like','%'.$request->search. '%')
+            ->orwhere('category','like','%'.$request->search. '%')
+            ->orwhere('desc','like','%'.$request->search. '%')
+            ->orwhere('min_qty','like','%'.$request->search. '%')
+            ->orwhere('max_qty','like','%'.$request->search. '%')
+            ->orwhere('reorder_pt','like','%'.$request->search. '%')
+            ->get();
+
+            $output = '';
+
+            if(count($products) > 0){
+                
+            } else {
+
+            }
+        }
+    }
+
     public function create(){
         $categoryList = ProductCategory::select('id','category')->get();
         return view('products.create')->with('categoryList', $categoryList);
+    }
+
+    
+    public function addtocart(Request $request) {
+        $request->validate([
+            'user_id' => 'required',
+            'product_id' => 'required',
+            'quantity' => 'nullable',
+        ]);
+
+        $existingCart = Cart::where('user_id', Auth::user()->id)
+        ->where('product_id', $request->product_id)
+        ->first();
+
+        if ($existingCart) {
+            // If the row exists, update the quantity
+            $existingCart->quantity += $request->filled('quantity') ? $request->quantity : 1;
+            $existingCart->save();
+        } else {
+            // If the row doesn't exist, create a new one
+            $newCart = new Cart;
+            $newCart->user_id = Auth::user()->id;
+            $newCart->product_id = $request->product_id;
+            $newCart->quantity = $request->filled('quantity') ? $request->quantity : 1;
+            $newCart->save();
+        }
+
+        return redirect()->back();
     }
 
     public function save(Request $request){

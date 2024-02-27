@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::put('user/address/update', [UserAddressController::class, 'update'])->name('user.address.update');
     Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
-    Route::get('/addtocart/{product}', [ProductController::class, 'addtocart'])->name('product.addtocart');
+    Route::post('/addtocart', [ProductController::class, 'addtocart'])->name('product.addtocart');
     Route::get('/cart', function () {
         return view('cart');
     });
