@@ -13,12 +13,11 @@
 <body class="bg-gray-100">
     @include('navbar.navbar')
 
-    <div class="flex flex-col items-center">
-
+    <div class="block flex-col items-center">
         <div class="flex justify-center">
             {{-- filter start --}}
             <div class="hidden h-dvh md:flex">
-                <div class="w-96 p-5">
+                <div class="w-96 p-5 relative">
                     <p class="font-bold">Filters</p>
     
                     <hr class="my-2">
