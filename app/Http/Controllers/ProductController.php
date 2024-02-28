@@ -67,6 +67,29 @@ class ProductController extends Controller
         return view('search', ['products' => $products, 'categoryList' => $categoryList]);
     }
 
+    public function indexCart() {
+        $usercart = Cart::join('products', 'cart.product_id', '=', 'products.id')
+            ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
+            ->join('inventories', 'products.id', '=', 'inventories.product_id')
+            ->select(
+                'carts.id',
+                'carts.quantity',
+                'products.id',
+                'products.image',
+                'products.sku',
+                'products.name',
+                'products.price',
+                'product_categories.category',
+                'products.desc',
+                'products.min_qty',
+                'products.max_qty',
+                'products.reorder_pt',
+                DB::raw('SUM(CASE WHEN inventories.is_received = 1 THEN inventories.quantity ELSE -inventories.quantity END) as computed_quantity')
+            )
+            ->where('user_id','=', Auth::user()->id)
+            ->get();
+    }
+
     public function index(){
         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
             ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')

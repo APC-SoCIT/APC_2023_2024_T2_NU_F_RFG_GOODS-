@@ -60,7 +60,6 @@
                      </svg>
                      <p class="font-mono text-green-600 text-base">+2.00%</p>
                   </div>
-                  
                </div>
             </div>
             <div class="flex items-center justify-between p-1 h-52 rounded-2xl bg-rfg-background">

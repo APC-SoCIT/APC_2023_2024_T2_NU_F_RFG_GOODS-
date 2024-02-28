@@ -20,12 +20,12 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                'rfg-background': '#0D121F',
-                'rfg-text': '#FFF9F3',
-                'rfg-primary': '#F9CD7B',
-                'rfg-secondary': '#1D222F',
-                'rfg-accent': '#F6903F',
-                'rfg-canvas': '#010613',
+                'rfg-background': '#0D121F', //light black
+                'rfg-text': '#FFF9F3', //white
+                'rfg-primary': '#F9CD7B', //light orange
+                'rfg-secondary': '#1D222F', //light light black
+                'rfg-accent': '#F6903F', //orange
+                'rfg-canvas': '#010613', // black
             },
             screens: {
                 'cellphone': '400px',
