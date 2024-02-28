@@ -1,5 +1,5 @@
 <nav class="bg-orange-400 z-50">
-  <div class="flex flex-wrap items-center mx-auto p-2.5">
+  <div class="flex flex-wrap items-center justify-between mx-auto p-2.5">
       <div class="flex items-center justify-start rtl:justify-end">
           <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-white rounded-lg sm:hidden hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-white dark:text-white dark:hover:bg-orange-500 dark:focus:ring-white">
               <span class="sr-only">Open sidebar</span>
@@ -9,7 +9,7 @@
           </button>
       </div>
       <div>
-        <a href="/" class="pl-5 flex space-x-3 rtl:space-x-reverse pr-8">
+        <a href="/" class="pl-5 flex space-x-3 rtl:space-x-reverse pr-5">
             <img src="/Img/logo1.png" class="h-12 w-12" alt="RFG Logo" />
         </a>
       </div>
@@ -25,7 +25,7 @@
               <input name="search" type="search" id="search-navbar" class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-orange-200 rounded-lg bg-orange-200 focus:ring-blue-500 focus:border-blue-500" placeholder="Search">
           </form>
       </div>
-      <div class="flex md:order-2 ml-auto">
+      <div class="flex md:order-2">
           <!-- Toggle button for small screens -->
           <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" class="md:hidden text-white hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-white rounded-lg text-sm p-2.5 me-1">
               <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -41,7 +41,7 @@
               </svg>
           </button>
       </div>
-      <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 ml-auto" id="navbar-search">
+      <div class="justify-self-end hidden w-full md:flex md:w-auto md:order-1 ml-auto" id="navbar-search">
           <!-- Search form for smaller screens -->
           <form action="{{ route('search') }}">
               <div class="relative mt-3 md:hidden">

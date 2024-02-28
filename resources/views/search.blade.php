@@ -13,23 +13,24 @@
 <body>
     @include('navbar.navbar')
 
-    <div class="flex">
+    <div class="flex justify-center">
         {{-- filter start --}}
         <div class="hidden h-dvh md:flex">
-            <div class="w-96 border-black border-4 p-5">
-                <p >Filters</p>
+            <div class="w-96 p-5">
+                <p class="font-bold">Filters</p>
 
                 <hr class="my-2">
 
                 <div id="accordion-collapse" data-accordion="open" class="w-full">
 
                     <h2 id="accordion-collapse-price">
-                        <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-white" 
+                    <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" 
                         data-accordion-target="#accordion-collapse-price-body" 
                         aria-expanded="true" 
-                        aria-controls="accordion-collapse-price-body">
-                            <span>Price</span>
-                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        aria-controls="accordion-collapse-price-body"
+                        style="background-color: #F6903F;">
+                            <span class="text-white">Price</span>
+                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
                             </svg>
                         </button>
@@ -46,12 +47,13 @@
                     <hr class="my-2">
 
                     <h2 id="accordion-collapse-availability">
-                        <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-white" 
+                        <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-" 
                         data-accordion-target="#accordion-collapse-availability-body" 
                         aria-expanded="true" 
-                        aria-controls="accordion-collapse-availability-body">
+                        aria-controls="accordion-collapse-availability-body"
+                        style="background-color: #F6903F;">
                             <span>Availability</span>
-                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
                             </svg>
                         </button>
@@ -59,7 +61,7 @@
                     <div id="accordion-collapse-availability-body" class="hidden" aria-labelledby="accordion-collapse-availability">
                         <div class="p-2 pl-5">
                             <div class="flex items-center gap-2">
-                                <input name="filter.category" type="checkbox">
+                                <input name="filter.category" type="checkbox" class="text-black focus:ring-white focus:outline-none">
                                 <label for="filter.category">In Stock</label>
                             </div>
                         </div>
@@ -71,9 +73,10 @@
                         <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-white" 
                         data-accordion-target="#accordion-collapse-body-3" 
                         aria-expanded="true" 
-                        aria-controls="accordion-collapse-body-3">
+                        aria-controls="accordion-collapse-body-3"
+                        style="background-color: #F6903F;">
                             <span>Category</span>
-                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
                             </svg>
                         </button>
@@ -81,12 +84,12 @@
                     <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
                         <div class="p-2 pl-5">
                             <div class="flex items-center gap-2">
-                                <input name="filter.category" type="checkbox">
+                                <input name="filter.category" type="checkbox" class="text-black focus:ring-white focus:outline-none">
                                 <label for="filter.category">All</label>
                             </div>
                             @foreach ($categoryList as $category)
                                 <div class="flex items-center gap-2">
-                                    <input name="filter.category" type="checkbox">
+                                    <input name="filter.category" type="checkbox" class="text-black focus:ring-white focus:outline-none">
                                     <label for="filter.category">{{$category->category}}</label>
                                 </div>
                             @endforeach
@@ -97,9 +100,13 @@
         </div>
         {{-- filter end --}}
 
-        <div class="flex flex-col">
+        <div class="flex flex-col pb-11">
+            <div class=pt-5>
+            <p class="font-bold">Products</p>
+            <hr class=my-2>
+            </div>
             {{-- search container start --}}
-            <div class="flex justify-center mb-10 px-5">
+            <div class="flex justify-center mb-10 px-5 items-center">
                 <div class="grid md:grid-cols-4 grid-cols-2 gap-4 h-full">
                     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
                     <script>
@@ -181,7 +188,7 @@
                 </div>
             </div>
             {{-- search container end --}}
-            <div class="pt-2">
+            <div class="pt-2 flex justify-center">
                 {!! $products->links() !!}
             </div>
             
