@@ -9,7 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
     @vite('resources/css/app.css')
 </head>
-<body class="overflow-x-hidden scrollbar-hide">
+<body class="overflow-x-hidden scrollbar-hide bg-gray-100">
     @include('navbar.navbar')
     <div id="default-carousel" class="relative w-full z-0" data-carousel="slide">
         <!-- Carousel wrapper -->

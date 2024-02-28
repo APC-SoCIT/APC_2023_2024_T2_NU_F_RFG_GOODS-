@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body>
+<body class="bg-gray-100">
     @include('navbar.navbar')
 
     <div class="flex flex-col items-center">
@@ -127,15 +127,16 @@
                             {{-- product for loop start --}}
                             @forelse($products as $product)
         
-                                <div class="bg-slate-200 w-60 h-[23rem] flex flex-col">
-                                    <a href="{{route('product.get',['product' => $product])}}" class="flex flex-col h-full">
-                                        <img src="{{ asset('./products/'.$product->image )}}" 
+                                <div class="bg-white w-60 h-[23rem] flex flex-col drop-shadow-md">
+                                    <a href="{{route('product.get',['product' => $product])}}" class="flex flex-col h-full border-2 border-transparent hover:border-rfg-accent transition-colors duration-200">
+                                        <img src="{{ asset('./products/vinegar.chg.22043.png' )}}" 
+                                        class="flex-shrink-0 object-center object-contain w-full max-h-[15rem]"
                                         @if ($product->computed_quantity==0 || $product->computed_quantity==null)
                                             class="opacity-0" 
                                         @endif
                                         alt="">
                                         <div class="p-2 flex flex-col flex-grow justify-between">
-                                            <div>
+                                            <div class="pt-3">
                                                 <p class="text-s line-clamp-2">{{ Str::ucfirst($product->name) }}</p>
                                                 <p class="text-xs line-clamp-1">{{ $product->category }}</p>
                                             </div>
@@ -147,10 +148,10 @@
                                                     $filledStars = min(round($avgRating), $maxRating);
                                                     $emptyStars = $maxRating - $filledStars;
                                                 @endphp
-                                                <ul class="flex mr-2">
+                                                <ul class="flex mr-2 place-items-center">
                                                     @for ($i = 0; $i < $filledStars; $i++)
                                                         <li>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star-fill" viewBox="0 0 16 16">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star-fill " viewBox="0 0 16 16">
                                                                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                                                             </svg>
                                                         </li>
@@ -164,7 +165,7 @@
                                                     @endfor
     
                                                 </ul>
-                                                <p>
+                                                <p class="relative pl-4">
                                                     @if ($product->avg_rating == null) 
                                                         No reviews
                                                     @else ()
