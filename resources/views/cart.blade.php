@@ -11,10 +11,13 @@
         background-color: ;
       }
     </style>
+    @vite(['resources/css/app.css','resources/js/app.js'])
   </head>
-  
+
   <body class="bg-gray-100">
-    <div class="container mx-auto mt-10">
+    @include('navbar.navbar')
+
+    <div class="container mx-auto">
       <div class="flex shadow-md my-10">
         <div class="w-3/4 bg-white px-10 py-10">
           <div class="flex justify-between border-b pb-8">
@@ -23,9 +26,9 @@
           </div>
           <div class="flex mt-10 mb-5">
             <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
-            <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
-            <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
-            <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
+            <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Quantity</h3>
+            <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Price</h3>
+            <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Total</h3>
           </div>
           <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
             <div class="flex w-2/5"> <!-- product -->
@@ -77,7 +80,9 @@
             <span class="text-center w-1/5 font-semibold text-sm">$40.00</span>
             <span class="text-center w-1/5 font-semibold text-sm">$40.00</span>
           </div>
-  
+
+          {{-- @foreach --}}
+
           <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
             <div class="flex w-2/5"> <!-- product -->
               <div class="w-20">
@@ -89,20 +94,89 @@
                 <a href="#" class="font-semibold hover:text-red-500 text-gray-500 text-xs"> </a>
               </div>
             </div>
+            {{-- quantity start --}}
             <div class="flex justify-center w-1/5">
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512"><path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
-              </svg>
-              <input class="mx-2 border text-center w-8" type="text" value="1">
-  
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-                <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
-              </svg>
+
+              <button
+                id="decrement"
+                class="w-10 flex text-blackrounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-black hover:text-gray-700 dark:bg-stone-300 hover:bg-gray-400">
+                <span class="m-auto text-2xl font-thin">-</span>
+              </button>
+
+              <input id="quantity" type="number" placeholder="1"
+              class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none 
+              flex items-center w-full font-semibold text-center text-black placeholder-black bg-gray-300 outline-none dark:text-black dark:placeholder-black dark:bg-stone-400 focus:outline-none text-md hover:text-black">
+              
+              <button
+                id="increment"
+                class="w-10 flex text-blackrounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-black hover:text-gray-700 dark:bg-stone-300 hover:bg-gray-400">
+                <span class="m-auto text-2xl font-thin">+</span>
+              </button>
+
+              <script>
+
+                  // var stock = parseInt(" $product->computed_quantity ");
+                  var stock = parseInt("3");
+
+                  document.getElementById('decrement').addEventListener('click', function () {
+                      decrementQuantity();
+                  });
+
+                  document.getElementById('increment').addEventListener('click', function () {
+                      incrementQuantity();
+                  });
+
+                  document.getElementById('quantity').addEventListener('input', function () {
+                      validateQuantity();
+                  });
+
+                  function decrementQuantity() {
+                      var quantityInput = document.getElementById('quantity');
+                      var currentValue = parseInt(quantityInput.value, 10);
+
+                      if (!isNaN(currentValue) && currentValue > 1) {
+                          quantityInput.value = currentValue - 1;
+                      }
+                      validateQuantity();
+                  }
+
+                  function incrementQuantity() {
+                      var quantityInput = document.getElementById('quantity');
+                      var currentValue = parseInt(quantityInput.value, 10);
+
+                      if (!isNaN(currentValue) && currentValue < stock) {
+                          quantityInput.value = currentValue + 1;
+                      } else {
+                          if (quantityInput.value === '') {  // Check if the input is empty
+                              quantityInput.value = 1;
+                          } else {
+                              quantityInput.value = stock;
+                          }
+                      }
+                      validateQuantity();
+                  }
+
+                  function validateQuantity() {
+                      var quantityInput = document.getElementById('quantity');
+                      var currentValue = parseInt(quantityInput.value, 10);
+
+                      if (isNaN(currentValue) || currentValue < 1) {
+                          quantityInput.value = 1;
+                      } else if (currentValue > stock) {
+                          quantityInput.value = stock;
+                      }
+                  }
+
+              </script>
+
             </div>
-            <span class="text-center w-1/5 font-semibold text-sm">$150.00</span>
-            <span class="text-center w-1/5 font-semibold text-sm">$150.00</span>
+            <span class="text-center w-1/5 font-semibold text-sm">Product Price</span>
+            <span class="text-center w-1/5 font-semibold text-sm">Total</span>
           </div>
+
+          {{-- @endforeach --}}
   
-          <a href="#" class="flex font-semibold text-indigo-600 text-sm mt-10">
+          <a href="/" class="flex font-semibold text-indigo-600 text-sm mt-10">
         
             <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
             Continue Shopping

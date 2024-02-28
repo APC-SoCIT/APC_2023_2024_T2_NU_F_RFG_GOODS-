@@ -227,8 +227,8 @@
                         <li class="py-2">
                         {{$product->desc}}
                         </li>
-
                     </ul>
+                    
                     <article class="ml-20 bg-orange-400 px-4 rounded-xl">
                         <h1 class="font-bold flex items-center text-xl py-1">Reviews</h1>
                         <div class="bg-white rounded-xl">
