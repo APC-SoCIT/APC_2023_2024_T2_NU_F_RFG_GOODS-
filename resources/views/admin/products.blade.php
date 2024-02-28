@@ -113,7 +113,7 @@
                                 </td>
                                 <td class="p-4 whitespace-nowrap text-base font-medium text-center">{{ $product->reorder_pt }} | {{ $product->min_qty }} | {{ $product->max_qty }}</td>
                                 <td class="p-4 whitespace-nowrap space-x-2">
-                                    <button data-modal-target="product-modal-{{ $product->id }}" data-modal-toggle="product-modal-{{ $product->id }}" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                    <button data-modal-target="product-modal-{{ $product->id }}" data-modal-toggle="product-modal-{{ $product->id }}" class="text-white bg-rfg-accent hover:bg-orange-500 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                         <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
                                         Edit
                                     </button>
@@ -166,10 +166,10 @@
             <div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="add-product-modal">
                 <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
                     <!-- Modal content -->
-                    <div class="bg-white rounded-lg shadow relative">
+                    <div class="bg-rfg-canvas rounded-lg shadow relative">
                         <!-- Modal header -->
                         <div class="flex items-start justify-between p-5 border-b rounded-t">
-                            <h3 class="text-xl font-semibold">
+                            <h3 class="text-xl font-semibold text-rfg-text">
                                 Add new product
                             </h3>
                             <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="add-product-modal">
@@ -183,20 +183,20 @@
                                     @csrf
                                     @method('post')
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="sku" class="text-sm font-medium text-gray-900 block mb-2">SKU</label>
+                                        <label for="sku" class="text-sm font-medium text-rfg-text block mb-2">SKU</label>
                                         <input type="text" name="sku" id="sku" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Name</label>
+                                        <label for="name" class="text-sm font-medium text-rfg-text block mb-2">Name</label>
                                         <input type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price</label>
+                                        <label for="price" class="text-sm font-medium text-rfg-text block mb-2">Price</label>
                                         <input type="numer" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <div class="flex">
-                                            <label for="category_id" class="text-sm font-medium text-gray-900 block mb-2 mr-1">Category ID</label>
+                                            <label for="category_id" class="text-sm font-medium text-rfg-text block mb-2 mr-1">Category ID</label>
                                             <a href="/admin/categories">
                                                 <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
@@ -204,7 +204,7 @@
                                                 </svg>
                                             </a>
                                         </div>
-                                        <select name="category_id" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                                        <select name="category_id" class="shadow-sm bg-gray-50 border border-gray-300 text-rfg-text sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                             @forelse ($categoryList as $category)
                                                 <option value="{{$category->id}}">{{$category->category}}</option>
                                             @empty
@@ -213,30 +213,30 @@
                                         </select>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="image" class="text-sm font-medium text-gray-900 block mb-2">Image</label>
+                                        <label for="image" class="text-sm font-medium text-rfg-text block mb-2">Image</label>
                                         <input type="file" name="image" id="image" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-[0.03rem]" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="min_qty" class="text-sm font-medium text-gray-900 block mb-2">Minimum Quantity</label>
+                                        <label for="min_qty" class="text-sm font-medium text-rfg-text block mb-2">Minimum Quantity</label>
                                         <input type="text" name="min_qty" id="min_qty" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="max_qty" class="text-sm font-medium text-gray-900 block mb-2">Maximum Quantity</label>
+                                        <label for="max_qty" class="text-sm font-medium text-rfg-text block mb-2">Maximum Quantity</label>
                                         <input type="text" name="max_qty" id="max_qty" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="reorder_pt" class="text-sm font-medium text-gray-900 block mb-2">Reorder Point</label>
+                                        <label for="reorder_pt" class="text-sm font-medium text-rfg-text block mb-2">Reorder Point</label>
                                         <input type="text" name="reorder_pt" id="reorder_pt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-6">
-                                        <label for="desc" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
+                                        <label for="desc" class="text-sm font-medium text-rfg-text block mb-2">Description</label>
                                         <textarea name="desc" id="desc" rows="4" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required></textarea>
                                     </div>
                                 </div> 
                         </div>
                         <!-- Modal footer -->
                         <div class="items-center p-6 border-t border-gray-200 rounded-b">
-                            <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add product</button>
+                            <button class="text-white bg-orange-500 hover:bg-orange-800 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add product</button>
                         </div>
                         </form>
                     </div>
