@@ -11,7 +11,7 @@ class InventoryController extends Controller
     public function index() {
         $inventoryList = Inventory::join('products', 'inventories.product_id', '=', 'products.id')
         ->select('inventories.id','products.sku','products.name','inventories.is_received','inventories.quantity','inventories.created_at','inventories.updated_at')
-        ->get();
+        ->paginate(10);
         $productList = Product::all();
         return view('admin.inventories', ['inventoryList' => $inventoryList,'productList' => $productList]);
     }

@@ -62,7 +62,7 @@ class ProductController extends Controller
             if ($request->search != null || $request->search != "") {
                 $products = $products->where(DB::raw('LOWER(name)'), 'LIKE', '%' . strtolower($request->search) . '%');
             }
-    
+
             $products = $products->paginate(10);
             $categoryList = ProductCategory::select('id', 'category')->get();
 
@@ -78,8 +78,13 @@ class ProductController extends Controller
                 return Response($output);
             }
         }
-
     }
+
+    public function filterProducts(Request $request) {
+        
+    }
+
+
 
     public function search(Request $request)
     {

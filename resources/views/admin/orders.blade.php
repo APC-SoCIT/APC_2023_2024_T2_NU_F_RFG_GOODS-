@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin > Inventories</title>
+    <title>Admin > Orders</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
@@ -14,8 +14,8 @@
 
     <div class="p-4 sm:ml-64">
         <div class="mt-16">
-        
-        <x-database-layout title="Inventory" modal="inventory">
+
+        <x-database-layout title="Order" modal="Order">
             <div class="shadow overflow-hidden">
                 <table class="table-fixed min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-100">

@@ -43,9 +43,9 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <hr class="my-2">
-    
+
                         <h2 id="accordion-collapse-availability">
                             <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-" 
                             data-accordion-target="#accordion-collapse-availability-body" 
@@ -59,16 +59,16 @@
                             </button>
                         </h2>
                         <div id="accordion-collapse-availability-body" class="hidden" aria-labelledby="accordion-collapse-availability">
-                            <div class="p-2 pl-5">
-                                <div class="flex items-center gap-2">
-                                    <input name="filter.category" type="checkbox" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.category">In Stock</label>
+                            <div class="p-2">
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.availabilityInstock')">
+                                    <input name="filter.availabilityInstock" type="checkbox" class="text-black focus:ring-white focus:outline-none" >
+                                    <label for="filter.availabilityInstock">In Stock</label>
                                 </div>
                             </div>
                         </div>
-    
+
                         <hr class="my-2">
-    
+
                         <h2 id="accordion-collapse-category">
                             <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-white" 
                             data-accordion-target="#accordion-collapse-category-body" 
@@ -82,7 +82,7 @@
                             </button>
                         </h2>
                         <div id="accordion-collapse-category-body" class="hidden transition-all" aria-labelledby="accordion-collapse-heading-3">
-                            <div class="p-2">
+                            <div id="catFilters"class="p-2">
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.categoryAll')">
                                     <input name="filter.categoryAll" type="checkbox" class="text-black focus:ring-white focus:outline-none">
                                     <label for="filter.categoryAll">All</label>
@@ -90,25 +90,16 @@
                                 @foreach ($categoryList as $category)
                                     <form action="{{ route('search') }}" method="GET">
                                         <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.category{{$category->category}}')">
-                                            <input name="filter.category{{$category->category}}" type="checkbox" class="text-black focus:ring-white focus:outline-none">
+                                            <input name="filter.category{{$category->category}}" type="checkbox" class="category_checkbox text-black focus:ring-white focus:outline-none">
                                             <label for="filter.category{{$category->category}}">{{$category->category}}</label>
                                         </div>
                                     </form>
                                 @endforeach
-
-                                <script>
-                                    function toggleCheckbox(divElement, name) {
-
-                                        var checkbox = divElement.querySelector('input[name="' + name + '"]');
-                                        checkbox.checked = !checkbox.checked; // Toggle checkbox state
-                                    }
-                                </script>
-
                             </div>
                         </div>
 
                         <hr class="my-2">
-    
+
                         <h2 id="accordion-collapse-rating">
                             <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-white" 
                             data-accordion-target="#accordion-collapse-rating-body" 
@@ -122,92 +113,91 @@
                             </button>
                         </h2>
                         <div id="accordion-collapse-rating-body" class="hidden transition-all" aria-labelledby="accordion-collapse-heading-3">
-                            <div class="p-2 pl-5">
-                                <div class="flex items-center gap-2">
-                                    <input name="filter.rating" type="checkbox" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating" class="flex">5
+                            <div class="p-2">
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating5')">
+                                    <input name="filter.rating5" type="checkbox" class="text-black focus:ring-white focus:outline-none">
+                                    <label for="filter.rating5" class="flex cursor-pointer">5
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 5; $i++)
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star-fill " viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
                                                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                                                 </svg>     
                                             @endfor
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <input name="filter.rating" type="checkbox" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating" class="flex">4
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating4')">
+                                    <input name="filter.rating4" type="checkbox" class="text-black focus:ring-white focus:outline-none">
+                                    <label for="filter.rating4" class="flex cursor-pointer">4
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 4; $i++)
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star-fill " viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
                                                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                                                 </svg>     
                                             @endfor
                                             @for ($i = 0; $i < 1; $i++)
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star" viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star" viewBox="0 0 16 16">
                                                     <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
                                                 </svg>
                                             @endfor
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <input name="filter.rating" type="checkbox" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating" class="flex">3
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating3')">
+                                    <input name="filter.rating3" type="checkbox" class="text-black focus:ring-white focus:outline-none">
+                                    <label for="filter.rating3" class="flex cursor-pointer">3
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 3; $i++)
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star-fill " viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
                                                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                                                 </svg>     
                                             @endfor
                                             @for ($i = 0; $i < 2; $i++)
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star" viewBox="0 0 16 16">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star" viewBox="0 0 16 16">
                                                 <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
                                             </svg>
                                         @endfor
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <input name="filter.rating" type="checkbox" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating" class="flex">2
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating2')">
+                                    <input name="filter.rating2" type="checkbox" class="text-black focus:ring-white focus:outline-none">
+                                    <label for="filter.rating2" class="flex cursor-pointer">2
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 2; $i++)
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star-fill " viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
                                                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                                                 </svg>     
                                             @endfor
                                             @for ($i = 0; $i < 3; $i++)
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star" viewBox="0 0 16 16">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star" viewBox="0 0 16 16">
                                                 <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
                                             </svg>
                                         @endfor
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <input name="filter.rating" type="checkbox" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating" class="flex">1
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating1')">
+                                    <input name="filter.rating1" type="checkbox" class="text-black focus:ring-white focus:outline-none">
+                                    <label for="filter.rating1" class="flex cursor-pointer">1
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 1; $i++)
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star-fill " viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
                                                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                                                 </svg>     
                                             @endfor
                                             @for ($i = 0; $i < 4; $i++)
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star" viewBox="0 0 16 16">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star" viewBox="0 0 16 16">
                                                 <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
                                             </svg>
                                         @endfor
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <input name="filter.rating" type="checkbox" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating">No reviews</label>
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating0')">
+                                    <input name="filter.rating0" type="checkbox" class="text-black focus:ring-white focus:outline-none">
+                                    <label for="filter.rating0" class="flex cursor-pointer">No reviews</label>
                                 </div>
-
                             </div>
                         </div>
                         
@@ -215,7 +205,7 @@
                 </div>
             </div>
             {{-- filter end --}}
-    
+
             <div class="flex flex-col">
                 <div class=pt-5>
                 <p class="font-bold">Products</p>
@@ -225,8 +215,34 @@
                 <div class="flex justify-center mb-10 px-5 items-center">
                     <div class="grid md:grid-cols-4 grid-cols-2 gap-4 h-full">
                             {{-- product for loop start --}}
+
                             @forelse($products as $product)
-                                <div class="bg-white w-60 h-[23rem] flex flex-col drop-shadow-md">
+
+                            <script>
+                                function toggleCheckbox(divElement, name) {
+                                    var checkbox = divElement.querySelector('input[name="' + name + '"]');
+                                    checkbox.checked = !checkbox.checked;
+                                    if(checkbox.checked) {
+                                        var filteredName = name.replace('filter.category', '')
+                                                                .replace('filter.availability', '')
+                                                                .replace('filter.rating', '');
+                                        console.log("Filtered Name: " + filteredName);
+                                        var checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                                        checkedCheckboxes.forEach(function(checkbox) {
+                                            console.log("Checked Checkbox ID: " + checkbox.name);
+                                            var products = document.getElementById('{{$product->id}}');
+                                            
+                                            if (checkbox.filteredName=='{{$product->category}}') {
+                                                products.style.display = 'flex';
+                                            } else {
+                                                products.style.display = 'none';
+                                            }
+                                        });
+                                    }
+                                }
+                            </script>
+
+                                <div id="{{$product->id}}" class="bg-white w-60 h-[23rem] flex-col drop-shadow-md">
                                     <a href="{{route('product.get',['product' => $product])}}" class="flex flex-col h-full border-2 border-transparent hover:border-rfg-accent transition-colors duration-200">
                                         <img src="{{ asset('./products/vinegar.chg.22043.png' )}}" 
                                         class="flex-shrink-0 object-center object-contain w-full max-h-[15rem]"

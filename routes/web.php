@@ -119,5 +119,5 @@ Route::get('/product', function () {
 Route::get('/search/{search?}', [ProductController::class, 'search'])->name('search');
 
 Route::get('/ajax',[ProductController::class, 'indexAjax'])->name('indexAjax');
-Route::get('/ajax/search',[ProductController::class, 'searchAjax'])->name('searchAjax');
+Route::resource('ajax', ProductController::class);
 
