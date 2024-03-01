@@ -49,9 +49,10 @@ Route::middleware('auth')->group(function () {
     Route::put('user/address/update', [UserAddressController::class, 'update'])->name('user.address.update');
     Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
     Route::post('/addtocart', [ProductController::class, 'addtocart'])->name('product.addtocart');
-    Route::get('/cart', function () {
-        return view('cart');
-    });
+    // Route::get('/cart', function () {
+    //     return view('cart');
+    // });
+    Route::get('/cart', [ProductController::class, 'userCart'])->name('product.userCart');
 });
 
 Route::middleware('admin')->group(function () {
@@ -115,14 +116,8 @@ Route::get('/product', function () {
     return view('product');
 });
 
-// Route::get('/search', function () {
-//     if (request('search')) {
-//         $products = Product::where('name','like','%' . request('search'). '%')->get();
-//     } else {
-//         $products = Product::all();
-//     }
-//     return view('search')->with('products', $products);
-// })->name('search');
-
 Route::get('/search/{search?}', [ProductController::class, 'search'])->name('search');
+
+Route::get('/ajax',[ProductController::class, 'indexAjax'])->name('indexAjax');
+Route::get('/ajax/search',[ProductController::class, 'searchAjax'])->name('searchAjax');
 

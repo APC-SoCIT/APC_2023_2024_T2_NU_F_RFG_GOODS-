@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/dist/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
+    @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body>
     @include('navbar.navbar')
@@ -15,11 +16,11 @@
             <div class="flex flex-wrap -mx-4">
                 <div class="w-full px-4 md:w-1/2 ">
                     <div class="sticky top-0 z-50 overflow-hidden ">
-                        <div class="relative mb-6 lg:mb-10 h-80 py-6 px-12">
-                            <img src="/products/{{ $product->image }}" alt=""
-                            class="w-full h-68 rounded-3xl">
+                        <div class="relative py-6 px-12">
+                            <img src="{{ asset('./products/vinegar.chg.22043.png' )}}" alt=""
+                            class="flex-shrink-0 object-center object-contain w-full max-h-[25rem]">
                         </div>
-                        <div class="flex-wrap hidden md:flex pt-28">
+                        {{-- <div class="flex-wrap hidden md:flex">
                             <div class="w-1/2 p-2 sm:w-1/4">
                                 <a href="#"
                                     class="block border border-orange-300 dark:border-transparent dark:hover:border-orange-300 hover:border-orange-300">
@@ -48,7 +49,7 @@
                                         class="object-cover w-full h-full">
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>
@@ -121,7 +122,7 @@
                             <p class="inline-block mb-8 text-4xl font-bold text-gray-700 dark:text-black ">
                                 <span>₱{{ $product->price }}</span>
                             </p>
-                            <p class="text-green-600 dark:text-green-500 ">stock: {{ $product->computed_quantity }}</p>
+                            <p class="text-green-600 dark:text-green-500">stock: {{ $product->computed_quantity }}</p>
                         </div>
 
 
@@ -219,17 +220,17 @@
                 </div>
             </div>
             <div class="ml-6 pb-5">
-                <div class="grid grid-cols-2 h-80">
-                    <ul class="font-semibold">
+                <div class="grid grid-cols-1 sm:grid-cols-2 h-80">
+                    <ul class="font-semibold hyphens-auto break-all">
                         <li>
-                        <h1 class="font-bold text-3xl py-2">Product Specifications</h1>
+                        <h1 class="font-bold text-3xl py-2">Product Description</h1>
                         </li>
-                        <li class="py-2">
+                        <li class="py-2 hyphens-auto">
                         {{$product->desc}}
                         </li>
                     </ul>
-                    
-                    <article class="ml-20 bg-orange-400 px-4 rounded-xl">
+
+                    <article class="sm:ml-20 bg-orange-400 px-4 rounded-xl">
                         <h1 class="font-bold flex items-center text-xl py-1">Reviews</h1>
                         <div class="bg-white rounded-xl">
                             <div class="flex mb-1">

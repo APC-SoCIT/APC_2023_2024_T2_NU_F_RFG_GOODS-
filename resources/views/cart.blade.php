@@ -6,11 +6,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
-    <style>
-      #summary {
-        background-color: ;
-      }
-    </style>
     @vite(['resources/css/app.css','resources/js/app.js'])
   </head>
 
@@ -30,151 +25,163 @@
             <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Price</h3>
             <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Total</h3>
           </div>
-          <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
-            <div class="flex w-2/5"> <!-- product -->
-              <div class="w-20">
-                <img class="h-24" src="./img/chi.jpg" alt="">
+
+          {{-- product loop start --}}
+
+          @foreach ($usercart as $cartItem)
+
+          {{-- in stock layout start --}}
+
+          @if( $cartItem->computed_quantity != null || $cartItem->computed_quantity != 0 )
+
+            <script>
+              console.log("{{ $cartItem->name }}","in stock");
+            </script>
+
+            <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+              <div class="flex w-2/5"> <!-- product -->
+                <div class="w-20">
+                  <img class="h-24" src="{{ asset('./products/'.$cartItem->image )}}" alt="">
+                </div>
+                <div class="flex flex-col justify-center items-center ml-4 flex-grow">
+                  <span class="font-bold text-sm justify-items-center"><p> <p></span>
+                      <span class="font-bold text-sm justify-items-center">{{$cartItem->name}}</span>
+                  <a href="#" class="font-semibold hover:text-red-500 text-gray-500 text-xs"> </a>
+                </div>
               </div>
-              <div class="flex flex-col justify-center items-center ml-4 flex-grow">
+              {{-- quantity start --}}
+              <div class="flex justify-center w-1/5">
+
+                <button
+                  id="decrement{{$cartItem->id}}"
+                  class="w-1/6 flex items-center justify-center pb-1 pl-0.5 text-blackrounded-l outline-none cursor-pointer hover:bg-gray-400 rounded-tl-xl rounded-bl-xl">
+                  <span class="text-2xl font-thin">-</span>
+                </button>
+
+                <input id="quantity{{$cartItem->id}}" type="number" value="{{$cartItem->quantity}}"
+                class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none 
+                flex items-center w-1/3 font-semibold text-center text-black bg-white outline-none focus:outline-none text-md hover:text-black">
                 
-                <span class="font-bold text-sm justify-items-center">RG's Sukang Tuba<p> COCONUT SAP<p> VINEGAR (500 ML)</span>
-                
-                <a href="#" class="font-semibold hover:text-red-500 text-gray-500 text-xs"> </a>
-              </div>
-            </div>
-            <div class="flex justify-center w-1/5">
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512"><path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
-              </svg>
-  
-              <input class="mx-2 border text-center w-8" type="text" value="1">
-  
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-                <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
-              </svg>
-            </div>
-            <span class="text-center w-1/5 font-semibold text-sm">$400.00</span>
-            <span class="text-center w-1/5 font-semibold text-sm">$400.00</span>
-          </div>
-  
-          <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
-            <div class="flex w-2/5"> <!-- product -->
-              <div class="w-20">
-                <img class="h-24" src="./img/trio1.jpg" alt="">
-              </div>
-              <div class="flex flex-col justify-center items-center ml-4 flex-grow">
-                <span class="font-bold text-sm justify-items-center">RG's SUKANG TUBA<p> COCONUT SAP<p>VINEGAR(500 ML)</span>
-                
-                <a href="#" class="font-semibold hover:text-red-500 text-gray-500 text-xs"> </a>
-              </div>
-            </div>
-            <div class="flex justify-center w-1/5">
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512"><path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
-              </svg>
-  
-              <input class="mx-2 border text-center w-8" type="text" value="1">
-  
-              <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-                <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
-              </svg>
-            </div>
-            <span class="text-center w-1/5 font-semibold text-sm">$40.00</span>
-            <span class="text-center w-1/5 font-semibold text-sm">$40.00</span>
-          </div>
+                <button
+                  id="increment{{$cartItem->id}}"
+                  class="w-1/6 flex items-center justify-center pb-1 text-blackrounded-l outline-none cursor-pointer hover:bg-gray-400 rounded-tr-xl rounded-br-xl">
+                  <span class="m-auto text-2xl font-thin">+</span>
+                </button>
 
-          {{-- @foreach --}}
+                <script>
+                    var stock = parseInt(" {{$cartItem->computed_quantity}} ");
+                    
+                    if (document.getElementById('quantity{{$cartItem->id}}')!=null){
+                      var quantityInput{{$cartItem->id}} = document.getElementById('quantity{{$cartItem->id}}');
+                      var currentValue{{$cartItem->id}} = parseInt(quantityInput{{$cartItem->id}}.value, 10); 
+                    } else {
+                      var currentValue{{$cartItem->id}} = 0;
+                    }
+                    
+                    document.getElementById('decrement{{$cartItem->id}}').addEventListener('click', function () {
+                        decrementQuantity();
+                    });
 
-          <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
-            <div class="flex w-2/5"> <!-- product -->
-              <div class="w-20">
-                <img class="h-24" src="./img/spiced.jpg" alt="">
-              </div>
-              <div class="flex flex-col justify-center items-center ml-4 flex-grow">
-                <span class="font-bold text-sm justify-items-center"><p> <p></span>
-                    <span class="font-bold text-sm justify-items-center">RG's SUKANG TUBA<p> COCONUT SAP<p>VINEGAR(500 ML)</span>
-                <a href="#" class="font-semibold hover:text-red-500 text-gray-500 text-xs"> </a>
-              </div>
-            </div>
-            {{-- quantity start --}}
-            <div class="flex justify-center w-1/5">
+                    document.getElementById('increment{{$cartItem->id}}').addEventListener('click', function () {
+                        incrementQuantity();
+                    });
 
-              <button
-                id="decrement"
-                class="w-10 flex text-blackrounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-black hover:text-gray-700 dark:bg-stone-300 hover:bg-gray-400">
-                <span class="m-auto text-2xl font-thin">-</span>
-              </button>
+                    document.getElementById('quantity{{$cartItem->id}}').addEventListener('input', function () {
+                        validateQuantity();
+                    });
 
-              <input id="quantity" type="number" placeholder="1"
-              class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none 
-              flex items-center w-full font-semibold text-center text-black placeholder-black bg-gray-300 outline-none dark:text-black dark:placeholder-black dark:bg-stone-400 focus:outline-none text-md hover:text-black">
-              
-              <button
-                id="increment"
-                class="w-10 flex text-blackrounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-black hover:text-gray-700 dark:bg-stone-300 hover:bg-gray-400">
-                <span class="m-auto text-2xl font-thin">+</span>
-              </button>
-
-              <script>
-
-                  // var stock = parseInt(" $product->computed_quantity ");
-                  var stock = parseInt("3");
-
-                  document.getElementById('decrement').addEventListener('click', function () {
-                      decrementQuantity();
-                  });
-
-                  document.getElementById('increment').addEventListener('click', function () {
-                      incrementQuantity();
-                  });
-
-                  document.getElementById('quantity').addEventListener('input', function () {
+                    function decrementQuantity() {
+                      
+                      if (quantityInput{{$cartItem->id}}.value === '1') {
+                        alert("Quantity cannot be decremented for this item.");
+                      } else if (quantityInput{{$cartItem->id}}.value > 1) {
+                        document.getElementById('increment{{$cartItem->id}}').style.opacity=1;
+                        currentValue{{$cartItem->id}} = currentValue{{$cartItem->id}} - 1; // Update currentValue
+                        quantityInput{{$cartItem->id}}.value = currentValue{{$cartItem->id}}; // Update the input field
+                      } 
+                      console.log('dec', quantityInput{{$cartItem->id}}.value);
                       validateQuantity();
-                  });
+                    }
 
-                  function decrementQuantity() {
-                      var quantityInput = document.getElementById('quantity');
-                      var currentValue = parseInt(quantityInput.value, 10);
-
-                      if (!isNaN(currentValue) && currentValue > 1) {
-                          quantityInput.value = currentValue - 1;
-                      }
-                      validateQuantity();
-                  }
-
-                  function incrementQuantity() {
-                      var quantityInput = document.getElementById('quantity');
-                      var currentValue = parseInt(quantityInput.value, 10);
-
-                      if (!isNaN(currentValue) && currentValue < stock) {
-                          quantityInput.value = currentValue + 1;
-                      } else {
-                          if (quantityInput.value === '') {  // Check if the input is empty
-                              quantityInput.value = 1;
-                          } else {
-                              quantityInput.value = stock;
+                    function incrementQuantity() {
+                        
+                        if (quantityInput{{$cartItem->id}}.value < stock) {
+                          document.getElementById('increment{{$cartItem->id}}').style.opacity=1;
+                          currentValue{{$cartItem->id}} = currentValue{{$cartItem->id}} + 1; // Update currentValue
+                          quantityInput{{$cartItem->id}}.value = currentValue{{$cartItem->id}}; // Update the input field
+                          if (quantityInput{{$cartItem->id}}.value == stock) {
+                            document.getElementById('increment{{$cartItem->id}}').style.opacity=0;
                           }
+                        } else { 
+                          document.getElementById('increment{{$cartItem->id}}').style.opacity=0;
+                          quantityInput{{$cartItem->id}}.value = stock;
+                        }
+                        console.log('inc', quantityInput{{$cartItem->id}}.value);
+                        validateQuantity();
+                    }
+
+                    function validateQuantity() {
+                      var currentValue{{$cartItem->id}} = parseInt(quantityInput{{$cartItem->id}}.value, 10);
+
+                      if (isNaN(currentValue{{$cartItem->id}}) || currentValue{{$cartItem->id}} < 1) {
+                          quantityInput{{$cartItem->id}}.value = 1;
+                      } else if (currentValue{{$cartItem->id}} > stock) {
+                          quantityInput{{$cartItem->id}}.value = stock;
                       }
-                      validateQuantity();
-                  }
+                    }
 
-                  function validateQuantity() {
-                      var quantityInput = document.getElementById('quantity');
-                      var currentValue = parseInt(quantityInput.value, 10);
 
-                      if (isNaN(currentValue) || currentValue < 1) {
-                          quantityInput.value = 1;
-                      } else if (currentValue > stock) {
-                          quantityInput.value = stock;
-                      }
-                  }
+                </script>
 
-              </script>
+              </div>
+              {{-- quantity end --}}
 
+              <span class="text-center w-1/5 font-semibold text-sm">₱{{$cartItem->price}}</span>
+              <span class="text-center w-1/5 font-semibold text-sm">₱{{number_format($cartItem->price * $cartItem->quantity, 2)}}</span>
             </div>
-            <span class="text-center w-1/5 font-semibold text-sm">Product Price</span>
-            <span class="text-center w-1/5 font-semibold text-sm">Total</span>
-          </div>
 
-          {{-- @endforeach --}}
+          {{-- in stock layout end --}}
+
+          {{-- out of stock layout start --}}
+
+          @else
+
+            <script>
+              console.log("{{ $cartItem->name }}","out of stock");
+            </script>
+
+            <div class="flex items-center bg-gray-300 -mx-8 px-6 py-5">
+              <div class="flex w-2/5"> <!-- product -->
+                <div class="w-20">
+                  <img class="h-24" src="{{ asset('./products/'.$cartItem->image )}}" alt="">
+                </div>
+                <div class="flex flex-col justify-center items-center ml-4 flex-grow">
+                  <span class="font-bold text-sm justify-items-center"><p> <p></span>
+                      <span class="font-bold text-sm justify-items-center">{{$cartItem->name}}</span>
+                  <a href="#" class="font-semibold hover:text-red-500 text-gray-500 text-xs"> </a>
+                </div>
+              </div>
+              {{-- quantity start --}}
+              <div class="flex flex-col items-center w-1/5">
+                <input id="quantity{{$cartItem->id}}" type="number" value="{{$cartItem->quantity}}"
+                class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none 
+                flex items-center w-1/3 font-semibold text-center text-gray-500 bg-white outline-none focus:outline-none text-md"
+                disabled>
+                <p>Out of Stock</p>
+              </div>
+              {{-- quantity end --}}
+
+              <span class="text-center w-1/5 font-semibold text-sm">₱{{$cartItem->price}}</span>
+              <span class="text-center w-1/5 font-semibold text-sm">₱{{number_format($cartItem->price * $cartItem->quantity, 2)}}</span>
+            </div>
+
+          @endif
+
+          {{-- out of stock layout end --}}
+
+          @endforeach
+
+          {{-- product loop end --}}
   
           <a href="/" class="flex font-semibold text-indigo-600 text-sm mt-10">
         
