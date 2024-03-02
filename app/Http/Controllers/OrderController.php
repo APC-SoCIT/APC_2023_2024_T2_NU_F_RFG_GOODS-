@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
     public function index() {
-        $inventoryList = Inventory::join('products', 'inventories.product_id', '=', 'products.id')
-        ->select('inventories.id','products.sku','products.name','inventories.is_received','inventories.quantity','inventories.created_at','inventories.updated_at')
-        ->get();
+        $orders = Order::join('users', 'users.id', '=', 'orders.user_id')
+        ->select('users.id','users.last_name','users.first_name','orders.status','orders.payment_method','orders.payment_reference_id')
+        ->paginate(10);
         $productList = Product::all();
-        return view('admin.inventories', ['inventoryList' => $inventoryList,'productList' => $productList]);
-        
-        $ordersList = Order::join('');
+        return view('admin.orders', ['orders' => $orders]);
     
     }
 

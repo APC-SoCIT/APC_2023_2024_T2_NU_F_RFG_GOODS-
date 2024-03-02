@@ -15,7 +15,7 @@
     <div class="p-4 sm:ml-64">
         <div class="mt-16">
         
-        <x-database-layout title="Inventory" modal="inventory">
+        <x-database-layout title="Inventories" modal="inventory">
             <div class="shadow overflow-hidden">
                 <table class="table-fixed min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-100">
