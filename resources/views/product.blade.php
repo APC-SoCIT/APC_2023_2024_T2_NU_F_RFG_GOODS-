@@ -226,7 +226,7 @@
                         <h1 class="font-bold text-3xl py-2">Product Description</h1>
                         </li>
                         <li class="py-2 hyphens-auto">
-                        {{$product->desc}}
+                            {!! nl2br(e($product->desc)) !!}
                         </li>
                     </ul>
 

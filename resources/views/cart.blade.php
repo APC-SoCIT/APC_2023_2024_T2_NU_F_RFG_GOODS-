@@ -278,8 +278,18 @@
           </div>
           <div class="flex flex-col font-bold justify-between py-6 text-sm uppercase text-slate-100">
             <span>Shipping Method</span>
-              <span id="method" class="text-black font-bold">Same Day Delivery</span>
-              <span id="address" class="text-black font-bold">Next Day Delivery</span>
+            <div>
+              <div class="flex items-center mb-4">
+                <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Same Day Delivery</label>
+              </div>
+              <div class="flex items-center">
+                <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Next Day Delivery</label>
+              </div>
+
+            </div>
+
           </div>
           <div class="flex justify-between mt-10 mb-5">
             <span class="font-bold text-sm uppercase text-slate-100">Subtotal</span>
