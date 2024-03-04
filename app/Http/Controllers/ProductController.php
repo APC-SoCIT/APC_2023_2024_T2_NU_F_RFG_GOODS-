@@ -24,7 +24,7 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->input('search');
+        // $search = $request->input('search');
 
         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
             ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
@@ -35,14 +35,12 @@ class ProductController extends Controller
                 DB::raw('ROUND(AVG(ratings.rating_score), 2) as avg_rating')
             )
             ->groupBy( 'products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt'
-            );
+            )->paginate(12);
 
         
             // if ($search) {
         //     $products = $products->where('products.name', 'LIKE', '%' . $search . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($search) . '%']);
         // }
-    
-        $products = $products->paginate(10);
         
         $categoryList = ProductCategory::select('id', 'category')->get();
         if($request->ajax()){
@@ -425,18 +423,26 @@ class ProductController extends Controller
         ->paginate(12);
         $categoryList = ProductCategory::select('id', 'category')->get();
 
-        if ($existingCart && $product) {
-            // If the row exists, update the quantity
-            $existingCart->quantity += $request->filled('quantity') ? $request->quantity : 1;
-            $existingCart->save();
-        } else {
-            // If the row doesn't exist, create a new one
-            $newCart = new Cart;
-            $newCart->user_id = Auth::user()->id;
-            $newCart->product_id = $request->product_id;
-            $newCart->quantity = $request->filled('quantity') ? $request->quantity : 1;
-            $newCart->save();
-        }
+        // Get the existing cart item if it exists
+        $existingCart = Cart::where('user_id', Auth::id())
+            ->where('product_id', $request->product_id)
+            ->first();
+
+        // Use a transaction for database operations
+        DB::transaction(function () use ($request, $existingCart) {
+            if ($existingCart && $request->filled('quantity') ) {
+                // If the row exists, update the quantity
+                $existingCart->quantity += $request->quantity;
+                $existingCart->save();
+            } else {
+                // If the row doesn't exist, create a new one
+                $newCart = new Cart;
+                $newCart->user_id = Auth::id();
+                $newCart->product_id = $request->product_id;
+                $newCart->quantity = $request->filled('quantity') ? $request->quantity : 1;
+                $newCart->save();
+            }
+        });
 
         return 'Success!';
     }

@@ -212,7 +212,8 @@
                                         <button id="" class="bg-gray-400 w-28 text-black font-semibold rounded-xl" >Out of Stock</button>
                                     @else
                                         <button id="addtocartsubmit{{ $product->id }}" type="submit" class="flex items-center justify-center w-full p-4 text-black border font-bold border-orange-500 rounded-md dark:text-black dark:border-amber-200 hover:bg-orange-600 hover:border-orange-600 hover:text-gray-100 dark:bg-amber-200 dark:hover:bg-amber-200 dark:hover:border-orange-700 dark:hover:text-black">
-                                            Add to Cart</button>
+                                            Add to Cart
+                                        </button>
                                     @endif
                                 </form>
                                 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

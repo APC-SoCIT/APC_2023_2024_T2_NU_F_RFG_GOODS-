@@ -11,16 +11,6 @@
 </head>
 <body class="bg-gray-100">
     @include('navbar.navbar')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
-
     <div class="block flex-col items-center">
         <div class="flex justify-center">
             {{-- filter start --}}
@@ -107,6 +97,15 @@
                                         </div>
                                 @endforeach
 
+                                <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+                                <script>
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
+                                </script>
                                 <script>
                                     $(document).ready(function() {
 
@@ -146,7 +145,7 @@
                                             var selectedCategories = [];
                                             
                                             $('.category_checkbox:checked').each(function () {
-                                                selectedCategories.push($(this).val());
+                                                selectedCategories.push($(this).val().replace('category.', ''));
                                             });
 
                                             console.log(selectedCategories);

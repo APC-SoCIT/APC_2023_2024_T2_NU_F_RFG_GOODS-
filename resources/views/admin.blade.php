@@ -177,7 +177,7 @@
             <div class="flex flex-col items-center h-[22rem] rounded-2xl bg-white p-5">
                <p class="text-left w-full text-xl text-black mb-4">ITEMS LOW ON STOCK</p>
                <div class="w-full flex flex-col items-center justify-end h-full gap-4 text-rfg-text overflow-y-hidden">
-                  <div class="flex flex-col w-full h-full bg-gray-200 p-4 gap-2 rounded-2xl overflow-hidden overflow-x-auto">
+                  <div class="flex flex-col w-full h-full bg-gray-200 p-4 gap-2 rounded-2xl overflow-x-auto">
                      <table class="table-fixed min-w-full divide-y divide-gray-200 overflow-y-auto">
                         <thead class="">
                            <tr>
@@ -185,7 +185,7 @@
                                  Stock
                               </th>
                               <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
-                                 
+                                 Image
                               </th>
                               <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
                                  Item Name
@@ -214,7 +214,7 @@
                                  <td class="p-4 whitespace-nowrap text-base font-medium text-black ">{{$product->name}}</td>
                                  <td class="p-4 whitespace-nowrap text-base font-medium text-black ">{{$product->category}}</td>
                                  <td class="p-4 whitespace-nowrap space-x-2">
-                                    <button data-modal-target="product-modal-edit" data-modal-toggle="product-modal-edit" class="text-rfg-text bg-rfg-accent hover:bg-rfg-accent focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                    <button onclick="window.location.href='admin/products'" class="text-rfg-text bg-rfg-accent hover:bg-rfg-accent focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
                                     </button>
                                  </td>

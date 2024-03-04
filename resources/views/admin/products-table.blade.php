@@ -1,4 +1,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+<script>
+    htmx.onLoad(function(content) {
+        initFlowbite();
+    })
+</script>
 <div class="align-middle inline-block min-w-full">
     <div class="shadow overflow-hidden">
     <table class="table-fixed min-w-full divide-y divide-gray-200">
