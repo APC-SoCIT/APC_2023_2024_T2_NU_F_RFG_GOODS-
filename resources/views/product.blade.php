@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="w-full px-4 md:w-1/2 ">
-                    <div class="lg:pl-20">
+                    <div class="lg:pl-20 lg:pb-12">
                         <div class="mb-8 ">
                             <h2 class="max-w-xl mt-2 mb-6 text-2xl font-bold dark:text-black md:text-4xl">
                             {{ $product->name }}
