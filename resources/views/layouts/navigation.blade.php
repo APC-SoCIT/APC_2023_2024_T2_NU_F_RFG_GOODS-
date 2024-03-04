@@ -23,7 +23,7 @@
                     </x-nav-link>
                     <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
                         @csrf
-                         onclick="event.preventDefault();
+                        onclick="event.preventDefault();
                         this.closest('form').submit();
                     </form>
                 </div>

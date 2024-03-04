@@ -595,6 +595,29 @@ class ProductController extends Controller
         return 'Success!';
     }
 
+    public function updatecart(Request $request) {
+        $request->validate([
+            'user_id' => 'required',
+            'product_id' => 'required',
+            'quantity' => 'nullable',
+        ]);
+
+        $existingCart = Cart::where('user_id', Auth::user()->id)
+        ->where('product_id', $request->product_id)
+        ->first();
+
+        if ($existingCart) {
+            $existingCart->quantity = $request->quantity;
+            $existingCart->save();
+        }
+
+        return 'Success!';
+    }
+
+    public function deletecart(Request $request) {
+        
+    }
+
     public function save(Request $request){
 
         $request->validate([
