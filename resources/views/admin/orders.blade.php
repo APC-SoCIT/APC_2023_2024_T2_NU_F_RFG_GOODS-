@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body>
+<body class="bg-gray-100">
     @include('admin.partials.admin-sidebar')
 
     <div class="p-4 sm:ml-64">
@@ -51,7 +51,7 @@
                         <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
                             <label for="searchInput" class="sr-only">Search</label>
                             <div class="mt-1 relative lg:w-64 xl:w-96">
-                                <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for orders">
+                                <input type="text" name="searchInput" id="searchInput" class="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for orders">
                             </div>
 
                             {{-- controls start --}}

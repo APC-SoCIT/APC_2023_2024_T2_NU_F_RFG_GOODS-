@@ -1,7 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 <div class="align-middle inline-block min-w-full">
     <div class="shadow overflow-hidden">
-        <table class="table-fixed min-w-full ">
+    <table class="table-fixed min-w-full divide-y divide-gray-200">
             <thead class="bg-white text-black">
                 <tr>
                     <th scope="col" class="p-4 text-left text-xs font-medium uppercase">

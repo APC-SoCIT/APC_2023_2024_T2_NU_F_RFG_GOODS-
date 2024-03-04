@@ -1,6 +1,6 @@
 <div class="shadow overflow-hidden">
-    <table class="table-fixed min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-100">
+<table class="table-fixed min-w-full divide-y divide-gray-200">
+        <thead class="bg-white">
             <tr>
                 <th scope="col" class="p-4">
                     <div class="flex items-center">
@@ -9,22 +9,22 @@
                         <label for="checkbox-all" class="sr-only">checkbox</label>
                     </div>
                 </th>
-                <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
                     ID
                 </th>
-                <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
                     Last Name
                 </th>
-                <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
                     First Name
                 </th>
-                <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
                     Status
                 </th>
-                <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
                     Payment Method
                 </th>
-                <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
                     Payment Reference ID
                 </th>
                 <th scope="col" class="p-4">
