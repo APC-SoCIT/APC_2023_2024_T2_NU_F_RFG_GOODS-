@@ -420,7 +420,8 @@ class ProductController extends Controller
             DB::raw('SUM(CASE WHEN inventories.is_received = 1 THEN inventories.quantity ELSE -inventories.quantity END) as computed_quantity')
         )
         ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt')
-        ->paginate(12);
+        ->where('products.id','=',$existingCart->product_id)
+        ->first();
         $categoryList = ProductCategory::select('id', 'category')->get();
 
         // Get the existing cart item if it exists
@@ -430,9 +431,9 @@ class ProductController extends Controller
 
         // Use a transaction for database operations
         DB::transaction(function () use ($request, $existingCart) {
-            if ($existingCart && $request->filled('quantity') ) {
+            if ($existingCart) {
                 // If the row exists, update the quantity
-                $existingCart->quantity += $request->quantity;
+                $existingCart->quantity += $request->filled('quantity') ? $request->quantity : 1;
                 $existingCart->save();
             } else {
                 // If the row doesn't exist, create a new one
@@ -471,7 +472,7 @@ class ProductController extends Controller
     }
 
     public function save(Request $request){
-
+        
         $request->validate([
             'image' => 'required|mimes:jpeg,jpg,png,gif|max:20000',
             'sku' => 'required',
@@ -522,7 +523,6 @@ class ProductController extends Controller
             'reorder_pt' => 'required',
         ]);
 
-        // Get the current image path and name
         $currentImage = public_path('products') . '/' . $product->image;
 
         if ($request->sku !== $product->sku && file_exists($currentImage) ) {
@@ -541,14 +541,11 @@ class ProductController extends Controller
         $product->reorder_pt = $request->reorder_pt;
 
         if ($request->hasFile('image')) {
-            // Check if an image is present in the request
             $imageName = $request->sku . '.' . $request->image->extension();
 
-            // Move the new image and update the product's image attribute
             $request->image->move(public_path('products'), $imageName);
             $product->image = $imageName;
 
-            // Remove the old image file if it exists
             if (file_exists($currentImage) && $product->image !== $imageName) {
                 unlink($currentImage);
             }

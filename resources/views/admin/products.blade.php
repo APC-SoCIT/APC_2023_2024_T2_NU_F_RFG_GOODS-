@@ -111,7 +111,7 @@
                     @endforeach
                 </div>
             </div>
-            
+
             {{-- <x-database-layout title="Products" modal="product">
                 <div class="shadow overflow-hidden">
                     <table class="table-fixed min-w-full ">
