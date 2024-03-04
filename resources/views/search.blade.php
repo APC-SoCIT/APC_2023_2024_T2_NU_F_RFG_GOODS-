@@ -245,7 +245,7 @@
                                 <div id="{{$product->id}}" class="bg-white w-60 h-[23rem] flex-col drop-shadow-md">
                                     <a href="{{route('product.get',['product' => $product])}}" class="flex flex-col h-full border-2 border-transparent hover:border-rfg-accent transition-colors duration-200">
                                         <img src="{{ asset('./products/vinegar.chg.22043.png' )}}" 
-                                        class="flex-shrink-0 object-center object-contain w-full max-h-[15rem]"
+                                        class="flex-shrink-0 object-center object-contain w-full max-h-[14rem]"
                                         @if ($product->computed_quantity==0 || $product->computed_quantity==null)
                                             class="opacity-0" 
                                         @endif

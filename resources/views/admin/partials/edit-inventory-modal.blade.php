@@ -29,7 +29,7 @@
                                 </a>
                             </div>
                             <select name="product_id" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
-                                @forelse ($productList as $product)
+                                @forelse ($products as $product)
                                     @if($inventory->product_id == $product->id)
                                     <option value="{{$product->id}}" selected>{{$product->sku}} | {{$product->name}}</option>
                                     @else

@@ -17,7 +17,7 @@
         <div class="w-3/4 bg-white px-10 py-10">
           <div class="flex justify-between border-b pb-8">
             <h1 class="font-semibold text-2xl">Shopping Cart</h1>
-            <h2 class="font-semibold text-2xl">3 Items</h2>
+            <h2 class="font-semibold text-2xl">TOCHANGE Items</h2>
           </div>
           <div class="flex mt-10 mb-5">
             <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
@@ -31,7 +31,6 @@
           @foreach ($usercart as $cartItem)
 
           {{-- in stock layout start --}}
-
           @if( $cartItem->computed_quantity != null || $cartItem->computed_quantity != 0 )
 
             <script>
@@ -61,7 +60,7 @@
                 <input id="quantity{{$cartItem->id}}" type="number" value="{{$cartItem->quantity}}"
                 class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none 
                 flex items-center w-1/3 font-semibold text-center text-black bg-white outline-none focus:outline-none text-md hover:text-black">
-                
+
                 <button
                   id="increment{{$cartItem->id}}"
                   class="w-1/6 flex items-center justify-center pb-1 text-blackrounded-l outline-none cursor-pointer hover:bg-gray-400 rounded-tr-xl rounded-br-xl">
@@ -70,14 +69,14 @@
 
                 <script>
                     var stock = parseInt(" {{$cartItem->computed_quantity}} ");
-                    
+
                     if (document.getElementById('quantity{{$cartItem->id}}')!=null){
                       var quantityInput{{$cartItem->id}} = document.getElementById('quantity{{$cartItem->id}}');
                       var currentValue{{$cartItem->id}} = parseInt(quantityInput{{$cartItem->id}}.value, 10); 
                     } else {
                       var currentValue{{$cartItem->id}} = 0;
                     }
-                    
+
                     document.getElementById('decrement{{$cartItem->id}}').addEventListener('click', function () {
                         decrementQuantity();
                     });
@@ -143,14 +142,11 @@
           {{-- in stock layout end --}}
 
           {{-- out of stock layout start --}}
-
           @else
-
             <script>
               console.log("{{ $cartItem->name }}","out of stock");
             </script>
-
-            <div class="flex items-center bg-gray-300 -mx-8 px-6 py-5">
+            <div class="flex items-center bg-gray-300 z-40 -mx-8 px-6 py-5">
               <div class="flex w-2/5"> <!-- product -->
                 <div class="w-20">
                   <img class="h-24" src="{{ asset('./products/'.$cartItem->image )}}" alt="">
@@ -176,7 +172,6 @@
             </div>
 
           @endif
-
           {{-- out of stock layout end --}}
 
           @endforeach

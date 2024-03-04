@@ -1,6 +1,6 @@
 
 <!-- Edit Product Modal -->
-<div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="product-modal-{{ $product->id }}">
+<div id="product-modal-{{ $product->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full">
     <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
         <!-- Modal content -->
         <div class="bg-rfg-canvas rounded-lg shadow relative">
@@ -79,7 +79,7 @@
             <div class="items-center p-6 border-t border-gray-200 rounded-b">
                 <button class="text-white bg-orange-500 hover:bg-orange-800 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save all</button>
             </div>
-            </form>
+                </form>
         </div>
     </div>
 </div>

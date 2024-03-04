@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TutorialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +22,14 @@ use App\Http\Controllers\OrderController;
 */
 
     /* auth template start */
-Route::get('/', function () {
-    if (request('search')) {
-        return view('search');
-    } else {
-        return view('home');
-    }
-})->name('home');
+Route::get('/tutorial', [TutorialController::class,'index']);
+// Route::get('/', function () {
+//     if (request('search')) {
+//         return view('search');
+//     } else {
+//         return view('home');
+//     }
+// })->name('home');
 
 Route::get('/home', function () {
     return redirect('/');
@@ -79,6 +81,10 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/inventory/{inventory}/destroy', [InventoryController::class, 'destroy'])->name('inventory.destroy');
 
     Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::post('/admin/orders/save', [OrderController::class, 'save'])->name('orders.save');
+    Route::get('/admin/orders/{orders}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+    Route::put('/admin/orders/{orders}/update', [OrderController::class, 'update'])->name('orders.update');
+    Route::get('/admin/orders/{orders}/destroy', [OrderController::class, 'destroy'])->name('orders.destroy');
 });
 
 require __DIR__.'/auth.php';
@@ -117,7 +123,4 @@ Route::get('/product', function () {
 });
 
 Route::get('/search/{search?}', [ProductController::class, 'search'])->name('search');
-
-Route::get('/ajax',[ProductController::class, 'indexAjax'])->name('indexAjax');
-Route::resource('ajax', ProductController::class);
 

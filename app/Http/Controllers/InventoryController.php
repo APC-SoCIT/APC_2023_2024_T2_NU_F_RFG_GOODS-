@@ -8,12 +8,35 @@ use App\Models\Product;
 
 class InventoryController extends Controller
 {
-    public function index() {
-        $inventoryList = Inventory::join('products', 'inventories.product_id', '=', 'products.id')
+    // public function index() {
+    //     $inventoryList = Inventory::join('products', 'inventories.product_id', '=', 'products.id')
+    //     ->select('inventories.id','products.sku','products.name','inventories.is_received','inventories.quantity','inventories.created_at','inventories.updated_at')
+    //     ->paginate(10);
+    //     $productList = Product::all();
+    //     return view('admin.inventories', ['inventoryList' => $inventoryList,'productList' => $productList]);
+    // }
+
+    public function index(Request $request)
+    {   
+        $inventories = Inventory::join('products', 'inventories.product_id', '=', 'products.id')
         ->select('inventories.id','products.sku','products.name','inventories.is_received','inventories.quantity','inventories.created_at','inventories.updated_at')
         ->paginate(10);
-        $productList = Product::all();
-        return view('admin.inventories', ['inventoryList' => $inventoryList,'productList' => $productList]);
+        $products = Product::all();
+
+        if($request->ajax()){
+            $inventories = Inventory::join('products', 'inventories.product_id', '=', 'products.id')
+                        ->select('inventories.id','products.sku','products.name','inventories.is_received','inventories.quantity','inventories.created_at','inventories.updated_at')
+                        ->when($request->search_term, function($q)use($request){
+                            $q->where('products.name', 'LIKE', '%' . $request->search_term . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->search_term) . '%']);
+                        })
+                        ->when($request->is_received, function($q)use($request){
+                            $q->where('is_received',$request->is_received);
+                        })
+                        ->paginate(10);
+            return view('admin.inventories-table', ['inventories' => $inventories, 'products' => $products])->render();
+        }
+
+        return view('admin.inventories', ['inventories' => $inventories, 'products' => $products]);
     }
 
     public function save(Request $request){
@@ -55,4 +78,5 @@ class InventoryController extends Controller
         $inventory->delete();
         return redirect(route('inventory.index'))->with('success', 'Inventory Deleted Successfully');
     }
+
 }
