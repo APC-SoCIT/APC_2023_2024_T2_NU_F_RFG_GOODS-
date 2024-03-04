@@ -34,7 +34,7 @@
                   <div class="h-3"></div>
                   <p class="font-mono text-black text-5xl font-bold">5</p>
                   <p class="text-black text-lg">NEW ORDERS</p>
-                  <div class="flex justify-center text-center items-end gap-1 text-red-600">
+                  <div class="flex justify-center text-center items-center items-end gap-1 text-red-600">
                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                      </svg>
@@ -54,7 +54,7 @@
                   <div class="h-3"></div>
                   <p class="font-mono text-black text-5xl font-bold">₱13,000</p>
                   <p class="text-black text-lg">TOTAL REVENUE</p>
-                  <div class="flex justify-center text-center gap-1 text-green-600">
+                  <div class="flex justify-center items-center text-center gap-1 text-green-600">
                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                      </svg>
