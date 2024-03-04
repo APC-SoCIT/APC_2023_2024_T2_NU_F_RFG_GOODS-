@@ -187,16 +187,16 @@
                                     @csrf
                                     @method('post')
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="sku" class="text-sm font-medium text-black block mb-2">SKU</label>
-                                        <input type="text" name="sku" id="sku" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                                        <label for="sku{{$product->id}}" class="text-sm font-medium text-black block mb-2">SKU</label>
+                                        <input type="text" name="sku{{$product->id}}" id="sku{{$product->id}}" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="name" class="text-sm font-medium text-black block mb-2">Name</label>
-                                        <input type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                                        <input type="text" name="name" id="name" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="price" class="text-sm font-medium text-black block mb-2">Price</label>
-                                        <input type="numer" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                                        <input type="numer" name="price" id="price" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <div class="flex">
@@ -218,19 +218,19 @@
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="image" class="text-sm font-medium text-black block mb-2">Image</label>
-                                        <input type="file" name="image" id="image" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-[0.03rem]" placeholder="" required>
+                                        <input type="file" name="image" id="image" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-[0.03rem]" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="min_qty" class="text-sm font-medium text-black block mb-2">Minimum Quantity</label>
-                                        <input type="text" name="min_qty" id="min_qty" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                                        <input type="text" name="min_qty" id="min_qty" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="max_qty" class="text-sm font-medium text-black block mb-2">Maximum Quantity</label>
-                                        <input type="text" name="max_qty" id="max_qty" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                                        <input type="text" name="max_qty" id="max_qty" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="reorder_pt" class="text-sm font-medium text-black block mb-2">Reorder Point</label>
-                                        <input type="text" name="reorder_pt" id="reorder_pt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                                        <input type="text" name="reorder_pt" id="reorder_pt" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-6">
                                         <label for="desc" class="text-sm font-medium text-black block mb-2">Description</label>

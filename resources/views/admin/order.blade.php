@@ -176,15 +176,15 @@
                         @method('put')
                         <div class="col-span-6 sm:col-span-3">
                             <label for="sku" class="text-sm font-medium text-gray-900 block mb-2">SKU</label>
-                            <input value="{{$product->sku}}" type="text" name="sku" id="sku" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            <input value="{{$product->sku}}" type="text" name="sku" id="sku" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Name</label>
-                            <input value="{{$product->name}}" type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            <input value="{{$product->name}}" type="text" name="name" id="name" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price</label>
-                            <input value={{$product->price}} type="numer" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            <input value="{{$product->price}}" type="numer" name="price" id="price" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <div class="flex">
@@ -210,11 +210,11 @@
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="desc" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
-                            <input value="{{$product->desc}}" type="text" name="desc" id="desc" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            <input value="{{$product->desc}}" type="text" name="desc" autocomplete="on" id="desc" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="image" class="text-sm font-medium text-gray-900 block mb-2">Image</label>
-                            <input value={{$product->image}} type="file" name="image" id="image" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-.8" placeholder="">
+                            <input value="{{$product->image}}" type="file" name="image" autocomplete="on" id="image" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-.8" placeholder="">
                         </div>
                     </div> 
             </div>
