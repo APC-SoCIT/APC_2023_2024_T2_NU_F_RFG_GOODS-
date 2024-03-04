@@ -145,7 +145,7 @@
             <script>
               console.log("{{ $cartItem->name }}","out of stock");
             </script>
-            <div class="flex items-center bg-gray-300 z-40 -mx-8 px-6 py-5">
+            <div class="flex items-center bg-gray-300 z-40 -mx-8 px-6 py-5 opacity-25">
               <div class="flex w-2/5"> <!-- product -->
                 <div class="w-20">
                   <img class="h-24" src="{{ asset('./products/'.$cartItem->image )}}" alt="">
@@ -162,7 +162,7 @@
                 class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none 
                 flex items-center w-1/3 font-semibold text-center text-gray-500 bg-white outline-none focus:outline-none text-md"
                 disabled>
-                <p>Out of Stock</p>
+                <p class="text-red-500 font-medium">Out of Stock</p>
               </div>
               {{-- quantity end --}}
 
@@ -264,42 +264,42 @@
 
           {{-- product loop end --}}
   
-          <a href="/" class="flex font-semibold text-indigo-600 text-sm mt-10">
+          <a href="/" class="flex font-semibold text-black text-sm mt-10">
         
-            <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
+            <svg class="fill-current mr-2 text-black w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
             Continue Shopping
           </a>
         </div>
         <div id="summary" class="w-1/4 px-8 py-10 bg-orange-500	background-color: rgb(249 115 22) opacity-85	opacity: 0.85;">
-          <h1 class="font-bold text-2xl border-b pb-8 text-center">Order Summary</h1>
+          <h1 class="text-white font-bold text-2xl border-b pb-8 text-center">Order Summary</h1>
           <div class="flex font-bold justify-between py-6 text-sm uppercase text-slate-100">
             <span>Ship to</span>
-            <span id="address" class="text-black font-bold">Metro Manila</span>
+            <span id="address" class="text-white font-bold">Metro Manila</span>
           </div>
           <div class="flex flex-col font-bold justify-between py-6 text-sm uppercase text-slate-100">
-            <span>Shipping Method</span>
-              <span id="method" class="text-black font-bold">Same Day Delivery</span>
-              <span id="address" class="text-black font-bold">Next Day Delivery</span>
+            <span class="pb-2.5">Shipping Method</span>
+              <span id="method" class="text-white font-bold py-1.5">Same Day Delivery</span>
+              <span id="address" class="text-white font-bold">Next Day Delivery</span>
           </div>
           <div class="flex justify-between mt-10 mb-5">
             <span class="font-bold text-sm uppercase text-slate-100">Subtotal</span>
-            <span id="subTotal" class="font-semibold text-sm">₱1,030.00</span>
+            <span id="subTotal" class="font-bold text-sm text-white">₱1,030.00</span>
           </div>
           <div>
             <label class="font-bold inline-block mb-3 text-sm uppercase text-slate-100">Shipping Date:</label>
             <div class="relative max-w-sm">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-4 h-4 text-gray-500 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                   </svg>
                 </div>
-                <input datepicker type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+                <input datepicker type="text" class="bg-white border border-gray-300 text-black text-sm rounded-lg block w-full ps-10 p-2.5 dark:bg-white dark:border-white dark:placeholder-black dark:text-white" placeholder="Select date" style="background-color= white;">
               </div>
           </div>
           <div class="border-t mt-8">
             <div class="flex font-bold justify-between py-6 text-sm uppercase text-slate-100">
               <span>Shipping fee</span>
-              <span id="priceShippingFee" class="text-black font-bold">₱100</span>
+              <span id="priceShippingFee" class="text-white font-bold">₱100</span>
             </div>
             <div class="flex font-bold justify-between py-6 text-sm uppercase text-slate-100 my-4">
                 <span>TOTAL</span>
