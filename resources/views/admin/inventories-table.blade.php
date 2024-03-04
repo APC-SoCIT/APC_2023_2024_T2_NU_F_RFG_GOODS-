@@ -3,13 +3,6 @@
         <table class="table-fixed min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-100">
                 <tr>
-                    <th scope="col" class="p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox"
-                                class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded">
-                            <label for="checkbox-all" class="sr-only">checkbox</label>
-                        </div>
-                    </th>
                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                         ID
                     </th>
@@ -38,13 +31,6 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 @foreach ($inventories as $inventory)
                     <tr class="hover:bg-gray-100">
-                        <td class="p-4 w-4">
-                            <div class="flex items-center">
-                                <input id="checkbox-{{ $inventory->id }}" aria-describedby="checkbox-1" type="checkbox"
-                                    class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded">
-                                <label for="checkbox-{{ $inventory->id }}" class="sr-only">checkbox</label>
-                            </div>
-                        </td>
                         <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $inventory->id }}</td>
                         <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $inventory->sku }}</td>
                         <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $inventory->name }}</td>

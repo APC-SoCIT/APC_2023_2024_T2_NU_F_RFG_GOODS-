@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::put('user/address/update', [UserAddressController::class, 'update'])->name('user.address.update');
     Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
     Route::post('/addtocart', [ProductController::class, 'addtocart'])->name('product.addtocart');
+    Route::post('/updatecart', [ProductController::class, 'updatecart'])->name('product.updatecart');
     // Route::get('/cart', function () {
     //     return view('cart');
     // });

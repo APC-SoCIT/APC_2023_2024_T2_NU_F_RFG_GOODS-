@@ -261,7 +261,7 @@
                     search_term = "";
                 }
                 $.ajax({ 
-                    url:"/admin/products/?page="+page+"&status="+status+"&search_term="+search_term,
+                    url:"/admin/products/?",
                     data: {
                         page: page,
                         status: status,
@@ -270,14 +270,12 @@
                     success:function(data){
                         $('#datatable').html('');
                         $('#datatable').html(data);
-                        $('#datatable').load("edit-product-modal.blade.php");
                     },
                     error: function (xhr, status, error) {
                         console.error(xhr.responseText);
                     }
                 })
             }
-        
             $('body').on('keyup', '#searchInput', function(){
                 var status = $('#status').val();
                 var search_term = $('#searchInput').val();

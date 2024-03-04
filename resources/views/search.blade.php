@@ -244,7 +244,7 @@
 
                                 <div id="{{$product->id}}" class="bg-white w-60 h-[23rem] flex-col drop-shadow-md">
                                     <a href="{{route('product.get',['product' => $product])}}" class="flex flex-col h-full border-2 border-transparent hover:border-rfg-accent transition-colors duration-200">
-                                        <img src="{{ asset('./products/vinegar.chg.22043.png' )}}" 
+                                        <img src="{{ asset('./products/'.$product->image )}}" 
                                         class="flex-shrink-0 object-center object-contain w-full max-h-[14rem]"
                                         @if ($product->computed_quantity==0 || $product->computed_quantity==null)
                                             class="opacity-0" 
@@ -292,7 +292,12 @@
                                                     @csrf
                                                     <input type="hidden" name="user_id" value="@if(Auth::user() != null) {{ Auth::user()->id }} @else @endif">
                                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                    <button id="addtocartsubmit{{ $product->id }}" type="submit" class="bg-orange-400 w-28 text-white font-semibold rounded-xl hover:bg-white hover:text-orange-400" >Add to Cart</button>
+                                                    @if($product->computed_quantity == 0 || $product->computed_quantity < 1 ) 
+                                                        <button id="" class="bg-gray-400 w-28 text-black font-semibold rounded-xl" >Out of Stock</button>
+                                                    @else
+                                                        <button id="addtocartsubmit{{ $product->id }}" type="submit" class="bg-orange-400 w-28 text-white font-semibold rounded-xl hover:bg-white hover:text-orange-400" >Add to Cart</button>
+                                                    @endif
+                                                    
                                                 </form>
                                                 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
                                                 <script>

@@ -17,7 +17,7 @@
                 <div class="w-full px-4 md:w-1/2 ">
                     <div class="sticky top-0 z-50 overflow-hidden ">
                         <div class="relative py-6 px-12">
-                            <img src="{{ asset('./products/vinegar.chg.22043.png' )}}" alt=""
+                            <img src="{{ asset('./products/'.$product->image )}}" alt=""
                             class="flex-shrink-0 object-center object-contain w-full max-h-[25rem]">
                         </div>
                         {{-- <div class="flex-wrap hidden md:flex">

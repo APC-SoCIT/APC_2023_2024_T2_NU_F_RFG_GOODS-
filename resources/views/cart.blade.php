@@ -1,11 +1,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Cart</title>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     @vite(['resources/css/app.css','resources/js/app.js'])
   </head>
 
@@ -17,7 +17,7 @@
         <div class="w-3/4 bg-white px-10 py-10">
           <div class="flex justify-between border-b pb-8">
             <h1 class="font-semibold text-2xl">Shopping Cart</h1>
-            <h2 class="font-semibold text-2xl">TOCHANGE Items</h2>
+            <h2 id="itemnum" class="font-semibold text-2xl">X Items</h2>
           </div>
           <div class="flex mt-10 mb-5">
             <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
@@ -26,6 +26,10 @@
             <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Total</h3>
           </div>
 
+          @php
+            $inStockCount = 0;
+          @endphp
+
           {{-- product loop start --}}
 
           @foreach ($usercart as $cartItem)
@@ -33,9 +37,9 @@
           {{-- in stock layout start --}}
           @if( $cartItem->computed_quantity != null || $cartItem->computed_quantity != 0 )
 
-            <script>
-              console.log("{{ $cartItem->name }}","in stock");
-            </script>
+            @php
+              $inStockCount++;
+            @endphp
 
             <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
               <div class="flex w-2/5"> <!-- product -->
@@ -67,76 +71,71 @@
                   <span class="m-auto text-2xl font-thin">+</span>
                 </button>
 
-                <script>
-                    var stock = parseInt(" {{$cartItem->computed_quantity}} ");
-
-                    if (document.getElementById('quantity{{$cartItem->id}}')!=null){
-                      var quantityInput{{$cartItem->id}} = document.getElementById('quantity{{$cartItem->id}}');
-                      var currentValue{{$cartItem->id}} = parseInt(quantityInput{{$cartItem->id}}.value, 10); 
-                    } else {
-                      var currentValue{{$cartItem->id}} = 0;
-                    }
-
-                    document.getElementById('decrement{{$cartItem->id}}').addEventListener('click', function () {
-                        decrementQuantity();
-                    });
-
-                    document.getElementById('increment{{$cartItem->id}}').addEventListener('click', function () {
-                        incrementQuantity();
-                    });
-
-                    document.getElementById('quantity{{$cartItem->id}}').addEventListener('input', function () {
-                        validateQuantity();
-                    });
-
-                    function decrementQuantity() {
-                      
-                      if (quantityInput{{$cartItem->id}}.value === '1') {
-                        alert("Quantity cannot be decremented for this item.");
-                      } else if (quantityInput{{$cartItem->id}}.value > 1) {
-                        document.getElementById('increment{{$cartItem->id}}').style.opacity=1;
-                        currentValue{{$cartItem->id}} = currentValue{{$cartItem->id}} - 1; // Update currentValue
-                        quantityInput{{$cartItem->id}}.value = currentValue{{$cartItem->id}}; // Update the input field
-                      } 
-                      console.log('dec', quantityInput{{$cartItem->id}}.value);
-                      validateQuantity();
-                    }
-
-                    function incrementQuantity() {
-                        
-                        if (quantityInput{{$cartItem->id}}.value < stock) {
-                          document.getElementById('increment{{$cartItem->id}}').style.opacity=1;
-                          currentValue{{$cartItem->id}} = currentValue{{$cartItem->id}} + 1; // Update currentValue
-                          quantityInput{{$cartItem->id}}.value = currentValue{{$cartItem->id}}; // Update the input field
-                          if (quantityInput{{$cartItem->id}}.value == stock) {
-                            document.getElementById('increment{{$cartItem->id}}').style.opacity=0;
-                          }
-                        } else { 
-                          document.getElementById('increment{{$cartItem->id}}').style.opacity=0;
-                          quantityInput{{$cartItem->id}}.value = stock;
-                        }
-                        console.log('inc', quantityInput{{$cartItem->id}}.value);
-                        validateQuantity();
-                    }
-
-                    function validateQuantity() {
-                      var currentValue{{$cartItem->id}} = parseInt(quantityInput{{$cartItem->id}}.value, 10);
-
-                      if (isNaN(currentValue{{$cartItem->id}}) || currentValue{{$cartItem->id}} < 1) {
-                          quantityInput{{$cartItem->id}}.value = 1;
-                      } else if (currentValue{{$cartItem->id}} > stock) {
-                          quantityInput{{$cartItem->id}}.value = stock;
-                      }
-                    }
-
-
-                </script>
-
               </div>
               {{-- quantity end --}}
 
               <span class="text-center w-1/5 font-semibold text-sm">₱{{$cartItem->price}}</span>
-              <span class="text-center w-1/5 font-semibold text-sm">₱{{number_format($cartItem->price * $cartItem->quantity, 2)}}</span>
+              <span name="cartitemSubtotal" id="totalPrice{{$cartItem->id}}" class="text-center w-1/5 font-semibold text-sm">₱{{number_format($cartItem->price * $cartItem->quantity, 2)}}</span>
+              <script>
+                var stock{{$cartItem->id}} = parseInt("{{$cartItem->computed_quantity}}");
+                var quantityInput{{$cartItem->id}} = document.getElementById('quantity{{$cartItem->id}}');
+                var decrementButton{{$cartItem->id}} = document.getElementById('decrement{{$cartItem->id}}');
+                var incrementButton{{$cartItem->id}} = document.getElementById('increment{{$cartItem->id}}');
+                var totalPriceElement{{$cartItem->id}} = document.getElementById('totalPrice{{$cartItem->id}}');
+
+                if (document.getElementById('quantity{{$cartItem->id}}')!=null){
+                  var id = '{{$cartItem->id}}';
+                  var currentValue = parseInt(quantityInput{{$cartItem->id}}.value, 10); 
+                } else {
+                  var currentValue = 0;
+                }
+
+                decrementButton{{$cartItem->id}}.addEventListener('click', function () {
+                    decrementQuantity({{$cartItem->id}},{{$cartItem->computed_quantity}},{{$cartItem->price}});
+                });
+
+                incrementButton{{$cartItem->id}}.addEventListener('click', function () {
+                    incrementQuantity({{$cartItem->id}},{{$cartItem->computed_quantity}},{{$cartItem->price}});
+                });
+
+                quantityInput{{$cartItem->id}}.addEventListener('input', function () {
+                    validateQuantity({{$cartItem->id}},{{$cartItem->computed_quantity}});
+                });
+
+                document.addEventListener('DOMContentLoaded', function() {
+                  if (quantityInput{{$cartItem->id}}.value==1){
+                  decrementButton{{$cartItem->id}}.style.opacity=0;
+                } else if (quantityInput{{$cartItem->id}}.value==stock{{$cartItem->id}}) {
+                  incrementButton{{$cartItem->id}}.style.opacity=0;
+                }
+                });
+
+              </script>
+              <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+              <script>
+                  $.ajaxSetup({
+                      headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      }
+                  });
+              </script>
+              <script>
+                console.log("changed");
+                var quantityInput = document.getElementById("quantity{{$cartItem->id}}");
+                $(quantityInput).change(function(e) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/updatecart',
+                            data: {
+                                quantity = quantityInput.value();
+                            },
+                            success: function(response) {
+                            },
+                            error: function() {
+                            }
+                        });
+                    });
+              </script>
             </div>
 
           {{-- in stock layout end --}}
@@ -176,6 +175,93 @@
 
           @endforeach
 
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var countPlaceholder = document.getElementById('itemnum');
+                if (countPlaceholder) {
+                    countPlaceholder.textContent = {{ $inStockCount }}+' Items';
+                }
+            });
+          </script>
+
+          <script>
+            function decrementQuantity(id,stock,price) {
+
+              var quantityInput = document.getElementById('quantity' + id);
+
+              var currentValue = parseInt(quantityInput.value, 10); 
+
+              if (quantityInput.value === 1) {
+                document.getElementById('decrement'+id).style.opacity=0;
+                document.getElementById('decrement'+id).style.cursor='default';
+              } else if (quantityInput.value > 1) {
+                document.getElementById('increment'+id).style.opacity=1;
+                document.getElementById('increment'+id).style.cursor='pointer';
+                currentValue = currentValue - 1; 
+                quantityInput.value = currentValue;
+                updateTotalPrice(id,price);
+                updateOverallSubtotal();
+                if (currentValue === 1) {
+                  document.getElementById('decrement'+id).style.opacity=0;
+                  document.getElementById('decrement'+id).style.cursor='default';
+                }
+              }
+              console.log('dec cartitemid=',id," ", quantityInput.value);
+              validateQuantity(id, stock);
+            }
+
+            function incrementQuantity(id,stock,price) {
+
+              var quantityInput = document.getElementById('quantity' + id);
+
+              var currentValue = parseInt(quantityInput.value, 10); 
+                
+              if (quantityInput.value < stock) {
+                document.getElementById('increment'+id).style.opacity=1;
+                currentValue = currentValue + 1; 
+                quantityInput.value = currentValue;
+                updateTotalPrice(id,price);
+                updateOverallSubtotal();
+                document.getElementById('decrement'+id).style.opacity=1;
+                document.getElementById('decrement'+id).style.cursor='pointer';
+                if (quantityInput.value == stock) {
+                  document.getElementById('increment'+id).style.opacity=0;
+                  document.getElementById('increment'+id).style.cursor='default';
+                }
+              } else { 
+                document.getElementById('increment'+id).style.opacity=0;
+                document.getElementById('increment'+id).style.cursor='default';
+                quantityInput.value = stock;
+              }
+              console.log('inc cartitemid=',id," ", quantityInput.value);
+              validateQuantity(id, stock);
+
+            }
+
+            function updateTotalPrice(id,price) {
+                totalPriceElement = document.getElementById('totalPrice' + id);
+                var quantityInput = document.getElementById('quantity' + id);
+                var itemPrice = parseFloat(price);
+                var quantity = parseFloat(quantityInput.value);
+                var total = itemPrice * quantity;
+                totalPriceElement.textContent = '₱' + total.toFixed(2);
+            }
+
+            function validateQuantity(id, stock) {
+              var quantityInput = document.getElementById('quantity' + id);
+
+              var currentValue = parseInt(quantityInput.value, 10); 
+
+              if (isNaN(currentValue) || currentValue < 1) {
+                  quantityInput.value = 1;
+              } else if (currentValue < 1 && currentValue > stock) {
+
+              } else if (currentValue > stock) {
+                  quantityInput.value = stock;
+              }
+            }
+          </script>
+
           {{-- product loop end --}}
   
           <a href="/" class="flex font-semibold text-indigo-600 text-sm mt-10">
@@ -184,18 +270,23 @@
             Continue Shopping
           </a>
         </div>
-  
         <div id="summary" class="w-1/4 px-8 py-10 bg-orange-500	background-color: rgb(249 115 22) opacity-85	opacity: 0.85;">
           <h1 class="font-bold text-2xl border-b pb-8 text-center">Order Summary</h1>
+          <div class="flex font-bold justify-between py-6 text-sm uppercase text-slate-100">
+            <span>Ship to</span>
+            <span id="address" class="text-black font-bold">Metro Manila</span>
+          </div>
+          <div class="flex flex-col font-bold justify-between py-6 text-sm uppercase text-slate-100">
+            <span>Shipping Method</span>
+              <span id="method" class="text-black font-bold">Same Day Delivery</span>
+              <span id="address" class="text-black font-bold">Next Day Delivery</span>
+          </div>
           <div class="flex justify-between mt-10 mb-5">
             <span class="font-bold text-sm uppercase text-slate-100">Subtotal</span>
-            <span class="font-semibold text-sm">₱1,030.00</span>
+            <span id="subTotal" class="font-semibold text-sm">₱1,030.00</span>
           </div>
           <div>
             <label class="font-bold inline-block mb-3 text-sm uppercase text-slate-100">Shipping Date:</label>
-            
-              
-        
             <div class="relative max-w-sm">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                   <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -204,26 +295,39 @@
                 </div>
                 <input datepicker type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
               </div>
-  
-
-            
           </div>
-          
-          
           <div class="border-t mt-8">
-            
             <div class="flex font-bold justify-between py-6 text-sm uppercase text-slate-100">
               <span>Shipping fee</span>
-              <span class="text-black font-bold">₱600</span>
+              <span id="priceShippingFee" class="text-black font-bold">₱100</span>
             </div>
             <div class="flex font-bold justify-between py-6 text-sm uppercase text-slate-100 my-4">
                 <span>TOTAL</span>
               </div>
               <div class="container mx-auto w-3/4 px-4 py-2 bg-stone-100 font-semibold  rounded-2xl    ">
-              <p class="text-center"> ₱1,030.00 </p>
+              <p id="priceTotal" class="text-center"> ₱1,030.00 </p>
+                <script>
+                  function updateOverallSubtotal() {
+                      var cartitemSubtotals = document.getElementsByName('cartitemSubtotal');
+                      var overallSubtotal = 0;
+    
+                      for (var i = 0; i < cartitemSubtotals.length; i++) {
+                          var subtotalValue = parseFloat(cartitemSubtotals[i].textContent.replace('₱', '').trim());
+                          overallSubtotal += subtotalValue;
+                      }
+
+                      document.getElementById('subTotal').textContent = '₱' + overallSubtotal.toFixed(2);
+                      var priceShippingFee = parseFloat(document.getElementById('priceShippingFee').textContent.replace('₱', '').trim()) || 0;
+                      var priceTotal = document.getElementById('priceTotal');
+                      var priceTotalInt = 0;
+                      priceTotalInt = overallSubtotal + priceShippingFee;
+                      priceTotal.textContent = '₱' + priceTotalInt.toFixed(2);
+                  }
+                  updateOverallSubtotal();
+                </script>
               </div>
 
-            <button class="bg-stone-100 font-bold hover:bg-stone-600 py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4	border-radius: 1rem;">Checkout</button>
+            <button class="bg-stone-100 font-bold hover:bg-stone-600 py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4	border-radius: 1rem;">Proceed to Payment</button>
           </div>
         </div>
 

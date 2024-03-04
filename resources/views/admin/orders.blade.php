@@ -16,7 +16,6 @@
         <div class="mt-16">
 
             <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
             <script>
                 $.ajaxSetup({
                     headers: {
@@ -27,7 +26,6 @@
 
             <div class="p-4 block sm:flex items-center justify-between border-b border-white lg:mt-1.5">
                 <div class="mb-1 w-full">
-
                     <div class="mb-4">
                         {{-- Navigation Start --}}
                         <nav class="flex mb-5" aria-label="Breadcrumb">
@@ -47,13 +45,10 @@
                             </ol>
                         </nav>
                         {{-- Navigation End --}}
-
                         <h1 class="text-xl sm:text-2xl font-semibold text-black">All Orders</h1>
                     </div>
-
                     <div class="sm:flex">
                         <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
-
                             <label for="searchInput" class="sr-only">Search</label>
                             <div class="mt-1 relative lg:w-64 xl:w-96">
                                 <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for orders">

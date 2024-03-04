@@ -34,9 +34,9 @@
                   <div class="h-3"></div>
                   <p class="font-mono text-black text-5xl font-bold">5</p>
                   <p class="text-black text-lg">NEW ORDERS</p>
-                  <div class="flex justify-center text-center items-center gap-1 text-red-600">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M 10 11.5 C 10 11.776 10.224 12 10.5 12 L 14.5 12 C 14.776 12 15 11.776 15 11.5 L 15 7.5 C 15 7.115 14.583 6.875 14.25 7.067 C 14.095 7.156 14 7.321 14 7.5 L 14 10.1 L 10.387 5.683 C 10.2 5.454 9.856 5.437 9.647 5.646 L 7.06 8.233 L 3.404 3.206 C 3.166 2.903 2.69 2.972 2.547 3.329 C 2.485 3.483 2.504 3.657 2.596 3.794 L 6.596 9.294 C 6.777 9.543 7.137 9.571 7.354 9.354 L 9.963 6.744 L 13.445 11 L 10.5 11 C 10.224 11 10 11.224 10 11.5" transform="matrix(1, 0, 0, 1, 0, -1.1102230246251565e-16)"></path>
+                  <div class="flex justify-center text-center items-end gap-1 text-red-600">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                      </svg>
                   <p class="font-mono text-red-600 text-base">-2.00%</p>
                </div>
@@ -75,8 +75,8 @@
                   <p class="font-mono text-black text-5xl font-bold">1</p>
                   <p class="text-black text-lg">NEW RATINGS</p>
                   <div class="flex justify-center text-center items-center gap-1 text-green-600">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5"/>
+                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                      </svg>
                      <p class="font-mono text-green-600 text-base">+2.00%</p>
                   </div>
