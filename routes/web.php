@@ -115,9 +115,9 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/login2', function () {
-    return view('login.login');
-});
+// Route::get('/login2', function () {
+//     return view('login.login');
+// });
 
 Route::get('/product', function () {
     return view('product');
