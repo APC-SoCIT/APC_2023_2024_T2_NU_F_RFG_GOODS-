@@ -12,7 +12,7 @@
                     </svg>
                     <span class="sr-only">Search icon</span>
                 </div>
-                <input name="search" type="search" id="search-navbar" class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-orange-200 rounded-lg bg-orange-200 focus:ring-blue-500 focus:border-blue-500" placeholder="Search">
+                <input name="search" type="search" id="search-navbar" class="block w-full p-2.5 ps-10 text-sm text-black border border-orange-200 rounded-lg bg-gray-100 focus:ring-orange-600 focus:border-orange-500" placeholder="Search">
             </form>
         </div>
         <div class="flex md:order-2">
