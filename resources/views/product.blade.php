@@ -204,10 +204,44 @@
 
                         <div class="flex flex-wrap items-center -mx-4 ">
                             <div class="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
-                                <button
-                                    class="flex items-center justify-center w-full p-4 text-black border font-bold border-orange-500 rounded-md dark:text-black dark:border-amber-200 hover:bg-orange-600 hover:border-orange-600 hover:text-gray-100 dark:bg-amber-200 dark:hover:bg-amber-200 dark:hover:border-orange-700 dark:hover:text-black">
-                                    Add to Cart
-                                </button>
+                                <form id="addToCartForm{{ $product->id }}" action="{{ route('product.addtocart')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="user_id" value="@if(Auth::user() != null) {{ Auth::user()->id }} @else @endif">
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    @if($product->computed_quantity == 0 || $product->computed_quantity < 1 ) 
+                                        <button id="" class="bg-gray-400 w-28 text-black font-semibold rounded-xl" >Out of Stock</button>
+                                    @else
+                                        <button id="addtocartsubmit{{ $product->id }}" type="submit" class="flex items-center justify-center w-full p-4 text-black border font-bold border-orange-500 rounded-md dark:text-black dark:border-amber-200 hover:bg-orange-600 hover:border-orange-600 hover:text-gray-100 dark:bg-amber-200 dark:hover:bg-amber-200 dark:hover:border-orange-700 dark:hover:text-black">
+                                            Add to Cart</button>
+                                    @endif
+                                </form>
+                                <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+                                <script>
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
+                                </script>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#addToCartForm{{ $product->id }}').submit(function(e) {
+                                            e.preventDefault();
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: '/addtocart',
+                                                data: $(this).serialize(),
+                                                success: function(response) {
+                                                    var currentColor = $('#addtocartsubmit{{ $product->id }}').css('background-color');
+                                                    $('#addtocartsubmit{{ $product->id }}').text(response);
+                                                        setTimeout(function() {
+                                                            $('#addtocartsubmit{{ $product->id }}').text('Add to Cart');
+                                                        }, 3000);
+                                                },
+                                            });
+                                        });
+                                    });
+                                </script>
                             </div>
                             <div class="w-full px-4 mb-4 lg:mb-0 lg:w-1/2">
                                 <button
