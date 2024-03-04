@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +14,7 @@
   <body class="bg-gray-100">
     @include('navbar.navbar')
 
-    <div class="container mx-auto">
+    <div class=" relative container mx-auto">
       <div class="flex shadow-md my-10">
         <div class="w-3/4 bg-white px-10 py-10">
           <div class="flex justify-between border-b pb-8">
@@ -272,46 +274,46 @@
         </div>
         <div id="summary" class="w-1/4 px-8 py-10 bg-orange-500	background-color: rgb(249 115 22) opacity-85	opacity: 0.85;">
           <h1 class="text-white font-bold text-2xl border-b pb-8 text-center">Order Summary</h1>
-          <div class="flex font-bold justify-between py-6 text-sm uppercase text-slate-100">
+          <div class="flex font-bold justify-between py-6 text-sm uppercase text-white">
             <span>Ship to</span>
             <span id="address" class="text-white font-bold">Metro Manila</span>
           </div>
-          <div class="flex flex-col font-bold justify-between py-6 text-sm uppercase text-slate-100">
+          <div class="flex flex-col font-bold justify-between text-sm uppercase text-white">
             <span>Shipping Method</span>
-            <div>
-              <div class="flex items-center mb-4">
-                <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Same Day Delivery</label>
+            <div class="my-6">
+              <div class="flex items-center mb-4 ">
+                <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-300 focus:ring-blue-500 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="default-radio-1" class="ms-2 text-sm font-medium text-white dark:text-white">Same Day Delivery</label>
               </div>
               <div class="flex items-center">
-                <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Next Day Delivery</label>
+                <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-300 bg-gray-100 border-gray-300 focus:ring-blue-500  dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="default-radio-2" class="ms-2 text-sm font-medium text-white dark:text-white">Next Day Delivery</label>
               </div>
 
             </div>
 
           </div>
-          <div class="flex justify-between mt-10 mb-5">
-            <span class="font-bold text-sm uppercase text-slate-100">Subtotal</span>
+          <div class="flex justify-between mt-4 mb-5">
+            <span class="font-bold text-sm uppercase text-white">Subtotal</span>
             <span id="subTotal" class="font-bold text-sm text-white">₱1,030.00</span>
           </div>
           <div>
-            <label class="font-bold inline-block mb-3 text-sm uppercase text-slate-100">Shipping Date:</label>
+            <label class="font-bold inline-block mb-3 text-sm uppercase text-white">Shipping Date:</label>
             <div class="relative max-w-sm">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                   <svg class="w-4 h-4 text-gray-500 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                   </svg>
                 </div>
-                <input datepicker type="text" class="bg-white border border-gray-300 text-black text-sm rounded-lg block w-full ps-10 p-2.5 dark:bg-white dark:border-white dark:placeholder-black dark:text-white" placeholder="Select date" style="background-color= white;">
+                <input datepicker type="text" class="bg-white border border-gray-300 text-black text-sm rounded-lg block w-full ps-10 p-2.5 dark:bg-white dark:border-white dark:placeholder-black dark:text-black" placeholder="Select date" style="background-color= white;">
               </div>
           </div>
           <div class="border-t mt-8">
-            <div class="flex font-bold justify-between py-6 text-sm uppercase text-slate-100">
+            <div class="flex font-bold justify-between py-6 text-sm uppercase text-white">
               <span>Shipping fee</span>
               <span id="priceShippingFee" class="text-white font-bold">₱100</span>
             </div>
-            <div class="flex font-bold justify-between py-6 text-sm uppercase text-slate-100 my-4">
+            <div class="flex font-bold justify-between py-6 text-sm uppercase text-white my-4">
                 <span>TOTAL</span>
               </div>
               <div class="container mx-auto w-3/4 px-4 py-2 bg-stone-100 font-semibold  rounded-2xl    ">
