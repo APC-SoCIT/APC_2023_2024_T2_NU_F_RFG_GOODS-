@@ -403,7 +403,8 @@ class ProductController extends Controller
         ->where('product_id', $request->product_id)
         ->first();
 
-        $products = Product::
+        if($existingCart) {
+            $products = Product::
         join('product_categories', 'products.category_id', '=', 'product_categories.id')
         ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
         ->select(
@@ -424,26 +425,20 @@ class ProductController extends Controller
         ->first();
         $categoryList = ProductCategory::select('id', 'category')->get();
 
-        // Get the existing cart item if it exists
-        $existingCart = Cart::where('user_id', Auth::id())
-            ->where('product_id', $request->product_id)
-            ->first();
+        }
 
-        // Use a transaction for database operations
-        DB::transaction(function () use ($request, $existingCart) {
-            if ($existingCart) {
-                // If the row exists, update the quantity
-                $existingCart->quantity += $request->filled('quantity') ? $request->quantity : 1;
-                $existingCart->save();
-            } else {
-                // If the row doesn't exist, create a new one
-                $newCart = new Cart;
-                $newCart->user_id = Auth::id();
-                $newCart->product_id = $request->product_id;
-                $newCart->quantity = $request->filled('quantity') ? $request->quantity : 1;
-                $newCart->save();
-            }
-        });
+        if ($existingCart) {
+            // If the row exists, update the quantity
+            $existingCart->quantity += $request->filled('quantity') ? $request->quantity : 1;
+            $existingCart->save();
+        } else {
+            // If the row doesn't exist, create a new one
+            $newCart = new Cart;
+            $newCart->user_id = Auth::id();
+            $newCart->product_id = $request->product_id;
+            $newCart->quantity = $request->filled('quantity') ? $request->quantity : 1;
+            $newCart->save();
+        }
 
         return 'Success!';
     }

@@ -39,9 +39,13 @@ Route::get('/item', function () {
     return view('products.item');
 });
 
+Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::post('/addtocart', [ProductController::class, 'addtocart'])->name('product.addtocart');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard',[HomeController::class, 'index'])->name('dashboard');
@@ -49,12 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::put('user/address/update', [UserAddressController::class, 'update'])->name('user.address.update');
-    Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
-    Route::post('/addtocart', [ProductController::class, 'addtocart'])->name('product.addtocart');
     Route::post('/updatecart', [ProductController::class, 'updatecart'])->name('product.updatecart');
-    // Route::get('/cart', function () {
-    //     return view('cart');
-    // });
     Route::get('/cart', [ProductController::class, 'userCart'])->name('product.userCart');
 });
 

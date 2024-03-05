@@ -42,7 +42,7 @@ class HomeController extends Controller
                     DB::raw('SUM(CASE WHEN inventories.is_received = 1 THEN inventories.quantity ELSE -inventories.quantity END) as computed_quantity')
                 )
                 ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt')
-                ->paginate(12);
+                ->get();
                 $categoryList = ProductCategory::select('id', 'category')->get();
 
                 $orders = DB::table('orders')
