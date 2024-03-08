@@ -33,7 +33,7 @@
                 <!-- Modal body -->
                 <div class="p-6 space-y-6">
                     {{-- ('product.update', ['product' => $product]) --}}
-                    <form method="post" action="{{route('product.update', ['product' => ])}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('product.update', ['product' => 'no'])}}" enctype="multipart/form-data">
                         <div class="grid grid-cols-6 gap-6">
                             @csrf
                             @method('put')
