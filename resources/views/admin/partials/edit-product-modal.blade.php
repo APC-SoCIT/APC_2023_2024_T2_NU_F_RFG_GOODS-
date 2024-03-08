@@ -1,6 +1,5 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 <!-- Edit Product Modal -->
-<div id="product-modal-{{ $product->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full">
+<div id="edit-product-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full">
     <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
         <!-- Modal content -->
         <div class="bg-white rounded-lg shadow relative">
