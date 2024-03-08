@@ -250,7 +250,7 @@ class ProductController extends Controller
                         })
                         ->paginate(12);
 
-            return view('admin.products-table', ['products' => $products, 'categoryList' => $categoryList]);
+            return view('admin.products-table', ['products' => $products, 'categoryList' => $categoryList])->render();
         }
 
         return view('admin.products', ['products' => $products, 'categoryList' => $categoryList]);
