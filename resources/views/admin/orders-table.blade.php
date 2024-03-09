@@ -1,4 +1,4 @@
-<div class="shadow overflow-hidden">
+<div class="drop-shadow-md overflow-hidden">
 <table class="table-fixed min-w-full divide-y divide-gray-200">
         <thead class="bg-white">
             <tr>

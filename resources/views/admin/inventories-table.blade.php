@@ -1,5 +1,5 @@
-<div class="align-middle inline-block min-w-full">
-    <div class="shadow overflow-hidden">
+<div class="drop-shadow-md align-middle inline-block min-w-full">
+    <div class="overflow-hidden">
         <table class="table-fixed min-w-full divide-y divide-gray-200">
             <thead class="bg-white">
                 <tr>

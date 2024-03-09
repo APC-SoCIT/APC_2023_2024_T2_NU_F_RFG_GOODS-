@@ -174,7 +174,7 @@
                </div>
             </div>
 
-            <div class="flex flex-col items-center h-[22rem] rounded-2xl bg-white p-5">
+            <div class="drop-shadow-md flex flex-col items-center h-[22rem] rounded-2xl bg-white p-5">
                <p class="text-left w-full text-xl text-black mb-4">ITEMS LOW ON STOCK</p>
                <div class="w-full flex flex-col items-center justify-end h-full gap-4 text-rfg-text overflow-y-hidden">
                   <div class="flex flex-col w-full h-full bg-gray-200 p-4 gap-2 rounded-2xl overflow-x-auto">

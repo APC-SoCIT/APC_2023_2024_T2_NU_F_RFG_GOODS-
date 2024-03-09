@@ -293,7 +293,7 @@
                 {{-- search container start --}}
                 <div class="flex justify-center mb-10 px-5 items-center">
                     <div id="searchContainer" class="grid md:grid-cols-4 grid-cols-2 gap-4 h-full">
-                            @include('search-grid');
+                            @include('search-grid')
                     </div>
                 </div>
                 {{-- search container end --}}

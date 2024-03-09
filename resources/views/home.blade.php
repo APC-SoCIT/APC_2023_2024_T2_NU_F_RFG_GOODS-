@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RFG - Home</title>
     <link rel="stylesheet" href="/dist/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
@@ -80,6 +80,24 @@
                 </div>
                 <div class="h-16 my-2 px-6">
                     <p class="text-center text-lg py-4">JAMIE’S CHILI GARLIC 220ML</p>
+                </div>
+            </div>
+            <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                <img class="w-full h-64" src="./Img/vini.jpg" alt="">
+                <div class="flex">
+                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                </div>
+                <div class="h-16 my-2 px-6">
+                    <p class="text-center text-lg py-4">JAMIE’S CHILLI VINEGAR PREMIUM BLEND 375ML</p>
+                </div>
+            </div>
+            <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                <img class="w-full h-64" src="./Img/vini.jpg" alt="">
+                <div class="flex">
+                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                </div>
+                <div class="h-16 my-2 px-6">
+                    <p class="text-center text-lg py-4">JAMIE’S CHILLI VINEGAR PREMIUM BLEND 375ML</p>
                 </div>
             </div>
             <div class="mx-auto w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
