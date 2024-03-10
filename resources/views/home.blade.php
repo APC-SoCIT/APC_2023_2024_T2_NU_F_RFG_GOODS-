@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RFG - Home</title>
     <link rel="stylesheet" href="/dist/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
     <link rel="icon" href="./Img/logo1.png" type="image/x-icon">
@@ -64,77 +66,124 @@
     </div>
     
     <p class="text-3xl font-bold flex justify-center py-6 bg-orange-400 text-white">BEST SELLERS</p> 
-    <div class="mx-auto max-w-screen-2xl overflow-x-auto relative">
-    <div class="flex gap-4 md:gap-8 py-14 mb-8 hide-scrollbar panning-container">
-        <div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
-            <img class="w-full h-64" src="./Img/chi.jpg" alt="">
-            <div class="flex">
-                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
-            </div>
-            <div class="h-16 my-2 px-6">
-                <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
-            </div>
+        <div class="owl-carousel owl-theme py-8">
+            <div class="item"><h4><div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-105">
+                    <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                    <div class="flex">
+                        <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                    </div>
+                    <div class="h-16 my-2 px-6">
+                        <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                    </div>
+                </div></h4></div>
+            <div class="item"><h4><div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                    <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                    <div class="flex">
+                        <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                    </div>
+                    <div class="h-16 my-2 px-6">
+                        <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                    </div>
+                </div></h4></div>
+            <div class="item"><h4><div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                    <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                    <div class="flex">
+                        <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                    </div>
+                    <div class="h-16 my-2 px-6">
+                        <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                    </div>
+                </div></h4></div>
+            <div class="item"><h4><div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                    <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                    <div class="flex">
+                        <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                    </div>
+                    <div class="h-16 my-2 px-6">
+                        <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                    </div>
+                </div></h4></div>
+            <div class="item"><h4><div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                    <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                    <div class="flex">
+                        <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                    </div>
+                    <div class="h-16 my-2 px-6">
+                        <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                    </div>
+                </div></h4></div>
+            <div class="item"><h4><div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                    <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                    <div class="flex">
+                        <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                    </div>
+                    <div class="h-16 my-2 px-6">
+                        <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                    </div>
+                </div></h4></div>
+            <div class="item"><h4><div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                    <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                    <div class="flex">
+                        <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                    </div>
+                    <div class="h-16 my-2 px-6">
+                        <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                    </div>
+                </div></h4></div>
+            <div class="item"><h4><div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                    <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                    <div class="flex">
+                        <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                    </div>
+                    <div class="h-16 my-2 px-6">
+                        <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                    </div>
+                </div></h4></div>
+            <div class="item"><h4><div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                    <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                    <div class="flex">
+                        <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                    </div>
+                    <div class="h-16 my-2 px-6">
+                        <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                    </div>
+                </div></h4></div>
+            <div class="item"><h4><div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
+                    <img class="w-full h-64" src="./Img/chi.jpg" alt="">
+                    <div class="flex">
+                        <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
+                    </div>
+                    <div class="h-16 my-2 px-6">
+                        <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
+                    </div>
+            </div></h4></div>
         </div>
-        <div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
-            <img class="w-full h-64" src="./Img/chi.jpg" alt="">
-            <div class="flex">
-                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
-            </div>
-            <div class="h-16 my-2 px-6">
-                <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
-            </div>
-        </div>
-        <div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
-            <img class="w-full h-64" src="./Img/chi.jpg" alt="">
-            <div class="flex">
-                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
-            </div>
-            <div class="h-16 my-2 px-6">
-                <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
-            </div>
-        </div>
-        <div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
-            <img class="w-full h-64" src="./Img/chi.jpg" alt="">
-            <div class="flex">
-                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
-            </div>
-            <div class="h-16 my-2 px-6">
-                <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
-            </div>
-        </div>
-        <div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
-            <img class="w-full h-64" src="./Img/chi.jpg" alt="">
-            <div class="flex">
-                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
-            </div>
-            <div class="h-16 my-2 px-6">
-                <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
-            </div>
-        </div>
-        <div class="flex-shrink-0 w-80 h-96 bg-slate-50 drop-shadow-lg transition-transform transform hover:scale-110">
-            <img class="w-full h-64" src="./Img/chi.jpg" alt="">
-            <div class="flex">
-                <button class="mx-auto bg-orange-400 rounded-3xl px-10 py-2 font-bold -mt-5 text-white">Buy Now</button>
-            </div>
-            <div class="h-16 my-2 px-6">
-                <p class="text-center text-lg py-4">Ready to fry RG’S Special Pork Chicharon 250g</p>
-            </div>
-        </div>
-    </div>
-    <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 px-3 py-1 rounded-full" onclick="scrollLeft()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-    </button>
-    <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-200 px-3 py-1 rounded-full" onclick="scrollRight()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-    </button>
-</div>
-
+                
 
 @include('footer.footer')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+    var owl = $('.owl-carousel');
+    owl.owlCarousel({
+    loop:false,
+    dots:false,
+    margin:10,
+    nav:false,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
+        }
+    }
+});
+</script>
 </body>
 </html>
