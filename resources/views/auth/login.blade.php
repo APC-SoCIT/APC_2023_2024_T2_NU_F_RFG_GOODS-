@@ -1,3 +1,5 @@
+<link rel="icon" href="./Img/logo1.png" type="image/x-icon">
+<title>RFG - Login</title>
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/dist/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
+    <link rel="icon" href="./Img/logo1.png" type="image/x-icon">
     @vite('resources/css/app.css')
 </head>
 <body class="overflow-x-hidden scrollbar-hide bg-gray-100">

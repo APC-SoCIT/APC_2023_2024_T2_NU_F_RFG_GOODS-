@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RFG - Signup</title>
     <link rel="stylesheet" href="/dist/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
+    <link rel="icon" href="./Img/logo1.png" type="image/x-icon">
 </head>
 <body>
     <div class="bg-cover"

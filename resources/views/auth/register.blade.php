@@ -1,3 +1,5 @@
+<link rel="icon" href="./Img/logo1.png" type="image/x-icon">
+<title>RFG - Register</title>
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
