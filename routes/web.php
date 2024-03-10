@@ -69,7 +69,8 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/product/create', [ProductController::class, 'create'])->name('product.create');
     Route::post('/admin/product/save', [ProductController::class, 'save'])->name('product.save');
     Route::put('/admin/product/update', [ProductController::class, 'update'])->name('product.update');
-    Route::get('/admin/product/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::put('/admin/product/archive', [ProductController::class, 'archive'])->name('product.archive');
+    Route::put('/admin/product/activate', [ProductController::class, 'activate'])->name('product.activate');
     
     Route::get('/admin/categories', [ProductCategoryController::class, 'index'])->name('category.index');
     Route::post('/admin/category/save', [ProductCategoryController::class, 'save'])->name('category.save');

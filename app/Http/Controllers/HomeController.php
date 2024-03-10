@@ -39,10 +39,9 @@ class HomeController extends Controller
                     'products.min_qty',
                     'products.max_qty',
                     'products.reorder_pt',
-                    DB::raw('SUM(CASE WHEN inventories.is_received = 1 THEN inventories.quantity ELSE -inventories.quantity END) as computed_quantity')
-                )
-                ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt')
-                ->get();
+                    'products.stock',
+                    'products.status'
+                )->get();
                 $categoryList = ProductCategory::select('id', 'category')->get();
 
                 $orders = DB::table('orders')

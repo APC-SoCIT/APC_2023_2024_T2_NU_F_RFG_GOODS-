@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('inquiry_id');
             $table->foreign('inquiry_id')->references('id')->on('inquiries');
             $table->unsignedBigInteger('sender_id');
-            $table->foreign('sender_id')->references('id')->on('accounts');
+            $table->foreign('sender_id')->references('id')->on('users');
             $table->text('text');
             $table->timestamps();
         });

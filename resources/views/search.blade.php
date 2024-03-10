@@ -41,7 +41,7 @@
                             </div>
                         </div> --}}
 
-                        <hr class="my-2">
+                        {{-- <hr class="my-2"> --}}
 
                         <h2 id="accordion-collapse-availability">
                             <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-" 
@@ -55,14 +55,29 @@
                                 </svg>
                             </button>
                         </h2>
+
+
+
                         <div id="accordion-collapse-availability-body" class="hidden" aria-labelledby="accordion-collapse-availability">
                             <div class="p-2">
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.availabilityInstock')">
-                                    <input name="filter.availabilityInstock" type="checkbox" class="text-black focus:ring-white focus:outline-none" >
-                                    <label for="filter.availabilityInstock">In Stock</label>
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.availabilityInstock')">
+                                    <input id="filter.availabilityInstock" type="checkbox" 
+                                    class="text-black focus:ring-transparent focus:outline-none" 
+                                    onclick="toggleCheckboxInDiv(this.parentNode, 'filter.availabilityInstock')"
+                                    onclick="">
+                                    <label for="filter.availabilityInstock" 
+                                    class="select-none" 
+                                    onclick="toggleCheckboxInDiv(this.parentNode, 'filter.availabilityInstock')">In Stock</label>
                                 </div>
                             </div>
                         </div>
+
+                        <script>
+                            function toggleCheckbox(checkboxInput) {
+                                var checkbox = checkboxInput;
+                                checkbox.checked = !checkbox.checked;
+                            }
+                        </script>
 
                         <hr class="my-2">
 
@@ -80,21 +95,25 @@
                         </h2>
                         <div id="accordion-collapse-category-body" class="hidden transition-all" aria-labelledby="accordion-collapse-heading-3">
                             <div id="catFilters"class="p-2">
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" >
-                                    {{-- onclick="toggleCheckbox(this, 'filter.categoryAll')" --}}
-                                    <input id="filter.categoryAll" type="checkbox" value="category.All" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.categoryAll">All</label>
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.categoryAll')">
+                                    
+                                    <input id="filter.categoryAll" type="checkbox" value="category.All" class="text-black focus:ring-transparent focus:outline-none" 
+                                    onclick="toggleCheckboxInDiv(this.parentNode, 'filter.categoryAll')">
+                                    <label for="filter.categoryAll"
+                                    onclick="toggleCheckboxInDiv(this.parentNode, 'filter.categoryAll')">All</label>
                                 </div>
                                 @foreach ($categoryList as $category)
-                                        <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" >
-                                            {{-- onclick="toggleCheckbox(this, 'category_{{$category->category}}')" --}}
+                                        <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" 
+                                        onclick="toggleCheckboxInDiv(this, 'category_{{$category->category}}')">
                                             <input id="category_{{$category->category}}" 
                                                     name="category_checkbox" 
                                                     value="category.{{$category->category}}" 
                                                     data-category="{{$category->category}}"
                                                     type="checkbox" 
-                                                    class="category_checkbox text-black focus:ring-white focus:outline-none">
-                                            <label for="category{{$category->category}}">{{$category->category}}</label>
+                                                    class="text-black focus:ring-transparent focus:outline-none" 
+                                                    onclick="toggleCheckboxInDiv(this.parentNode, 'category_{{$category->category}}')">
+                                            <label for="category{{$category->category}}"
+                                                onclick="toggleCheckboxInDiv(this.parentNode, 'category_{{$category->category}}')">{{$category->category}}</label>
                                         </div>
                                 @endforeach
 
@@ -194,9 +213,9 @@
                         </h2>
                         <div id="accordion-collapse-rating-body" class="hidden transition-all" aria-labelledby="accordion-collapse-heading-3">
                             <div class="p-2">
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating5')">
-                                    <input id="filter.rating5" type="checkbox" value="rating5" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating5" class="flex cursor-pointer">5
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating5')">
+                                    <input id="filter.rating5" type="checkbox" value="rating5" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating5')">
+                                    <label for="filter.rating5" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating5')">5
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 5; $i++)
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
@@ -206,9 +225,9 @@
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating4')">
-                                    <input id="filter.rating4" type="checkbox" value="rating4" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating4" class="flex cursor-pointer">4
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating4')">
+                                    <input id="filter.rating4" type="checkbox" value="rating4" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating4')">
+                                    <label for="filter.rating4" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating4')">4
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 4; $i++)
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
@@ -223,9 +242,9 @@
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating3')">
-                                    <input id="filter.rating3" type="checkbox" value="rating3" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating3" class="flex cursor-pointer">3
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating3')">
+                                    <input id="filter.rating3" type="checkbox" value="rating3" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating3')">
+                                    <label for="filter.rating3" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating3')">3
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 3; $i++)
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
@@ -240,9 +259,9 @@
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating2')">
-                                    <input id="filter.rating2" type="checkbox" value="rating2" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating2" class="flex cursor-pointer">2
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating2')">
+                                    <input id="filter.rating2" type="checkbox" value="rating2" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating2')">
+                                    <label for="filter.rating2" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating2')">2
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 2; $i++)
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
@@ -257,9 +276,9 @@
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating1')">
-                                    <input id="filter.rating1" type="checkbox" value="rating1" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating1" class="flex cursor-pointer">1
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating1')">
+                                    <input id="filter.rating1" type="checkbox" value="rating1" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating1')">
+                                    <label for="filter.rating1" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating1')">1
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 1; $i++)
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
@@ -274,9 +293,9 @@
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckbox(this, 'filter.rating0')">
-                                    <input id="filter.rating0" type="checkbox" value="rating0" class="text-black focus:ring-white focus:outline-none">
-                                    <label for="filter.rating0" class="flex cursor-pointer">No reviews</label>
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating0')">
+                                    <input id="filter.rating0" type="checkbox" value="rating0" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating0')">
+                                    <label for="filter.rating0" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating0')">No reviews</label>
                                 </div>
                             </div>
                         </div>
@@ -309,5 +328,11 @@
 
     @include('footer.footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <script>
+        function toggleCheckboxInDiv(divElement, id) {
+            var checkbox = divElement.querySelector('input[id="' + id + '"]');
+            checkbox.checked = !checkbox.checked;
+        }
+    </script>
 </body>
 </html>

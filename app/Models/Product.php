@@ -19,6 +19,9 @@ class Product extends Model
         'min_qty',
         'max_qty',
         'reorder_pt',
+        'stock',
+        'rating',
+        'status',
         'created_at',
         'updated_at',
     ];

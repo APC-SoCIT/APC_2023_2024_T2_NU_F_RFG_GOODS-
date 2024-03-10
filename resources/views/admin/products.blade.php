@@ -14,6 +14,90 @@
 <body class="bg-gray-100">
     @include('admin.partials.admin-sidebar')
 
+    <!-- Add Product Modal Start-->
+    <div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="add-product-modal">
+        <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
+            <!-- Modal content -->
+            <div class="bg-white rounded-lg shadow relative">
+                <!-- Modal header -->
+                <div class="flex items-start justify-between p-5 border-b rounded-t">
+                    <h3 class="text-xl font-semibold text-black">
+                        Add new product
+                    </h3>
+                    <button type="button" 
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" 
+                    data-modal-toggle="add-product-modal">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-6 space-y-6">
+                    <form method="post" action="{{route('product.save')}}" enctype="multipart/form-data">
+                        <div class="grid grid-cols-6 gap-6">
+                            @csrf
+                            @method('post')
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="sku" class="text-sm font-medium text-black block mb-2">SKU</label>
+                                <input type="text" name="sku" id="sku" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="name" class="text-sm font-medium text-black block mb-2">Name</label>
+                                <input type="text" name="name" id="name" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="price" class="text-sm font-medium text-black block mb-2">Price</label>
+                                <input type="numer" name="price" id="price" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <div class="flex">
+                                    <label for="category_id" class="text-sm font-medium text-black block mb-2 mr-1">Category ID</label>
+                                    <a href="/admin/categories">
+                                        <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                                            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                                <select name="category_id" id="category_id" class="shadow-sm bg-gray-50 border border-gray-300 text-black sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                                    @forelse ($categoryList as $category)
+                                        <option value="{{$category->id}}">{{$category->category}}</option>
+                                    @empty
+                                        <option value="0" disabled>Select Category</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="image" class="text-sm font-medium text-black block mb-2">Image</label>
+                                <input type="file" name="image" id="image" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-[0.03rem]" placeholder="" required>
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="min_qty" class="text-sm font-medium text-black block mb-2">Minimum Quantity</label>
+                                <input type="text" name="min_qty" id="min_qty" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="max_qty" class="text-sm font-medium text-black block mb-2">Maximum Quantity</label>
+                                <input type="text" name="max_qty" id="max_qty" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="reorder_pt" class="text-sm font-medium text-black block mb-2">Reorder Point</label>
+                                <input type="text" name="reorder_pt" id="reorder_pt" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
+                            </div>
+                            <div class="col-span-6 sm:col-span-6">
+                                <label for="desc" class="text-sm font-medium text-black block mb-2">Description</label>
+                                <textarea name="desc" id="desc" rows="4" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required></textarea>
+                            </div>
+                        </div> 
+                </div>
+                <!-- Modal footer -->
+                <div class="items-center p-6 border-t border-gray-200 rounded-b">
+                    <button class="text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-red-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add product</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Add Product Modal End-->
+
     <!-- Edit Product Modal -->
     <div id="edit-product-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full">
         <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
@@ -99,6 +183,40 @@
         </div>
     </div>
 
+    <!-- Activate Product Modal -->
+    <div id="activate-product-modal" class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full">
+        <div class="relative w-full max-w-md px-4 h-full md:h-auto">
+            <!-- Modal content -->
+            <div class="bg-white rounded-lg shadow relative">
+                <!-- Modal header -->
+                <div class="flex justify-end p-2">
+                    <button type="button" 
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" 
+                    onclick="hideModal('activate-product-modal')">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-6 pt-0 text-center">
+                    
+                    <svg class="w-20 h-20 text-blue-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">Are you sure you want to activate this product?</h3>
+                    <form method="post" action="{{route('product.activate')}}" enctype="multipart/form-data">
+                        @csrf
+                        @method('put')
+                        <input type="text" class="hidden" name="product_id" id="product_id">
+                        <button type=submit class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
+                            Yes, I'm sure
+                        </button>
+                        <button onclick="hideModal('activate-product-modal')" class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center">
+                            No, cancel
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Delete Product Modal -->
     <div id="delete-product-modal" class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full">
         <div class="relative w-full max-w-md px-4 h-full md:h-auto">
@@ -117,19 +235,17 @@
                     
                     <svg class="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">Are you sure you want to delete this product?</h3>
-                    <form method="post" action="{{route('product.destroy')}}" enctype="multipart/form-data">
-                        <div class="grid grid-cols-6 gap-6">
-                            @csrf
-                            @method('delete')
-                            <input type="text" class="hidden" name="product_id" id="product_id">
-                            <button type=submit class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
-                                Yes, I'm sure
-                            </button>
-                        </div>
+                    <form method="post" action="{{route('product.archive')}}" enctype="multipart/form-data">
+                        @csrf
+                        @method('put')
+                        <input type="text" class="hidden" name="product_id" id="product_id">
+                        <button type=submit class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
+                            Yes, I'm sure
+                        </button>
+                        <button onclick="hideModal('delete-product-modal')" class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center">
+                            No, cancel
+                        </button>
                     </form>
-                    <button onclick="hideModal('delete-product-modal')" data-modal-toggle="delete-product-modal" class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center" data-modal-toggle="delete-product-modal">
-                        No, cancel
-                    </button>
                 </div>
             </div>
         </div>
@@ -174,6 +290,49 @@
                                 <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for Products">
                             </div>
 
+                            <div>
+                                <select name="sort_by" id="sort_by">
+                                    <option value="default">SORT BY:</option>
+                                    <option value="sort_by_name_asc">NAME (A-Z)</option>
+                                    <option value="sort_by_name_desc">NAME (Z-A)</option>
+                                    <option value="sort_by_price_asc">PRICE (LOW TO HIGH)</option>
+                                    <option value="sort_by_price_desc">PRICE (HIGH TO LOW)</option>
+                                    <option value="sort_by_stock_asc">STOCK (LOW TO HIGH)</option>
+                                    <option value="sort_by_stock_desc">STOCK (HIGH TO LOW)</option>
+                                    <option value="sort_by_rating_asc">RATING (LOW TO HIGH)</option>
+                                    <option value="sort_by_rating_desc">RATING (HIGH TO LOW)</option>
+                                    <option value="sort_by_date_asc">DATE ADDED (OLDEST TO LATEST)</option>
+                                    <option value="sort_by_date_desc">DATE ADDED (LATEST TO OLDEST)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <select name="filter_category" id="filter_category">
+                                    <option value="default">CATEGORY:</option>
+                                    @foreach($categoryList as $category)
+                                        <option value="{{$category->id}}">{{$category->category}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div>
+                                <select name="filter_status" id="filter_status">
+                                    <option value="default">STATUS:</option>
+                                    <option value="active">ACTIVE</option>
+                                    <option value="archived">ARCHIVED</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <select name="filter_stock" id="filter_stock">
+                                    <option value="default">STOCK LEVEL:</option>
+                                    <option value="filter_stocks_belowmin">BELOW MIN</option>
+                                    <option value="filter_stock_belowrop">BELOW ROP</option>
+                                    <option value="filter_stock_healthy">HEALTHY</option>
+                                    <option value="filter_stocks_abovemax">ABOVE MAX</option>
+                                </select>
+                            </div>
+
                             <div id="loadingScreen" class="pl-4 hidden">
                                 <div role="status">
                                     <svg aria-hidden="true" class="w-5 h-5 text-gray-200 animate-spin  fill-rfg-accent" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -184,38 +343,12 @@
                                 </div>
                             </div>
 
-                            {{-- controls start --}}
 
-                            {{-- <div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
-                                <a href="#" class="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
-                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
-                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
-                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                </a>
-                                <a href="#" class="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
-                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
-                                </a>
-                                @if($errors->any())
-                                <div class="flex items-center space-x-2">
-                                    @foreach($errors->all() as $error)
-                                        <div class="flex items-center">
-                                            <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>
-                                            <span>{{$error}}</span>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                @endif
-                            </div> --}}
 
-                            {{-- controls end --}}
                         </div>
 
                         <div class="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                            <button data-modal-target="add-product-modal" data-modal-toggle="add-product-modal"class="w-1/2 text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-red-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                            <button data-modal-target="add-product-modal" data-modal-toggle="add-product-modal"class="w-[100%] text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-red-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
                                 <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                 Add Product
                             </button>
@@ -227,95 +360,10 @@
 
             <div class="flex flex-col">
                 <div id="datatable"class="">
-                    
                     @include('admin.products-table')
-
+                    <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
                 </div>
             </div>
-
-            <!-- Add Product Modal Start-->
-            <div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="add-product-modal">
-                <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
-                    <!-- Modal content -->
-                    <div class="bg-white rounded-lg shadow relative">
-                        <!-- Modal header -->
-                        <div class="flex items-start justify-between p-5 border-b rounded-t">
-                            <h3 class="text-xl font-semibold text-black">
-                                Add new product
-                            </h3>
-                            <button type="button" 
-                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" 
-                            data-modal-toggle="add-product-modal">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
-                            </button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="p-6 space-y-6">
-                            <form method="post" action="{{route('product.save')}}" enctype="multipart/form-data">
-                                <div class="grid grid-cols-6 gap-6">
-                                    @csrf
-                                    @method('post')
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="sku" class="text-sm font-medium text-black block mb-2">SKU</label>
-                                        <input type="text" name="sku" id="sku" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="name" class="text-sm font-medium text-black block mb-2">Name</label>
-                                        <input type="text" name="name" id="name" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="price" class="text-sm font-medium text-black block mb-2">Price</label>
-                                        <input type="numer" name="price" id="price" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <div class="flex">
-                                            <label for="category_id" class="text-sm font-medium text-black block mb-2 mr-1">Category ID</label>
-                                            <a href="/admin/categories">
-                                                <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-                                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                        <select name="category_id" id="category_id" class="shadow-sm bg-gray-50 border border-gray-300 text-black sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
-                                            @forelse ($categoryList as $category)
-                                                <option value="{{$category->id}}">{{$category->category}}</option>
-                                            @empty
-                                                <option value="0" disabled>Select Category</option>
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="image" class="text-sm font-medium text-black block mb-2">Image</label>
-                                        <input type="file" name="image" id="image" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-[0.03rem]" placeholder="" required>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="min_qty" class="text-sm font-medium text-black block mb-2">Minimum Quantity</label>
-                                        <input type="text" name="min_qty" id="min_qty" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="max_qty" class="text-sm font-medium text-black block mb-2">Maximum Quantity</label>
-                                        <input type="text" name="max_qty" id="max_qty" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="reorder_pt" class="text-sm font-medium text-black block mb-2">Reorder Point</label>
-                                        <input type="text" name="reorder_pt" id="reorder_pt" autocomplete="on" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-6">
-                                        <label for="desc" class="text-sm font-medium text-black block mb-2">Description</label>
-                                        <textarea name="desc" id="desc" rows="4" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required></textarea>
-                                    </div>
-                                </div> 
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="items-center p-6 border-t border-gray-200 rounded-b">
-                            <button class="text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-red-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add product</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Add Product Modal End-->
 
         </div>
     </div>
@@ -337,20 +385,23 @@
             const hideLoadingScreen = () => {
                 $('#loadingScreen').hide();
             };
-            const fetch_data = (page, status, search_term) => {
+            const fetch_data = (page, search_term, sort_by, filter_category, filter_status, filter_stock) => {
                 showLoadingScreen();
-                if(status === undefined){
-                    status = "";
-                }
-                if(search_term === undefined){
-                    search_term = "";
-                }
+                if(status === undefined){status = "";}
+                if(search_term === undefined){search_term = "";}
+                if(sort_by === undefined){sort_by = "";}
+                if(filter_category === undefined){filter_category = "";}
+                if(filter_status === undefined){filter_status = "";}
+                if(filter_stock === undefined){filter_stock = "";}
                 $.ajax({ 
                     url:"/admin/products/?",
                     data: {
                         page: page,
-                        status: status,
                         search_term: search_term,
+                        sort_by: sort_by, 
+                        filter_category: filter_category, 
+                        filter_status: filter_status, 
+                        filter_stock: filter_stock
                     },
                     beforeSend: function(){
                         showLoadingScreen();
@@ -360,30 +411,42 @@
                         const tempContainer = document.createElement('div');
                         tempContainer.innerHTML = data;
 
-                        const editProductButtons = document.querySelectorAll('#edit-product-button');
-                        const delProductButtons = document.querySelectorAll('#delete-product-button');
+                        const editProductButtons = tempContainer.querySelectorAll('#edit-product-button');
+                        const delProductButtons = tempContainer.querySelectorAll('#delete-product-button');
+                        const activateProductButtons = tempContainer.querySelectorAll('#activate-product-button');
 
                         editProductButtons.forEach(function (button) {
                             button.addEventListener('click', function () {
                                 const productData = JSON.parse(button.getAttribute('data-product'));
-                                openModal(productData);
+                                console.log(productData);
                                 openModal(productData, 'edit');
                             });
                         });
-                        delProductButtons.forEach(function(button) {
-                            button.addEventListener('click', function() {
-                                const productData = JSON.parse(button.getAttribute('data-product'));
-                                console.log(productData);
-                                openModal(productData, 'delete');
+                        if (delProductButtons.length > 0) {
+                            delProductButtons.forEach(function(button) {
+                                button.addEventListener('click', function() {
+                                    const productData = JSON.parse(button.getAttribute('data-product'));
+                                    console.log(productData);
+                                    openModal(productData, 'delete');
+                                });
                             });
-                        });
+                        }
+                        if (activateProductButtons.length > 0) {
+                            activateProductButtons.forEach(function(button) {
+                                button.addEventListener('click', function() {
+                                    const productData = JSON.parse(button.getAttribute('data-product'));
+                                    console.log(productData);
+                                    openModal(productData, 'activate');
+                                });
+                            });
+                        }
 
                         $('#datatable').empty();
                         $('#datatable').html(tempContainer);
 
                     },
                     complete: function(){
-                        hideLoadingScreen(); // Hide loading screen after AJAX request completes
+                        hideLoadingScreen();
                     },
                     error: function (xhr, status, error) {
                         console.error(xhr.responseText);
@@ -392,36 +455,70 @@
                 })
             }
             $('body').on('keyup', '#searchInput', function(){
-                var status = $('#status').val();
                 var search_term = $('#searchInput').val();
                 var page = $('#hidden_page').val();
-                fetch_data(page, status, search_term);
+                var sort_by = $('#sort_by').val();
+                var filter_category = $('#filter_category').val();
+                var filter_status = $('#filter_status').val();
+                var filter_stock = $('#filter_stock').val();
+                fetch_data(page, search_term, sort_by, filter_category, filter_status, filter_stock);
             });
-        
-            $('body').on('change', '#status', function(){
-                var status = $('#status').val();
+            $('body').on('change', '#sort_by', function(){
                 var search_term = $('#searchInput').val();
                 var page = $('#hidden_page').val();
-                fetch_data(page, status, search_term);
+                var sort_by = $('#sort_by').val();
+                var filter_category = $('#filter_category').val();
+                var filter_status = $('#filter_status').val();
+                var filter_stock = $('#filter_stock').val();
+                fetch_data(page, search_term, sort_by, filter_category, filter_status, filter_stock);
             });
-        
             $('body').on('click', '.pager a', function(event){
                 event.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
                 $('#hidden_page').val(page);
                 var search_term = $('#searchInput').val();
-                var status = $('#status').val();
-                fetch_data(page, status, search_term);
+                var sort_by = $('#sort_by').val();
+                var filter_category = $('#filter_category').val();
+                var filter_status = $('#filter_status').val();
+                var filter_stock = $('#filter_stock').val();
+                fetch_data(page, search_term, sort_by, filter_category, filter_status, filter_stock);
             });
 
+            $('body').on('change', '#filter_category', function(){
+                var search_term = $('#searchInput').val();
+                var page = $('#hidden_page').val();
+                var sort_by = $('#sort_by').val();
+                var filter_category = $('#filter_category').val();
+                var filter_status = $('#filter_status').val();
+                var filter_stock = $('#filter_stock').val();
+                fetch_data(page, search_term, sort_by, filter_category, filter_status, filter_stock);
+            });
+            $('body').on('change', '#filter_status', function(){
+                var search_term = $('#searchInput').val();
+                var page = $('#hidden_page').val();
+                var sort_by = $('#sort_by').val();
+                var filter_category = $('#filter_category').val();
+                var filter_status = $('#filter_status').val();
+                var filter_stock = $('#filter_stock').val();
+                fetch_data(page, search_term, sort_by, filter_category, filter_status, filter_stock);
+            });
+            $('body').on('change', '#filter_stock', function(){
+                var search_term = $('#searchInput').val();
+                var page = $('#hidden_page').val();
+                var sort_by = $('#sort_by').val();
+                var filter_category = $('#filter_category').val();
+                var filter_status = $('#filter_status').val();
+                var filter_stock = $('#filter_stock').val();
+                fetch_data(page, search_term, sort_by, filter_category, filter_status, filter_stock);
+            });
         });
-                
     </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const editProductButtons = document.querySelectorAll('#edit-product-button');
             const delProductButtons = document.querySelectorAll('#delete-product-button');
+            const activateProductButtons = document.querySelectorAll('#activate-product-button');
             editProductButtons.forEach(function(button) {
                 button.addEventListener('click', function() {
                     const productData = JSON.parse(button.getAttribute('data-product'));
@@ -434,6 +531,13 @@
                     const productData = JSON.parse(button.getAttribute('data-product'));
                     console.log(productData);
                     openModal(productData, 'delete');
+                });
+            });
+            activateProductButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const productData = JSON.parse(button.getAttribute('data-product'));
+                    console.log(productData);
+                    openModal(productData, 'activate');
                 });
             });
         });
@@ -522,6 +626,16 @@
                 idInput.value = productData.id;
 
                 showModal('delete-product-modal');
+                console.log(productData);
+
+            } else if (params=='activate') {
+
+                const activateProductModal = document.getElementById('activate-product-modal');
+
+                const idInput = activateProductModal.querySelector('#product_id');
+                idInput.value = productData.id;
+
+                showModal('activate-product-modal');
                 console.log(productData);
 
             }

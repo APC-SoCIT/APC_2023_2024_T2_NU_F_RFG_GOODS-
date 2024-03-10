@@ -70,7 +70,7 @@
             </div>
 
             <div class="flex flex-col ">
-                <div id="datatable"class="overflow-x-auto">
+                <div id="datatable">
                     @include('admin.orders-table')
                 </div>
             </div>

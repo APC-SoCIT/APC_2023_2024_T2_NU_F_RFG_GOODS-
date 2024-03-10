@@ -20,6 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('product_categories');
             $table->text('desc');
+            $table->integer('stock');
+            $table->string('status');
+            $table->decimal('rating');
             $table->integer('min_qty');
             $table->integer('max_qty');
             $table->integer('reorder_pt');
