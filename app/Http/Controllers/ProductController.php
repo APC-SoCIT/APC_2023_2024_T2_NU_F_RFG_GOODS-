@@ -373,12 +373,10 @@ class ProductController extends Controller
         return redirect(route('product.index'))->withSuccess('Product Successfully Added');
     }
 
-    public function edit(Product $product){
-        $categoryList = ProductCategory::select('id','category')->get();
-        return view('products.edit', compact('product', 'categoryList'));
-    }
+    public function update(Request $request){
 
-    public function update(Product $product, Request $request){
+        $productID = $request->input('product_id');
+        $product = Product::find($productID);
 
         $request->validate([
             'image' => 'nullable|mimes:jpeg,jpg,png,gif|max:20000',
