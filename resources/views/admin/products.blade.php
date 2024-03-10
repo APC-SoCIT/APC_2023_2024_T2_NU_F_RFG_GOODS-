@@ -25,7 +25,6 @@
                         Edit product
                     </h3>
                     <button type="button" 
-                    data-modal-toggle="edit-product-modal" 
                     onclick="hideModal('edit-product-modal')"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
@@ -107,7 +106,9 @@
             <div class="bg-white rounded-lg shadow relative">
                 <!-- Modal header -->
                 <div class="flex justify-end p-2">
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="delete-product-modal">
+                    <button type="button" 
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" 
+                    onclick="hideModal('delete-product-modal')">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                     </button>
                 </div>
@@ -126,9 +127,9 @@
                             </button>
                         </div>
                     </form>
-                    <a href="" data-modal-toggle="delete-product-modal" class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center" data-modal-toggle="delete-product-modal">
+                    <button onclick="hideModal('delete-product-modal')" data-modal-toggle="delete-product-modal" class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center" data-modal-toggle="delete-product-modal">
                         No, cancel
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -242,7 +243,9 @@
                             <h3 class="text-xl font-semibold text-black">
                                 Add new product
                             </h3>
-                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="add-product-modal">
+                            <button type="button" 
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" 
+                            data-modal-toggle="add-product-modal">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                             </button>
                         </div>
@@ -357,12 +360,21 @@
                         const tempContainer = document.createElement('div');
                         tempContainer.innerHTML = data;
 
-                        const elementsInsideResponse = tempContainer.querySelectorAll('#edit-product-button');
+                        const editProductButtons = document.querySelectorAll('#edit-product-button');
+                        const delProductButtons = document.querySelectorAll('#delete-product-button');
 
-                        elementsInsideResponse.forEach(function (button) {
+                        editProductButtons.forEach(function (button) {
                             button.addEventListener('click', function () {
                                 const productData = JSON.parse(button.getAttribute('data-product'));
                                 openModal(productData);
+                                openModal(productData, 'edit');
+                            });
+                        });
+                        delProductButtons.forEach(function(button) {
+                            button.addEventListener('click', function() {
+                                const productData = JSON.parse(button.getAttribute('data-product'));
+                                console.log(productData);
+                                openModal(productData, 'delete');
                             });
                         });
 
@@ -414,24 +426,40 @@
                 button.addEventListener('click', function() {
                     const productData = JSON.parse(button.getAttribute('data-product'));
                     console.log(productData);
-                    openModal(productData);
+                    openModal(productData, 'edit');
                 });
             });
             delProductButtons.forEach(function(button) {
                 button.addEventListener('click', function() {
                     const productData = JSON.parse(button.getAttribute('data-product'));
                     console.log(productData);
-                    openModal(productData);
+                    openModal(productData, 'delete');
                 });
             });
         });
 
+        function showModal(elementId){
+            const options = {
+                placement: 'bottom-right',
+                closable: false,
+                onHide: () => {
+                    console.log('modal is hidden');
+                },
+                onShow: () => {
+                    console.log('modal is shown');
+                },
+                onToggle: () => {
+                    console.log('modal has been toggled');
+                }
+            };
+            const modal = new Modal(document.getElementById(elementId), options);
+            modal.show();
+        }
+
         function hideModal(elementId){
             const options = {
                 placement: 'bottom-right',
-                backdrop: 'dynamic',
-                backdropClasses: 'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
-                closable: true,
+                closable: false,
                 onHide: () => {
                     console.log('modal is hidden');
                 },
@@ -446,61 +474,59 @@
             modal.hide();
         }
 
-        function openModal(productData) {
+        function openModal(productData, params) {
 
-            const editProductModal = document.getElementById('edit-product-modal');
+            if (params=='edit') {
 
-            const options = {
-                placement: 'bottom-right',
-                backdrop: 'dynamic',
-                backdropClasses: 'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
-                closable: true,
-                onHide: () => {
-                    console.log('modal is hidden');
-                },
-                onShow: () => {
-                    console.log('modal is shown');
-                },
-                onToggle: () => {
-                    console.log('modal has been toggled');
+                const editProductModal = document.getElementById('edit-product-modal');
+
+                const idInput = editProductModal.querySelector('#product_id');
+                const skuInput = editProductModal.querySelector('#sku');
+                const nameInput = editProductModal.querySelector('#name');
+                const priceInput = editProductModal.querySelector('#price');
+                const categoryInput = editProductModal.querySelector('#category_id');
+                const imageInput = editProductModal.querySelector('#image');
+                const minQtyInput = editProductModal.querySelector('#min_qty');
+                const maxQtyInput = editProductModal.querySelector('#max_qty');
+                const reorderPtInput = editProductModal.querySelector('#reorder_pt');
+                const descTextarea = editProductModal.querySelector('#desc');
+
+                idInput.value = productData.id;
+                skuInput.value = productData.sku;
+                nameInput.value = productData.name;
+                priceInput.value = productData.price;
+                const productDataCategory = productData.category;
+                for (let i = 0; i < categoryInput.options.length; i++) {
+                    const categoryOption = categoryInput.options[i];
+                    console.log(categoryOption);
+                    categoryOption.selected = categoryOption.value === productDataCategory;
+                    if (categoryOption.textContent === productDataCategory) {
+                        categoryOption.selected = true;
+                    } else {
+                        categoryOption.selected = false;
+                    }
                 }
-            };
+                minQtyInput.value = productData.min_qty;
+                maxQtyInput.value = productData.max_qty;
+                reorderPtInput.value = productData.reorder_pt;
+                descTextarea.value = productData.desc;
 
+                showModal('edit-product-modal');
+                console.log(productData);
 
-            const idInput = editProductModal.querySelector('#product_id');
-            const skuInput = editProductModal.querySelector('#sku');
-            const nameInput = editProductModal.querySelector('#name');
-            const priceInput = editProductModal.querySelector('#price');
-            const categoryInput = editProductModal.querySelector('#category_id');
-            const imageInput = editProductModal.querySelector('#image');
-            const minQtyInput = editProductModal.querySelector('#min_qty');
-            const maxQtyInput = editProductModal.querySelector('#max_qty');
-            const reorderPtInput = editProductModal.querySelector('#reorder_pt');
-            const descTextarea = editProductModal.querySelector('#desc');
+            } else if (params=='delete') {
 
-            idInput.value = productData.id;
-            skuInput.value = productData.sku;
-            nameInput.value = productData.name;
-            priceInput.value = productData.price;
-            const productDataCategory = productData.category;
-            for (let i = 0; i < categoryInput.options.length; i++) {
-                const categoryOption = categoryInput.options[i];
-                console.log(categoryOption);
-                categoryOption.selected = categoryOption.value === productDataCategory;
-                if (categoryOption.textContent === productDataCategory) {
-                    categoryOption.selected = true;
-                } else {
-                    categoryOption.selected = false;
-                }
+                const deleteProductModal = document.getElementById('delete-product-modal');
+
+                const idInput = deleteProductModal.querySelector('#product_id');
+                idInput.value = productData.id;
+
+                showModal('delete-product-modal');
+                console.log(productData);
+
             }
-            minQtyInput.value = productData.min_qty;
-            maxQtyInput.value = productData.max_qty;
-            reorderPtInput.value = productData.reorder_pt;
-            descTextarea.value = productData.desc;
 
-            const modal = new Modal(editProductModal, options);
-            modal.toggle();
-            console.log(productData);
+            
         }
 
     </script>

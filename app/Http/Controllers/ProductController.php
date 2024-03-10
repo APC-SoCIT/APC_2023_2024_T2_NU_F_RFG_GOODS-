@@ -423,7 +423,7 @@ class ProductController extends Controller
         return redirect(route('product.index'))->with('success', 'Product Updated Successfully');
     }
 
-    public function destroy(Product $product) {
+    public function destroy(Request $request) {
         $product = Product::where('id',$product->id)->first();
         $product->delete();
         return redirect(route('product.index'))->with('success', 'Product Deleted Successfully');
