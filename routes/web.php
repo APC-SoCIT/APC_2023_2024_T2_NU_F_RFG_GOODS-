@@ -39,6 +39,10 @@ Route::get('/item', function () {
     return view('products.item');
 });
 
+Route::get('/order-page', function () {
+    return view('order-page');
+});
+
 Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
 
 Route::get('/dashboard', function () {
