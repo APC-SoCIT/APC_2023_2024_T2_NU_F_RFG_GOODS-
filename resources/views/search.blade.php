@@ -18,7 +18,7 @@
             <div class="hidden h-dvh md:flex">
                 <div class="w-96 p-5 relative">
                     <p class="font-bold">Filters</p>
-                    <hr class="my-2">
+                    <hr class="mb-2">
                     <div id="accordion-collapse" data-accordion="open" class="w-full">
                         {{-- <h2 id="accordion-collapse-price">
                         <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" 
@@ -56,8 +56,6 @@
                             </button>
                         </h2>
 
-
-
                         <div id="accordion-collapse-availability-body" class="hidden" aria-labelledby="accordion-collapse-availability">
                             <div class="p-2">
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.availabilityInstock')">
@@ -79,7 +77,7 @@
                             }
                         </script>
 
-                        <hr class="my-2">
+                        <hr class="mb-2">
 
                         <h2 id="accordion-collapse-category">
                             <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-white" 
@@ -96,108 +94,29 @@
                         <div id="accordion-collapse-category-body" class="hidden transition-all" aria-labelledby="accordion-collapse-heading-3">
                             <div id="catFilters"class="p-2">
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.categoryAll')">
-                                    
-                                    <input id="filter.categoryAll" type="checkbox" value="category.All" class="text-black focus:ring-transparent focus:outline-none" 
+                                    <input id="filter.categoryAll" type="checkbox" name="category_checkbox" value="default" class="text-black focus:ring-transparent focus:outline-none" 
                                     onclick="toggleCheckboxInDiv(this.parentNode, 'filter.categoryAll')">
-                                    <label for="filter.categoryAll"
+                                    <label for="filter.categoryAll" class="w-full h-full"
                                     onclick="toggleCheckboxInDiv(this.parentNode, 'filter.categoryAll')">All</label>
                                 </div>
                                 @foreach ($categoryList as $category)
-                                        <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" 
-                                        onclick="toggleCheckboxInDiv(this, 'category_{{$category->category}}')">
-                                            <input id="category_{{$category->category}}" 
-                                                    name="category_checkbox" 
-                                                    value="category.{{$category->category}}" 
-                                                    data-category="{{$category->category}}"
-                                                    type="checkbox" 
-                                                    class="text-black focus:ring-transparent focus:outline-none" 
-                                                    onclick="toggleCheckboxInDiv(this.parentNode, 'category_{{$category->category}}')">
-                                            <label for="category{{$category->category}}"
-                                                onclick="toggleCheckboxInDiv(this.parentNode, 'category_{{$category->category}}')">{{$category->category}}</label>
-                                        </div>
+                                    <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" 
+                                    onclick="toggleCheckboxInDiv(this, 'category_{{$category->category}}')">
+                                        <input id="category_{{$category->category}}" 
+                                                name="category_checkbox" 
+                                                value="{{$category->id}}" 
+                                                type="checkbox" 
+                                                class="text-black focus:ring-transparent focus:outline-none" 
+                                                onclick="toggleCheckboxInDiv(this.parentNode, 'category_{{$category->category}}')">
+                                        <label for="category_{{$category->category}}" class="w-full h-full"
+                                            onclick="toggleCheckboxInDiv(this.parentNode, 'category_{{$category->category}}')">{{$category->category}}</label>
+                                    </div>
                                 @endforeach
 
-                                <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-                                <script>
-                                    $.ajaxSetup({
-                                        headers: {
-                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                        }
-                                    });
-                                </script>
-                                <script>
-                                    $(document).ready(function() {
-
-                                        const fetch_data = (page, categories, ratings, stock, search_term) => {
-                                            if (search_term === undefined) {
-                                                search_term = "";
-                                            }
-                                            if (stock === undefined) {
-                                                stock = "";
-                                            }
-                                            if (ratings === undefined) {
-                                                ratings = "";
-                                            }
-                                            if (categories === undefined) {
-                                                categories = "";
-                                            }
-                                            $.ajax({
-                                                url:"/search?",
-                                                data: {
-                                                    page: page,
-                                                    category: categories,
-                                                    ratings: ratings,
-                                                    stock: stock,
-                                                    search_term: search_term,
-                                                },
-                                                success:function(data){
-                                                    $('#searchContainer').html('');
-                                                    $('#searchContainer').html(data);
-                                                },
-                                                error: function (xhr, status, error) {
-                                                    console.error(xhr.responseText);
-                                                }
-                                            })
-                                        }
-
-                                        $('body').on('change', '.category_checkbox', function(){
-                                            var selectedCategories = [];
-                                            
-                                            $('.category_checkbox:checked').each(function () {
-                                                selectedCategories.push($(this).val().replace('category.', ''));
-                                            });
-
-                                            console.log(selectedCategories);
-
-                                            var search_term = $('#searchInput').val();
-                                            var page = $('#hidden_page').val();
-                                            var stock = $('#instock').val();
-                                            fetch_data(page, selectedCategories, ratings, stock, search_term);
-                                        });
-
-                                        $('body').on('change', '.rating_checkbox', function(){
-                                            var selectedRatings = [];
-
-                                            $('.rating_checkbox:checked').each(function () {
-                                                selectedRatings.push($(this).val());
-                                            });
-
-                                            console.log(selectedRatings);
-
-                                            var search_term = $('#searchInput').val();
-                                            var page = $('#hidden_page').val();
-                                            var stock = $('#instock').val();
-                                            fetch_data(page, category, selectedRatings, stock, search_term);
-                                        });
-                                        
-                                    });
-
-                                </script>
                             </div>
                         </div>
 
-                        <hr class="my-2">
+                        <hr class="mb-2">
 
                         <h2 id="accordion-collapse-rating">
                             <button type="button" class="flex items-center justify-between w-full p-2 font-medium rtl:text-right bg-white" 
@@ -307,21 +226,43 @@
 
             <div class="flex flex-col">
                 <div class=pt-5>
-                <p class="font-bold">Products</p>
-                <hr class=my-2>
-                </div>
-                {{-- search container start --}}
-                <div class="flex justify-center mb-10 px-5 items-center">
-                    <div id="searchContainer" class="grid md:grid-cols-4 grid-cols-2 gap-4 h-full">
-                            @include('search-grid')
+                    <div class="flex justify-between pr-5">
+                        <p class="font-bold">Products</p>
+                        <select name="" id="">
+                            <option value="">
+                                sort by:
+                            </option>
+                        </select>
                     </div>
+                
+                <hr class=mb-2>
                 </div>
-                {{-- search container end --}}
+                <div class="relative ">
+
+                    <div id="loadingScreen" class="px-5 flex absolute inset-0 z-100 items-center justify-center bg-white bg-opacity-80">
+                        <div role="status" class="z-100 flex items-center justify-center">
+                            <svg aria-hidden="true" class="w-1/2 h-1/2 text-gray-200 animate-spin  fill-rfg-accent" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                            </svg>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+
+                        {{-- search container start --}}
+                        <div class="flex justify-center mb-10 px-5 items-center">
+                            <div id="searchContainer">
+                                    @include('search-grid')
+                                    <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
+                            </div>
+
+                        </div>
+                        {{-- search container end --}}
+
+                </div>
+
             </div>
     
-        </div>
-        <div class="pt-2 flex justify-center pb-11">
-            {!! $products->links() !!}
         </div>
 
     </div>
@@ -333,6 +274,155 @@
             var checkbox = divElement.querySelector('input[id="' + id + '"]');
             checkbox.checked = !checkbox.checked;
         }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            const showLoadingScreen = () => {
+                $('#loadingScreen').show();
+            };
+
+            const hideLoadingScreen = () => {
+                $('#loadingScreen').hide();
+            };
+
+            const fetch_data = (page, selectedCategories, selectedRatings, stock, search_term, sort_by) => {
+                if (selectedCategories === undefined) { selectedCategories = ""; }
+                if (selectedRatings === undefined) { selectedRatings = ""; }
+                if (stock === undefined) { stock = ""; } 
+                if (search_term === undefined) {search_term = ""; } 
+                if (sort_by === undefined) { sort_by = ""; }
+                $.ajax({
+                    url:"/search?",
+                    data: {
+                        page: page,
+                        selectedCategories: selectedCategories,
+                        selectedRatings: selectedRatings,
+                        stock: stock,
+                        search_term: search_term,
+                        sort_by: sort_by
+                    },
+                    beforeSend: function(){
+                        showLoadingScreen();
+                    },
+                    success:function(data){
+                        const tempContainer = document.createElement('div');
+                        tempContainer.innerHTML = data;
+                        $('#searchContainer').html('');
+                        $('#searchContainer').html(tempContainer);
+                    },
+                    complete: function(){
+                        hideLoadingScreen();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                })
+            }
+
+            $('body').on('change', '[name="category_checkbox"]', function(){
+                var isChecked = $(this).prop('checked');
+                if ($(this).val() === 'default') {
+                    // If "All" checkbox is checked, check all other category checkboxes
+                    $('[name="category_checkbox"]').not(this).prop('checked', isChecked);
+                } else {
+                    // If any other category checkbox is unchecked, uncheck the "All" checkbox
+                    $('#filter\\.categoryAll').prop('checked', false);
+                }
+
+                var page = $('#hidden_page').val();
+                var selectedCategories = [];
+                $('[name="category_checkbox"]:checked').each(function () {
+                    selectedCategories.push($(this).val());
+                });
+
+                console.log(selectedCategories);
+
+                var selectedRatings = [];
+                $('.rating_checkbox:checked').each(function () {
+                    selectedRatings.push($(this).val());
+                });
+
+                var stock = $('#instock').val();
+                var search_term = $('#searchInput').val();
+                var sort_by = $('#sort_by').val();
+                
+                fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
+            });
+
+            $('body').on('change', '.rating_checkbox', function(){
+                var page = $('#hidden_page').val();
+                var selectedCategories = [];
+                $('[name="category_checkbox"]:checked').each(function () {
+                    selectedCategories.push($(this).val());
+                });
+
+                var selectedRatings = [];
+                $('.rating_checkbox:checked').each(function () {
+                    selectedRatings.push($(this).val());
+                });
+
+                var stock = $('#instock').val();
+                var search_term = $('#searchInput').val();
+                var sort_by = $('#sort_by').val();
+                
+                fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
+            });
+
+            $('body').on('click', '.pager a', function(event){
+                event.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                $('#hidden_page').val(page);
+                var selectedCategories = [];
+                $('[name="category_checkbox"]:checked').each(function () {
+                    selectedCategories.push($(this).val());
+                });
+
+                console.log(selectedCategories);
+
+                var selectedRatings = [];
+                $('.rating_checkbox:checked').each(function () {
+                    selectedRatings.push($(this).val());
+                });
+
+                var stock = $('#instock').val();
+                var search_term = $('#searchInput').val();
+                var sort_by = $('#sort_by').val();
+                
+                fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
+
+            });
+
+            // $('body').on('keyup', '#searchInput', function(){
+            //     var page = $('#hidden_page').val();
+            //     var selectedCategories = [];
+            //     $('.category_checkbox:checked').each(function () {
+            //         selectedCategories.push($(this).val().replace('category.', ''));
+            //     });
+
+            //     var selectedRatings = [];
+            //     $('.rating_checkbox:checked').each(function () {
+            //         selectedRatings.push($(this).val());
+            //     });
+
+            //     var stock = $('#instock').val();
+            //     var search_term = $('#searchInput').val();
+            //     var sort_by = $('#sort_by').val();
+                
+            //     fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
+            // });
+            
+        });
+
     </script>
 </body>
 </html>

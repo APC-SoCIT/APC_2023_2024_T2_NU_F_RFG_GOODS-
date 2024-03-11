@@ -126,5 +126,5 @@ Route::get('/product', function () {
     return view('product');
 });
 
-Route::get('/search/{search?}', [ProductController::class, 'search'])->name('search');
+Route::get('/search', [ProductController::class, 'search'])->name('search');
 

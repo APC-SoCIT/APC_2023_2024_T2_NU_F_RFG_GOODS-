@@ -326,10 +326,10 @@
                             <div>
                                 <select name="filter_stock" id="filter_stock">
                                     <option value="default">STOCK LEVEL:</option>
-                                    <option value="filter_stocks_belowmin">BELOW MIN</option>
-                                    <option value="filter_stock_belowrop">BELOW ROP</option>
-                                    <option value="filter_stock_healthy">HEALTHY</option>
-                                    <option value="filter_stocks_abovemax">ABOVE MAX</option>
+                                    <option value="belowmin">BELOW MIN</option>
+                                    <option value="belowrop">BELOW ROP</option>
+                                    <option value="healthy">HEALTHY</option>
+                                    <option value="abovemax">ABOVE MAX</option>
                                 </select>
                             </div>
 

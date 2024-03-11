@@ -43,62 +43,183 @@ class ProductController extends Controller
 
     }
 
-    public function search(Request $request) {
-        // $search = $request->input('search');
-
+    public function search(Request $request) {   
         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
-            ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
-            ->leftJoin('ratings', 'products.id', '=', 'ratings.product_id')
-            ->select(
-                'products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
-                'products.stock',
-                'products.status',
-                DB::raw('ROUND(AVG(ratings.rating_score), 2) as avg_rating')
-            )
-            ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 
-            'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
+        ->select(
+            'products.id',
+            'products.image',
+            'products.sku',
+            'products.name',
+            'products.price',
+            'product_categories.category',
+            'products.desc',
+            'products.min_qty',
+            'products.max_qty',
+            'products.reorder_pt',
             'products.stock',
-            'products.status')
-            ->paginate(12);
-
-        
-            // if ($search) {
-        //     $products = $products->where('products.name', 'LIKE', '%' . $search . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($search) . '%']);
-        // }
-        
+            'products.status',
+            'products.rating'
+        )
+        ->paginate(12);
         $categoryList = ProductCategory::select('id', 'category')->get();
+
         if($request->ajax()){
             $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
-            ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
-            ->leftJoin('ratings', 'products.id', '=', 'ratings.product_id')
-            ->select(
-                'products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
-                'products.stock',
-                'products.status',
-                DB::raw('ROUND(AVG(ratings.rating_score), 2) as avg_rating')
-            )
-            ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 
-            'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
-            'products.stock','products.status')
-            ->when($request->search_term, function($q) use ($request){
+                        ->select(
+                            'products.id',
+                            'products.image',
+                            'products.sku',
+                            'products.name',
+                            'products.price',
+                            'product_categories.category',
+                            'products.desc',
+                            'products.min_qty',
+                            'products.max_qty',
+                            'products.reorder_pt',
+                            'products.stock',
+                            'products.status',
+                            'products.rating',
+                            'products.created_at'
+                        )
+                        ->when($request->search_term, function($q)use($request){
                             $q->where('products.name', 'LIKE', '%' . $request->search_term . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->search_term) . '%']);
                         })
-                        ->when($request->rating, function($q) use ($request){
-                            $q->where('avg_rating',$request->rating);
+                        ->when($request->sort_by, function($q)use($request){
+                            if ($request->sort_by != "default") {
+                                if ($request->sort_by == 'sort_by_name_asc') {
+                                    $q->orderBy('name','asc');
+                                } else if ($request->sort_by == 'sort_by_name_desc') {
+                                    $q->orderBy('name','desc');
+                                } else if ($request->sort_by == 'sort_by_price_asc') {
+                                    $q->orderBy('price','asc');
+                                } else if ($request->sort_by == 'sort_by_price_desc') {
+                                    $q->orderBy('price','desc');
+                                } else if ($request->sort_by == 'sort_by_stock_asc') {
+                                    $q->orderBy('stock','asc');
+                                } else if ($request->sort_by == 'sort_by_stock_desc') {
+                                    $q->orderBy('stock','desc');
+                                } else if ($request->sort_by == 'sort_by_rating_asc') {
+                                    $q->orderBy('rating','asc');
+                                } else if ($request->sort_by == 'sort_by_rating_desc') {
+                                    $q->orderBy('rating','desc');
+                                } else if ($request->sort_by == 'sort_by_date_asc') {
+                                    $q->orderBy('created_at','asc');
+                                } else if ($request->sort_by == 'sort_by_date_desc') {
+                                    $q->orderBy('created_at','desc');
+                                } 
+                            }
+                            
                         })
-                        ->when($request->stock, function($q) use ($request){
-                            $q->where('stock',$request->stock);
+                        ->when($request->selectedCategories !== null && is_array($request->selectedCategories), function($q) use ($request) {
+                            if (!in_array("default", $request->selectedCategories)) {
+                                $q->whereIn('category_id', $request->selectedCategories);
+                            }
                         })
-                        ->when($request->categories, function ($q) use ($request) {
-                            $q->whereIn('category', $request->categories);
+                        ->when($request->filter_status, function($q)use($request){
+                            if ($request->filter_status != "default") {
+                                $q->where('products.status', 'LIKE', '%' . $request->filter_status . '%');
+                            }
+                        })
+                        ->when($request->filter_stock, function($q)use($request){
+                            if ($request->filter_stock != "default") {
+                                if ($request->filter_stock == "belowmin") {
+                                    $q->where('stock', '<', DB::raw('min_qty'));
+                                } else if ($request->filter_stock == "belowrop") {
+                                    $q->where('stock', '<', DB::raw('reorder_pt'));
+                                } else if ($request->filter_stock == "healthy") {
+                                    $q->where('stock', '>=', DB::raw('reorder_pt'))
+                                    ->where('stock', '<=', DB::raw('max_qty'));
+                                } else if ($request->filter_stock == "abovemax") {
+                                    $q->where('stock', '>', DB::raw('max_qty'));
+                                }
+                            }
+                        })
+                        ->when($request->rating5, function($q)use($request){
+                            $q->where('rating', '==', 5);
+                        })
+                        ->when($request->rating4, function($q)use($request){
+                            $q->where('rating', '==', 4);
+                        })
+                        ->when($request->rating3, function($q)use($request){
+                            $q->where('rating', '==', 3);
+                        })
+                        ->when($request->rating2, function($q)use($request){
+                            $q->where('rating', '==', 2);
+                        })
+                        ->when($request->rating1, function($q)use($request){
+                            $q->where('rating', '==', 1);
+                        })
+                        ->when($request->rating0, function($q)use($request){
+                            $q->where('rating', '==', 0);
+                        })
+                        ->when($request->selected_categories, function($q)use($request){
+                            $q->where('rating', '==', 0);
                         })
                         ->paginate(12);
 
-            return view('search-table', ['products' => $products, 'categoryList' => $categoryList])->render();
+            return view('search-grid', ['products' => $products, 'categoryList' => $categoryList])->render();
         }
 
         return view('search', ['products' => $products, 'categoryList' => $categoryList]);
+
     }
+
+    // public function search(Request $request) {
+    //     // $search = $request->input('search');
+
+    //     $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
+    //         ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
+    //         ->leftJoin('ratings', 'products.id', '=', 'ratings.product_id')
+    //         ->select(
+    //             'products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
+    //             'products.stock',
+    //             'products.status',
+    //             DB::raw('ROUND(AVG(ratings.rating_score), 2) as avg_rating')
+    //         )
+    //         ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 
+    //         'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
+    //         'products.stock',
+    //         'products.status')
+    //         ->paginate(12);
+
+        
+    //         // if ($search) {
+    //     //     $products = $products->where('products.name', 'LIKE', '%' . $search . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($search) . '%']);
+    //     // }
+        
+    //     $categoryList = ProductCategory::select('id', 'category')->get();
+    //     if($request->ajax()){
+    //         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
+    //         ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
+    //         ->leftJoin('ratings', 'products.id', '=', 'ratings.product_id')
+    //         ->select(
+    //             'products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
+    //             'products.stock',
+    //             'products.status',
+    //             DB::raw('ROUND(AVG(ratings.rating_score), 2) as avg_rating')
+    //         )
+    //         ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 
+    //         'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
+    //         'products.stock','products.status')
+    //         ->when($request->search_term, function($q) use ($request){
+    //                         $q->where('products.name', 'LIKE', '%' . $request->search_term . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->search_term) . '%']);
+    //                     })
+    //                     ->when($request->rating, function($q) use ($request){
+    //                         $q->where('avg_rating',$request->rating);
+    //                     })
+    //                     ->when($request->stock, function($q) use ($request){
+    //                         $q->where('stock',$request->stock);
+    //                     })
+    //                     ->when($request->categories, function ($q) use ($request) {
+    //                         $q->whereIn('category', $request->categories);
+    //                     })
+    //                     ->paginate(12);
+
+    //         return view('search-grid', ['products' => $products, 'categoryList' => $categoryList])->render();
+    //     }
+
+    //     return view('search', ['products' => $products, 'categoryList' => $categoryList]);
+    // }
 
     public function index(Request $request) {   
         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
@@ -176,7 +297,41 @@ class ProductController extends Controller
                             if ($request->filter_status != "default") {
                                 $q->where('products.status', 'LIKE', '%' . $request->filter_status . '%');
                             }
-                            
+                        })
+                        ->when($request->filter_stock, function($q)use($request){
+                            if ($request->filter_stock != "default") {
+                                if ($request->filter_stock == "belowmin") {
+                                    $q->where('stock', '<', DB::raw('min_qty'));
+                                } else if ($request->filter_stock == "belowrop") {
+                                    $q->where('stock', '<', DB::raw('reorder_pt'));
+                                } else if ($request->filter_stock == "healthy") {
+                                    $q->where('stock', '>=', DB::raw('reorder_pt'))
+                                    ->where('stock', '<=', DB::raw('max_qty'));
+                                } else if ($request->filter_stock == "abovemax") {
+                                    $q->where('stock', '>', DB::raw('max_qty'));
+                                }
+                            }
+                        })
+                        ->when($request->rating5, function($q)use($request){
+                            $q->where('rating', '==', 5);
+                        })
+                        ->when($request->rating4, function($q)use($request){
+                            $q->where('rating', '==', 4);
+                        })
+                        ->when($request->rating3, function($q)use($request){
+                            $q->where('rating', '==', 3);
+                        })
+                        ->when($request->rating2, function($q)use($request){
+                            $q->where('rating', '==', 2);
+                        })
+                        ->when($request->rating1, function($q)use($request){
+                            $q->where('rating', '==', 1);
+                        })
+                        ->when($request->rating0, function($q)use($request){
+                            $q->where('rating', '==', 0);
+                        })
+                        ->when($request->selected_categories, function($q)use($request){
+                            $q->where('rating', '==', 0);
                         })
                         ->paginate(12);
 
