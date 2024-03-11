@@ -1,5 +1,6 @@
 {{-- product for loop start --}}
 <div class="grid md:grid-cols-4 grid-cols-2 gap-4 h-full">
+    
     @forelse($products as $product)
 
         <div id="{{$product->id}}" class="bg-white w-60 h-[23rem] flex-col drop-shadow-md">
