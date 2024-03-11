@@ -228,9 +228,9 @@
                 <div class=pt-5>
                     <div class="flex justify-between pr-5">
                         <p class="font-bold">Products</p>
-                        <select name="" id="">
-                            <option value="">
-                                sort by:
+                        <select name="" id="" class="rounded-lg pl-2 ring-1 ring-orange-200 focus:ring-orange-500 border-0">
+                            <option value="" class="">
+                                SORT BY:
                             </option>
                         </select>
                     </div>

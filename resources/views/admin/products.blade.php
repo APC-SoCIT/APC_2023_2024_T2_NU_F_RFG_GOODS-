@@ -284,14 +284,12 @@
 
                     <div class="sm:flex">
                         <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
-
-                            <label for="searchInput" class="sr-only">Search</label>
                             <div class="mt-1 relative lg:w-64 xl:w-96">
-                                <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for Products">
+                                <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border-1 border-gray-300 focus:ring-0 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="Search for Products">
                             </div>
 
-                            <div>
-                                <select name="sort_by" id="sort_by">
+                            <div class="pl-2 pr-2 pt-1">
+                                <select name="sort_by" id="sort_by" class="rounded-lg pl-2 ring-1 ring-gray-300 focus:ring-blue-500 border-0 p-2">
                                     <option value="default">SORT BY:</option>
                                     <option value="sort_by_name_asc">NAME (A-Z)</option>
                                     <option value="sort_by_name_desc">NAME (Z-A)</option>
@@ -306,8 +304,8 @@
                                 </select>
                             </div>
 
-                            <div>
-                                <select name="filter_category" id="filter_category">
+                            <div class="pl-2 pr-2 pt-1">
+                                <select name="filter_category" id="filter_category" class="rounded-lg pl-2 ring-1 ring-gray-300 focus:ring-blue-500 border-0 p-2 bg-gray-50 border border-gray-300"> 
                                     <option value="default">CATEGORY:</option>
                                     @foreach($categoryList as $category)
                                         <option value="{{$category->id}}">{{$category->category}}</option>
@@ -315,16 +313,16 @@
                                 </select>
                             </div>
 
-                            <div>
-                                <select name="filter_status" id="filter_status">
+                            <div class="pl-2 pr-2 pt-1">
+                                <select name="filter_status" id="filter_status" class="rounded-lg pl-2 ring-1 ring-gray-300 focus:ring-blue-500 border-0 p-2">
                                     <option value="default">STATUS:</option>
                                     <option value="active">ACTIVE</option>
                                     <option value="archived">ARCHIVED</option>
                                 </select>
                             </div>
 
-                            <div>
-                                <select name="filter_stock" id="filter_stock">
+                            <div class="pl-2 pr-2 pt-1">
+                                <select name="filter_stock" id="filter_stock" class="rounded-lg pl-2 ring-1 ring-gray-300 focus:ring-blue-500 border-0 p-2">
                                     <option value="default">STOCK LEVEL:</option>
                                     <option value="belowmin">BELOW MIN</option>
                                     <option value="belowrop">BELOW ROP</option>
