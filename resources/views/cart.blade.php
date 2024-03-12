@@ -37,7 +37,7 @@
           @foreach ($usercart as $cartItem)
 
           {{-- in stock layout start --}}
-          @if( $cartItem->computed_quantity != null || $cartItem->computed_quantity != 0 )
+          @if( $cartItem->stock != null || $cartItem->stock != 0 )
 
             @php
               $inStockCount++;
@@ -79,7 +79,7 @@
               <span class="text-center w-1/5 font-semibold text-sm">₱{{$cartItem->price}}</span>
               <span name="cartitemSubtotal" id="totalPrice{{$cartItem->id}}" class="text-center w-1/5 font-semibold text-sm">₱{{number_format($cartItem->price * $cartItem->quantity, 2)}}</span>
               <script>
-                var stock{{$cartItem->id}} = parseInt("{{$cartItem->computed_quantity}}");
+                var stock{{$cartItem->id}} = parseInt("{{$cartItem->stock}}");
                 var quantityInput{{$cartItem->id}} = document.getElementById('quantity{{$cartItem->id}}');
                 var decrementButton{{$cartItem->id}} = document.getElementById('decrement{{$cartItem->id}}');
                 var incrementButton{{$cartItem->id}} = document.getElementById('increment{{$cartItem->id}}');
@@ -93,15 +93,15 @@
                 }
 
                 decrementButton{{$cartItem->id}}.addEventListener('click', function () {
-                    decrementQuantity({{$cartItem->id}},{{$cartItem->computed_quantity}},{{$cartItem->price}});
+                    decrementQuantity({{$cartItem->id}},{{$cartItem->stock}},{{$cartItem->price}});
                 });
 
                 incrementButton{{$cartItem->id}}.addEventListener('click', function () {
-                    incrementQuantity({{$cartItem->id}},{{$cartItem->computed_quantity}},{{$cartItem->price}});
+                    incrementQuantity({{$cartItem->id}},{{$cartItem->stock}},{{$cartItem->price}});
                 });
 
                 quantityInput{{$cartItem->id}}.addEventListener('input', function () {
-                    validateQuantity({{$cartItem->id}},{{$cartItem->computed_quantity}});
+                    validateQuantity({{$cartItem->id}},{{$cartItem->stock}});
                 });
 
                 document.addEventListener('DOMContentLoaded', function() {
@@ -129,7 +129,7 @@
                             type: 'POST',
                             url: '/updatecart',
                             data: {
-                                quantity = quantityInput.value();
+                                quantity: quantityInput.value
                             },
                             success: function(response) {
                             },
@@ -272,7 +272,7 @@
             Continue Shopping
           </a>
         </div>
-        <div id="summary" class="w-1/4 px-8 py-10 bg-orange-500	background-color: rgb(249 115 22) opacity-85	opacity: 0.85;">
+        <div id="summary" class="w-1/4 px-8 py-10 bg-orange-500	opacity-85">
           <h1 class="text-white font-bold text-2xl border-b pb-8 text-center">Order Summary</h1>
           <div class="flex font-bold justify-between py-6 text-sm uppercase text-white">
             <span>Ship to</span>
@@ -339,7 +339,7 @@
                 </script>
               </div>
 
-            <button class="bg-stone-100 font-bold hover:bg-stone-600 py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4	border-radius: 1rem;">Proceed to Payment</button>
+            <button class="bg-stone-100 font-bold hover:bg-stone-600 py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4">Proceed to Payment</button>
           </div>
         </div>
 

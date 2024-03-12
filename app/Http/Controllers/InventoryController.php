@@ -50,8 +50,19 @@ class InventoryController extends Controller
         $inventory->product_id = $request->product_id;
         $inventory->is_received = $request->is_received;
         $inventory->quantity = $request->quantity;
-
         $inventory->save();
+
+        
+        $product = Product::find($request->product_id);
+        if ($request->is_received==1) {
+            $product->stock += $request->quantity;
+        } else if ($request->is_received==0) {
+            $product->stock -= $request->quantity;
+        }
+
+        // dd($product->stock, $request->quantity);
+        $product->save();
+
 
         return redirect(route('inventory.index'))->withSuccess('Inventory Successfully Added');
     }
@@ -67,7 +78,6 @@ class InventoryController extends Controller
         $inventory->product_id = $request->product_id;
         $inventory->is_received = $request->is_received;
         $inventory->quantity = $request->quantity;
-
         $inventory->update();
 
         return redirect(route('inventory.index'))->with('success', 'Inventory Updated Successfully');

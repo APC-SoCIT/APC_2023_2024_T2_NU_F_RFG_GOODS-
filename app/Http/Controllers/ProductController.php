@@ -44,6 +44,8 @@ class ProductController extends Controller
     }
 
     public function search(Request $request) {   
+        $search = $request->input('search');
+
         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
         ->select(
             'products.id',
@@ -60,6 +62,9 @@ class ProductController extends Controller
             'products.status',
             'products.rating'
         )
+        ->when($request->input('search'), function($q)use($request){
+            $q->where('products.name', 'LIKE', '%' . $request->input('search') . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->input('search')) . '%']);
+        })
         ->paginate(12);
         $categoryList = ProductCategory::select('id', 'category')->get();
 
@@ -81,9 +86,7 @@ class ProductController extends Controller
                             'products.rating',
                             'products.created_at'
                         )
-                        ->when($request->search_term, function($q)use($request){
-                            $q->where('products.name', 'LIKE', '%' . $request->search_term . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->search_term) . '%']);
-                        })
+                        ->whereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->search_term) . '%'])
                         ->when($request->sort_by, function($q)use($request){
                             if ($request->sort_by != "default") {
                                 if ($request->sort_by == 'sort_by_name_asc') {
@@ -108,7 +111,6 @@ class ProductController extends Controller
                                     $q->orderBy('created_at','desc');
                                 } 
                             }
-                            
                         })
                         ->when($request->selectedCategories !== null && is_array($request->selectedCategories), function($q) use ($request) {
                             if (!in_array("default", $request->selectedCategories)) {
@@ -134,26 +136,26 @@ class ProductController extends Controller
                                 }
                             }
                         })
+                        ->when($request->inStock, function($q)use($request){
+                            $q->where('stock', '>', 0);
+                        })
                         ->when($request->rating5, function($q)use($request){
                             $q->where('rating', '==', 5);
                         })
                         ->when($request->rating4, function($q)use($request){
-                            $q->where('rating', '==', 4);
+                            $q->where('rating', '<', 5);
                         })
                         ->when($request->rating3, function($q)use($request){
-                            $q->where('rating', '==', 3);
+                            $q->where('rating', '<', 4);
                         })
                         ->when($request->rating2, function($q)use($request){
-                            $q->where('rating', '==', 2);
+                            $q->where('rating', '<', 3);
                         })
                         ->when($request->rating1, function($q)use($request){
-                            $q->where('rating', '==', 1);
+                            $q->where('rating', '<', 2);
                         })
                         ->when($request->rating0, function($q)use($request){
-                            $q->where('rating', '==', 0);
-                        })
-                        ->when($request->selected_categories, function($q)use($request){
-                            $q->where('rating', '==', 0);
+                            $q->where('rating', '<', 1);
                         })
                         ->paginate(12);
 

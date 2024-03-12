@@ -9,6 +9,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TutorialController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\AddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +51,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/addtocart', [ProductController::class, 'addtocart'])->name('product.addtocart');
+Route::post('/addtocart', [CartController::class, 'addtocart'])->name('product.addtocart');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard',[HomeController::class, 'index'])->name('dashboard');
@@ -57,8 +59,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::put('user/address/update', [UserAddressController::class, 'update'])->name('user.address.update');
-    Route::post('/updatecart', [ProductController::class, 'updatecart'])->name('product.updatecart');
-    Route::get('/cart', [ProductController::class, 'userCart'])->name('product.userCart');
+    Route::post('/updatecart', [CartController::class, 'updatecart'])->name('product.updatecart');
+    Route::get('/cart', [CartController::class, 'userCart'])->name('product.userCart');
+    Route::get('/profile/orders/history', [OrderController::class, 'getOrderItems'])->name('orders.orderHistory');
+    Route::get('/profile/address', [AddressController::class, 'viewList'])->name('address.viewList');
 });
 
 Route::middleware('admin')->group(function () {

@@ -10,13 +10,25 @@
                     </a>
                 </div>
 
+                @php
+                    $usertype = (Auth::check() && Auth::user() !== null) ? Auth::user()->is_admin : null;
+                @endphp
+
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    @if ($usertype && $usertype == 1)
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endif
                     <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                         {{ __('Profile') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('orders.orderHistory')" :active="request()->routeIs('orders.orderHistory')">
+                        {{ __('Order History') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('address.viewList')" :active="request()->routeIs('address.viewList')">
+                        {{ __('Addresses') }}
                     </x-nav-link>
                     <x-nav-link :href="route('logout')" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
