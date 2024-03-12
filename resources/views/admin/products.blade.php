@@ -481,7 +481,6 @@
                 var filter_stock = $('#filter_stock').val();
                 fetch_data(page, search_term, sort_by, filter_category, filter_status, filter_stock);
             });
-
             $('body').on('change', '#filter_category', function(){
                 var search_term = $('#searchInput').val();
                 var page = $('#hidden_page').val();

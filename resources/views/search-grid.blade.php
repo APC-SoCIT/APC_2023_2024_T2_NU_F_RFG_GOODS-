@@ -1,9 +1,9 @@
 {{-- product for loop start --}}
-<div class="grid md:grid-cols-4 grid-cols-2 gap-4 h-full">
+<div class="grid md:grid-cols-4 grid-cols-2 gap-4 h-full min-w-[60rem]">
     
     @forelse($products as $product)
 
-        <div id="{{$product->id}}" class="bg-white w-60 h-[23rem] flex-col drop-shadow-md">
+        <div id="{{$product->id}}" name="product_grid_item" class="bg-white w-60 h-[23rem] flex-col drop-shadow-md">
             <a href="{{route('product.get',['product' => $product])}}" class="flex flex-col h-full border-2 border-transparent hover:border-rfg-accent transition-colors duration-200">
                 <img src="{{ asset('./products/'.$product->image )}}" 
                 class="flex-shrink-0 object-center object-contain w-full max-h-[14rem]"
@@ -92,7 +92,7 @@
             </a>
         </div>
     @empty
-        <p>No Results Found</p>
+        <p class="col-span-4 text-center">No Results Found</p>
     @endforelse
 </div>
 <div class="pt-2 flex justify-center pb-11">

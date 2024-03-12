@@ -38,9 +38,19 @@
                         </th>
                     </tr>
                 </thead>
+
+                @php
+                    $rowClass = 'bg-white';
+                @endphp
+                
                 <tbody class="bg-white text-black ">
                     @foreach ($products as $product)
-                    <tr class="hover:bg-gray-200 d">
+                        @if($loop->index % 2 == 0)
+                            @php $rowClass = 'bg-white'; @endphp
+                        @else
+                            @php $rowClass = 'bg-gray-100'; @endphp
+                        @endif
+                    <tr class="{{ $rowClass }} hover:bg-gray-200 d">
                         <td class="p-4 whitespace-nowrap text-base font-medium">{{ $product->id }}</td>
                         <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-0">
                             <img class="h-10 w-10 rounded-full" src="{{ asset('./products/'.$product->image )}}" alt="{{ $product->sku }} avatar">
