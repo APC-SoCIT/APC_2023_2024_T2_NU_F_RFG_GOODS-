@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="/">
-                        <img src="./Img/logo1.png" class="h-9 w-9" alt="RFG Logo" />
+                        <img src="/Img/logo1.png" class="h-9 w-9" alt="RFG Logo" />
                     </a>
                 </div>
 

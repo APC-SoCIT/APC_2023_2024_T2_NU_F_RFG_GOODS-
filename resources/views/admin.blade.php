@@ -205,10 +205,10 @@
                         <tbody class="">
 
                               @foreach ($products as $product)
-                              @if($product->computed_quantity <= $product->min_qty)
+                              @if($product->stock <= $product->min_qty)
                               <tr>
                                  <td class="p-4 whitespace-nowrap text-base font-medium text-black ">
-                                    @if(!isset($product->computed_quantity))N/A  @else{{$product->computed_quantity}}@endif</td>
+                                    @if(!isset($product->stock))N/A  @else{{$product->stock}}@endif</td>
                                  <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
                                     <img class="h-10 w-10 rounded-full" src="{{ asset('./products/'.$product->image )}}" >
                                  </td>

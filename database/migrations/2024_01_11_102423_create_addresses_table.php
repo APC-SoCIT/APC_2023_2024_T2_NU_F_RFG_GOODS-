@@ -15,10 +15,17 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('street');
-            $table->string('city');
-            $table->string('province');
-            $table->string('postal_code');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('phone_number');
+            $table->string('region');
+            $table->string('state/province');
+            $table->string('city/municipality');
+            $table->string('barangay');
+            $table->string('addressline');
+            $table->boolean('is_default')->default(0);
+            $table->string('lat');
+            $table->string('long');
             $table->timestamps();
         });
     }

@@ -123,9 +123,8 @@
                             <p class="inline-block mb-8 text-4xl font-bold text-gray-700 dark:text-black ">
                                 <span>₱{{ $product->price }}</span>
                             </p>
-                            <p class="text-green-600 dark:text-green-500">stock: {{ $product->computed_quantity }}</p>
+                            <p class="text-green-600 dark:text-green-500">stock: {{ $product->stock }}</p>
                         </div>
-
 
                         <div class="w-32 mb-8 ">
                             <label for="" class="w-full text-xl font-semibold text-gray-700 dark:text-black">Quantity</label>
@@ -150,7 +149,7 @@
 
                         <script>
 
-                            var stock = parseInt("{{ $product->computed_quantity }}");
+                            var stock = parseInt("{{ $product->stock }}");
 
                             document.getElementById('decrement').addEventListener('click', function () {
                                 decrementQuantity();
@@ -209,7 +208,7 @@
                                     @csrf
                                     <input type="hidden" name="user_id" value="@if(Auth::user() != null) {{ Auth::user()->id }} @else @endif">
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    @if($product->computed_quantity == 0 || $product->computed_quantity < 1 ) 
+                                    @if($product->stock == 0 || $product->stock < 1 ) 
                                         <button id="" class="bg-gray-400 w-28 text-black font-semibold rounded-xl" >Out of Stock</button>
                                     @else
                                         <button id="addtocartsubmit{{ $product->id }}" type="submit" class="flex items-center justify-center w-full p-4 text-black border font-bold border-orange-500 rounded-md dark:text-black dark:border-amber-200 hover:bg-orange-600 hover:border-orange-600 hover:text-gray-100 dark:bg-amber-200 dark:hover:bg-amber-200 dark:hover:border-orange-700 dark:hover:text-black">

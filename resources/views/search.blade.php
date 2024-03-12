@@ -227,14 +227,17 @@
             <div class="flex flex-col">
                 <div class=pt-5>
                     <div class="flex justify-between pr-5">
-                        <p class="font-bold">Products</p>
-                            <div class="pb-2">
-                                    <select name="" id="" class="rounded-lg pl-2 focus:ring-0 border-1 border-gray-200">
-                                        <option value="">
-                                            SORT BY:
-                                        </option>
-                                    </select>
-                            </div>
+                        <div class="flex">
+                            <p>Search results for </p>
+                            <p id="hidden_search" class="font-bold ml-1"> '{{ request('search') }}' </p>
+                        </div>
+                        <div class="pb-2">
+                                <select name="" id="" class="rounded-lg pl-2 focus:ring-0 border-1 border-gray-200">
+                                    <option value="">
+                                        SORT BY:
+                                    </option>
+                                </select>
+                        </div>
                     </div>
                 
                 <hr class=mb-2>

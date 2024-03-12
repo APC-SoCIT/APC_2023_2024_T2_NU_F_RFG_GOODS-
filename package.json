@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "apexcharts": "^3.46.0",
-        "ph-address": "^3.0.3"
+        "ph-address": "^3.0.3",
+        "select-philippines-address": "^1.0.6"
     }
 }

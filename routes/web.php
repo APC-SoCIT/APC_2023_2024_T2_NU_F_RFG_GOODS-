@@ -24,14 +24,6 @@ use App\Http\Controllers\AddressController;
 */
 
     /* auth template start */
-Route::get('/tutorial', [TutorialController::class,'index']);
-// Route::get('/', function () {
-//     if (request('search')) {
-//         return view('search');
-//     } else {
-//         return view('home');
-//     }
-// })->name('home');
 
 Route::get('/home', function () {
     return redirect('/');
@@ -50,6 +42,35 @@ Route::get('/product/{product}', [ProductController::class, 'get'])->name('produ
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/profile/ph-json/region.json', function () {
+    $jsonFilePath = public_path('/ph-json/region.json');
+    if (File::exists($jsonFilePath)) {
+        $jsonContent = File::get($jsonFilePath);
+        $jsonData = json_decode($jsonContent);
+        return response()->json($jsonData);
+    } else {
+        // Return a 404 response if the file doesn't exist
+        return response()->json(['error' => 'File not found'], 404);
+    }
+})->name('address.region');
+
+Route::get('/profile/ph-json/region.json', function () {
+    $jsonFilePath = public_path('/ph-json/region.json');
+    if (File::exists($jsonFilePath)) {
+        $jsonContent = File::get($jsonFilePath);
+        $jsonData = json_decode($jsonContent);
+        return response()->json($jsonData);
+    } else {
+        // Return a 404 response if the file doesn't exist
+        return response()->json(['error' => 'File not found'], 404);
+    }
+})->name('address.region');
+
+Route::get('/profile/ph-json/region.json', [AddressController::class, 'region'])->name('address.region');
+Route::get('/profile/ph-json/province.json', [AddressController::class, 'province'])->name('address.province');
+Route::get('/profile/ph-json/city.json', [AddressController::class, 'city'])->name('address.city');
+Route::get('/profile/ph-json/barangay.json', [AddressController::class, 'barangay'])->name('address.barangay');
 
 Route::post('/addtocart', [CartController::class, 'addtocart'])->name('product.addtocart');
 
@@ -121,10 +142,6 @@ Route::get('/', function () {
         return view('home');
     }
 });
-
-// Route::get('/login2', function () {
-//     return view('login.login');
-// });
 
 Route::get('/product', function () {
     return view('product');

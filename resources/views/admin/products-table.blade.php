@@ -66,7 +66,7 @@
                                         <div class="h-2.5 w-2.5 rounded-full bg-gray-500 mr-2"></div>
                                     @elseif ($product->stock > $product->max_qty)
                                         <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>
-                                    @elseif ($product->stock >= $product->min_qty && $product->computed_quantity <= $product->max_qty)
+                                    @elseif ($product->stock >= $product->min_qty && $product->stock <= $product->max_qty)
                                         <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
                                     @elseif ($product->stock < $product->reorder_pt)
                                         <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>
