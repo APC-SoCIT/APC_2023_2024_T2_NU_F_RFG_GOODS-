@@ -282,15 +282,17 @@
 
                     {{-- Navigation End --}}
 
-                    <div class="sm:flex">
-                        <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
-                            <div class="mt-1 relative lg:w-64 xl:w-96">
-                                <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border-1 border-gray-300 focus:ring-0 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="Search for Products">
+                    <div class="sm:normal">
+                        <div class="flex flex-col sm:flex-row items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
+                            <div class="mb-3 sm:mb-0 sm:mr-2 w-full">
+                                <div class="relative sm:w-64 xl:w-96">
+                                    <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border-1 border-gray-300 focus:ring-0 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="Search for Products">
+                                </div>
                             </div>
 
-                            <div class="pl-2 pr-2 pt-1">
-                                <select name="sort_by" id="sort_by" class="rounded-lg pl-2 ring-1 ring-gray-300 focus:ring-blue-500 border-0 p-2">
-                                    <option value="default">SORT BY:</option>
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="sort_by" id="sort_by" class="w-full rounded-lg pl-2 border-1 border-gray-300 p-2 box-sizing-content">
+                                    <option value="" disabled selected hidden>SORT BY:</option>
                                     <option value="sort_by_name_asc">NAME (A-Z)</option>
                                     <option value="sort_by_name_desc">NAME (Z-A)</option>
                                     <option value="sort_by_price_asc">PRICE (LOW TO HIGH)</option>
@@ -301,11 +303,12 @@
                                     <option value="sort_by_rating_desc">RATING (HIGH TO LOW)</option>
                                     <option value="sort_by_date_asc">DATE ADDED (OLDEST TO LATEST)</option>
                                     <option value="sort_by_date_desc">DATE ADDED (LATEST TO OLDEST)</option>
+                                    <option value="default">None</option>
                                 </select>
                             </div>
 
-                            <div class="pl-2 pr-2 pt-1">
-                                <select name="filter_category" id="filter_category" class="rounded-lg pl-2 ring-1 ring-gray-300 focus:ring-blue-500 border-0 p-2 bg-gray-50 border border-gray-300"> 
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="filter_category" id="filter_category" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
                                     <option value="default">CATEGORY:</option>
                                     @foreach($categoryList as $category)
                                         <option value="{{$category->id}}">{{$category->category}}</option>
@@ -313,16 +316,16 @@
                                 </select>
                             </div>
 
-                            <div class="pl-2 pr-2 pt-1">
-                                <select name="filter_status" id="filter_status" class="rounded-lg pl-2 ring-1 ring-gray-300 focus:ring-blue-500 border-0 p-2">
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="filter_status" id="filter_status" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
                                     <option value="default">STATUS:</option>
                                     <option value="active">ACTIVE</option>
                                     <option value="archived">ARCHIVED</option>
                                 </select>
                             </div>
 
-                            <div class="pl-2 pr-2 pt-1">
-                                <select name="filter_stock" id="filter_stock" class="rounded-lg pl-2 ring-1 ring-gray-300 focus:ring-blue-500 border-0 p-2">
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="filter_stock" id="filter_stock" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
                                     <option value="default">STOCK LEVEL:</option>
                                     <option value="belowmin">BELOW MIN</option>
                                     <option value="belowrop">BELOW ROP</option>
@@ -331,30 +334,25 @@
                                 </select>
                             </div>
 
-                            <div id="loadingScreen" class="pl-4 hidden">
+                            <div id="loadingScreen" class="hidden sm:flex pl-4">
                                 <div role="status">
-                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-200 animate-spin  fill-rfg-accent" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-200 animate-spin fill-rfg-accent" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- SVG path here -->
                                     </svg>
                                     <span class="sr-only">Loading...</span>
+
+                                    
                                 </div>
                             </div>
-
-
-
+                                <button data-modal-target="add-product-modal" data-modal-toggle="add-product-modal"class="w-full text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-red-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto whitespace-nowrap">
+                                    <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                        <p>Add Product</p>
+                                </button>
                         </div>
-
-                        <div class="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                            <button data-modal-target="add-product-modal" data-modal-toggle="add-product-modal"class="w-[100%] text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-red-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
-                                <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                Add Product
-                            </button>
-                        </div>
-                    </div>
-
+                    </div> 
                 </div>
             </div>
+        </div>
 
             <div class="flex flex-col">
                 <div id="datatable"class="">
