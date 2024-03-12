@@ -2,8 +2,6 @@ import './bootstrap';
 
 import Alpine from 'alpinejs';
 
-import { PhAddress } from 'ph-address';
-
 window.Alpine = Alpine;
 
 Alpine.start();
