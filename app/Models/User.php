@@ -23,6 +23,14 @@ class User extends Authenticatable
         'is_admin',
         'email',
         'password',
+        'phone_number',
+        'region',
+        'state/province',
+        'city/municipality',
+        'barangay',
+        'addressline',
+        'address_lat',
+        'address_long'
     ];
 
     /**

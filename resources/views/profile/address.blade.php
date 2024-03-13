@@ -10,23 +10,25 @@
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    @foreach ($userAddresses as $address)
+                    <p>{{$userAddress->first_name}} {{$userAddress->last_name}}</p>
+                    @if(isset($userAddress->region))
+                        <p>{{ $userAddress['region'] }}, {{ $userAddress['state/province'] }}, {{ $userAddress['city/municipality'] }}, {{ $userAddress['barangay'] }}</p>
+                    @else
+                        <div class="flex">
+                            <p>Your Address is not set, <span class="text-orange-500">set up now!</span></p>
+                        </div>
+                    @endif
 
-                    <p>{{ $address->user_id }}</p>
-                    <p>{{ $address->region }}</p>
-
-                    
-                    @endforeach
-                    <select id="region"></select>
+                    <select id="region" class="w-full"></select>
                     <input type="hidden" name="region_text" id="region-text">
                 
-                    <select id="province"></select>
+                    <select id="province" class="w-full"></select>
                     <input type="hidden" name="province_text" id="province-text">
                 
-                    <select id="city"></select>
+                    <select id="city" class="w-full"></select>
                     <input type="hidden" name="city_text" id="city-text">
                 
-                    <select id="barangay"></select>
+                    <select id="barangay" class="w-full"></select>
                     <input type="hidden" name="barangay_text" id="barangay-text">
 
                     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
