@@ -57,7 +57,7 @@
             </a>
          </li>
          <li>
-            <a href="#" class="flex items-center p-2 rounded-lg text-black hover:bg-gray-300 group">
+            <a href="/admin/delivery" class="flex items-center p-2 rounded-lg text-black hover:bg-gray-300 group">
                <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="1.4066 40.9658 252.9 173.776">
                   <circle cx="77.89" cy="68.42" r="7.5" transform="matrix(2.809999942779541, 0, 0, 2.809999942779541, 1.4065934419631956, 1.40659344196321)"></circle>
                   <circle cx="21.47" cy="68.42" r="7.5" transform="matrix(2.809999942779541, 0, 0, 2.809999942779541, 1.4065934419631956, 1.40659344196321)"></circle>

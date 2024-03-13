@@ -123,6 +123,10 @@ Route::get('/footer', function () {
     return view('footer.footer');
 });
 
+Route::get('/admin/delivery', function () {
+    return view('admin.delivery');
+})->name('admin.delivery');
+
 Route::get('/', function () {
     if(Auth::id() && Auth()->user()!=null) {
         $usertype=Auth()->user()->is_admin;
