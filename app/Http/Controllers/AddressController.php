@@ -6,15 +6,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Address;
+use App\Models\User;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 
 class AddressController extends Controller
 {
     public function viewList() {
         $userID = Auth::user()->id;
-        $userAddresses = Address::where('user_id','=',$userID)->get();
+        $userAddress = User::select('first_name','last_name','phone_number','region','state/province',
+        'city/municipality','barangay','addressline',
+        'address_lat','address_long')
+        ->where('id','=',$userID)
+        ->first();
 
-        return view('profile.address', ['userAddresses' => $userAddresses]);
+        if (!$userAddress) {
+            echo "User not found";
+            return;
+        }
+
+        return view('profile.address', ['userAddress' => $userAddress]);
+
     }
 
     public function region() {
