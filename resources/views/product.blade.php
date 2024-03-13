@@ -123,7 +123,7 @@
                             <p class="inline-block mb-8 text-4xl font-bold text-gray-700 dark:text-black ">
                                 <span>₱{{ $product->price }}</span>
                             </p>
-                            <p class="text-green-600 dark:text-green-500">stock: {{ $product->stock }}</p>
+                            <p class="text-green-600 dark:text-green-500 font-bold">Stock Left: {{ $product->stock }}</p>
                         </div>
 
                         <div class="w-32 mb-8 ">

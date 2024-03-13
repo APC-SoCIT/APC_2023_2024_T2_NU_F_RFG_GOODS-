@@ -55,25 +55,25 @@
                 </div>
               </div>
               {{-- quantity start --}}
-              <div class="flex justify-center w-1/5">
-
-                <button
-                  id="decrement{{$cartItem->id}}"
-                  class="w-1/6 flex items-center justify-center pb-1 pl-0.5 text-blackrounded-l outline-none cursor-pointer hover:bg-gray-400 rounded-tl-xl rounded-bl-xl">
-                  <span class="text-2xl font-thin">-</span>
-                </button>
+              <div class="flex flex-col items-center justify-center w-1/5">
+                <div class="flex items-center justify-center">
+                    <button id="decrement{{$cartItem->id}}"
+                            class="w-1/6 flex items-center justify-center pb-1 pl-0.5 text-black rounded-l outline-none cursor-pointer hover:bg-gray-400 rounded-tl-xl rounded-bl-xl">
+                        <span class="text-2xl font-thin">-</span>
+                    </button>
 
                 <input id="quantity{{$cartItem->id}}" type="number" value="{{$cartItem->quantity}}"
-                class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none 
-                flex items-center w-1/3 font-semibold text-center text-black bg-white outline-none focus:outline-none text-md hover:text-black">
+                      class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none 
+                      flex items-center w-1/3 font-semibold text-center text-black bg-white outline-none focus:outline-none text-md hover:text-black">
 
-                <button
-                  id="increment{{$cartItem->id}}"
-                  class="w-1/6 flex items-center justify-center pb-1 text-blackrounded-l outline-none cursor-pointer hover:bg-gray-400 rounded-tr-xl rounded-br-xl">
-                  <span class="m-auto text-2xl font-thin">+</span>
+                <button id="increment{{$cartItem->id}}"
+                        class="w-1/6 flex items-center justify-center pb-1 text-black rounded-l outline-none cursor-pointer hover:bg-gray-400 rounded-tr-xl rounded-br-xl">
+                    <span class="m-auto text-2xl font-thin">+</span>
                 </button>
-
               </div>
+            <div class="mt-2 text-xs font-bold">Stock Left: {{$cartItem->stock}}</div>
+          </div>
+
               {{-- quantity end --}}
 
               <span class="text-center w-1/5 font-semibold text-sm">₱{{$cartItem->price}}</span>
@@ -111,7 +111,6 @@
                   incrementButton{{$cartItem->id}}.style.opacity=0;
                 }
                 });
-
               </script>
               <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
               <script>
@@ -144,6 +143,7 @@
 
           {{-- out of stock layout start --}}
           @else
+          
             <script>
               console.log("{{ $cartItem->name }}","out of stock");
             </script>
@@ -265,7 +265,7 @@
           </script>
 
           {{-- product loop end --}}
-  
+
           <a href="/" class="flex font-semibold text-black text-sm mt-10">
         
             <svg class="fill-current mr-2 text-black w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
