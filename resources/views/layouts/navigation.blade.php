@@ -28,7 +28,7 @@
                         {{ __('Order History') }}
                     </x-nav-link>
                     <x-nav-link :href="route('address.viewList')" :active="request()->routeIs('address.viewList')">
-                        {{ __('Addresses') }}
+                        {{ __('Address') }}
                     </x-nav-link>
                     <x-nav-link :href="route('logout')" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}

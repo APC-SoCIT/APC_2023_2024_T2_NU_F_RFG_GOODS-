@@ -287,15 +287,6 @@
     </script>
     <script>
         $(document).ready(function() {
-
-            const showLoadingScreen = () => {
-                $('#loadingScreen').css('display', 'flex');
-            };
-
-            const hideLoadingScreen = () => {
-                $('#loadingScreen').hide();
-            };
-
             const showLoadingItem = () => {
                 $('div[name="product_grid_item"]').css('opacity', 1);
             };
@@ -321,7 +312,6 @@
                         sort_by: sort_by
                     },
                     beforeSend: function(){
-                        showLoadingScreen();
                         hideLoadingItem();
                     },
                     success:function(data){
@@ -331,8 +321,6 @@
                         $('#searchContainer').html(tempContainer);
                     },
                     complete: function(){
-                        hideLoadingScreen();
-                        
                         showLoadingItem();
                     },
                     error: function (xhr, status, error) {
@@ -344,10 +332,10 @@
             $('body').on('change', '[name="category_checkbox"]', function(){
                 var isChecked = $(this).prop('checked');
                 if ($(this).val() === 'default') {
-                    // If "All" checkbox is checked, check all other category checkboxes
+                    // If categoryAll is checked, check all other category checkboxes
                     $('[name="category_checkbox"]').not(this).prop('checked', isChecked);
                 } else {
-                    // If any other category checkbox is unchecked, uncheck the "All" checkbox
+                    // If any other category checkbox is unchecked, uncheck categoryAll checkbox
                     $('#filter\\.categoryAll').prop('checked', false);
                 }
 

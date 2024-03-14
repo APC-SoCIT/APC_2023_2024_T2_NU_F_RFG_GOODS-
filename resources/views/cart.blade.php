@@ -274,21 +274,34 @@
         </div>
         <div id="summary" class="w-1/4 px-8 py-10 bg-orange-500	opacity-85">
           <h1 class="text-white font-bold text-2xl border-b pb-8 text-center">Order Summary</h1>
-          <div class="flex font-bold justify-between py-6 text-sm uppercase text-white">
+          <div class="flex flex-col font-bold justify-between py-6 text-sm uppercase text-white">
             <span>Ship to</span>
-            <span id="address" class="text-white font-bold">Metro Manila</span>
+            <span id="address" class="text-white font-bold pl-5">
+              @if (isset($user->region))
+                {{$user->region}}, {{$user['state/province']}}, {{$user['city/municipality']}}, {{$user['barangay']}}, <br>{{$user['addressline']}}
+              @else
+                REGION I (ILOCOS REGION), ILOCOS NORTE, PAOAY, OAIG-UPAY-ABULAO,<br>
+                B6 L6D MOLAVE ST. HILLCREST VILLAGE, CAMARIN ROAD
+              @endif
+            </span>
           </div>
           <div class="flex flex-col font-bold justify-between text-sm uppercase text-white">
             <span>Shipping Method</span>
-            <div class="my-6">
-              <div class="flex items-center mb-4 ">
+            <div name="shipping_methods" class="my-6 flex flex-col ps-5">
+              <div class="flex items-center mb-4">
                 <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-300 focus:ring-blue-500 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-radio-1" class="ms-2 text-sm font-medium text-white dark:text-white">Same Day Delivery</label>
+                <label for="default-radio-1" class="ms-2 text-sm font-medium text-white dark:text-white">Same Day Delivery*</label>
               </div>
-              <div class="flex items-center">
+              <div class="flex items-center mb-4">
                 <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-300 bg-gray-100 border-gray-300 focus:ring-blue-500  dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-radio-2" class="ms-2 text-sm font-medium text-white dark:text-white">Next Day Delivery</label>
+                <label for="default-radio-2" class="ms-2 text-sm font-medium text-white dark:text-white">Next Day Delivery*</label>
               </div>
+              <div class="flex items-center mb-4">
+                <input checked id="default-radio-3" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-300 bg-gray-100 border-gray-300 focus:ring-blue-500  dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="default-radio-3" class="ms-2 text-sm font-medium text-white dark:text-white">Express Delivery</label>
+              </div>
+
+              <p class="text-xs text-black">*only available for deliveries inside metro manila</p>
 
             </div>
 

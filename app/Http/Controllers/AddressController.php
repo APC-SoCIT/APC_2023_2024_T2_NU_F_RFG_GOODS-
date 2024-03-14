@@ -72,4 +72,31 @@ class AddressController extends Controller
             return response()->json(['error' => 'File not found'], 404);
         }
     }
+
+    public function addressupdate(Request $request) {
+        $user = Auth::user();
+
+        $request->validate([
+            'phone' => 'required',
+            'region_text' => 'required',
+            'province_text' => 'required',
+            'city_text' => 'required',
+            'barangay_text' => 'required',
+            'address_specific' => 'required',
+            'longitude' => 'required',
+            'latitude' => 'required',
+        ]);
+
+        $user->phone_number = $request->phone;
+        $user->region = $request->region_text;
+        $user['state/province'] = $request->province_text;
+        $user['city/municipality'] = $request->city_text;
+        $user->barangay = $request->barangay_text;
+        $user->addressline = $request->address_specific;
+        $user->address_lat = $request->latitude;
+        $user->address_long = $request->longitude;
+        $user->update();
+
+        return redirect(route('address.viewList'))->with('success','Address Updated Successfully');
+    }
 }

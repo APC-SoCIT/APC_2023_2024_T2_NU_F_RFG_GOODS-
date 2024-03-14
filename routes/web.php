@@ -79,7 +79,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::put('user/address/update', [UserAddressController::class, 'update'])->name('user.address.update');
+    // Route::put('user/address/update', [UserAddressController::class, 'update'])->name('user.address.update');
+    Route::patch('user/address/update', [AddressController::class, 'addressupdate'])->name('profile.addressUpdate');
     Route::post('/updatecart', [CartController::class, 'updatecart'])->name('product.updatecart');
     Route::get('/cart', [CartController::class, 'userCart'])->name('product.userCart');
     Route::get('/profile/orders/history', [OrderController::class, 'getOrderItems'])->name('orders.orderHistory');

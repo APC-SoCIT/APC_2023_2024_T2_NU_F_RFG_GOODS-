@@ -53,18 +53,21 @@ var my_handlers = {
         dropdown.empty();
         dropdown.append('<option selected="true" disabled>Choose State/Province</option>');
         dropdown.prop('selectedIndex', 0);
+        dropdown.prop('disabled', false);
 
         //city
         let city = $('#city');
         city.empty();
-        city.append('<option selected="true" disabled></option>');
+        city.append('<option selected="true" disabled>Choose city/municipality</option>');
         city.prop('selectedIndex', 0);
+        city.prop('disabled', true);
 
         //barangay
         let barangay = $('#barangay');
         barangay.empty();
-        barangay.append('<option selected="true" disabled></option>');
+        barangay.append('<option selected="true" disabled>Choose barangay</option>');
         barangay.prop('selectedIndex', 0);
+        barangay.prop('disabled', true);
 
         // filter & fill
         var url = '/ph-json/province.json';
@@ -82,6 +85,9 @@ var my_handlers = {
             })
 
         });
+
+        var initialBarangayTextValue = document.getElementById("barangay-text").value;
+        updateSaveButtonState(initialBarangayTextValue);
     },
     // fill city
     fill_cities: function() {
@@ -101,11 +107,12 @@ var my_handlers = {
         dropdown.empty();
         dropdown.append('<option selected="true" disabled>Choose city/municipality</option>');
         dropdown.prop('selectedIndex', 0);
+        dropdown.prop('disabled', false);
 
         //barangay
         let barangay = $('#barangay');
         barangay.empty();
-        barangay.append('<option selected="true" disabled></option>');
+        barangay.append('<option selected="true" disabled>Choose barangay</option>');
         barangay.prop('selectedIndex', 0);
 
         // filter & fill
@@ -124,6 +131,9 @@ var my_handlers = {
             })
 
         });
+
+        var initialBarangayTextValue = document.getElementById("barangay-text").value;
+        updateSaveButtonState(initialBarangayTextValue);
     },
     // fill barangay
     fill_barangays: function() {
@@ -142,6 +152,7 @@ var my_handlers = {
         dropdown.empty();
         dropdown.append('<option selected="true" disabled>Choose barangay</option>');
         dropdown.prop('selectedIndex', 0);
+        dropdown.prop('disabled', false);
 
         // filter & Fill
         var url = 'ph-json/barangay.json';
@@ -159,6 +170,9 @@ var my_handlers = {
             })
 
         });
+
+        var initialBarangayTextValue = document.getElementById("barangay-text").value;
+        updateSaveButtonState(initialBarangayTextValue);
     },
 
     onchange_barangay: function() {
@@ -166,6 +180,12 @@ var my_handlers = {
         var barangay_text = $(this).find("option:selected").text();
         let barangay_input = $('#barangay-text');
         barangay_input.val(barangay_text);
+        updateSaveButtonState(barangay_text);
+
+        // Check the initial value of the hidden input field
+        var initialBarangayTextValue = document.getElementById("barangay-text").value;
+        updateSaveButtonState(initialBarangayTextValue);
+        
     },
 
 };
@@ -190,5 +210,19 @@ $(function() {
             dropdown.append($('<option></option>').attr('value', entry.region_code).text(entry.region_name));
         })
     });
-
 });
+
+
+function updateSaveButtonState(newValue) {
+    var addressCheckbox = document.getElementById("addressbool");
+    if (newValue === "") {
+        addressCheckbox.checked = false;
+        var event = new Event("change");
+        addressCheckbox.dispatchEvent(event);
+    } else {
+        addressCheckbox.checked = true;
+        console.log(newValue);
+        var event = new Event("change");
+        addressCheckbox.dispatchEvent(event);
+    }
+}
