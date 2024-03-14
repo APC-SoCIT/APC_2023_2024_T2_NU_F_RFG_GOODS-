@@ -14,9 +14,9 @@
   <body class="bg-gray-100">
     @include('navbar.navbar')
 
-    <div class=" relative container mx-auto">
-      <div class="flex shadow-md my-10">
-        <div class="w-3/4 bg-white px-10 py-10">
+    <div class="container mx-auto">
+      <div class="flex flex-col shadow-md my-10 md:flex-row">
+        <div class="md:w-3/4 bg-white px-10 py-10">
           <div class="flex justify-between border-b pb-8">
             <h1 class="font-semibold text-2xl">Shopping Cart</h1>
             <h2 id="itemnum" class="font-semibold text-2xl">X Items</h2>
@@ -272,11 +272,28 @@
             Continue Shopping
           </a>
         </div>
-        <div id="summary" class="w-1/4 px-8 py-10 bg-orange-500	opacity-85">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        <div id="summary" class="px-8 py-10 bg-orange-400">
           <h1 class="text-white font-bold text-2xl border-b pb-8 text-center">Order Summary</h1>
-          <div class="flex flex-col font-bold justify-between py-6 text-sm uppercase text-white">
-            <span>Ship to</span>
-            <span id="address" class="text-white font-bold pl-5">
+          <div class="flex flex-col justify-between pt-4 text-sm uppercase text-white">
+            <span class="font-bold text-lg">Ship to</span>
+            <span id="address" class="text-white ml-5 mb-1">
               @if (isset($user->region))
                 {{$user->region}}, {{$user['state/province']}}, {{$user['city/municipality']}}, {{$user['barangay']}}, <br>{{$user['addressline']}}
               @else
@@ -285,30 +302,27 @@
               @endif
             </span>
           </div>
-          <div class="flex flex-col font-bold justify-between text-sm uppercase text-white">
-            <span>Shipping Method</span>
-            <div name="shipping_methods" class="my-6 flex flex-col ps-5">
-              <div class="flex items-center mb-4">
-                <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-300 focus:ring-blue-500 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-radio-1" class="ms-2 text-sm font-medium text-white dark:text-white">Same Day Delivery*</label>
-              </div>
-              <div class="flex items-center mb-4">
-                <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-300 bg-gray-100 border-gray-300 focus:ring-blue-500  dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-radio-2" class="ms-2 text-sm font-medium text-white dark:text-white">Next Day Delivery*</label>
-              </div>
-              <div class="flex items-center mb-4">
-                <input checked id="default-radio-3" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-300 bg-gray-100 border-gray-300 focus:ring-blue-500  dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-radio-3" class="ms-2 text-sm font-medium text-white dark:text-white">Express Delivery</label>
-              </div>
+          <div class="flex flex-col justify-between text-sm uppercase text-white">
+            <span class="text-lg font-bold">Shipping Method</span>
+            <p class="text-xs font-bold text-white">*only available for deliveries inside metro manila</p>
+            <div name="shipping_methods" class="mt-3 flex flex-col ml-5">
+              
+              <div>
+                  <select name="DeliveryChoice" id="DeliveryChoice" class="rounded-lg w-1/2 mb-1 text-black">
+                    <option value="Express">Express Delivery</option>
+                    <option value="SameDay">*Same Day Delivery</option>
+                    <option value="NextDay">*Next Day Delivery</option>
+                    </select>
+                </div>
 
-              <p class="text-xs text-black">*only available for deliveries inside metro manila</p>
+              
 
             </div>
 
           </div>
-          <div class="flex justify-between mt-4 mb-5">
+          <div class="flex justify-between mt-4 ">
             <span class="font-bold text-sm uppercase text-white">Subtotal</span>
-            <span id="subTotal" class="font-bold text-sm text-white">₱1,030.00</span>
+            <span id="subTotal" class="text-sm text-white"></span>
           </div>
           <div>
             <label class="font-bold inline-block mb-3 text-sm uppercase text-white">Shipping Date:</label>
@@ -320,17 +334,16 @@
                 </div>
                 <input datepicker type="text" class="bg-white border border-gray-300 text-black text-sm rounded-lg block w-full ps-10 p-2.5 dark:bg-white dark:border-white dark:placeholder-black dark:text-black" placeholder="Select date" style="background-color= white;">
               </div>
-          </div>
-          <div class="border-t mt-8">
-            <div class="flex font-bold justify-between py-6 text-sm uppercase text-white">
-              <span>Shipping fee</span>
-              <span id="priceShippingFee" class="text-white font-bold">₱100</span>
+              <div class="flex justify-between mt-4 text-sm uppercase text-white">
+              <span class="font-bold">Shipping fee</span>
+              <span id="priceShippingFee" class="text-white">₱100</span>
             </div>
-            <div class="flex font-bold justify-between py-6 text-sm uppercase text-white my-4">
-                <span>TOTAL</span>
+          </div>
+          <div class="border-t mt-4">
+            <div class="flex justify-between text-xl uppercase text-white py-4">
+                <span class="font-bold">TOTAL</span>
+                <p id="priceTotal" class="text-center"> ₱1,030.00 </p>
               </div>
-              <div class="container mx-auto w-3/4 px-4 py-2 bg-stone-100 font-semibold  rounded-2xl    ">
-              <p id="priceTotal" class="text-center"> ₱1,030.00 </p>
                 <script>
                   function updateOverallSubtotal() {
                       var cartitemSubtotals = document.getElementsByName('cartitemSubtotal');
@@ -350,7 +363,6 @@
                   }
                   updateOverallSubtotal();
                 </script>
-              </div>
 
             <button class="bg-stone-100 font-bold hover:bg-stone-600 py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4">Proceed to Payment</button>
           </div>
@@ -362,13 +374,3 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
   </body>
-
-
-
-
-
-
-
-
-
-  
