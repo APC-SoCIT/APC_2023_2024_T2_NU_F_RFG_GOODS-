@@ -2,21 +2,13 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    <p>My Address</p>
-                </div>
-            </div>
-
-            
-
-            <form method="post" action="{{ route('profile.addressUpdate') }}">
+            <form method="post" action="{{ route('profile.addressUpdate') }}" >
                 @csrf
                 @method('patch')
 
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg grid grid-cols-2">
                     <div class="max-w-xl">
-                        <p>{{$userAddress->first_name}} {{$userAddress->last_name}}</p>
+                        <p class="font-bold">{{$userAddress->first_name}} {{$userAddress->last_name}},</p>
                         @if(isset($userAddress->phone_number))
                             <p>{{ $userAddress['phone_number'] }} </p>
                         @endif
@@ -25,44 +17,47 @@
                             <p>{{$userAddress['addressline']}}</p>
                         @else
                             <div class="flex">
-                                <p>Your address @if(!isset($userAddress->phone_number)) and phone number @endif is not set, <span class="text-orange-500">set it up here!</span></p>
+                                <p>Your address @if(!isset($userAddress->phone_number)) and phone number @endif is not set, <span class="text-orange-500 font-bold">set it up here!</span></p>
                             </div>
                         @endif
 
                         <label for="phone">Phone Number: 09xxxxxxxxx</label>
 
-                        <input type="tel" id="phone" name="phone" class="w-full" pattern="[0]{1}[9]{1}[0-9]{11}" placeholder="Phone Number" required>
+                        <input type="tel" id="phone" name="phone" class="w-full rounded-lg mb-4 mt-1" pattern="[0]{1}[9]{1}[0-9]{11}" placeholder="Phone Number" required>
 
-                        <select id="region" class="w-full"></select>
+                        <select id="region" class="rounded-lg mb-4 w-full"></select>
                         <input type="hidden" name="region_text" id="region-text">
                     
-                        <select id="province" class="w-full" disabled>
+                        <select id="province" class="rounded-lg mb-4  w-full" disabled>
                             <option value="">Choose State/Province</option>
                         </select>
                         <input type="hidden" name="province_text" id="province-text">
                     
-                        <select id="city" class="w-full" disabled>
+                        <select id="city" class="rounded-lg mb-4  w-full" disabled>
                             <option value="">Choose city/municipality</option>
                         </select>
                         <input type="hidden" name="city_text" id="city-text">
                     
-                        <select id="barangay" class="w-full" disabled>
+                        <select id="barangay" class="rounded-lg mb-4  w-full" disabled>
                             <option value="">Choose barangay</option>
                         </select>
                         <input type="hidden" name="barangay_text" id="barangay-text">
 
-                        <input type="text" class="w-full" name="address_specific" id="address-specific" placeholder="Street Name, Building, House No.">
+                        <input type="text" class="rounded-lg mb-4  w-full" name="address_specific" id="address-specific" placeholder="Street Name, Building, House No.">
 
-                        <div id="map" class="h-96"></div>
-
-                        <input type="hidden" name="longitude" id="longitude" value="">
-                        <input type="hidden" name="latitude" id="latitude" value="">
-                        <input type="submit" value="Save" id="addressSaveButton" class="w-full hover:bg-orange-600 bg-orange-500">
-                        </input>
+                        
                     </div>
+                    <div id="map-container" class="relative ml-5 mr-1">
+                            <div id="map" class="h-96"></div>
+                                <input type="hidden" name="longitude" id="longitude" value="">
+                                <input type="hidden" name="latitude" id="latitude" value="">
+                                <input type="submit" value="Save" id="addressSaveButton" class=" w-full hover:bg-orange-600 bg-orange-500">
+                                </input>
+                        </div>
                 </div>
 
             </form>
+            
 
             <input type="checkbox" name="addressbool" id="addressbool" class="hidden">
             <input type="checkbox" name="leafletbool" id="leafletbool" class="hidden">
