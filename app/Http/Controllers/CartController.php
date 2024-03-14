@@ -7,12 +7,16 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\ProductCategory;
 
 class CartController extends Controller
 {
     public function userCart() {
+
         $userId = Auth::user()->id;
+
+        $user = User::find($userId);
 
         $usercart = Cart::join('products', 'carts.product_id', '=', 'products.id')
             ->select(
@@ -56,7 +60,7 @@ class CartController extends Controller
             ->whereRaw('stock IS NULL OR stock = 0')
             ->get();
     
-        return view('cart', ['usercart' => $usercart, 'usercartnostock' => $usercartnostock]);
+        return view('cart', ['usercart' => $usercart, 'usercartnostock' => $usercartnostock, 'user' => $user]);
     }
 
     public function addtocart(Request $request) {
