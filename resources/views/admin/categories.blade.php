@@ -182,6 +182,8 @@
 </div>
 
 <script>
+var currentUrl = "{{ request()->url() }}";
+
         $(document).ready(function() {
             const fetchData = (page, search_term, sortBy) => {
                 if (search_term === undefined) {
