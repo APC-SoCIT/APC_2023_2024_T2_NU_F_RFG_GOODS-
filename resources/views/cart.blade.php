@@ -276,7 +276,14 @@
           <h1 class="text-white font-bold text-2xl border-b pb-8 text-center">Order Summary</h1>
           <div class="flex flex-col font-bold justify-between py-6 text-sm uppercase text-white">
             <span>Ship to</span>
-            <span id="address" class="text-white font-bold pl-5">{{$user->region}}, {{$user['state/province']}}, {{$user['city/municipality']}}, {{$user['barangay']}}, <br>{{$user['addressline']}}</span>
+            <span id="address" class="text-white font-bold pl-5">
+              @if (isset($user->region))
+                {{$user->region}}, {{$user['state/province']}}, {{$user['city/municipality']}}, {{$user['barangay']}}, <br>{{$user['addressline']}}
+              @else
+                REGION I (ILOCOS REGION), ILOCOS NORTE, PAOAY, OAIG-UPAY-ABULAO,<br>
+                B6 L6D MOLAVE ST. HILLCREST VILLAGE, CAMARIN ROAD
+              @endif
+            </span>
           </div>
           <div class="flex flex-col font-bold justify-between text-sm uppercase text-white">
             <span>Shipping Method</span>
