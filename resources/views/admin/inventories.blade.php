@@ -55,9 +55,96 @@
                     <div class="sm:flex">
                         <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
 
-                            <label for="searchInput" class="sr-only">Search</label>
-                            <div class="mt-1 relative lg:w-64 xl:w-96">
-                                <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for Inventories">
+                            <div>
+                                <label for="searchInput" class="sr-only">Search</label>
+                                <div class="mb-1 mt-1 relative lg:w-64 xl:w-96">
+                                    <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for Inventories">
+                                </div>
+                            </div>
+
+                            <div class="sm:pl-4 w-full">
+                                <select name="sort_by" id="sort_by" class="rounded-lg pl-2 border-1 border-gray-300 p-2 box-sizing-content">
+                                    <option value="" disabled selected hidden>SORT BY:</option>
+                                    <option value="sort_by_name_asc">NAME (A-Z)</option>
+                                    <option value="sort_by_name_desc">NAME (Z-A)</option>
+                                    <option value="sort_by_quantity_asc">QUANTITY (LOW TO HIGH)</option>
+                                    <option value="sort_by_quantity_desc">QUANTITY (HIGH TO LOW)</option>
+                                    <option value="default">None</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="filter_transaction" id="filter_transaction" class="rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                                    <option value="">TRANSACTION TYPE:</option>
+                                    <option value="RECEIVED">RECEIVED</option>
+                                    <option value="SHIPPED">SHIPPED</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="filter_year" id="filter_year" class="rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                                    <option value="">Select Year</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="filter_month" id="filter_month" class="rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                                    <option value="">Select Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="filter_day" id="filter_day" class="rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                                    <option value="">Select Day</option>
+                                    <option value="01">1</option>
+                                    <option value="02">2</option>
+                                    <option value="03">3</option>
+                                    <option value="04">4</option>
+                                    <option value="05">5</option>
+                                    <option value="06">6</option>
+                                    <option value="07">7</option>
+                                    <option value="08">8</option>
+                                    <option value="09">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select>
                             </div>
 
                         </div>
@@ -144,56 +231,84 @@
 
     <script>
         $(document).ready(function(){
-            const fetch_data = (page, status, search_term) => {
-                if(status === undefined){
-                    status = "";
-                }
-                if(search_term === undefined){
-                    search_term = "";
-                }
+            const showLoadingScreen = () => {
+                $('#loadingScreen').show();
+            };
+
+            const hideLoadingScreen = () => {
+                $('#loadingScreen').hide();
+            };
+
+            const fetch_data = (page, search_term, sort_by, filter_transaction, filter_year, filter_month, filter_day) => {
+                showLoadingScreen();
+                if(search_term === undefined){search_term = "";}
+                if(sort_by === undefined){sort_by = "";}
+                if(filter_transaction === undefined){filter_transaction = "";}
+                if(filter_year === undefined){filter_year = "";}
+                if(filter_month === undefined){filter_month = "";}
+                if(filter_day === undefined){filter_day = "";}
                 $.ajax({ 
-                    url:"/admin/inventory/?page="+page+"&status="+status+"&search_term="+search_term,
+                    url:"/admin/inventory/?",
                     data: {
                         page: page,
-                        status: status,
                         search_term: search_term,
+                        sort_by: sort_by, 
+                        filter_transaction: filter_transaction, 
+                        filter_year: filter_year,
+                        filter_month: filter_month,
+                        filter_day: filter_day
+                    },
+                    beforeSend: function(){
+                        showLoadingScreen();
                     },
                     success:function(data){
-                        $('#datatable').html('');
                         $('#datatable').html(data);
-                        
+                    },
+                    complete: function(){
+                        hideLoadingScreen();
                     },
                     error: function (xhr, status, error) {
                         console.error(xhr.responseText);
+                        console.error(error);
                     }
-                })
-            }
-        
-            $('body').on('keyup', '#searchInput', function(){
-                var status = $('#status').val();
-                var search_term = $('#searchInput').val();
-                var page = $('#hidden_page').val();
-                fetch_data(page, status, search_term);
-            });
-        
-            $('body').on('change', '#status', function(){
-                var status = $('#status').val();
-                var search_term = $('#searchInput').val();
-                var page = $('#hidden_page').val();
-                fetch_data(page, status, search_term);
-            });
-        
-            $('body').on('click', '.pager a', function(event){
-                event.preventDefault();
-                var page = $(this).attr('href').split('page=')[1];
-                $('#hidden_page').val(page);
-                var search_term = $('#searchInput').val();
-                var status = $('#status').val();
-                fetch_data(page, status, search_term);
-            });
-
+                });
+            };
+        $('body').on('change', '#sort_by, #filter_transaction, #filter_year, #filter_month, #filter_day', function(){
+            var search_term = $('#searchInput').val();
+            var page = $('#hidden_page').val();
+            var sort_by = $('#sort_by').val();
+            var filter_transaction = $('#filter_transaction').val();
+            var filter_year = $('#filter_year').val();
+            var filter_month = $('#filter_month').val();
+            var filter_day = $('#filter_day').val();
+            fetch_data(page, search_term, sort_by, filter_transaction, filter_year, filter_month, filter_day);
         });
-    </script>
+
+        $('body').on('keyup', '#searchInput', function(){
+            var search_term = $(this).val();
+            var page = $('#hidden_page').val();
+            var sort_by = $('#sort_by').val();
+            var filter_transaction = $('#filter_transaction').val();
+            var filter_year = $('#filter_year').val();
+            var filter_month = $('#filter_month').val();
+            var filter_day = $('#filter_day').val();
+            fetch_data(page, search_term, sort_by, filter_transaction, filter_year, filter_month, filter_day);
+        });
+
+        $('body').on('click', '.pager a', function(event){
+            event.preventDefault();
+            var page = $(this).attr('href').split('page=')[1];
+            $('#hidden_page').val(page);
+            var search_term = $('#searchInput').val();
+            var sort_by = $('#sort_by').val();
+            var filter_transaction = $('#filter_transaction').val();
+            var filter_year = $('#filter_year').val();
+            var filter_month = $('#filter_month').val();
+            var filter_day = $('#filter_day').val();
+            fetch_data(page, search_term, sort_by, filter_transaction, filter_year, filter_month, filter_day);
+        });
+    });
+</script>
 
 </body>
 </html>

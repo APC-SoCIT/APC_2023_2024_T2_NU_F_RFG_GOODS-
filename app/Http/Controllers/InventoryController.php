@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Inventory;
 use App\Models\Product;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class InventoryController extends Controller
 {
@@ -16,55 +19,77 @@ class InventoryController extends Controller
     //     return view('admin.inventories', ['inventoryList' => $inventoryList,'productList' => $productList]);
     // }
 
-    public function index(Request $request)
-    {   
+    public function index(Request $request) {   
+        Log::info('Fmonth:', ['filter_month' => $request->filter_month]);
         $inventories = Inventory::join('products', 'inventories.product_id', '=', 'products.id')
-        ->select('inventories.id','products.sku','products.name','inventories.is_received','inventories.quantity','inventories.created_at','inventories.updated_at')
-        ->paginate(10);
+        ->select(
+        'inventories.id',
+	    'products.sku',
+	    'products.name',
+        'inventories.is_received',
+	    'inventories.quantity',
+	    'inventories.created_at',
+	    'inventories.updated_at'
+        )
+        ->paginate(12);
         $products = Product::all();
 
         if($request->ajax()){
             $inventories = Inventory::join('products', 'inventories.product_id', '=', 'products.id')
-                        ->select('inventories.id','products.sku','products.name','inventories.is_received','inventories.quantity','inventories.created_at','inventories.updated_at')
+                        ->select(
+                'inventories.id',
+			    'products.sku',
+			    'products.name',
+   	       	    'inventories.is_received',
+			    'inventories.quantity',
+			    'inventories.created_at',
+			    'inventories.updated_at'
+                        )
                         ->when($request->search_term, function($q)use($request){
                             $q->where('products.name', 'LIKE', '%' . $request->search_term . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->search_term) . '%']);
                         })
-                        ->when($request->is_received, function($q)use($request){
-                            $q->where('is_received',$request->is_received);
+                        
+                        ->when($request->filter_year, function($q) use ($request) {
+                            if ($request->filter_year != "default") {
+                                $q->whereYear('inventories.created_at', $request->filter_year);
+                            }
                         })
-                        ->paginate(10);
+                        ->when($request->filter_month, function ($q) use ($request) {
+                            if ($request->filter_month != "default") {
+                                $q->whereMonth('inventories.created_at', $request->filter_month);
+                            }
+                        })
+                        ->when($request->filter_day, function ($q) use ($request) {
+                            if ($request->filter_day != "default") {
+                                $q->whereDay('inventories.created_at', $request->filter_day);
+                            }
+                        })
+
+
+                        ->when($request->sort_by, function($q)use($request){
+                            if ($request->sort_by != "default") {
+                                if ($request->sort_by == 'sort_by_name_asc') {
+                                    $q->orderBy('name','asc');
+                                } else if ($request->sort_by == 'sort_by_name_desc') {
+                                    $q->orderBy('name','desc');
+                                } else if ($request->sort_by == 'sort_by_quantity_asc') {
+                                    $q->orderBy('quantity','asc');
+                                } else if ($request->sort_by == 'sort_by_quantity_desc') {
+                                    $q->orderBy('quantity','desc');
+                                }
+                            }
+                            
+                        })
+                        ->when($request->filter_transaction, function($q)use($request){
+                            if ($request->filter_transaction != "default") {
+                                $q->where('inventories.transaction', 'LIKE', '%' . $request->filter_transaction . '%');
+                            }
+                        })
+                        ->paginate(12);
+
             return view('admin.inventories-table', ['inventories' => $inventories, 'products' => $products])->render();
         }
-
         return view('admin.inventories', ['inventories' => $inventories, 'products' => $products]);
-    }
-
-    public function save(Request $request){
-        $request->validate([
-            'product_id' => 'required',
-            'is_received' => 'required|boolean',
-            'quantity' => 'required|integer',
-        ]);
-
-        $inventory = new Inventory;
-        $inventory->product_id = $request->product_id;
-        $inventory->is_received = $request->is_received;
-        $inventory->quantity = $request->quantity;
-        $inventory->save();
-
-        
-        $product = Product::find($request->product_id);
-        if ($request->is_received==1) {
-            $product->stock += $request->quantity;
-        } else if ($request->is_received==0) {
-            $product->stock -= $request->quantity;
-        }
-
-        // dd($product->stock, $request->quantity);
-        $product->save();
-
-
-        return redirect(route('inventory.index'))->withSuccess('Inventory Successfully Added');
     }
 
     public function update(Inventory $inventory, Request $request){
