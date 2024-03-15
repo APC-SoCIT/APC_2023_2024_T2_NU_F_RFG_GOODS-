@@ -291,30 +291,26 @@
             </span>
           </div>
           <div class="flex flex-col justify-between text-sm uppercase text-white">
-            <span class="text-lg font-bold">Shipping Method</span>
-            <p class="text-xs font-bold text-white">*only available for deliveries inside metro manila</p>
-            <div name="shipping_methods" class="mt-3 flex flex-col ml-5">
-              <div>
-                  <select name="DeliveryChoice" id="DeliveryChoice" class="rounded-lg w-1/2 mb-1 text-black">
-                    <option value="Express">Express Delivery</option>
-                    <option value="SameDay" @if ($user->region!='National Capital Region (NCR)') disabled @endif>*Same Day Delivery</option>
-                    <option value="NextDay" @if ($user->region!='National Capital Region (NCR)') disabled @endif>*Next Day Delivery</option>
-                  </select>
-                </div>
-            </div>
-
-            <span class="text-lg font-bold">Payment Method</span>
-            <p class="text-xs font-bold text-white">*only available for deliveries inside metro manila</p>
-            <div name="shipping_methods" class="mt-3 flex flex-col ml-5">
-              <div>
-                  <select name="paymentMethod" id="paymentMethod" class="rounded-lg w-1/2 mb-1 text-black">
-                    <option value="cod" @if ($user->region!='National Capital Region (NCR)') disabled @endif>*Cash on Delivery</option>
-                    <option value="paymaya">Paymaya</option>
-                  </select>
-                </div>
-            </div>
-
+              <span class="text-lg font-bold">Shipping Method</span>
+                <p class="text-xs text-white"><p class="text-xs text-white"><span style="color: blue">*</span> only available for deliveries within metro manila</p></p>
+              <div name="shipping_methods" class="mt-3 flex flex-col ml-5">
+                  <div class="flex w-max rounded-lg select-none bg-orange-400">
+                      <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
+                          <input type="radio" name="radio" value="Express" class="peer hidden" checked="">
+                          <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-orange-300 p-1 rounded-lg transition duration-150 ease-in-out">Express</span>
+                      </label>
+                      <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
+                          <input type="radio" name="radio" value="SameDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
+                          <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-orange-300 p-1 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Same Day</span>
+                      </label>
+                      <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
+                          <input type="radio" name="radio" value="NextDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
+                          <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-orange-300 p-1 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Next Day</span>
+                      </label>
+                  </div>
+              </div>
           </div>
+
           <div class="flex justify-between mt-4 ">
             <span class="font-bold text-sm uppercase text-white">Subtotal</span>
             <span id="subTotal" class="text-sm text-white"></span>
