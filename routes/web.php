@@ -33,10 +33,6 @@ Route::get('/item', function () {
     return view('products.item');
 });
 
-Route::get('/order-page', function () {
-    return view('order-page');
-});
-
 Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
 
 Route::get('/dashboard', function () {
@@ -83,11 +79,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('user/address/update', [AddressController::class, 'addressupdate'])->name('profile.addressUpdate');
     Route::post('/updatecart', [CartController::class, 'updatecart'])->name('product.updatecart');
     Route::get('/cart', [CartController::class, 'userCart'])->name('product.userCart');
-    Route::get('/profile/orders/history', [OrderController::class, 'getOrderItems'])->name('orders.orderHistory');
+    Route::get('/profile/orders/history', [OrderController::class, 'getUserOrder'])->name('orders.orderHistory');
+    Route::get('/orders/{order}/details', [OrderController::class, 'viewUserOrderDetails'])->name('orders.viewDetails');
     Route::get('/profile/address', [AddressController::class, 'viewList'])->name('address.viewList');
     
     Route::post('/orders/add', [OrderController::class, 'ordersadd'])->name('orders.add');
     Route::get('/orders/success', [OrderController::class, 'orderssuccess'])->name('orders.success');
+    Route::get('/order-page', function () {
+        return view('order-page');
+    });
+
 });
 
 Route::middleware('admin')->group(function () {
