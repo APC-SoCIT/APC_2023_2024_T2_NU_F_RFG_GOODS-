@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderItem;
+use App\Models\Cart;
 
 class OrderController extends Controller
 {
@@ -30,6 +31,42 @@ class OrderController extends Controller
         }
 
         return view('admin.ordersitems', ['orders' => $orderItems]);
+    }
+
+    public function ordersadd(Request $request) {
+        $userId = $request->input('user_id');
+        $status = $request->input('status');
+        $paymentMethod = $request->input('payment_method');
+        $cartItems = $request->input('cartItems');
+
+        $order = new Order;
+        $order->user_id = $userId;
+        $order->status = $status;
+        $order->payment_method = $paymentMethod;
+        $order->save();
+
+        foreach($cartItems as $cartItem) {
+            $orderItem = new OrderItem;
+            $orderItem->order_id = $order->id; 
+            $orderItem->product_id = $cartItem['product_id']; 
+            $orderItem->quantity = $cartItem['quantity']; 
+            $orderItem->price = $cartItem['price']; 
+            $orderItem->status = "processing"; 
+            $orderItem->save();
+            //clearcart
+            $cartItem = Cart::find($cartItem['id']);
+            $cartItem->delete();
+        }
+
+        return redirect()->route('orders.success', ['orderId' => $order->id]);
+
+    }
+
+    public function orderssuccess(Request $request) {
+        $orderId = $request->input('orderId');
+        $order = Order::find($orderId);
+    
+        return view('order-success', ['order' => $order]);
     }
 
     public function index(Request $request) {

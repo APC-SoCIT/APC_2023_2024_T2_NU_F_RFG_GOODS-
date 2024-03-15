@@ -78,7 +78,7 @@
                         <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-white rounded-lg shadow w-44 dark:bg-orange-400 dark:divide-white">
                             <ul class="py-2 text-sm text-white dark:text-white" aria-labelledby="dropdownLargeButton">
                                 <li>
-                                    <a href="{{ route('dashboard') }}" class="block px-4 py-2 md:dark:hover:text-gray-300">Dashboard</a>
+                                    <a href="{{ route('profile.edit') }}" class="block px-4 py-2 md:dark:hover:text-gray-300">Profile</a>
                                 </li>
                             </ul>
                             <div class="py-1">

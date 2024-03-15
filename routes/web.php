@@ -43,29 +43,29 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/profile/ph-json/region.json', function () {
-    $jsonFilePath = public_path('/ph-json/region.json');
-    if (File::exists($jsonFilePath)) {
-        $jsonContent = File::get($jsonFilePath);
-        $jsonData = json_decode($jsonContent);
-        return response()->json($jsonData);
-    } else {
-        // Return a 404 response if the file doesn't exist
-        return response()->json(['error' => 'File not found'], 404);
-    }
-})->name('address.region');
+// Route::get('/profile/ph-json/region.json', function () {
+//     $jsonFilePath = public_path('/ph-json/region.json');
+//     if (File::exists($jsonFilePath)) {
+//         $jsonContent = File::get($jsonFilePath);
+//         $jsonData = json_decode($jsonContent);
+//         return response()->json($jsonData);
+//     } else {
+//         // Return a 404 response if the file doesn't exist
+//         return response()->json(['error' => 'File not found'], 404);
+//     }
+// })->name('address.region');
 
-Route::get('/profile/ph-json/region.json', function () {
-    $jsonFilePath = public_path('/ph-json/region.json');
-    if (File::exists($jsonFilePath)) {
-        $jsonContent = File::get($jsonFilePath);
-        $jsonData = json_decode($jsonContent);
-        return response()->json($jsonData);
-    } else {
-        // Return a 404 response if the file doesn't exist
-        return response()->json(['error' => 'File not found'], 404);
-    }
-})->name('address.region');
+// Route::get('/profile/ph-json/region.json', function () {
+//     $jsonFilePath = public_path('/ph-json/region.json');
+//     if (File::exists($jsonFilePath)) {
+//         $jsonContent = File::get($jsonFilePath);
+//         $jsonData = json_decode($jsonContent);
+//         return response()->json($jsonData);
+//     } else {
+//         // Return a 404 response if the file doesn't exist
+//         return response()->json(['error' => 'File not found'], 404);
+//     }
+// })->name('address.region');
 
 Route::get('/profile/ph-json/region.json', [AddressController::class, 'region'])->name('address.region');
 Route::get('/profile/ph-json/province.json', [AddressController::class, 'province'])->name('address.province');
@@ -85,6 +85,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'userCart'])->name('product.userCart');
     Route::get('/profile/orders/history', [OrderController::class, 'getOrderItems'])->name('orders.orderHistory');
     Route::get('/profile/address', [AddressController::class, 'viewList'])->name('address.viewList');
+    
+    Route::post('/orders/add', [OrderController::class, 'ordersadd'])->name('orders.add');
+    Route::get('/orders/success', [OrderController::class, 'orderssuccess'])->name('orders.success');
 });
 
 Route::middleware('admin')->group(function () {

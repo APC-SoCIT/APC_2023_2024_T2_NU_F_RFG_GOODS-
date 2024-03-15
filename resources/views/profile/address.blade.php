@@ -23,7 +23,7 @@
 
                         <label for="phone">Phone Number: 09xxxxxxxxx</label>
 
-                        <input type="tel" id="phone" name="phone" class="w-full rounded-lg mb-4 mt-1" pattern="[0]{1}[9]{1}[0-9]{11}" placeholder="Phone Number" required>
+                        <input type="tel" id="phone" name="phone" class="w-full rounded-lg mb-4 mt-1" pattern="[0]{1}[9]{1}[0-9]{9}" placeholder="Phone Number" required>
 
                         <select id="region" class="rounded-lg mb-4 w-full"></select>
                         <input type="hidden" name="region_text" id="region-text">

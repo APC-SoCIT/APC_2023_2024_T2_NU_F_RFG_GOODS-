@@ -36,6 +36,8 @@ class CartController extends Controller
                 'products.status',
             )
             ->where('carts.user_id', '=', $userId)
+            ->where('products.status', '=', 'active')
+            ->whereRaw('stock IS NOT NULL OR stock > 0')
             ->get();
 
         $usercartnostock = Cart::join('products', 'carts.product_id', '=', 'products.id')
@@ -57,6 +59,7 @@ class CartController extends Controller
                 'products.status',
             )
             ->where('carts.user_id', '=', $userId)
+            ->where('products.status', '=', 'active')
             ->whereRaw('stock IS NULL OR stock = 0')
             ->get();
     
@@ -132,6 +135,46 @@ class CartController extends Controller
     }
 
     public function deletecart(Request $request) {
+        
+    }
+
+    public function indexStripe() {
+        return view('index');
+    }
+
+    public function checkoutStripe() {
+        \Stripe\Stripe::setApiKey(config('stripe.sk'));
+
+        $session = \Stripe\Checkout\Session::create([
+            'line_items'    => [
+                [
+                    'price_data'    => [
+                        'currency'      => 'php',
+                        'product_data'  => [
+                            'name'  => 'name test',
+                        ],
+                        'unit_amount'   => 500, //php5.00
+                    ],
+                    'quantity'  => 1,
+                ],
+            ],
+            'mode'          => 'payment',
+            'success_url' => route('success'),
+            'cancel_url' => route('index'),
+        ]);
+
+        return redirect()->away($session->url);
+    }
+
+    public function successStripe() {
+        return view ('index');
+    }
+
+    public function paywithMaya() {
+        $url = 'https://pg-sandbox.paymaya.com/payby/v2/paymaya/payments';
+    }
+
+    public function checkout() {
         
     }
 }
