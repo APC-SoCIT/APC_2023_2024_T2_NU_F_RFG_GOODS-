@@ -6,9 +6,51 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderItem;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+
+    public function getUserOrder() {
+        $orders = Order::where('user_id','=', Auth::user()->id)->get();
+        $orderItems = OrderItem::leftjoin('orders', 'order_items.order_id', '=', 'orders.id')
+        ->leftjoin('products', 'products.id', '=', 'order_items.product_id')
+        ->get();
+
+        foreach ($orders as $order) {
+            $items = OrderItem::where('order_id', $order->id)
+                ->leftjoin('products', 'products.id', '=', 'order_items.product_id')
+                ->get();
+            $orderItems[$order->id] = $items;
+        }
+
+        return view('orderhistory', ['orders' => $orders, 'orderItems' => $orderItems]);
+    }
+
+    public function viewUserOrderDetails(Request $request) {
+        $orderItems = OrderItem::leftjoin('orders', 'order_items.order_id', '=', 'orders.id')
+        ->leftjoin('products', 'products.id', '=', 'orders.product_id')
+        ->paginate(12);
+
+        if($request->ajax()){
+            $orderItems = OrderItem::leftjoin('orders', 'order_items.order_id', '=', 'orders.id')
+            ->leftjoin('products', 'products.id', '=', 'orders.product_id')
+            ->sortByDesc('orders.created_at')
+            ->when($request->search_term, function($q)use($request){
+                $q->where('products.name', 'LIKE', '%' . $request->search_term . '%')
+                ->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->search_term) . '%']);
+            })
+            ->when($request->status, function($q)use($request){
+                $q->where('orders.status',$request->status);
+            })
+            ->paginate(12);
+            return view('admin.order-items-table', ['orders' => $orderItems]);
+        }
+
+        return view('admin.ordersitems', ['orders' => $orderItems]);
+    }
+
     public function getOrderItems(Request $request) {
         $orderItems = OrderItem::leftjoin('orders', 'order_items.order_id', '=', 'orders.id')
         ->leftjoin('products', 'products.id', '=', 'orders.product_id')
@@ -30,6 +72,42 @@ class OrderController extends Controller
         }
 
         return view('admin.ordersitems', ['orders' => $orderItems]);
+    }
+
+    public function ordersadd(Request $request) {
+        $userId = $request->input('user_id');
+        $status = $request->input('status');
+        $paymentMethod = $request->input('payment_method');
+        $cartItems = $request->input('cartItems');
+
+        $order = new Order;
+        $order->user_id = $userId;
+        $order->status = $status;
+        $order->payment_method = $paymentMethod;
+        $order->save();
+
+        foreach($cartItems as $cartItem) {
+            $orderItem = new OrderItem;
+            $orderItem->order_id = $order->id; 
+            $orderItem->product_id = $cartItem['product_id']; 
+            $orderItem->quantity = $cartItem['quantity']; 
+            $orderItem->price = $cartItem['price']; 
+            $orderItem->status = "processing"; 
+            $orderItem->save();
+            //clearcart
+            $cartItem = Cart::find($cartItem['id']);
+            $cartItem->delete();
+        }
+
+        return redirect()->route('orders.success', ['orderId' => $order->id]);
+
+    }
+
+    public function orderssuccess(Request $request) {
+        $orderId = $request->input('orderId');
+        $order = Order::find($orderId);
+    
+        return view('order-success', ['order' => $order]);
     }
 
     public function index(Request $request) {
