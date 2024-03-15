@@ -47,23 +47,22 @@
                             </li>
                             </ol>
                         </nav>
-                        {{-- Navigation End --}}
 
                         <h1 class="text-xl sm:text-2xl font-semibold text-black">All Inventories</h1>
                     </div>
 
-                    <div class="sm:flex">
-                        <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
+                    {{-- Navigation End --}}
 
-                            <div>
-                                <label for="searchInput" class="sr-only">Search</label>
-                                <div class="mb-1 mt-1 relative lg:w-64 xl:w-96">
+                    <div class="sm:normal">
+                        <div class="flex flex-col sm:flex-row items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
+                            <div class="mb-3 sm:mb-0 sm:mr-2 w-full">
+                                <div class="px-2 relative sm:w-64 xl:w-96">
                                     <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for Inventories">
                                 </div>
                             </div>
 
-                            <div class="sm:pl-4 w-full">
-                                <select name="sort_by" id="sort_by" class="rounded-lg pl-2 border-1 border-gray-300 p-2 box-sizing-content">
+                            <div class="mb-3 sm:mb-0 px-2 w-full">
+                                <select name="sort_by" id="sort_by" class="w-full rounded-lg pl-2 border-1 border-gray-300 p-2 box-sizing-content">
                                     <option value="" disabled selected hidden>SORT BY:</option>
                                     <option value="sort_by_name_asc">NAME (A-Z)</option>
                                     <option value="sort_by_name_desc">NAME (Z-A)</option>
@@ -73,16 +72,16 @@
                                 </select>
                             </div>
 
-                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
-                                <select name="filter_transaction" id="filter_transaction" class="rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                            <div class="mb-3 sm:mb-0 px-2 w-full">
+                                <select name="filter_transaction" id="filter_transaction" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
                                     <option value="">TRANSACTION TYPE:</option>
                                     <option value="RECEIVED">RECEIVED</option>
                                     <option value="SHIPPED">SHIPPED</option>
                                 </select>
                             </div>
 
-                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
-                                <select name="filter_year" id="filter_year" class="rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                            <div class="mb-3 sm:mb-0 px-2 w-full">
+                                <select name="filter_year" id="filter_year" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
                                     <option value="">Select Year</option>
                                     <option value="2020">2020</option>
                                     <option value="2021">2021</option>
@@ -92,8 +91,8 @@
                                 </select>
                             </div>
 
-                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
-                                <select name="filter_month" id="filter_month" class="rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                            <div class="mb-3 sm:mb-0 px-2 w-full">
+                                <select name="filter_month" id="filter_month" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
                                     <option value="">Select Month</option>
                                     <option value="1">January</option>
                                     <option value="2">February</option>
@@ -110,8 +109,8 @@
                                 </select>
                             </div>
 
-                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
-                                <select name="filter_day" id="filter_day" class="rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                            <div class="mb-3 sm:mb-0 px-2 w-full">
+                                <select name="filter_day" id="filter_day" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
                                     <option value="">Select Day</option>
                                     <option value="01">1</option>
                                     <option value="02">2</option>
@@ -146,17 +145,14 @@
                                     <option value="31">31</option>
                                 </select>
                             </div>
-
-                        </div>
-
-                        <div class="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                            <button data-modal-target="add-inventory-modal" data-modal-toggle="add-inventory-modal"class="w-1/2 text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-red-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+<div class="px-2">
+                            <button data-modal-target="add-inventory-modal" data-modal-toggle="add-inventory-modal"class="w-full text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-red-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto whitespace-nowrap">
                                 <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                 Add Inventory
                             </button>
+</div>
                         </div>
                     </div>
-
                 </div>
             </div>
 

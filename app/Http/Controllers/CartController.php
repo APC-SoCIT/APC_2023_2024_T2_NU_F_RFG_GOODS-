@@ -114,6 +114,11 @@ class CartController extends Controller
 
     }
 
+    public function deletecart(Request $request) {
+    }
+    
+    
+
     public function updatecart(Request $request) {
         $request->validate([
             'user_id' => 'required',
@@ -132,10 +137,6 @@ class CartController extends Controller
         } else {
             return 'Invalid Number: Less stock than quantity';
         }
-    }
-
-    public function deletecart(Request $request) {
-        
     }
 
     public function indexStripe() {

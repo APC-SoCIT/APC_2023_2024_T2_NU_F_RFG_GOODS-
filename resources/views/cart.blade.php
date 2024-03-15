@@ -55,7 +55,7 @@
                 </div>
               </div>
               {{-- quantity start --}}
-              <div class="flex flex-col items-center justify-center w-1/5">
+              <div class="flex flex-col items-center justify-center w-1/5 relative">
                 <div class="flex items-center justify-center">
                     <button id="decrement{{$cartItem->id}}"
                             class="w-1/6 flex items-center justify-center pb-1 pl-0.5 text-black rounded-l outline-none cursor-pointer hover:bg-gray-400 rounded-tl-xl rounded-bl-xl">
@@ -73,11 +73,14 @@
               </div>
             <div class="mt-2 text-xs font-bold">Stock Left: {{$cartItem->stock}}</div>
           </div>
+          
 
               {{-- quantity end --}}
 
               <span class="text-center w-1/5 font-semibold text-sm">₱{{$cartItem->price}}</span>
               <span name="cartitemSubtotal" id="totalPrice{{$cartItem->id}}" class="text-center w-1/5 font-semibold text-sm">₱{{number_format($cartItem->price * $cartItem->quantity, 2)}}</span>
+              <div class="relative"><button onclick="deletecart({{ $cartItem->id }})" class="absolute -mt-2 right-3"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill text-red-500" viewBox="0 0 16 16"><path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/></svg></button></div>
+
               <script>
                 var stock{{$cartItem->id}} = parseInt("{{$cartItem->stock}}");
                 var quantityInput{{$cartItem->id}} = document.getElementById('quantity{{$cartItem->id}}');
@@ -136,6 +139,7 @@
                             }
                         });
                     });
+                    
               </script>
             </div>
 
@@ -174,10 +178,6 @@
 
           @endif
           {{-- out of stock layout end --}}
-
-          @endforeach
-
-          @foreach ($usercart as $cartItem)
 
           @endforeach
 
@@ -277,11 +277,27 @@
           </a>
         </div>
 
+
+
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+        
         <div id="summary" class="px-8 py-10 bg-orange-400">
           <h1 class="text-white font-bold text-2xl border-b pb-8 text-center">Order Summary</h1>
           <div class="flex flex-col justify-between pt-4 text-sm uppercase text-white">
             <span class="font-bold text-lg">Ship to</span>
-            <span id="address" class="text-white ml-5 mb-1">
+            <span id="address" class="text-white ml-5 mb-5">
               @if (isset($user->region))
                 {{$user->region}}, {{$user['state/province']}}, {{$user['city/municipality']}}, {{$user['barangay']}}, <br>{{$user['addressline']}}
               @else
@@ -291,22 +307,35 @@
             </span>
           </div>
           <div class="flex flex-col justify-between text-sm uppercase text-white">
-              <span class="text-lg font-bold">Shipping Method</span>
-                <p class="text-xs text-white"><p class="text-xs text-white"><span style="color: blue">*</span> only available for deliveries within metro manila</p></p>
+            <span class="text-lg font-bold">Shipping Method</span>
+            <p class="text-xs text-white"><span style="color: blue">*</span>only available for deliveries within metro manila</p>
+            <div name="shipping_methods" class="mt-2 flex flex-col ml-5 mb-6">
+              <form id="deliveryForm" action="PLACEHOLDERDELIVER.php" method="post">
+                <div class="flex w-max rounded-lg select-none bg-white">
+                    <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
+                        <input type="radio" name="deliveryMethod" value="Express" class="peer hidden" checked="">
+                        <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 rounded-lg transition duration-150 ease-in-out">Express</span>
+                    </label>
+                    <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
+                        <input type="radio" name="deliveryMethod" value="SameDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
+                        <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Same Day</span>
+                    </label>
+                    <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
+                        <input type="radio" name="deliveryMethod" value="NextDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
+                        <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Next Day</span>
+                    </label>
+                </div>
+              </form>
+            </div>
+
+              <span class="text-lg font-bold">Payment Method</span>
+              <p class="text-xs  text-white"><span style="color: blue">*</span>only available for deliveries within metro manila</p>
               <div name="shipping_methods" class="mt-3 flex flex-col ml-5">
-                  <div class="flex w-max rounded-lg select-none bg-orange-400">
-                      <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
-                          <input type="radio" name="radio" value="Express" class="peer hidden" checked="">
-                          <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-orange-300 p-1 rounded-lg transition duration-150 ease-in-out">Express</span>
-                      </label>
-                      <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
-                          <input type="radio" name="radio" value="SameDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
-                          <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-orange-300 p-1 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Same Day</span>
-                      </label>
-                      <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
-                          <input type="radio" name="radio" value="NextDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
-                          <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-orange-300 p-1 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Next Day</span>
-                      </label>
+                  <div>
+                      <select name="paymentMethod" id="paymentMethod" class="rounded-lg w-1/2 mb-1 text-black">
+                          <option value="cod" @if ($user->region!='National Capital Region (NCR)') disabled @endif>*Cash on Delivery</option>
+                          <option value="paymaya">Paymaya</option>
+                      </select>
                   </div>
               </div>
           </div>
@@ -316,16 +345,16 @@
             <span id="subTotal" class="text-sm text-white"></span>
           </div>
           <div>
-            {{-- <label class="font-bold inline-block mb-3 text-sm uppercase text-white">Shipping Date:</label>
+            <label class="font-bold inline-block mb-3 text-sm uppercase text-white">Shipping Date:</label>
             <div class="relative max-w-sm">
-              <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                </svg>
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                  <svg class="w-4 h-4 text-gray-500 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                  </svg>
+                </div>
+                <input datepicker type="text" class="bg-white border border-gray-300 text-black text-sm rounded-lg block w-full ps-10 p-2.5 dark:bg-white dark:border-white dark:placeholder-black dark:text-black" placeholder="Select date" style="background-color= white;">
               </div>
-              <input datepicker type="text" class="bg-white border border-gray-300 text-black text-sm rounded-lg block w-full ps-10 p-2.5 dark:bg-white dark:border-white dark:placeholder-black dark:text-black" placeholder="Select date" style="background-color= white;">
-            </div> --}}
-            <div class="flex justify-between mt-4 text-sm uppercase text-white">
+              <div class="flex justify-between mt-4 text-sm uppercase text-white">
               <span class="font-bold">Shipping fee</span>
               <span id="priceShippingFee" class="text-white">₱100</span>
             </div>
@@ -353,66 +382,9 @@
                       priceTotal.textContent = '₱' + priceTotalInt.toFixed(2);
                   }
                   updateOverallSubtotal();
-
-                  document.addEventListener('DOMContentLoaded', function() {
-                    var deliveryChoice = document.getElementById("DeliveryChoice");
-                    var priceShippingFee = document.getElementById('priceShippingFee');
-                    deliveryChoice.addEventListener('change', function() {
-                      var deliveryChoiceValue = deliveryChoice.value;
-                      if(deliveryChoiceValue == 'Express') {
-                        console.log('express');
-                        priceShippingFee.textContent = '₱100';
-                      } else if (deliveryChoiceValue == 'SameDay') {
-                        console.log('sameday');
-                        priceShippingFee.textContent = '₱150';
-                      } else if (deliveryChoiceValue == 'NextDay') {
-                        console.log('nextday');
-                        priceShippingFee.textContent = '₱100';
-                      }
-                      updateOverallSubtotal();
-                    });
-                  });
                 </script>
 
-                      
-            <form id="checkoutForm" method="POST">
-              @csrf
-              <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
-              <input type="hidden" id="status" name="status" value="processing">
-              <input type="hidden" id="payment_method" name="payment_method" value="cod">
-              @foreach ($usercart as $index => $cartItem)
-              <input type="hidden" name="cartItems[{{ $index }}][id]" value="{{ $cartItem->id }}">
-                <input type="hidden" name="cartItems[{{ $index }}][product_id]" value="{{ $cartItem->product_id }}">
-                <input type="hidden" name="cartItems[{{ $index }}][quantity]" value="{{ $cartItem->quantity }}">
-                <input type="hidden" name="cartItems[{{ $index }}][price]" value="{{ $cartItem->price }}">
-                <input type="hidden" id="status" name="status" value="processing">
-              @endforeach
-
-              <input type="submit" value="Checkout" class="bg-stone-100 font-bold hover:bg-stone-600 py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4"></input>
-
-            </form>
-
-            <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                const form = document.getElementById('checkoutForm');
-                const paymentMethodSelect = document.getElementById('paymentMethod');
-
-                if (paymentMethodSelect.value === 'cod') {
-                    form.action = '/orders/add';
-                  } else if (paymentMethodSelect.value === 'paymaya') {
-                    form.action = '/orders/add/maya';
-                  }
-            
-                paymentMethodSelect.addEventListener('change', function() {
-                  if (paymentMethodSelect.value === 'cod') {
-                    form.action = '/orders/add';
-                  } else if (paymentMethodSelect.value === 'paymaya') {
-                    form.action = '/orders/add/maya';
-                  }
-                });
-              });
-            </script>
-
+            <button class="bg-stone-100 font-bold hover:bg-stone-600 py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4">Proceed to Payment</button>
           </div>
         </div>
 

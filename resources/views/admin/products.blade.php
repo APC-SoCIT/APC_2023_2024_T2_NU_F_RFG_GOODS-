@@ -308,7 +308,7 @@
                             </div>
 
                             <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
-                                <select name="filter_category" id="filter_category" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                                <select name="filter_category" id="filter_category" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
                                     <option value="default">CATEGORY:</option>
                                     @foreach($categoryList as $category)
                                         <option value="{{$category->id}}">{{$category->category}}</option>
@@ -317,7 +317,7 @@
                             </div>
 
                             <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
-                                <select name="filter_status" id="filter_status" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                                <select name="filter_status" id="filter_status" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
                                     <option value="default">STATUS:</option>
                                     <option value="active">ACTIVE</option>
                                     <option value="archived">ARCHIVED</option>
@@ -325,7 +325,7 @@
                             </div>
 
                             <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
-                                <select name="filter_stock" id="filter_stock" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2">
+                                <select name="filter_stock" id="filter_stock" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
                                     <option value="default">STOCK LEVEL:</option>
                                     <option value="belowmin">BELOW MIN</option>
                                     <option value="belowrop">BELOW ROP</option>
@@ -333,21 +333,12 @@
                                     <option value="abovemax">ABOVE MAX</option>
                                 </select>
                             </div>
-
-                            <div id="loadingScreen" class="hidden sm:flex pl-4">
-                                <div role="status">
-                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-200 animate-spin fill-rfg-accent" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <!-- SVG path here -->
-                                    </svg>
-                                    <span class="sr-only">Loading...</span>
-
-                                    
-                                </div>
-                            </div>
+<div class="px-2">
                                 <button data-modal-target="add-product-modal" data-modal-toggle="add-product-modal"class="w-full text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-red-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto whitespace-nowrap">
                                     <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                                         <p>Add Product</p>
                                 </button>
+</div>
                         </div>
                     </div> 
                 </div>
