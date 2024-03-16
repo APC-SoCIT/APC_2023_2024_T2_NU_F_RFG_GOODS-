@@ -92,6 +92,34 @@ class InventoryController extends Controller
         return view('admin.inventories', ['inventories' => $inventories, 'products' => $products]);
     }
 
+    public function save(Request $request){
+        $request->validate([
+            'product_id' => 'required',
+            'is_received' => 'required|boolean',
+            'quantity' => 'required|integer',
+        ]);
+
+        $inventory = new Inventory;
+        $inventory->product_id = $request->product_id;
+        $inventory->is_received = $request->is_received;
+        $inventory->quantity = $request->quantity;
+        $inventory->save();
+
+
+        $product = Product::find($request->product_id);
+        if ($request->is_received==1) {
+            $product->stock += $request->quantity;
+        } else if ($request->is_received==0) {
+            $product->stock -= $request->quantity;
+        }
+
+        // dd($product->stock, $request->quantity);
+        $product->save();
+
+
+        return redirect(route('inventory.index'))->withSuccess('Inventory Successfully Added');
+    }
+
     public function update(Inventory $inventory, Request $request){
 
         $request->validate([
