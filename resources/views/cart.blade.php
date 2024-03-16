@@ -322,18 +322,18 @@
             <p class="text-xs text-white"><span style="color: blue">*</span>only available for deliveries within metro manila</p>
             <div name="shipping_methods" class="mt-2 flex flex-col ml-5 mb-6">
               <form id="deliveryForm" action="PLACEHOLDERDELIVER.php" method="post">
-                <div class="flex w-max rounded-lg select-none bg-white">
+                <div class="flex w-max rounded-lg select-none bg-orange-400 ">
                     <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
                         <input type="radio" name="deliveryMethod" value="Express" class="peer hidden" checked="">
                         <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 rounded-lg transition duration-150 ease-in-out">Express</span>
                     </label>
                     <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
                         <input type="radio" name="deliveryMethod" value="SameDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
-                        <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Same Day</span>
+                        <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out" style="@if ($user->region!='National Capital Region (NCR)') color: gray; @endif"><span style="color: blue @if ($user->region!='National Capital Region (NCR)') color: gray; @endif">*</span>Same Day</span>
                     </label>
                     <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
                         <input type="radio" name="deliveryMethod" value="NextDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
-                        <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Next Day</span>
+                        <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out" style="@if ($user->region!='National Capital Region (NCR)') color: gray; @endif"><span style="color: blue @if ($user->region!='National Capital Region (NCR)') color: gray; @endif">*</span>Next Day</span>
                     </label>
                 </div>
               </form>
