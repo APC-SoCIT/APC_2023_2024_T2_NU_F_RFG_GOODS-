@@ -137,6 +137,7 @@
                 console.log("changed");
                 var quantityInput = document.getElementById("quantity{{$cartItem->id}}");
                 $(quantityInput).change(function(e) {
+                  console.log("changed");
                         $.ajax({
                             type: 'POST',
                             url: '/updatecart',
@@ -279,11 +280,19 @@
               } else if (currentValue > stock) {
                   quantityInput.value = stock;
               }
+
+              // Create a new change event
+              var event = new Event('change', {
+                  bubbles: true,
+                  cancelable: true
+              });
+
+              // Dispatch the change event on the quantityInput element
+              quantityInput.dispatchEvent(event);
             }
           </script>
 
           {{-- product loop end --}}
-        
           
         </div>
 
@@ -293,45 +302,46 @@
             <span class="font-bold text-lg">Ship to</span>
             <span id="address" class="text-white ml-5 mb-5">
               @if (isset($user->region))
-                {{$user->region}}, {{$user['state/province']}}, {{$user['city/municipality']}}, {{$user['barangay']}}, <br>{{$user['addressline']}}
+              {{$user['addressline']}}, {{$user['barangay']}}, {{$user['city/municipality']}}, {{$user['state/province']}}, {{$user->region}}
               @else
-                REGION I (ILOCOS REGION), ILOCOS NORTE, PAOAY, OAIG-UPAY-ABULAO,<br>
-                B6 L6D MOLAVE ST. HILLCREST VILLAGE, CAMARIN ROAD
+                <span>You're address is not set. set your address first <span class="bg-orange-500">here</span></span>
               @endif
             </span>
           </div>
           <div class="flex flex-col justify-between text-sm uppercase text-white">
             <span class="text-lg font-bold">Shipping Method</span>
-            <p class="text-xs text-white"><span style="color: blue">*</span>only available for deliveries within metro manila</p>
-            <div name="shipping_methods" class="mt-2 flex flex-col ml-5 mb-6">
+              <div name="shipping_methods" class="mt-2 flex flex-col mb-6">
               <form id="deliveryForm" action="PLACEHOLDERDELIVER.php" method="post">
-                <div class="flex w-max rounded-lg select-none bg-white">
-                    <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
+                <div class="flex w-full rounded-lg select-none bg-white">
+                    <label class="radio flex w-full items-center justify-center rounded-lg cursor-pointer">
                         <input type="radio" name="deliveryMethod" value="Express" class="peer hidden" checked="">
-                        <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 rounded-lg transition duration-150 ease-in-out">Express</span>
+                        <span class="font-bold tracking-widest text-center peer-checked:bg-orange-500 w-full peer-checked:text-white text-black p-2 rounded-lg transition duration-150 ease-in-out">Express</span>
                     </label>
-                    <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
+                    <label class="radio flex flex-grow w-full items-center justify-center rounded-lg cursor-pointer">
                         <input type="radio" name="deliveryMethod" value="SameDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
-                        <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Same Day</span>
+                        <span class="font-bold tracking-widest text-center peer-checked:bg-orange-500 w-full  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Same Day</span>
                     </label>
-                    <label class="radio flex flex-grow items-center justify-center rounded-lg cursor-pointer">
+                    <label class="radio flex flex-grow w-full items-center justify-center rounded-lg cursor-pointer">
                         <input type="radio" name="deliveryMethod" value="NextDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
-                        <span class="tracking-widest peer-checked:bg-orange-500  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Next Day</span>
+                        <span class="font-bold tracking-widest text-center peer-checked:bg-orange-500 w-full  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Next Day</span>
                     </label>
                 </div>
               </form>
+              <p class="text-xs mt-2 text-white"><span style="color: blue">*</span>only available for deliveries within metro manila</p>
+
             </div>
 
-              <span class="text-lg font-bold">Payment Method</span>
-              <p class="text-xs  text-white"><span style="color: blue">*</span>only available for deliveries within metro manila</p>
-              <div name="shipping_methods" class="mt-3 flex flex-col ml-5">
-                  <div>
-                      <select name="paymentMethod" id="paymentMethod" class="rounded-lg w-1/2 mb-1 text-black">
-                          <option value="cod" @if ($user->region!='National Capital Region (NCR)') disabled @endif>*Cash on Delivery</option>
-                          <option value="paymaya">Paymaya</option>
-                      </select>
-                  </div>
+            <span class="text-lg font-bold">Payment Method</span>
+            <div name="payment_methods" class="mt-3 flex flex-col ">
+              <div>
+                <select name="paymentMethod" id="paymentMethod" class="text-sm h-10 rounded-lg w-full pl-2 mb-1 text-black">
+                    <option value="default" class="font-bold">- Select Payment Method -</option>
+                    <option value="cod" @if ($user->region!='National Capital Region (NCR)') disabled @endif class="font-bold">*Cash on Delivery</option>
+                    <option value="paymaya" class="font-bold">Paymaya</option>
+                </select>
               </div>
+            </div>
+            <p class="text-xs mt-2 text-white"><span style="color: blue">*</span>only available for deliveries within metro manila</p>
           </div>
 
           <div class="flex justify-between mt-4 ">

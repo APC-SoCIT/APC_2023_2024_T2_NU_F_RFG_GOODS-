@@ -85,10 +85,12 @@ class CartController extends Controller
 
             $product = Product::find($existingCart->product_id);
 
-            if ($existingCart->quantity <= $product->stock) {
+            if ($existingCart->quantity < $product->stock) {
                 $existingCart->quantity += $request->filled('quantity') ? $request->quantity : 1;
                 $existingCart->save();
                 return 'Added 1';
+            } else {
+                return 'Max reached';
             }
 
         } else {
@@ -99,12 +101,7 @@ class CartController extends Controller
             $newCart->quantity = $request->filled('quantity') ? $request->quantity : 1;
             $newCart->save();
             return 'Success!';
-
         }
-
-        
-
-        
 
         // DB::transaction(function () use ($request, $existingCart) {
 
@@ -116,8 +113,6 @@ class CartController extends Controller
 
     public function deletecart(Request $request) {
     }
-    
-    
 
     public function updatecart(Request $request) {
         $request->validate([
@@ -125,6 +120,8 @@ class CartController extends Controller
             'product_id' => 'required',
             'quantity' => 'nullable',
         ]);
+
+        dd($request);
 
         $existingCart = Cart::where('user_id', Auth::user()->id)
         ->where('product_id', $request->product_id)
