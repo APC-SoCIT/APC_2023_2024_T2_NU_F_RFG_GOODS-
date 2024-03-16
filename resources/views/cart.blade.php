@@ -42,6 +42,14 @@
             $inStockCount = 0;
           @endphp
 
+          <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+          </script>
+
           {{-- product loop start --}}
           {{-- in stock layout start --}}
           @foreach ($usercart as $cartItem)
@@ -126,14 +134,6 @@
               <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
               
               <script>
-                  $.ajaxSetup({
-                      headers: {
-                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      }
-                  });
-              </script>
-
-              <script>
                 console.log("changed");
                 var quantityInput = document.getElementById("quantity{{$cartItem->id}}");
                 $(quantityInput).change(function(e) {
@@ -142,7 +142,8 @@
                             type: 'POST',
                             url: '/updatecart',
                             data: {
-                                quantity: quantityInput.value
+                              product_id: {{$cartItem->id}},
+                              quantity: quantityInput.value
                             },
                             success: function(response) {
                             },
