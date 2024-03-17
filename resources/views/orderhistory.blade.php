@@ -7,24 +7,28 @@
                 <div class="">
                     <p>Your Orders</p>
                 </div>
-                {{-- orders div start --}}
+
                 @foreach ($orders as $order)
-                    <div class=" flex flex-col">
-                        <p class="pr-5">Order ID: {{$order->id}}</p> 
-                        {{-- orders items div start --}}
-                        <div class="flex flex-col items-end">
-                            @foreach($orderItems[$order->id] as $item)
-                            <div class="flex">
-                                <p>Product ID: {{ $item->product_id }}</p>
-                                <p>Quantity: {{ $item->quantity }}</p>
-                                <p>Price: {{ $item->price }}</p>
-                            </div>
-                            @endforeach
-                        </div>
-                        {{-- orders items div end --}}
+                    <div class="w-full py-2"><p>Reference Number: {{$order->id}}</p>
+                        @php
+                            $totalPrice = 0;
+                            $itemsCount = count($orderItems[$order->id]); // Count the number of items
+                        @endphp
+                        @foreach ($orderItems[$order->id] as $item)
+                            @php
+                                $totalPrice += $item->price;
+                            @endphp
+                        @endforeach
+
+                        <p>Number of Items: {{$itemsCount}}</p>
+                        <p>Total Price: ₱{{$totalPrice}}</p>
+                        <a href="/profile/orders/history/{{$order->id}}" class="text-orange-600">More Details</a>
+                        @if($order->status=='completed')
+                        <a href="/profile/orders/history/{{$order->id}}">Rate Now!</a>
+                        @endif
+
                     </div>
                 @endforeach
-                {{-- orders div end --}}
             </div>
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">

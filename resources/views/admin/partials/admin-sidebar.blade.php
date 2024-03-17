@@ -40,11 +40,11 @@
          </li>
 
          <li>
-            <a href="/admin/inventory" class="@if(request()->is('admin/inventory')) bg-orange-400 text-white hover:bg-orange-400 hover:text-white @endif flex items-center p-2 rounded-lg text-black hover:bg-gray-300 group">
-               <svg class="@if(request()->is('admin/inventory')) text-white @endif w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <a href="/admin/inventories" class="@if(request()->is('admin/inventories')) bg-orange-400 text-white hover:bg-orange-400 hover:text-white @endif flex items-center p-2 rounded-lg text-black hover:bg-gray-300 group">
+               <svg class="@if(request()->is('admin/inventories')) text-white @endif w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003zM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z"/>
                </svg>
-               <span class="flex-1 ms-3 whitespace-nowrap">Inventory</span>
+               <span class="flex-1 ms-3 whitespace-nowrap">Inventories</span>
             </a>
          </li>
          <li>
@@ -70,7 +70,7 @@
                   C 68.544 50.305 67.575 49.336 67.575 48.14 L 67.575 40.09 C 67.575 38.895 68.544 37.925 69.74 37.925 L 76.342 37.925 L 86.622 50.305 L 69.74 50.305 Z" 
                   transform="matrix(2.809999942779541, 0, 0, 2.809999942779541, 1.4065934419631956, 1.40659344196321)" stroke-linecap="round"></path>
                </svg>
-               <span class="flex-1 ms-3 whitespace-nowrap">Delivery</span>
+               <span class="flex-1 ms-3 whitespace-nowrap">Deliveries</span>
             </a>
          </li>
       </ul>

@@ -33,44 +33,18 @@ Route::get('/item', function () {
     return view('products.item');
 });
 
-Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::get('/profile/ph-json/region.json', function () {
-//     $jsonFilePath = public_path('/ph-json/region.json');
-//     if (File::exists($jsonFilePath)) {
-//         $jsonContent = File::get($jsonFilePath);
-//         $jsonData = json_decode($jsonContent);
-//         return response()->json($jsonData);
-//     } else {
-//         // Return a 404 response if the file doesn't exist
-//         return response()->json(['error' => 'File not found'], 404);
-//     }
-// })->name('address.region');
-
-// Route::get('/profile/ph-json/region.json', function () {
-//     $jsonFilePath = public_path('/ph-json/region.json');
-//     if (File::exists($jsonFilePath)) {
-//         $jsonContent = File::get($jsonFilePath);
-//         $jsonData = json_decode($jsonContent);
-//         return response()->json($jsonData);
-//     } else {
-//         // Return a 404 response if the file doesn't exist
-//         return response()->json(['error' => 'File not found'], 404);
-//     }
-// })->name('address.region');
-
 Route::get('/profile/ph-json/region.json', [AddressController::class, 'region'])->name('address.region');
 Route::get('/profile/ph-json/province.json', [AddressController::class, 'province'])->name('address.province');
 Route::get('/profile/ph-json/city.json', [AddressController::class, 'city'])->name('address.city');
 Route::get('/profile/ph-json/barangay.json', [AddressController::class, 'barangay'])->name('address.barangay');
 
-Route::post('/addtocart', [CartController::class, 'addtocart'])->name('product.addtocart');
+Route::get('/product/{product}', [ProductController::class, 'get'])->name('product.get');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/addtocart', [CartController::class, 'addtocart'])->name('product.addtocart');
     Route::get('/dashboard',[HomeController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -88,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/order-page', function () {
         return view('order-page');
     });
+    Route::get('/profile/orders/history/{order}', [OrderController::class, 'getOrderDetails'])->name('orders.view');
 
 });
 
@@ -108,13 +83,14 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/category/{category}/update', [ProductCategoryController::class, 'update'])->name('category.update');
     Route::get('/admin/category/{category}/destroy', [ProductCategoryController::class, 'destroy'])->name('category.destroy');
 
-    Route::get('/admin/inventory', [InventoryController::class, 'index'])->name('inventory.index');
-    Route::post('/admin/inventory/save', [InventoryController::class, 'save'])->name('inventory.save');
-    Route::get('/admin/inventory/{inventory}/edit', [InventoryController::class, 'edit'])->name('inventory.edit');
-    Route::put('/admin/inventory/{inventory}/update', [InventoryController::class, 'update'])->name('inventory.update');
-    Route::get('/admin/inventory/{inventory}/destroy', [InventoryController::class, 'destroy'])->name('inventory.destroy');
+    Route::get('/admin/inventories', [InventoryController::class, 'index'])->name('inventory.index');
+    Route::post('/admin/inventories/save', [InventoryController::class, 'save'])->name('inventory.save');
+    Route::get('/admin/inventories/{inventory}/edit', [InventoryController::class, 'edit'])->name('inventory.edit');
+    Route::put('/admin/inventories/{inventory}/update', [InventoryController::class, 'update'])->name('inventory.update');
+    Route::get('/admin/inventories/{inventory}/destroy', [InventoryController::class, 'destroy'])->name('inventory.destroy');
 
     Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/admin/orders/{order}', [OrderController::class, 'getOrderDetails'])->name('orders.orderitems');
     Route::post('/admin/orders/save', [OrderController::class, 'save'])->name('orders.save');
     Route::get('/admin/orders/{orders}/edit', [OrderController::class, 'edit'])->name('orders.edit');
     Route::put('/admin/orders/{orders}/update', [OrderController::class, 'update'])->name('orders.update');

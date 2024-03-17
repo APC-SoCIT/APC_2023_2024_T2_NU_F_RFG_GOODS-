@@ -7,10 +7,21 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\Cart;
+use App\Models\Inventory;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    public function getOrderDetails(Order $order) {
+        $orderInfo = Order::where('orders.id', $order->id)
+                        ->where('user_id','=', Auth::user()->id)
+                        ->first();
+        $orderItems = OrderItem::leftjoin('orders', 'order_items.order_id', '=', 'orders.id')
+        ->leftjoin('products', 'products.id', '=', 'order_items.product_id')
+        ->get();
+
+        return view('order-page', ['order' => $orderInfo, 'orderItems' => $orderItems]);
+    }
 
     public function getUserOrder() {
         $orders = Order::where('user_id','=', Auth::user()->id)->get();
@@ -87,6 +98,7 @@ class OrderController extends Controller
         $order->save();
 
         foreach($cartItems as $cartItem) {
+            //create new order item
             $orderItem = new OrderItem;
             $orderItem->order_id = $order->id; 
             $orderItem->product_id = $cartItem['product_id']; 
@@ -94,9 +106,19 @@ class OrderController extends Controller
             $orderItem->price = $cartItem['price']; 
             $orderItem->status = "processing"; 
             $orderItem->save();
-            //clearcart
+            //clear cart
             $cartItem = Cart::find($cartItem['id']);
             $cartItem->delete();
+            //add negative inventory
+            $inventory = new Inventory;
+            $inventory->product_id = $cartItem['product_id']; 
+            $inventory->quantity = $cartItem['quantity']; 
+            $inventory->is_received = 0;
+            $inventory->save();
+            //update product stock
+            $product = Product::find($cartItem['product_id']);
+            $product->stock -= $cartItem['quantity'];
+            $product->save();
         }
 
         return redirect()->route('orders.success', ['orderId' => $order->id]);
@@ -112,12 +134,12 @@ class OrderController extends Controller
 
     public function index(Request $request) {
         $orders = Order::join('users', 'users.id', '=', 'orders.user_id')
-        ->select('users.id','users.last_name','users.first_name','orders.status','orders.payment_method','orders.payment_reference_id')
+        ->select('orders.id','users.last_name','users.first_name','orders.status','orders.payment_method','orders.payment_reference_id')
         ->paginate(12);
         
         if($request->ajax()){
             $orders = Order::join('users', 'users.id', '=', 'orders.user_id')
-            ->select('users.id','users.last_name','users.first_name','orders.status','orders.payment_method','orders.payment_reference_id')
+            ->select('orders.id','users.id','users.last_name','users.first_name','orders.status','orders.payment_method','orders.payment_reference_id')
             ->when($request->search_term, function($q)use($request){
                 $q->where('users.last_name', 'LIKE', '%' . $request->search_term . '%')
                 ->orWhereRaw('LOWER(users.last_name) LIKE ?', ['%' . strtolower($request->search_term) . '%'])
@@ -136,6 +158,7 @@ class OrderController extends Controller
             ->paginate(12);
             return view('admin.orders-table', ['orders' => $orders]);
         }
+
         return view('admin.orders', ['orders' => $orders]);
     }
 

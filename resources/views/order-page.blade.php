@@ -13,16 +13,27 @@
 @include('navbar.navbar')
     <div class="w-7/12 mx-auto my-5 ">
         <header class="flex justify-between border-b-2 border-dotted border-slate-200 bg-white drop-shadow-md p-2">
-            <div class="flex items-center">
+            <a href="/profile/orders/history" class="flex items-center">
                 <svg class="mx-1 w-3 h-3 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"/>
                 </svg>
                 <h3>Back</h3>
-            </div>
+            </a>
             <div class="flex items-center">
-                <h3 class="mx-2">ORDER ID:IloveuangelXOXO@gmail.com_load_typelib</h3>
-                <span>|</span>
-                <h3 class="text-orange-600 mx-2">ORDER COMPLETED</h3>
+                <h3 class="mx-2">ORDER ID:{{$order->id}}</h3>
+                    <span>|</span>
+                @if ($order->status == 'processing')
+                    <h3 class="text-orange-600 mx-2">PROCESSING ORDER</h3>
+                @endif
+                @if ($order->status == 'intransit')
+                    <h3 class="text-orange-600 mx-2">ORDER IN TRANSIT</h3>
+                @endif
+                @if ($order->status == 'received')
+                    <h3 class="text-orange-600 mx-2">ORDER RECEIVED</h3>
+                @endif
+                @if ($order->status == 'completed')
+                    <h3 class="text-orange-600 mx-2">ORDER COMPLETED</h3>
+                @endif
             </div>
         </header>
         <div class="border-b-2 border-dotted border-slate-100 bg-white drop-shadow-md p-2 py-6 px-6">

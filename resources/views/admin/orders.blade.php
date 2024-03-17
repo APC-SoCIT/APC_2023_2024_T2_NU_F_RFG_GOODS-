@@ -69,13 +69,13 @@
                 </div>
             </div>
 
-            <div class="flex flex-col ">
+            <div class="flex flex-col">
                 <div id="datatable">
                     @include('admin.orders-table')
                 </div>
             </div>
 
-<!-- Add Product Modal -->
+<!-- Add Order Modal Start -->
     <div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="add-order-modal">
         <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
             <!-- Modal content -->
@@ -133,6 +133,7 @@
 
         </div>
     </div>
+<!-- Add Order Modal End -->
 
 
 </body>
