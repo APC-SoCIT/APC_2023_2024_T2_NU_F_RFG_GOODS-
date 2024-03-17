@@ -43,7 +43,7 @@
 
             <div class="flex flex-col ">
                 <div id="datatable">
-                    @include('admin.delivery-table')
+                    @include('admin.deliveries-table')
                 </div>
             </div>
 

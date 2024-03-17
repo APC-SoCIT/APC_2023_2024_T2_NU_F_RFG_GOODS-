@@ -104,9 +104,9 @@ Route::get('/footer', function () {
     return view('footer.footer');
 });
 
-Route::get('/admin/delivery', function () {
-    return view('admin.delivery');
-})->name('admin.delivery');
+Route::get('/admin/deliveries', function () {
+    return view('admin.deliveries');
+})->name('admin.deliveries');
 
 Route::get('/', function () {
     if(Auth::id() && Auth()->user()!=null) {
