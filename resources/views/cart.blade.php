@@ -12,7 +12,13 @@
   </head>
 
   <body class="bg-gray-100">
-    @include('navbar.navbar')
+      @include('navbar.navbar')
+
+      @if(session('success'))
+      <script>
+          alert('Order has been successfully placed!');
+      </script>
+      @endif
  
     <a href="/" class="ml-48 relative mt-6 bg-white w-52 h-10 flex justify-center items-center rounded-lg drop-shadow-md cursor-pointer">
         <div name="ribbon" class="flex font-semibold text-black text-sm items-center">
@@ -305,7 +311,7 @@
               @if (isset($user->region))
               {{$user['addressline']}}, {{$user['barangay']}}, {{$user['city/municipality']}}, {{$user['state/province']}}, {{$user->region}}
               @else
-                <span>Your address is currently not set. set your address first <span class="bg-orange-500">here</span></span>
+                <span>Your address is currently not set. Please add your address first <span class="bg-orange-500 rounded-lg p-0.5">here</span></span>
               @endif
             </span>
           </div>
@@ -426,23 +432,69 @@
                 });
               </script>
 
+              <button id="confirmOrderButton" class="@if ($inStockCount!= 0) cursor-pointer bg-stone-100 hover:bg-stone-500 @else bg-stone-500 @endif font-bold py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4" @if ($inStockCount== 0) disabled @endif>
+                @if ($inStockCount== 0) No items in cart @else Confirm Order @endif
+              </button>
 
-              <form id="checkoutForm" method="POST">
-                @csrf
-                <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
-                <input type="hidden" id="status" name="status" value="processing">
-                <input type="hidden" id="payment_method" name="payment_method" value="cod">
-                @foreach ($usercart as $index => $cartItem)
-                <input type="hidden" name="cartItems[{{ $index }}][id]" value="{{ $cartItem->id }}">
-                  <input type="hidden" name="cartItems[{{ $index }}][product_id]" value="{{ $cartItem->product_id }}">
-                  <input type="hidden" name="cartItems[{{ $index }}][quantity]" value="{{ $cartItem->quantity }}">
-                  <input type="hidden" name="cartItems[{{ $index }}][price]" value="{{ $cartItem->price }}">
-                  <input type="hidden" id="status" name="status" value="processing">
-                @endforeach
+              <div id="confirmOrderModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+                  <div class="relative w-full max-w-md px-4 md:w-96">
+                      <!-- Modal content -->
+                      <div class="bg-white rounded-lg shadow relative">
+                          <!-- Modal header -->
+                          <div class="flex justify-end p-2">
+                              <button id="closeModalButton" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                  </svg>
+                              </button>
+                          </div>
+                          <!-- Modal body -->
+                          <div class="p-6 pt-0 text-center">
+                              <h2 class="text-xl font-bold mb-10">Confirm Order?</h2>
+                              
+                              <form id="checkoutForm" method="POST">
+                                  @csrf
+                                  <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
+                                  <input type="hidden" id="status" name="status" value="processing">
+                                  <input type="hidden" id="payment_method" name="payment_method" value="cod">
+                                  @foreach ($usercart as $index => $cartItem)
+                                      <input type="hidden" name="cartItems[{{ $index }}][id]" value="{{ $cartItem->id }}">
+                                      <input type="hidden" name="cartItems[{{ $index }}][product_id]" value="{{ $cartItem->product_id }}">
+                                      <input type="hidden" name="cartItems[{{ $index }}][quantity]" value="{{ $cartItem->quantity }}">
+                                      <input type="hidden" name="cartItems[{{ $index }}][price]" value="{{ $cartItem->price }}">
+                                  @endforeach
+                                  <button type="submit" id="proceedButton" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                                      Proceed
+                                  </button>
+                                  <button type="button" id="cancelOrderButton" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-4">
+                                      Go Back
+                                  </button>
+                                  <h1 class="text-xs opacity-50 mt-4">THIS ACTION IS IRREVERSIBLE, ARE YOU SURE YOU WANT TO CONFIRM THIS ORDER?</h1>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
-                <input type="submit" value="@if ($inStockCount== 0) No items in cart @else Confirm Order @endif" class="@if ($inStockCount!= 0) bg-stone-100 hover:bg-stone-500 @else bg-stone-500 @endif font-bold  py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4" @if ($inStockCount== 0) disabled @endif></input>
 
-              </form>
+              <script>
+                const confirmOrderButton = document.getElementById('confirmOrderButton');
+                const confirmOrderModal = document.getElementById('confirmOrderModal');
+                const closeModalButton = document.getElementById('closeModalButton');
+                const cancelOrderButton = document.getElementById('cancelOrderButton');
+
+                confirmOrderButton.addEventListener('click', function() {
+                  confirmOrderModal.classList.remove('hidden');
+                });
+
+                closeModalButton.addEventListener('click', function() {
+                  confirmOrderModal.classList.add('hidden');
+                });
+                
+                cancelOrderButton.addEventListener('click', function() {
+                  confirmOrderModal.classList.add('hidden');
+                });
+              </script>
 
               <script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -464,12 +516,18 @@
                 });
               </script>
 
+              
+
+              
+
             {{-- <button class="@if ($inStockCount!= 0) bg-stone-100 hover:bg-stone-500 @else bg-stone-500 @endif font-bold  py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4" @if ($inStockCount== 0) disabled @endif>@if ($inStockCount== 0) No items in cart @else Confirm Order @endif</button> --}}
           </div>
         </div>
 
       </div>
     </div>
+
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>

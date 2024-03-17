@@ -121,7 +121,7 @@ class OrderController extends Controller
             $product->save();
         }
 
-        return redirect()->route('orders.success', ['orderId' => $order->id]);
+        return back()->with('success', 'Order successfully placed.');
 
     }
 
