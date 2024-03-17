@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('delivery_updates', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('orders');
+            $table->string('title');
+            $table->string('description');
             $table->timestamps();
         });
     }

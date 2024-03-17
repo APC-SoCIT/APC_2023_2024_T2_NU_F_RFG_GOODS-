@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\DeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +64,6 @@ Route::middleware('auth')->group(function () {
         return view('order-page');
     });
     Route::get('/profile/orders/history/{order}', [OrderController::class, 'getOrderDetails'])->name('orders.view');
-
 });
 
 Route::middleware('admin')->group(function () {
@@ -96,6 +96,8 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/orders/{orders}/update', [OrderController::class, 'update'])->name('orders.update');
     Route::get('/admin/orders/{orders}/destroy', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::patch('/admin/orders/statusupdate', [OrderController::class, 'updateStatus'])->name('orders.updatestatus');
+
+    Route::get('/admin/deliveries', [DeliveryController::class, 'adminIndex'])->name('deliveries.admin.index');
 });
 
 require __DIR__.'/auth.php';
@@ -105,9 +107,9 @@ Route::get('/footer', function () {
     return view('footer.footer');
 });
 
-Route::get('/admin/deliveries', function () {
-    return view('admin.deliveries');
-})->name('admin.deliveries');
+// Route::get('/admin/deliveries', function () {
+//     return view('admin.deliveries');
+// })->name('admin.deliveries');
 
 Route::get('/', function () {
     if(Auth::id() && Auth()->user()!=null) {

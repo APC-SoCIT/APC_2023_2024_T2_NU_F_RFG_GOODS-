@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -22,6 +23,16 @@ class HomeController extends Controller
             } 
             else if ($usertype==1) 
             {
+
+                $yesterdayOrders = Order::whereDate('created_at', Carbon::yesterday())->count();
+                $todayOrders = Order::whereDate('created_at', Carbon::today())->count();
+
+                if ($yesterdayOrders > 0) {
+                    $percentageOrders = (($todayOrders - $yesterdayOrders) / $yesterdayOrders) * 100;
+                } else {
+                    $percentageOrders = 0;
+                }
+
                 $orders = Order::join('users', 'users.id', '=', 'orders.user_id')
                 ->select('users.id','users.last_name','users.first_name','orders.status','orders.payment_method','orders.payment_reference_id')
                 ->paginate(12);
@@ -55,11 +66,26 @@ class HomeController extends Controller
                 ->leftJoin('orders', 'orders.id', '=', 'order_items.order_id')
                 ->get();
 
-                $sumByOrder = $orderItems->groupBy('order_id')->map(function ($group) {
-                    return $group->sum('price');
-                });
+                $startOfLastWeek = Carbon::now()->startOfWeek()->subWeek()->format('Y-m-d H:i:s');
+                $endOfLastWeek = Carbon::now()->endOfWeek()->subWeek()->format('Y-m-d H:i:s');
 
-                return view('admin', ['orderItems' => $orders, 'products' => $products, '']);
+                $startOfThisWeek = Carbon::now()->startOfWeek()->format('Y-m-d H:i:s');
+                $endOfThisWeek = Carbon::now()->endOfWeek()->format('Y-m-d H:i:s');
+
+                $ordersLastWeek = Order::whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])->get();
+                $ordersThisWeek = Order::whereBetween('created_at', [$startOfThisWeek, $endOfThisWeek])->get();
+
+                $totalPriceLastWeek = $ordersLastWeek->sum('price');
+                $totalPriceThisWeek = $ordersThisWeek->sum('price');
+
+                if ($totalPriceLastWeek > 0) {
+                    $percentageRevenue = (($totalPriceThisWeek - $totalPriceLastWeek) / $totalPriceLastWeek) * 100;
+                } else {
+                    $percentageRevenue = 0;
+                }
+
+                return view('admin', ['orderItems' => $orders, 'products' => $products, 'percentageOrders' => $percentageOrders, 'todayOrders' => $todayOrders, 
+                'percentageRevenue'=> $percentageRevenue]);
             }
             else
             {

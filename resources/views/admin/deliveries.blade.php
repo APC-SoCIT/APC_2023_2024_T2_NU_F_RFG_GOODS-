@@ -36,7 +36,7 @@
                                     </ol>
                                 </nav>
                                 {{-- Navigation End --}}
-                                <h1 class="text-xl sm:text-2xl font-semibold text-black">Current Deliveries</h1>
+                                <h1 class="text-xl sm:text-2xl font-semibold text-black">All Deliveries</h1>
                             </div>
                         </div>
                 </div>

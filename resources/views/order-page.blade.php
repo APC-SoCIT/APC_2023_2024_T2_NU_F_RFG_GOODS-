@@ -180,19 +180,27 @@
         </div>
         <div class="relative overflow-x-auto bg-amber-50 border-slate-100 border-t-2 border-dotted drop-shadow-md">
         <hr class="h-px mx-6 my-4 bg-slate-200 border-0 dark:bg-slate-200">
+        @php
+            $totalPrice = 0;
+        @endphp
+        @foreach($orderItems as $orderItem)
             <div class="flex p-2 my-4">
                 <div class="mx-4">
                     <img class="h-24 w-24" src="Img/chi.jpg" alt="">
                 </div>
                 <div>
-                    <h3 class="mb-2">RG's Chicharon</h3>
-                    <h1 class="text-xs mb-2">Variation: 200g</h1>
-                    <h1 class="text-xs mb-2">x1</h1>
+                    <h3 class="mb-2">{{$orderItem->name}}</h3>
+                    <h1 class="text-xs mb-2">{{$orderItem->category}}</h1>
+                    <h1 class="text-xs mb-2">{{$orderItem->quantity}}</h1>
                 </div>
                 <div class="flex items-center ml-auto mr-4 text-orange-600">
-                    <h3>₱60</h3>
+                    <h3>₱{{ $orderItem->price * $orderItem->quantity }}</h3>
                 </div>
             </div>
+            @php
+                $totalPrice += $orderItem->price * $orderItem->quantity;
+            @endphp
+        @endforeach
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <tbody class="">
                     <tr class="bg-slate-50 border-t-2">
@@ -209,7 +217,7 @@
                             <p class="flex justify-end">Merchandise Subtotal</p>
                         </td>
                         <td class="px-6 py-4 border-b-2 border-dotted bg-amber-50 text-black">
-                            <p class="flex justify-end">₱60</p>
+                            <p class="flex justify-end">₱{{ $totalPrice }}</p>
                         </td>
                     </tr>
                     <tr class="">
