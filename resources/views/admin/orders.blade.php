@@ -16,19 +16,12 @@
     <div class="p-4 sm:ml-64">
         <div class="mt-16">
 
-            <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-            <script>
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-            </script>
-
             <div class="p-4 block sm:flex items-center justify-between border-b border-white lg:mt-1.5">
                 <div class="mb-1 w-full">
+                    {{-- Navigation Start --}}
+
                     <div class="mb-4">
-                        {{-- Navigation Start --}}
+                        
                         <nav class="flex mb-5" aria-label="Breadcrumb">
                             <ol class="inline-flex items-center space-x-1 md:space-x-2">
                             <li class="inline-flex items-center">
@@ -45,19 +38,78 @@
                             </li>
                             </ol>
                         </nav>
-                        {{-- Navigation End --}}
                         <h1 class="text-xl sm:text-2xl font-semibold text-black">All Orders</h1>
                     </div>
-                    <div class="sm:flex">
-                        <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
-                            <label for="searchInput" class="sr-only">Search</label>
-                            <div class="mt-1 relative lg:w-64 xl:w-96">
-                                <input type="text" name="searchInput" id="searchInput" class="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for orders">
+
+                    {{-- Navigation End --}}
+
+                    <div class="sm:normal">
+                        <div class="flex flex-col sm:flex-row items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
+                            <div class="mb-3 sm:mb-0 sm:mr-2 w-full">
+                                <div class="relative sm:w-64 xl:w-96">
+                                    <input type="text" name="searchInput" id="searchInput" class="bg-gray-50 border-1 border-gray-300 focus:ring-0 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="Search for Order ID/Customer Names">
+                                </div>
                             </div>
 
-                        
-                        </div>
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="sort_by" id="sort_by" class="w-full rounded-lg pl-2 border-1 border-gray-300 p-2 box-sizing-content">
+                                    <option value="default" disabled selected hidden>SORT BY:</option>
+                                    <option value="default">NONE</option>
+                                    <option value="sort_by_last_name_asc">LAST NAME (A-Z)</option>
+                                    <option value="sort_by_last_name_desc">LAST NAME (Z-A)</option>
+                                    <option value="sort_by_first_name_asc">FIRST NAME (A-Z)</option>
+                                    <option value="sort_by_first_name_desc">FIRST NAME (Z-A)</option>
+                                    <option value="sort_by_price_asc">PRICE (LOW TO HIGH)</option>
+                                    <option value="sort_by_price_desc">PRICE (HIGH TO LOW)</option>
+                                    <option value="sort_by_date_upd_asc">DATE UPDATED (OLDEST TO LATEST)</option>
+                                    <option value="sort_by_date_upd_desc">DATE UPDATED (LATEST TO OLDEST)</option>
+                                    <option value="sort_by_date_asc">DATE ADDED (OLDEST TO LATEST)</option>
+                                    <option value="sort_by_date_desc">DATE ADDED (LATEST TO OLDEST)</option>
+                                </select>
+                            </div>
 
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="payment_method" id="payment_method" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
+                                    <option value="default" disabled selected hidden>PAYMENT METHOD:</option>
+                                    <option value="default">NONE</option>
+                                    <option value="cod" >COD</option>
+                                    <option value="paymaya" >PAYMAYA</option>
+
+                                </select>
+                            </div>
+
+                            @php
+                                $statusMap = [
+                                    'processing',
+                                    'confirmed',
+                                    'preparing',
+                                    'scheduled',
+                                    'intransit',
+                                    'received',
+                                    'torate',
+                                    'completed'
+                                ];
+                            @endphp
+
+                            <div class="mb-3 sm:mb-0 sm:pl-2 w-full">
+                                <select name="filter_status" id="filter_status" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
+                                    <option value="default" disabled selected hidden>STATUS:</option>
+                                    <option value="default">NONE</option>
+                                    @foreach($statusMap as $status)
+                                        <option value="{{$status}}">
+                                            @if ($status == 'torate')
+                                                TO RATE
+                                            @elseif ($status == 'intransit')
+                                                IN TRANSIT
+                                            @else
+                                                {{ strtoupper($status) }}
+                                            @endif
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>
@@ -66,8 +118,201 @@
             <div class="flex flex-col">
                 <div id="datatable">
                     @include('admin.orders-table')
+                    <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
                 </div>
             </div>
+
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+            <script>
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            </script>
+            <script>
+                $(document).ready(function() {
+                    const showLoadingScreen = () => {
+                        $('tr').css('opacity', 0.5);
+                    };
+
+                    const hideLoadingScreen = () => {
+                        $('tr').css('opacity', 1);
+                    };
+
+                    const fetch_data = (page, search_term, filter_status, sort_by, payment_method) => {
+                        showLoadingScreen();
+                        if(status === undefined){status = "";}
+                        if(filter_status === undefined){filter_status = "";} 
+                        if(search_term === undefined){search_term = "";}
+                        if(sort_by === undefined){sort_by = "";}
+                        if(payment_method === undefined){payment_method = "";}
+                        $.ajax({
+                            url:"/admin/orders/?",
+                            data: {
+                                page: page, 
+                                search_term: search_term, 
+                                filter_status: filter_status, 
+                                sort_by: sort_by, 
+                                payment_method: payment_method,
+                                type : 'filters'
+                            },
+                            beforeSend: function(){
+                                showLoadingScreen();
+                            },
+                            success:function(data){
+                                const tempContainer = document.createElement('div');
+                                tempContainer.innerHTML = data;
+
+                                const viewButton = tempContainer.querySelectorAll('#view-order-button');
+                                const backButton = tempContainer.querySelectorAll('#status.back');
+                                const nextButton = tempContainer.querySelectorAll('#status.next');
+
+                                viewButton.forEach(function (button) {
+                                    button.addEventListener('click', function() {
+                                        const orderData = JSON.parse(button.getAttribute('data-order'));
+                                        var page = $('#hidden_page').val();
+
+                                        const showLoadingScreen = () => {
+                                                $('tr').css('opacity', 0.5);
+                                            };
+
+                                            const hideLoadingScreen = () => {
+                                                $('tr').css('opacity', 1);
+                                            };
+
+                                        const fetch_data = (page, orderid) => {
+                                            $.ajax({
+                                                url:"/admin/orders/?",
+                                                data: {
+                                                    page: page,
+                                                    orderid: orderid,
+                                                    type: 'view',
+                                                },
+                                                beforeSend: function(){
+                                                    showLoadingScreen();
+                                                },
+                                                success:function(data){
+
+                                                    const tempContainer = document.createElement('div');
+                                                    tempContainer.innerHTML = data;
+
+                                                    $('#datatable').empty();
+                                                    $('#datatable').html(tempContainer);
+
+                                                },
+                                                complete: function(){
+                                                hideLoadingScreen();
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.error(xhr.responseText);
+                                                    console.error(error);
+                                                }
+                                            });
+                                        }
+                                        
+                                        console.log(orderData);
+                                        fetch_data(page, orderData)
+
+                                    });
+                                });
+
+                                var statusMapNext = {
+                                    'processing': 'confirmed',
+                                    'confirmed': 'preparing',
+                                    'preparing': 'scheduled',
+                                    'scheduled': 'intransit',
+                                    'intransit': 'received',
+                                    'received': 'torate',
+                                    'torate': 'completed'
+                                };
+
+                                var statusMapBack = {
+                                    'processing': 'processing', 
+                                    'confirmed': 'processing',
+                                    'preparing': 'confirmed',   
+                                    'scheduled': 'preparing',   
+                                    'intransit': 'scheduled',   
+                                    'received': 'intransit', 
+                                    'torate': 'received'
+                                };
+
+                                nextButton.forEach(function (button) {
+                                    button.addEventListener('click', function() {
+                                        var orderId = $(this).data('order-id');
+                                        var oldStatus = $(this).data('status');
+                                        var newStatus = statusMapNext[oldStatus] || 'completed';
+                                        console.log(orderId, newStatus);
+                                    });
+                                });
+
+                                backButton.forEach(function (button) {
+                                    button.addEventListener('click', function() {
+                                        var orderId = $(this).data('order-id');
+                                        var oldStatus = $(this).data('status');
+                                        var newStatus = statusMapBack[oldStatus] || 'completed';
+                                        console.log(orderId, newStatus);
+                                    });
+                                });
+
+                                $('#datatable').empty();
+                                $('#datatable').html(tempContainer);
+                            },
+                            complete: function(){
+                                hideLoadingScreen();
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(xhr.responseText);
+                                console.error(error);
+                            }
+                        });
+
+                    }
+
+                    $('body').on('click', '.pager a', function(event){
+                        event.preventDefault();
+                        var page = $(this).attr('href').split('page=')[1];
+                        $('#hidden_page').val(page);
+                        var search_term = $('#searchInput').val();
+                        var filter_status = $('#filter_status').val();
+                        var sort_by = $('#sort_by').val();
+                        var payment_method = $('#payment_method').val();
+                        fetch_data(page, search_term, filter_status, sort_by, payment_method);
+                    });
+                    $('body').on('change', '#sort_by', function(){
+                        var page = $('#hidden_page').val();
+                        var search_term = $('#searchInput').val();
+                        var filter_status = $('#filter_status').val();
+                        var sort_by = $('#sort_by').val();
+                        var payment_method = $('#payment_method').val();
+                        fetch_data(page, search_term, filter_status, sort_by, payment_method);
+                    });
+                    $('body').on('keyup', '#searchInput', function(){
+                        var page = $('#hidden_page').val();
+                        var search_term = $('#searchInput').val();
+                        var filter_status = $('#filter_status').val();
+                        var sort_by = $('#sort_by').val();
+                        var payment_method = $('#payment_method').val();
+                        fetch_data(page, search_term, filter_status, sort_by, payment_method);
+                    });
+                    $('body').on('change', '#filter_status', function(){
+                        var page = $('#hidden_page').val();
+                        var search_term = $('#searchInput').val();
+                        var filter_status = $('#filter_status').val();
+                        var sort_by = $('#sort_by').val();
+                        var payment_method = $('#payment_method').val();
+                        fetch_data(page, search_term, filter_status, sort_by, payment_method);
+                    });
+                    $('body').on('change', '#payment_method', function(){
+                        var page = $('#hidden_page').val();
+                        var search_term = $('#searchInput').val();
+                        var filter_status = $('#filter_status').val();
+                        var sort_by = $('#sort_by').val();
+                        var payment_method = $('#payment_method').val();
+                        fetch_data(page, search_term, filter_status, sort_by, payment_method);
+                    });
+                });
+            </script>
 
 <!-- Add Order Modal Start -->
     <div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="add-order-modal">
@@ -77,7 +322,7 @@
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-5 border-b rounded-t">
                     <h3 class="text-xl font-semibold">
-                        Add new order
+                        Order Details
                     </h3>
                     <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="add-order-modal">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
@@ -128,6 +373,246 @@
         </div>
     </div>
 <!-- Add Order Modal End -->
+
+<script>
+    const showLoadingScreen = () => {
+        $('tr').css('opacity', 0.5);
+    };
+
+    const hideLoadingScreen = () => {
+        $('tr').css('opacity', 1);
+    };
+    const fetch_data = (page, search_term, filter_status, sort_by, payment_method) => {
+        showLoadingScreen();
+        if(status === undefined){status = "";}
+        if(search_term === undefined){search_term = "";}
+        if(sort_by === undefined){sort_by = "";}
+        if(payment_method === undefined){payment_method = "";}
+        $.ajax({
+            url:"/admin/orders/?",
+            data: {
+                page: page, 
+                search_term: search_term, 
+                status: status, 
+                sort_by: sort_by, 
+                payment_method: payment_method,
+                type : 'filters'
+            },
+            beforeSend: function(){
+                showLoadingScreen();
+            },
+            success:function(data){
+                const tempContainer = document.createElement('div');
+                tempContainer.innerHTML = data;
+
+                const viewButton = tempContainer.querySelectorAll('#view-order-button');
+                const backButton = tempContainer.querySelectorAll('#status.back');
+                const nextButton = tempContainer.querySelectorAll('#status.next');
+
+                viewButton.forEach(function (button) {
+                    button.addEventListener('click', function() {
+                        const orderData = JSON.parse(button.getAttribute('data-order'));
+                        var page = $('#hidden_page').val();
+
+                        const showLoadingScreen = () => {
+                                $('tr').css('opacity', 0.5);
+                            };
+
+                            const hideLoadingScreen = () => {
+                                $('tr').css('opacity', 1);
+                            };
+
+                        const fetch_data = (page, orderid) => {
+                            $.ajax({
+                                url:"/admin/orders/?",
+                                data: {
+                                    page: page,
+                                    orderid: orderid,
+                                    type: 'view',
+                                },
+                                beforeSend: function(){
+                                    showLoadingScreen();
+                                },
+                                success:function(data){
+
+                                    const tempContainer = document.createElement('div');
+                                    tempContainer.innerHTML = data;
+
+                                    $('#datatable').empty();
+                                    $('#datatable').html(tempContainer);
+
+                                },
+                                complete: function(){
+                                hideLoadingScreen();
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error(xhr.responseText);
+                                    console.error(error);
+                                }
+                            });
+                        }
+                        
+                        console.log(orderData);
+                        fetch_data(page, orderData)
+
+                    });
+                });
+
+                var statusMapNext = {
+                    'processing': 'confirmed',
+                    'confirmed': 'preparing',
+                    'preparing': 'scheduled',
+                    'scheduled': 'intransit',
+                    'intransit': 'received',
+                    'received': 'torate',
+                    'torate': 'completed'
+                };
+
+                var statusMapBack = {
+                    'processing': 'processing', 
+                    'confirmed': 'processing',
+                    'preparing': 'confirmed',   
+                    'scheduled': 'preparing',   
+                    'intransit': 'scheduled',   
+                    'received': 'intransit', 
+                    'torate': 'received'
+                };
+
+                nextButton.forEach(function (button) {
+                    button.addEventListener('click', function() {
+                        var orderId = $(this).data('order-id');
+                        var oldStatus = $(this).data('status');
+                        var newStatus = statusMapNext[oldStatus] || 'completed';
+                        console.log(orderId, newStatus);
+                    });
+                });
+
+                backButton.forEach(function (button) {
+                    button.addEventListener('click', function() {
+                        var orderId = $(this).data('order-id');
+                        var oldStatus = $(this).data('status');
+                        var newStatus = statusMapBack[oldStatus] || 'completed';
+                        console.log(orderId, newStatus);
+                    });
+                });
+
+                $('#datatable').empty();
+                $('#datatable').html(tempContainer);
+            },
+            complete: function(){
+                hideLoadingScreen();
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                console.error(error);
+            }
+        });
+
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const viewButton = document.querySelectorAll('#view-order-button');
+        const backButton = document.querySelectorAll('#status-back');
+        const nextButton = document.querySelectorAll('#status-next');
+
+        viewButton.forEach(function (button) {
+            button.addEventListener('click', function() {
+                const orderData = JSON.parse(button.getAttribute('data-order'));
+                var page = $('#hidden_page').val();
+
+                const showLoadingScreen = () => {
+                        $('tr').css('opacity', 0.5);
+                    };
+
+                    const hideLoadingScreen = () => {
+                        $('tr').css('opacity', 1);
+                    };
+
+                const fetch_data = (page, orderid) => {
+                    $.ajax({
+                        url:"/admin/orders/?",
+                        data: {
+                            page: page,
+                            orderid: orderid,
+                            type: 'view',
+                        },
+                        beforeSend: function(){
+                            showLoadingScreen();
+                        },
+                        success:function(data){
+
+                            const tempContainer = document.createElement('div');
+                            tempContainer.innerHTML = data;
+
+                            $('#datatable').empty();
+                            $('#datatable').html(tempContainer);
+
+                        },
+                        complete: function(){
+                        hideLoadingScreen();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(xhr.responseText);
+                            console.error(error);
+                        }
+                    });
+                }
+                
+                console.log(orderData);
+                fetch_data(page, orderData)
+
+            });
+        });
+
+        $('body').on('click', '.pager a', function(event){
+                        event.preventDefault();
+                        var page = $(this).attr('href').split('page=')[1];
+                        $('#hidden_page').val(page);
+                        var search_term = $('#searchInput').val();
+                        var filter_status = $('#filter_status').val();
+                        var sort_by = $('#sort_by').val();
+                        var payment_method = $('#payment_method').val();
+                        fetch_data(page, search_term, filter_status, sort_by, payment_method);
+                    });
+
+        var statusMapNext = {
+            'processing': 'confirmed',
+            'confirmed': 'preparing',
+            'preparing': 'scheduled',
+            'scheduled': 'intransit',
+            'intransit': 'received',
+            'received': 'torate',
+            'torate': 'completed'
+        };
+
+        var statusMapBack = {
+            'processing': 'processing', 
+            'confirmed': 'processing',
+            'preparing': 'confirmed',   
+            'scheduled': 'preparing',   
+            'intransit': 'scheduled',   
+            'received': 'intransit', 
+            'torate': 'received'
+        };
+
+        nextButton.forEach(function (button) {
+            button.addEventListener('click', function() {
+                var orderId = $(this).data('order-id');
+                var oldStatus = $(this).data('status');
+                var newStatus = statusMapNext[oldStatus] || 'completed';
+                console.log(orderId, newStatus);
+            });
+        });
+
+        backButton.forEach(function (button) {
+            button.addEventListener('click', function() {
+                var orderId = $(this).data('order-id');
+                var oldStatus = $(this).data('status');
+                var newStatus = statusMapBack[oldStatus] || 'completed';
+                console.log(orderId, newStatus);
+            });
+        });
+    });
+</script>
 
 
 

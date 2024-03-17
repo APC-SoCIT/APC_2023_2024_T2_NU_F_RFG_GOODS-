@@ -132,34 +132,106 @@ class OrderController extends Controller
         return view('order-success', ['order' => $order]);
     }
 
+    // public function getUserOrder() {
+    //     $orders = Order::where('user_id','=', Auth::user()->id)->get();
+    //     $orderItems = OrderItem::leftjoin('orders', 'order_items.order_id', '=', 'orders.id')
+    //     ->leftjoin('products', 'products.id', '=', 'order_items.product_id')
+    //     ->get();
+
+    //     foreach ($orders as $order) {
+    //         $items = OrderItem::where('order_id', $order->id)
+    //             ->leftjoin('products', 'products.id', '=', 'order_items.product_id')
+    //             ->get();
+    //         $orderItems[$order->id] = $items;
+    //     }
+
+    //     return view('orderhistory', ['orders' => $orders, 'orderItems' => $orderItems]);
+    // }
+
     public function index(Request $request) {
         $orders = Order::join('users', 'users.id', '=', 'orders.user_id')
-        ->select('orders.id','users.last_name','users.first_name','orders.status','orders.payment_method','orders.payment_reference_id')
-        ->paginate(12);
-        
-        if($request->ajax()){
-            $orders = Order::join('users', 'users.id', '=', 'orders.user_id')
-            ->select('orders.id','users.id','users.last_name','users.first_name','orders.status','orders.payment_method','orders.payment_reference_id')
-            ->when($request->search_term, function($q)use($request){
-                $q->where('users.last_name', 'LIKE', '%' . $request->search_term . '%')
-                ->orWhereRaw('LOWER(users.last_name) LIKE ?', ['%' . strtolower($request->search_term) . '%'])
-                ->orWhereRaw('LOWER(users.first_name) LIKE ?', ['%' . strtolower($request->search_term) . '%']);
-            })
-            ->when($request->status, function($q)use($request){
-                $q->where('status',$request->status);
-            })
-            ->when($request->payment_method, function($q)use($request){
-                $q->where('status',$request->payment_method);
-            })
-            ->when($request->payment_reference_id, function($q)use($request){
-                $q->where('orders.payment_reference_id', 'LIKE', '%' . $request->payment_reference_id . '%')
-                ->orWhereRaw('LOWER(orders.payment_reference_id) LIKE ?', ['%' . strtolower($request->payment_reference_id) . '%']);
-            })
+            ->select('orders.*', 'users.*') 
+            ->selectRaw('orders.id as order_id_alias, users.id as user_id_alias') 
             ->paginate(12);
-            return view('admin.orders-table', ['orders' => $orders]);
+        $orderItems = OrderItem::leftjoin('orders', 'order_items.order_id', '=', 'orders.id')
+            ->leftjoin('products', 'products.id', '=', 'order_items.product_id')
+            ->get();
+
+        foreach ($orders as $order) {
+            $items = OrderItem::where('order_id', $order->order_id_alias)
+                ->leftjoin('products', 'products.id', '=', 'order_items.product_id')
+                ->select('products.*','order_items.*')
+                ->selectRaw('products.id as products_id_alias, order_items.id as order_items_id_alias')
+                ->get();
+            $orderItems[$order->order_id_alias] = $items;
         }
 
-        return view('admin.orders', ['orders' => $orders]);
+        if($request->ajax()){
+            $type = $request->input('type');
+            if ($type == 'filters') {
+                $orders = Order::join('users', 'users.id', '=', 'orders.user_id')
+                ->select('orders.*', 'users.*') 
+                ->selectRaw('orders.id as order_id_alias, users.id as user_id_alias')
+                ->when($request->search_term, function($q)use($request){
+                    $q->where('users.last_name', 'LIKE', '%' . $request->search_term . '%')
+                    ->orWhereRaw('LOWER(users.last_name) LIKE ?', ['%' . strtolower($request->search_term) . '%'])
+                    ->orWhereRaw('LOWER(users.first_name) LIKE ?', ['%' . strtolower($request->search_term) . '%'])
+                    ->orWhere('orders.id','LIKE', '%' . $request->search_term . '%');
+                })
+                ->when($request->sort_by, function($q)use($request){
+                    if ($request->sort_by == 'sort_by_last_name_asc') {
+                        $q->orderBy('last_name','asc');
+                    } else if ($request->sort_by == 'sort_by_last_name_desc') {
+                        $q->orderBy('last_name','desc');
+                    } else if ($request->sort_by == 'sort_by_first_name_asc') {
+                        $q->orderBy('first_name','asc');
+                    } else if ($request->sort_by == 'sort_by_first_name_desc') {
+                        $q->orderBy('first_name','desc');
+                    } else if ($request->sort_by == 'sort_by_price_asc') {
+                        $q->orderBy('price','asc');
+                    } else if ($request->sort_by == 'sort_by_price_desc') {
+                        $q->orderBy('price','desc');
+                    } else if ($request->sort_by == 'sort_by_date_upd_asc') {
+                        $q->orderBy('orders.updated_at','asc');
+                    } else if ($request->sort_by == 'sort_by_date_upd_desc') {
+                        $q->orderBy('orders.updated_at','desc');
+                    } else if ($request->sort_by == 'sort_by_date_asc') {
+                        $q->orderBy('orders.created_at','asc');
+                    } else if ($request->sort_by == 'sort_by_date_desc') {
+                        $q->orderBy('orders.created_at','desc');
+                    } 
+                })
+                ->when($request->payment_method, function($q)use($request){
+                    if ($request->payment_method != 'default') {
+                        $q->where('payment_method', strtolower($request->payment_method));
+                    }
+                    
+                })
+                ->when($request->filter_status, function($q)use($request){
+                    if ($request->filter_status != 'default') {
+                        $q->where('status', $request->filter_status);
+                        // dd($request->filter_status);
+                    }
+                })
+                ->when($request->payment_reference_id, function($q)use($request){
+                    $q->where('orders.payment_reference_id', 'LIKE', '%' . $request->payment_reference_id . '%')
+                    ->orWhereRaw('LOWER(orders.payment_reference_id) LIKE ?', ['%' . strtolower($request->payment_reference_id) . '%']);
+                })
+                ->paginate(12);
+                return view('admin.orders-table', ['orders' => $orders]);
+
+            }
+            elseif ($type == 'view') {
+                $order = Order::find($request->orderid, 'id');
+                $orderItems = OrderItem::where('order_id', $request->orderid)
+                ->leftjoin('products', 'products.id', '=', 'order_items.product_id')->paginate(12);
+                
+                return view('admin.order-items-table', ['order' => $order, 'orderItems' => $orderItems]);
+            }
+            
+        }
+
+        return view('admin.orders', ['orders' => $orders, 'orderItems' => $orderItems]);
     }
 
     // public function index(Request $request)

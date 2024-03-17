@@ -89,7 +89,7 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/inventories/{inventory}/update', [InventoryController::class, 'update'])->name('inventory.update');
     Route::get('/admin/inventories/{inventory}/destroy', [InventoryController::class, 'destroy'])->name('inventory.destroy');
 
-    Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('1', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/admin/orders/{order}', [OrderController::class, 'getOrderDetails'])->name('orders.orderitems');
     Route::post('/admin/orders/save', [OrderController::class, 'save'])->name('orders.save');
     Route::get('/admin/orders/{orders}/edit', [OrderController::class, 'edit'])->name('orders.edit');
