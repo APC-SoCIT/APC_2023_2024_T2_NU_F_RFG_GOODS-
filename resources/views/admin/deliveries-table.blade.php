@@ -5,13 +5,13 @@
                 <thead class="bg-white">
                     <tr>
                         <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
-                            Delivery ID
+                            ID
                         </th>
                         <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
-                            Last Name
+                            Order ID
                         </th>
                         <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
-                            First Name
+                            Region
                         </th>
                         <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
                             Phone Number

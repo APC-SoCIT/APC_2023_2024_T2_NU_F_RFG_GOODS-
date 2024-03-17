@@ -10,17 +10,10 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'image',
-        'sku',
-        'name',
-        'price',
-        'category_id',
-        'desc',
-        'min_qty',
-        'max_qty',
-        'reorder_pt',
-        'created_at',
-        'updated_at',
+        'user_id',
+        'status',
+        'payment_method',
+        'payment_reference_id',
     ];  
-    
+
 }

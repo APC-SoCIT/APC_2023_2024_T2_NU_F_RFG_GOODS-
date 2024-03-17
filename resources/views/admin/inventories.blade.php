@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RFG - Admin Inventory</title>
+    <title>RFG - Admin Inventories</title>
     <link rel="icon" href="/Img/logo1.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"  rel="stylesheet" />
@@ -244,7 +244,7 @@
                 if(filter_month === undefined){filter_month = "";}
                 if(filter_day === undefined){filter_day = "";}
                 $.ajax({ 
-                    url:"/admin/inventory/?",
+                    url:"/admin/inventories/?",
                     data: {
                         page: page,
                         search_term: search_term,

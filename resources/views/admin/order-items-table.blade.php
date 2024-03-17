@@ -5,22 +5,16 @@
                 <thead class="bg-white">
                     <tr>
                         <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
-                            ID
+                            Image
                         </th>
                         <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
-                            Last Name
+                            Product Name
                         </th>
                         <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
-                            First Name
+                            Quantity
                         </th>
                         <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
                             Status
-                        </th>
-                        <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
-                            Payment Method
-                        </th>
-                        <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
-                            Payment Reference ID
                         </th>
                         <th scope="col" class="p-4">
                         </th>
@@ -29,9 +23,9 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($orders as $order)
                         <tr class="hover:bg-gray-100">
-                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $order->id }}</td>
-                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $order->last_name }}</td>
-                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $order->first_name }}</td>
+                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $product->image }}</td>
+                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $product->name }}</td>
+                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $orderItem->quantity }}</td>
                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
                                 <div class="flex items-center">
                                     <span>{{$order->status}}</span>

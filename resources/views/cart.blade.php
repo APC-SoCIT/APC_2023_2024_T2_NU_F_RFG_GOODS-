@@ -305,7 +305,7 @@
               @if (isset($user->region))
               {{$user['addressline']}}, {{$user['barangay']}}, {{$user['city/municipality']}}, {{$user['state/province']}}, {{$user->region}}
               @else
-                <span>Your address is currently not set. Please set your address first <span class="bg-orange-500 rounded-lg p-0.5">here</span></span>
+                <span>Your address is currently not set. set your address first <span class="bg-orange-500">here</span></span>
               @endif
             </span>
           </div>

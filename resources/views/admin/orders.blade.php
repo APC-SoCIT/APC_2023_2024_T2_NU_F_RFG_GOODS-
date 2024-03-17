@@ -58,24 +58,18 @@
                         
                         </div>
 
-                        <div class="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                            <button data-modal-target="add-inventory-modal" data-modal-toggle="add-inventory-modal"class="w-1/2 text-white bg-orange-500 hover:bg-orange-500 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
-                                <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                Add Order
-                            </button>
-                        </div>
                     </div>
 
                 </div>
             </div>
 
-            <div class="flex flex-col ">
+            <div class="flex flex-col">
                 <div id="datatable">
                     @include('admin.orders-table')
                 </div>
             </div>
 
-<!-- Add Product Modal -->
+<!-- Add Order Modal Start -->
     <div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="add-order-modal">
         <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
             <!-- Modal content -->
@@ -133,6 +127,9 @@
 
         </div>
     </div>
+<!-- Add Order Modal End -->
+
+
 
 
 </body>
