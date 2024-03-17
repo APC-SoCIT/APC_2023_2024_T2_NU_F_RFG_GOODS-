@@ -89,12 +89,13 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/inventories/{inventory}/update', [InventoryController::class, 'update'])->name('inventory.update');
     Route::get('/admin/inventories/{inventory}/destroy', [InventoryController::class, 'destroy'])->name('inventory.destroy');
 
-    Route::get('1', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/admin/orders/', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/admin/orders/{order}', [OrderController::class, 'getOrderDetails'])->name('orders.orderitems');
     Route::post('/admin/orders/save', [OrderController::class, 'save'])->name('orders.save');
     Route::get('/admin/orders/{orders}/edit', [OrderController::class, 'edit'])->name('orders.edit');
     Route::put('/admin/orders/{orders}/update', [OrderController::class, 'update'])->name('orders.update');
     Route::get('/admin/orders/{orders}/destroy', [OrderController::class, 'destroy'])->name('orders.destroy');
+    Route::patch('/admin/orders/statusupdate', [OrderController::class, 'updateStatus'])->name('orders.updatestatus');
 });
 
 require __DIR__.'/auth.php';

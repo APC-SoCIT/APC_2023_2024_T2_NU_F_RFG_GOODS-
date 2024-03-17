@@ -165,8 +165,8 @@
                                 tempContainer.innerHTML = data;
 
                                 const viewButton = tempContainer.querySelectorAll('#view-order-button');
-                                const backButton = tempContainer.querySelectorAll('#status.back');
-                                const nextButton = tempContainer.querySelectorAll('#status.next');
+                                const backButton = tempContainer.querySelectorAll('#status-back');
+                                const nextButton = tempContainer.querySelectorAll('#status-next');
 
                                 viewButton.forEach(function (button) {
                                     button.addEventListener('click', function() {
@@ -224,9 +224,9 @@
                                     'scheduled': 'intransit',
                                     'intransit': 'received',
                                     'received': 'torate',
-                                    'torate': 'completed'
+                                    'torate': 'completed',
+                                    'completed': 'completed'
                                 };
-
                                 var statusMapBack = {
                                     'processing': 'processing', 
                                     'confirmed': 'processing',
@@ -234,25 +234,52 @@
                                     'scheduled': 'preparing',   
                                     'intransit': 'scheduled',   
                                     'received': 'intransit', 
-                                    'torate': 'received'
+                                    'torate': 'received',
+                                    'completed': 'torate'
                                 };
 
-                                nextButton.forEach(function (button) {
-                                    button.addEventListener('click', function() {
-                                        var orderId = $(this).data('order-id');
-                                        var oldStatus = $(this).data('status');
-                                        var newStatus = statusMapNext[oldStatus] || 'completed';
-                                        console.log(orderId, newStatus);
+
+                                const showLoadingScreen = () => {
+                                    $('tr').css('opacity', 0.5);
+                                };
+
+                                const hideLoadingScreen = () => {
+                                    $('tr').css('opacity', 1);
+                                };
+
+                                var nextButtonArray = Array.from(nextButton);
+                                var backButtonArray = Array.from(backButton);
+
+                                function updateStatusAndFetch(orderId, oldStatus, newStatus) {
+                                    var statusText = $('span[data-order-id="' + orderId + '"]');
+                                    fetchforupdate(orderId, newStatus, statusText);
+                                    1111
+                                    // Update the data-status attribute of nextButton and backButton
+                                    nextButtonArray.filter(function(button) {
+                                        return $(button).data('order-id') === orderId;
+                                    }).forEach(function(button) {
+                                        $(button).data('status', newStatus);
                                     });
+
+                                    backButtonArray.filter(function(button) {
+                                        return $(button).data('order-id') === orderId;
+                                    }).forEach(function(button) {
+                                        $(button).data('status', newStatus);
+                                    });
+                                }
+
+                                $('#datatable').on('click', '#status-next', function() {
+                                    const orderId = $(this).data('order-id');
+                                    const oldStatus = $(this).data('status');
+                                    const newStatus = statusMapNext[oldStatus] || 'completed';
+                                    updateStatusAndFetch(orderId, oldStatus, newStatus);
                                 });
 
-                                backButton.forEach(function (button) {
-                                    button.addEventListener('click', function() {
-                                        var orderId = $(this).data('order-id');
-                                        var oldStatus = $(this).data('status');
-                                        var newStatus = statusMapBack[oldStatus] || 'completed';
-                                        console.log(orderId, newStatus);
-                                    });
+                                $('#datatable').on('click', '#status-back', function() {
+                                    const orderId = $(this).data('order-id');
+                                    const oldStatus = $(this).data('status');
+                                    const newStatus = statusMapBack[oldStatus] || 'processing';
+                                    updateStatusAndFetch(orderId, oldStatus, newStatus);
                                 });
 
                                 $('#datatable').empty();
@@ -382,68 +409,138 @@
     const hideLoadingScreen = () => {
         $('tr').css('opacity', 1);
     };
-    const fetch_data = (page, search_term, filter_status, sort_by, payment_method) => {
-        showLoadingScreen();
-        if(status === undefined){status = "";}
-        if(search_term === undefined){search_term = "";}
-        if(sort_by === undefined){sort_by = "";}
-        if(payment_method === undefined){payment_method = "";}
-        $.ajax({
-            url:"/admin/orders/?",
-            data: {
-                page: page, 
-                search_term: search_term, 
-                status: status, 
-                sort_by: sort_by, 
-                payment_method: payment_method,
-                type : 'filters'
-            },
-            beforeSend: function(){
-                showLoadingScreen();
-            },
-            success:function(data){
-                const tempContainer = document.createElement('div');
-                tempContainer.innerHTML = data;
 
-                const viewButton = tempContainer.querySelectorAll('#view-order-button');
-                const backButton = tempContainer.querySelectorAll('#status.back');
-                const nextButton = tempContainer.querySelectorAll('#status.next');
+    function updateStatusAndFetch(orderId, oldStatus, newStatus) {
+        var statusText = $('span[data-order-id="' + orderId + '"]');
+        fetchforupdate(orderId, newStatus, statusText);
+        1111
+        // Update the data-status attribute of nextButton and backButton
+        nextButtonArray.filter(function(button) {
+            return $(button).data('order-id') === orderId;
+        }).forEach(function(button) {
+            $(button).data('status', newStatus);
+        });
 
-                viewButton.forEach(function (button) {
-                    button.addEventListener('click', function() {
-                        const orderData = JSON.parse(button.getAttribute('data-order'));
-                        var page = $('#hidden_page').val();
+        backButtonArray.filter(function(button) {
+            return $(button).data('order-id') === orderId;
+        }).forEach(function(button) {
+            $(button).data('status', newStatus);
+        });
+    }
 
-                        const showLoadingScreen = () => {
-                                $('tr').css('opacity', 0.5);
-                            };
+    $(document).ready(function () {
 
-                            const hideLoadingScreen = () => {
-                                $('tr').css('opacity', 1);
-                            };
+        const fetch_data = (page, search_term, filter_status, sort_by, payment_method) => {
+            showLoadingScreen();
+            if(status === undefined){status = "";}
+            if(search_term === undefined){search_term = "";}
+            if(sort_by === undefined){sort_by = "";}
+            if(payment_method === undefined){payment_method = "";}
+            $.ajax({
+                url:"/admin/orders/?",
+                data: {
+                    page: page, 
+                    search_term: search_term, 
+                    status: status, 
+                    sort_by: sort_by, 
+                    payment_method: payment_method,
+                    type : 'filters'
+                },
+                beforeSend: function(){
+                    showLoadingScreen();
+                },
+                success:function(data){
+                    const tempContainer = document.createElement('div');
+                    tempContainer.innerHTML = data;
 
-                        const fetch_data = (page, orderid) => {
+                    const viewButton = tempContainer.querySelectorAll('#view-order-button');
+                    const backButton = tempContainer.querySelectorAll('#status-back');
+                    const nextButton = tempContainer.querySelectorAll('#status-next');
+
+                    viewButton.forEach(function (button) {
+                        button.addEventListener('click', function() {
+                            var page = $('#hidden_page').val();
+
+                            const showLoadingScreen = () => {
+                                    $('tr').css('opacity', 0.5);
+                                };
+
+                                const hideLoadingScreen = () => {
+                                    $('tr').css('opacity', 1);
+                                };
+
+                            const fetch_data = (page, orderid) => {
+                                $.ajax({
+                                    url:"/admin/orders/?",
+                                    data: {
+                                        page: page,
+                                        orderid: orderid,
+                                        type: 'view',
+                                    },
+                                    beforeSend: function(){
+                                        showLoadingScreen();
+                                    },
+                                    success:function(data){
+
+                                        const tempContainer = document.createElement('div');
+                                        tempContainer.innerHTML = data;
+
+                                        $('#datatable').empty();
+                                        $('#datatable').html(tempContainer);
+
+                                    },
+                                    complete: function(){
+                                    hideLoadingScreen();
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.error(xhr.responseText);
+                                        console.error(error);
+                                    }
+                                });
+                            }
+                            
+                            console.log(orderData);
+                            fetch_data(page, orderData)
+
+                        });
+                    });
+
+                    var statusMapNext = {
+                        'processing': 'confirmed',
+                        'confirmed': 'preparing',
+                        'preparing': 'scheduled',
+                        'scheduled': 'intransit',
+                        'intransit': 'received',
+                        'received': 'torate',
+                        'torate': 'completed',
+                        'completed': 'completed'
+                    };
+                    var statusMapBack = {
+                        'processing': 'processing', 
+                        'confirmed': 'processing',
+                        'preparing': 'confirmed',   
+                        'scheduled': 'preparing',   
+                        'intransit': 'scheduled',   
+                        'received': 'intransit', 
+                        'torate': 'received',
+                        'completed': 'torate'
+                    };
+                    fetchforupdate = (orderId, newStatus, statusText) => {
                             $.ajax({
-                                url:"/admin/orders/?",
+                                url:"/admin/orders/statusupdate?",
+                                method: "PATCH",
                                 data: {
-                                    page: page,
-                                    orderid: orderid,
-                                    type: 'view',
+                                    orderid: orderId,
+                                    newstatus: newStatus,
+                                    type: 'update',
+                                    _token: '{{ csrf_token() }}'
                                 },
-                                beforeSend: function(){
-                                    showLoadingScreen();
+                                beforeSend: function() {
                                 },
                                 success:function(data){
-
-                                    const tempContainer = document.createElement('div');
-                                    tempContainer.innerHTML = data;
-
-                                    $('#datatable').empty();
-                                    $('#datatable').html(tempContainer);
-
+                                    statusText.text(newStatus);
                                 },
                                 complete: function(){
-                                hideLoadingScreen();
                                 },
                                 error: function (xhr, status, error) {
                                     console.error(xhr.responseText);
@@ -451,65 +548,41 @@
                                 }
                             });
                         }
-                        
-                        console.log(orderData);
-                        fetch_data(page, orderData)
 
-                    });
-                });
+                    var nextButtonArray = Array.from(nextButton);
+                    var backButtonArray = Array.from(backButton);
 
-                var statusMapNext = {
-                    'processing': 'confirmed',
-                    'confirmed': 'preparing',
-                    'preparing': 'scheduled',
-                    'scheduled': 'intransit',
-                    'intransit': 'received',
-                    'received': 'torate',
-                    'torate': 'completed'
-                };
-
-                var statusMapBack = {
-                    'processing': 'processing', 
-                    'confirmed': 'processing',
-                    'preparing': 'confirmed',   
-                    'scheduled': 'preparing',   
-                    'intransit': 'scheduled',   
-                    'received': 'intransit', 
-                    'torate': 'received'
-                };
-
-                nextButton.forEach(function (button) {
-                    button.addEventListener('click', function() {
+                    $('#datatable').on('click', '#status-next', function() {
                         var orderId = $(this).data('order-id');
                         var oldStatus = $(this).data('status');
                         var newStatus = statusMapNext[oldStatus] || 'completed';
-                        console.log(orderId, newStatus);
+                        console.log(orderId, oldStatus, newStatus);
+                        updateStatusAndFetch(orderId, oldStatus, newStatus);
                     });
-                });
 
-                backButton.forEach(function (button) {
-                    button.addEventListener('click', function() {
+                    $('#datatable').on('click', '#status-back', function() {
                         var orderId = $(this).data('order-id');
                         var oldStatus = $(this).data('status');
-                        var newStatus = statusMapBack[oldStatus] || 'completed';
-                        console.log(orderId, newStatus);
+                        var newStatus = statusMapBack[oldStatus] || 'processing';
+                        console.log(orderId, oldStatus, newStatus);
+                        updateStatusAndFetch(orderId, oldStatus, newStatus);
                     });
-                });
 
-                $('#datatable').empty();
-                $('#datatable').html(tempContainer);
-            },
-            complete: function(){
-                hideLoadingScreen();
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
-                console.error(error);
-            }
-        });
 
-    }
-    document.addEventListener('DOMContentLoaded', function() {
+                    $('#datatable').empty();
+                    $('#datatable').html(tempContainer);
+                },
+                complete: function(){
+                    hideLoadingScreen();
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    console.error(error);
+                }
+            });
+
+        }
+
         const viewButton = document.querySelectorAll('#view-order-button');
         const backButton = document.querySelectorAll('#status-back');
         const nextButton = document.querySelectorAll('#status-next');
@@ -564,15 +637,15 @@
         });
 
         $('body').on('click', '.pager a', function(event){
-                        event.preventDefault();
-                        var page = $(this).attr('href').split('page=')[1];
-                        $('#hidden_page').val(page);
-                        var search_term = $('#searchInput').val();
-                        var filter_status = $('#filter_status').val();
-                        var sort_by = $('#sort_by').val();
-                        var payment_method = $('#payment_method').val();
-                        fetch_data(page, search_term, filter_status, sort_by, payment_method);
-                    });
+            event.preventDefault();
+            var page = $(this).attr('href').split('page=')[1];
+            $('#hidden_page').val(page);
+            var search_term = $('#searchInput').val();
+            var filter_status = $('#filter_status').val();
+            var sort_by = $('#sort_by').val();
+            var payment_method = $('#payment_method').val();
+            fetch_data(page, search_term, filter_status, sort_by, payment_method);
+        });
 
         var statusMapNext = {
             'processing': 'confirmed',
@@ -581,9 +654,9 @@
             'scheduled': 'intransit',
             'intransit': 'received',
             'received': 'torate',
-            'torate': 'completed'
+            'torate': 'completed',
+            'completed': 'completed'
         };
-
         var statusMapBack = {
             'processing': 'processing', 
             'confirmed': 'processing',
@@ -591,26 +664,74 @@
             'scheduled': 'preparing',   
             'intransit': 'scheduled',   
             'received': 'intransit', 
-            'torate': 'received'
+            'torate': 'received',
+            'completed': 'torate'
         };
+        fetchforupdate = (orderId, newStatus, statusText) => {
+                $.ajax({
+                    url:"/admin/orders/statusupdate?",
+                    method: "PATCH",
+                    data: {
+                        orderid: orderId,
+                        newstatus: newStatus,
+                        type: 'update',
+                        _token: '{{ csrf_token() }}'
+                    },
+                    beforeSend: function() {
+                    },
+                    success:function(data){
+                        statusText.text(newStatus);
+                    },
+                    complete: function(){
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        console.error(error);
+                    }
+                });
+            }
 
-        nextButton.forEach(function (button) {
+        var nextButtonArray = Array.from(nextButton);
+        var backButtonArray = Array.from(backButton);
+
+        function updateStatusAndFetch(orderId, oldStatus, newStatus) {
+            var statusText = $('span[data-order-id="' + orderId + '"]');
+            fetchforupdate(orderId, newStatus, statusText);
+            
+            // Update the data-status attribute of nextButton and backButton
+            nextButtonArray.filter(function(button) {
+                return $(button).data('order-id') === orderId;
+            }).forEach(function(button) {
+                $(button).data('status', newStatus);
+            });
+
+            backButtonArray.filter(function(button) {
+                return $(button).data('order-id') === orderId;
+            }).forEach(function(button) {
+                $(button).data('status', newStatus);
+            });
+        }
+
+        nextButtonArray.forEach(function (button) {
             button.addEventListener('click', function() {
                 var orderId = $(this).data('order-id');
                 var oldStatus = $(this).data('status');
                 var newStatus = statusMapNext[oldStatus] || 'completed';
-                console.log(orderId, newStatus);
+                console.log(orderId, oldStatus, newStatus);
+                updateStatusAndFetch(orderId, oldStatus, newStatus);
             });
         });
 
-        backButton.forEach(function (button) {
+        backButtonArray.forEach(function (button) {
             button.addEventListener('click', function() {
                 var orderId = $(this).data('order-id');
                 var oldStatus = $(this).data('status');
-                var newStatus = statusMapBack[oldStatus] || 'completed';
-                console.log(orderId, newStatus);
+                var newStatus = statusMapBack[oldStatus] || 'processing';
+                console.log(orderId, oldStatus, newStatus);
+                updateStatusAndFetch(orderId, oldStatus, newStatus);
             });
         });
+
     });
 </script>
 

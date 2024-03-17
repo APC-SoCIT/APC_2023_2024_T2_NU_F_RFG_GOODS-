@@ -228,10 +228,31 @@ class OrderController extends Controller
                 
                 return view('admin.order-items-table', ['order' => $order, 'orderItems' => $orderItems]);
             }
+            elseif ($type == 'update') {
+                $order = Order::find($request->orderid);
+                $order->status = $request->newStatus;
+                $order->save();
+
+                return view('admin.orders', ['orders' => $orders, 'orderItems' => $orderItems]);
+            }
             
         }
 
         return view('admin.orders', ['orders' => $orders, 'orderItems' => $orderItems]);
+    }
+
+    public function updateStatus(Request $request) {
+
+        if($request->ajax()){
+            $type = $request->input('type');
+            if ($type == 'update') {
+                $order = Order::find($request->orderid);
+                $order->status = $request->newstatus;
+                $order->save();
+
+                return $request->newstatus;
+            }
+        }
     }
 
     // public function index(Request $request)

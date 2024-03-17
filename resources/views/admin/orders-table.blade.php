@@ -48,7 +48,7 @@
                             </td>
                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
                                 <div class="flex items-center justify-center">
-                                    <span>{{$order->status}}</span>
+                                    <span data-order-id="{{$order->order_id_alias}}">{{$order->status}}</span>
                                 </div>
                             </td>
                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900 justify-center flex">
