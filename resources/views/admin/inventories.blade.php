@@ -42,13 +42,13 @@
                             <li>
                                 <div class="flex items-center">
                                 <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                                <p class="select-none text-black hover:text-rfg-accent ml-1 md:ml-2 text-sm font-medium">Inventories</p>
+                                <p class="select-none text-black hover:text-rfg-accent ml-1 md:ml-2 text-sm font-medium">Stock Transactions</p>
                                 </div>
                             </li>
                             </ol>
                         </nav>
 
-                        <h1 class="text-xl sm:text-2xl font-semibold text-black">All Inventories</h1>
+                        <h1 class="text-xl sm:text-2xl font-semibold text-black">All Stock Transactions</h1>
                     </div>
 
                     {{-- Navigation End --}}
@@ -63,26 +63,26 @@
 
                             <div class="mb-3 sm:mb-0 px-2 w-full">
                                 <select name="sort_by" id="sort_by" class="w-full rounded-lg pl-2 border-1 border-gray-300 p-2 box-sizing-content">
-                                    <option value="" disabled selected hidden>SORT BY:</option>
+                                    <option value="default" disabled selected hidden>SORT BY:</option>
+                                    <option value="default">NONE</option>
                                     <option value="sort_by_name_asc">NAME (A-Z)</option>
                                     <option value="sort_by_name_desc">NAME (Z-A)</option>
                                     <option value="sort_by_quantity_asc">QUANTITY (LOW TO HIGH)</option>
                                     <option value="sort_by_quantity_desc">QUANTITY (HIGH TO LOW)</option>
-                                    <option value="default">None</option>
                                 </select>
                             </div>
 
                             <div class="mb-3 sm:mb-0 px-2 w-full">
                                 <select name="filter_transaction" id="filter_transaction" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
-                                    <option value="">TRANSACTION TYPE:</option>
-                                    <option value="RECEIVED">RECEIVED</option>
-                                    <option value="SHIPPED">SHIPPED</option>
+                                    <option value="default">TRANSACTION TYPE:</option>
+                                    <option value="1">RECEIVED</option>
+                                    <option value="0">SOLD</option>
                                 </select>
                             </div>
 
                             <div class="mb-3 sm:mb-0 px-2 w-full">
                                 <select name="filter_year" id="filter_year" class="w-full rounded-lg pl-2 border-1 border-gray-300 focus:ring-blue-500 p-2 box-sizing-content">
-                                    <option value="">Select Year</option>
+                                    <option value="default">Select Year</option>
                                     <option value="2020">2020</option>
                                     <option value="2021">2021</option>
                                     <option value="2022">2022</option>
@@ -148,7 +148,7 @@
 <div class="px-2">
                             <button data-modal-target="add-inventory-modal" data-modal-toggle="add-inventory-modal"class="w-full text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-red-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto whitespace-nowrap">
                                 <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                Add Inventory
+                                Add Stock Transaction
                             </button>
 </div>
                         </div>
@@ -170,7 +170,7 @@
                         <!-- Modal header -->
                         <div class="flex items-start justify-between p-5 border-b rounded-t">
                             <h3 class="text-xl font-semibold">
-                                Add new inventory
+                                Add New Stock Transaction
                             </h3>
                             <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="add-inventory-modal">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
@@ -204,7 +204,7 @@
                                         <label for="is_received" class="text-sm font-medium text-gray-900 block mb-2">Transaction Type</label>
                                         <select name="is_received" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="" required>
                                                 <option value="1" >Received</option>
-                                                <option value="0" >Shipped</option>
+                                                <option value="0" >Sold</option>
                                         </select>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">

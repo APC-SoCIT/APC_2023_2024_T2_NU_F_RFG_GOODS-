@@ -186,12 +186,12 @@
         @foreach($orderItems as $orderItem)
             <div class="flex p-2 my-4">
                 <div class="mx-4">
-                    <img class="h-24 w-24" src="Img/chi.jpg" alt="">
+                    <img class="h-24 w-24" src="{{ asset('./products/'.$orderItem->image )}}" alt="{{ $orderItem->sku }} avatar">
                 </div>
                 <div>
                     <h3 class="mb-2">{{$orderItem->name}}</h3>
                     <h1 class="text-xs mb-2">{{$orderItem->category}}</h1>
-                    <h1 class="text-xs mb-2">{{$orderItem->quantity}}</h1>
+                    <h1 class="text-xs mb-2">x{{$orderItem->quantity}}</h1>
                 </div>
                 <div class="flex items-center ml-auto mr-4 text-orange-600">
                     <h3>₱{{ $orderItem->price * $orderItem->quantity }}</h3>

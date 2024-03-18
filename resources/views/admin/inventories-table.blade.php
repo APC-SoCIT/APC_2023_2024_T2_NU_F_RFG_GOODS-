@@ -42,7 +42,7 @@
                         </div>
                         @else 
                             <div class="flex items-center">
-                                <span>Shipped</span>
+                                <span>Sold</span>
                                 <div class="h-2.5 w-2.5 rounded-full bg-red-500 ml-2"></div>
                             </div>
                         @endif

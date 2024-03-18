@@ -18,6 +18,7 @@ class OrderController extends Controller
                         ->first();
         $orderItems = OrderItem::leftjoin('orders', 'order_items.order_id', '=', 'orders.id')
         ->leftjoin('products', 'products.id', '=', 'order_items.product_id')
+        ->join('product_categories', 'product_categories.id', '=', 'products.category_id')
         ->where('order_id','=',$order->id)
         ->get();
 

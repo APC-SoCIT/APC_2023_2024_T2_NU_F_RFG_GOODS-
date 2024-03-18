@@ -13,6 +13,10 @@
 <body class="bg-gray-100">
     @include('admin.partials.admin-sidebar')
 
+    <div id="toast-cancel" class="fixed hidden items-center w-full max-w-xs p-4 space-x-4 text-white bg-orange-500 divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow right-5 bottom-5" role="alert">
+        <div class="text-sm font-bold">Press the button again to cancel the order.</div>
+    </div>
+
     <div class="p-4 sm:ml-64">
         <div class="mt-16">
 
@@ -80,6 +84,7 @@
 
                             @php
                                 $statusMap = [
+                                    'canceled',
                                     'processing',
                                     'confirmed',
                                     'preparing',
@@ -218,6 +223,7 @@
                                 });
 
                                 var statusMapNext = {
+                                    'canceled': 'processing',
                                     'processing': 'confirmed',
                                     'confirmed': 'preparing',
                                     'preparing': 'scheduled',
@@ -228,7 +234,8 @@
                                     'completed': 'completed'
                                 };
                                 var statusMapBack = {
-                                    'processing': 'processing', 
+                                    'canceled': 'canceled', 
+                                    'canceled': 'processing', 
                                     'confirmed': 'processing',
                                     'preparing': 'confirmed',   
                                     'scheduled': 'preparing',   
@@ -237,7 +244,6 @@
                                     'torate': 'received',
                                     'completed': 'torate'
                                 };
-
 
                                 const showLoadingScreen = () => {
                                     $('tr').css('opacity', 0.5);
@@ -268,6 +274,8 @@
                                     });
                                 }
 
+                                var tries = 0;
+
                                 $('#datatable').on('click', '#status-next', function() {
                                     const orderId = $(this).data('order-id');
                                     const oldStatus = $(this).data('status');
@@ -279,7 +287,19 @@
                                     const orderId = $(this).data('order-id');
                                     const oldStatus = $(this).data('status');
                                     const newStatus = statusMapBack[oldStatus] || 'processing';
-                                    updateStatusAndFetch(orderId, oldStatus, newStatus);
+                                    if (newStatus == 'canceled') {
+                                        if (tries == 0) {
+                                            showDeleteToast();
+                                            tries = 1;
+                                        } else if (tries == 1) {
+                                            updateStatusAndFetch(orderId, oldStatus, newStatus);
+                                            tries = 0;
+                                        } else {
+                                            tries = 0;
+                                        }
+                                    } else {
+                                        updateStatusAndFetch(orderId, oldStatus, newStatus);
+                                    }
                                 });
 
                                 $('#datatable').empty();
@@ -410,6 +430,17 @@
         $('tr').css('opacity', 1);
     };
 
+    function showDeleteToast() {
+        var toast = document.getElementById('toast-cancel');
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+
+        setTimeout(function() {
+            toast.classList.add('hidden');
+            toast.classList.remove('flex');
+        }, 5000); // 5000 milliseconds = 5 seconds
+    }
+
     function updateStatusAndFetch(orderId, oldStatus, newStatus) {
         var statusText = $('span[data-order-id="' + orderId + '"]');
         fetchforupdate(orderId, newStatus, statusText);
@@ -506,6 +537,7 @@
                     });
 
                     var statusMapNext = {
+                        'canceled': 'processing',
                         'processing': 'confirmed',
                         'confirmed': 'preparing',
                         'preparing': 'scheduled',
@@ -516,7 +548,8 @@
                         'completed': 'completed'
                     };
                     var statusMapBack = {
-                        'processing': 'processing', 
+                        'canceled': 'canceled', 
+                        'canceled': 'processing', 
                         'confirmed': 'processing',
                         'preparing': 'confirmed',   
                         'scheduled': 'preparing',   
@@ -567,7 +600,6 @@
                         console.log(orderId, oldStatus, newStatus);
                         updateStatusAndFetch(orderId, oldStatus, newStatus);
                     });
-
 
                     $('#datatable').empty();
                     $('#datatable').html(tempContainer);
@@ -648,6 +680,7 @@
         });
 
         var statusMapNext = {
+            'canceled': 'processing',
             'processing': 'confirmed',
             'confirmed': 'preparing',
             'preparing': 'scheduled',
@@ -658,7 +691,8 @@
             'completed': 'completed'
         };
         var statusMapBack = {
-            'processing': 'processing', 
+            'canceled': 'canceled', 
+            'processing': 'canceled', 
             'confirmed': 'processing',
             'preparing': 'confirmed',   
             'scheduled': 'preparing',   
@@ -712,6 +746,8 @@
             });
         }
 
+        var tries = 0;
+
         nextButtonArray.forEach(function (button) {
             button.addEventListener('click', function() {
                 var orderId = $(this).data('order-id');
@@ -726,9 +762,22 @@
             button.addEventListener('click', function() {
                 var orderId = $(this).data('order-id');
                 var oldStatus = $(this).data('status');
-                var newStatus = statusMapBack[oldStatus] || 'processing';
-                console.log(orderId, oldStatus, newStatus);
-                updateStatusAndFetch(orderId, oldStatus, newStatus);
+                var newStatus = statusMapBack[oldStatus] || 'canceled';
+                console.log(tries);
+                if (newStatus == 'canceled') {
+                    if (tries == 0) {
+                        showDeleteToast();
+                        tries = 1;
+                    } else if (tries == 1) {
+                        updateStatusAndFetch(orderId, oldStatus, newStatus);
+                        tries = 0;
+                    } else {
+                        tries = 0;
+                    }
+                } else {
+                    updateStatusAndFetch(orderId, oldStatus, newStatus);
+                }
+                
             });
         });
 
