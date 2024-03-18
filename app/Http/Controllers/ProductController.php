@@ -90,6 +90,7 @@ class ProductController extends Controller
                             'products.created_at'
                         )
                         ->whereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->search_term) . '%'])
+                        ->where('products.status','!=','archived')
                         ->when($request->sort_by, function($q)use($request){
                             if ($request->sort_by != "default") {
                                 if ($request->sort_by == 'sort_by_name_asc') {

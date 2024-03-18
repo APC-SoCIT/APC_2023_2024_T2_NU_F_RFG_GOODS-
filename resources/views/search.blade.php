@@ -58,14 +58,13 @@
 
                         <div id="accordion-collapse-availability-body" class="hidden" aria-labelledby="accordion-collapse-availability">
                             <div class="p-2">
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter_stock')">
-                                    <input id="filter_stock" type="checkbox" 
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'instock')">
+                                    <input id="instock" name="instock" type="checkbox" 
                                     class="text-black focus:ring-transparent focus:outline-none" 
-                                    onclick="toggleCheckboxInDiv(this.parentNode, 'filter_stock')"
-                                    onclick="">
-                                    <label for="filter_stock" 
+                                    onclick="toggleCheckboxInDiv(this.parentNode, 'instock')">
+                                    <label for="instock" 
                                     class="select-none" 
-                                    onclick="toggleCheckboxInDiv(this.parentNode, 'filter_stock')">In Stock</label>
+                                    onclick="toggleCheckboxInDiv(this.parentNode, 'instock')">In Stock</label>
                                 </div>
                             </div>
                         </div>
@@ -306,7 +305,7 @@
                         page: page,
                         selectedCategories: selectedCategories,
                         selectedRatings: selectedRatings,
-                        filter_stock: stock,
+                        inStock: stock,
                         search_term: search_term,
                         sort_by: sort_by
                     },
@@ -331,10 +330,8 @@
             $('body').on('change', '[name="category_checkbox"]', function(){
                 var isChecked = $(this).prop('checked');
                 if ($(this).val() === 'default') {
-                    // If categoryAll is checked, check all other category checkboxes
                     $('[name="category_checkbox"]').not(this).prop('checked', isChecked);
                 } else {
-                    // If any other category checkbox is unchecked, uncheck categoryAll checkbox
                     $('#filter\\.categoryAll').prop('checked', false);
                 }
 
@@ -351,7 +348,7 @@
                     selectedRatings.push($(this).val());
                 });
 
-                var stock = $('#filter_stock').val();
+                var stock = $(this).is(':checked');
                 var search_term = "{{ request('search') }}";
                 var sort_by = $('#sort_by').val();
 
@@ -370,7 +367,7 @@
                     selectedRatings.push($(this).val());
                 });
 
-                var stock = $(this).is(':checked');
+                var stock = $('#filter_stock').val();
                 var search_term = "{{ request('search') }}";
                 var sort_by = $('#sort_by').val();
 
