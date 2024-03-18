@@ -311,7 +311,6 @@ class ProductController extends Controller
 
         return view('admin.products', ['products' => $products, 'categoryList' => $categoryList]);
     }
-    
 
 
     public function save(Request $request){

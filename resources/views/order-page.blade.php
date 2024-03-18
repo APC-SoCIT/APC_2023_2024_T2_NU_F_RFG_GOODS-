@@ -287,7 +287,7 @@
                     @endif
                 @endif
                 <div class="p-6 flex justify-end">
-                    <a href="" class="w-28 h-18 bg-orange-600 p-2 text-white text-xs flex items-center justify-center">View Product</a>
+                    <a href="{{ route('product.get', ['product' => $orderItem->product_id]) }}" class="w-28 h-18 bg-orange-600 p-2 text-white text-xs flex items-center justify-center">View Product</a>
                 </div>
             @endforeach
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
