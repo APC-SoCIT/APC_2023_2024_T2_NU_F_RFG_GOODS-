@@ -64,7 +64,9 @@ class ProductController extends Controller
         )
         ->where('products.status','!=','archived')
         ->when($request->input('search'), function($q)use($request){
-            $q->where('products.name', 'LIKE', '%' . $request->input('search') . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->input('search')) . '%']);
+            $q->where('products.name', 'LIKE', '%' . $request->input('search') . '%')
+            ->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->input('search')) . '%'])
+            ->where('products.status','!=','archived');
         })
         ->paginate(12);
         $categoryList = ProductCategory::select('id', 'category')->get();
