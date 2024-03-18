@@ -86,9 +86,11 @@ class HomeController extends Controller
 
                 $ordersLastWeek = Order::whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])->get();
                 $ordersThisWeek = Order::whereBetween('created_at', [$startOfThisWeek, $endOfThisWeek])->get();
+                $deliveries = Delivery::with('order')->get();
 
                 $totalPriceLastWeek = $ordersLastWeek->sum('price');
                 $totalPriceThisWeek = $ordersThisWeek->sum('price');
+                
 
                 if ($totalPriceLastWeek > 0) {
                     $percentageRevenue = (($totalPriceThisWeek - $totalPriceLastWeek) / $totalPriceLastWeek) * 100;

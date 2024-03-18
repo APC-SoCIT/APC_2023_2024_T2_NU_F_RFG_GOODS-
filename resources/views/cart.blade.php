@@ -318,7 +318,7 @@
               <form id="deliveryForm" action="PLACEHOLDERDELIVER.php" method="post">
                 <div class="flex w-full rounded-lg select-none bg-white">
                     <label class="radio flex w-full items-center justify-center rounded-lg cursor-pointer">
-                        <input type="radio" name="deliveryMethod" value="express" class="peer hidden" checked="">
+                        <input type="radio" name="deliveryMethod" value="express" class="peer hidden">
                         <span class="font-bold tracking-widest text-center peer-checked:bg-orange-500 w-full peer-checked:text-white text-black p-2 rounded-lg transition duration-150 ease-in-out">Express</span>
                     </label>
                     <label class="radio flex flex-grow w-full items-center justify-center rounded-lg cursor-pointer">
@@ -337,7 +337,7 @@
                 </div>
               </form>
               <p class="text-xs mt-2 text-white"><span style="color: blue">*</span>only available for deliveries within metro manila</p>
-              <p class="text-xs text-white"><span style="color: blue">*</span>same day delivery only available within 3pm to 12am, it is currently <span id="hour" class="font-bold"></span><span id="am_pm"></span> in your time.</p>
+              <p class="text-xs text-white"><span style="color: blue">*</span>same day delivery is not available between 3pm and 12am.</p>
 
             </div>
 
@@ -472,6 +472,7 @@
 
                                     document.addEventListener('DOMContentLoaded', function() {
                                       var inputDeliveryMethod = document.getElementById('input_deliv');
+                                      
 
                                       deliveryMethodRadios.forEach(function(radio) {
                                           radio.addEventListener('change', function() {

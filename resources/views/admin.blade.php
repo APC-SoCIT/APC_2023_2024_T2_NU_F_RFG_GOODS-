@@ -115,7 +115,7 @@
                <p class="text-left w-full text-xl text-black mb-4">UPCOMING DELIVERIES</p>
                <div class="w-full flex flex-col items-center justify-end h-full gap-4 text-rfg-text">
                   <div class="flex flex-col w-full bg-gray-200 p-4 gap-2 rounded-2xl">
-                     <p class="w-full text-center text-lg font-bold text-black">TODAY</p>
+                     <p class="w-full text-center text-xs font-bold text-black">TODAY</p>
                      <hr class="border-black">
 
                      <script>
@@ -128,61 +128,48 @@
                         }
                      </script>
 
-                     <div id="container.list.usernamest" class="flex justify-between gap-2 rounded-lg">
-                        <div id="container.usernamest" class="flex flex-col w-full justify-between text-lg">
+                     @foreach ($deliveries as $delivery)
+                     <div class="flex justify-between gap-2 rounded-lg">
+                        <div class="flex flex-col w-full justify-between text-lg">
                            <div class="flex h-full w-full hover:bg-white pl-2 rounded-lg">
-                              <a href="" class="flex items-center h-full w-full">
-                                 <p id="ordernumber1" class="text-black">Order Number</p>
-                              </a>
-                              <button class="hover:bg-rfg-accent hover:text-rfg-text h-full padding-top: 100% px-2 rounded-lg">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-copy" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                 </svg>
-                              </button>
-                           </div>
-                           <div class="flex h-full w-full hover:bg-white pl-2 rounded-lg">
-                              <a href="" class="flex items-center h-full w-full">
-                                 <p id="ordernumber2" class="text-black">Order Number</p>
-                              </a>
-                              <button class="hover:bg-rfg-accent hover:text-rfg-text h-full padding-top: 100% px-2 rounded-lg">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-copy" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                 </svg>
-                              </button>
+                                 <a href="{{ url('/admin/deliveries') }}" class="flex items-center h-full w-full">
+                                    <p class="text-black">ID: <span class="font-bold">{{ $delivery->order->order_reference_id }}</span></p>
+                                 </a>
+                                 <button class="hover:bg-rfg-accent hover:text-black h-full px-2 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-copy" viewBox="0 0 16 16">
+                                       <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                                    </svg>
+                                 </button>
                            </div>
                         </div>
-                        <div id="container.date" class="rounded-lg px-1 hover:bg-white" onmouseover="changeBackgroundColor('container.list.usernamest')" onmouseout="resetBackgroundColor('container.list.usernamest')">
+                        <div class="rounded-lg px-1 hover:bg-white" onmouseover="changeBackgroundColor('container.list.usernamesb')" onmouseout="resetBackgroundColor('container.list.usernamesb')">
+                           <!-- Add content here if needed -->
                         </div>
                      </div>
+                     @endforeach
                   </div>
 
                   <div class="flex flex-col w-full bg-gray-200 p-4 gap-2 rounded-2xl">
-                     <div id="container.list.usernamesb" class="flex justify-between gap-2 rounded-lg">
-                        <div id="container.usernamesb" class="flex flex-col w-full justify-between text-lg">
-                           <div class="flex h-full w-full hover:bg-white pl-2 rounded-lg">
-                              <a href="" class="flex items-center h-full w-full">
-                                 <p id="ordernumber3" class="text-black">Order Number</p>
-                              </a>
-                              <button class="hover:bg-rfg-accent hover:text-black h-full padding-top: 100% px-2 rounded-lg">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-copy" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                 </svg>
-                              </button>
+                     <p class="w-full text-center text-xs font-bold text-black">UPCOMING</p>
+                                                @foreach ($deliveries as $delivery)
+                           <div class="flex justify-between gap-2 rounded-lg">
+                              <div class="flex flex-col w-full justify-between text-lg">
+                                 <div class="flex h-full w-full hover:bg-white pl-2 rounded-lg">
+                                       <a href="{{ url('/admin/deliveries') }}" class="flex items-center h-full w-full">
+                                          <p class="text-black">ID: <span class="font-bold">{{ $delivery->order->order_reference_id }}</span></p>
+                                       </a>
+                                       <button class="hover:bg-rfg-accent hover:text-black h-full px-2 rounded-lg">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-copy" viewBox="0 0 16 16">
+                                             <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                                          </svg>
+                                       </button>
+                                 </div>
+                              </div>
+                              <div class="rounded-lg px-1 hover:bg-white" onmouseover="changeBackgroundColor('container.list.usernamesb')" onmouseout="resetBackgroundColor('container.list.usernamesb')">
+                                 <!-- Add content here if needed -->
+                              </div>
                            </div>
-                           <div class="flex h-full w-full hover:bg-white pl-2 rounded-lg">
-                              <a href="" class="flex items-center h-full w-full">
-                                 <p id="ordernumber4 "class="text-black">Order Number</p>
-                              </a>
-                              <button class="hover:bg-rfg-accent hover:text-black h-full padding-top: 100% px-2 rounded-lg">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-copy" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                                 </svg>
-                              </button>
-                           </div>
-                        </div>
-                        <div id="container.date" class="rounded-lg px-1 hover:bg-white" onmouseover="changeBackgroundColor('container.list.usernamesb')" onmouseout="resetBackgroundColor('container.list.usernamesb')">
-                        </div>
-                     </div>
+                           @endforeach
                   </div>
 
                </div>
