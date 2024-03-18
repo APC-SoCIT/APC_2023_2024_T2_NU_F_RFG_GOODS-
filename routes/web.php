@@ -34,6 +34,7 @@ Route::get('/item', function () {
     return view('products.item');
 });
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -136,5 +137,8 @@ Route::get('/product', function () {
 });
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
+
+
+
 
 

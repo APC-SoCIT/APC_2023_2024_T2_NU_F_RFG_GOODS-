@@ -167,6 +167,19 @@ class ProductController extends Controller
 
     }
 
+    
+
+    public function sortProducts(Request $request)
+    {
+        $sortBy = $request->input('sort_by');
+        $orderBy = $sortBy == 'asc' ? 'asc' : 'desc';
+        
+        // Query to get products sorted by price
+        $products = Product::orderBy('price', $orderBy)->paginate(12);
+
+        return view('partials.products', compact('products'))->render();
+    }
+
     // public function search(Request $request) {
     //     // $search = $request->input('search');
 
@@ -466,4 +479,6 @@ class ProductController extends Controller
 
         return view('product', ['product' => $productInfo]);
     }
+
+    
 }

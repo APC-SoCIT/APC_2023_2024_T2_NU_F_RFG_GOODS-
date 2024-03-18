@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\ProductCategory;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
