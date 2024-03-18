@@ -139,27 +139,27 @@ class ProductController extends Controller
                                 }
                             }
                         })
-                        ->when($request->inStock, function($q)use($request){
-                            $q->where('stock', '>', 0);
+                        
+                        ->when(in_array('5', $request->selectedRatings), function($q) {
+                            $q->where('rating', '=', 5);
                         })
-                        ->when($request->rating5, function($q)use($request){
-                            $q->where('rating', '==', 5);
+                        ->when(in_array('4', $request->selectedRatings), function($q) {
+                            $q->where('rating', '=', 4);
                         })
-                        ->when($request->rating4, function($q)use($request){
-                            $q->where('rating', '<', 5);
+                        ->when(in_array('3', $request->selectedRatings), function($q) {
+                            $q->where('rating', '=', 3);
                         })
-                        ->when($request->rating3, function($q)use($request){
-                            $q->where('rating', '<', 4);
+                        ->when(in_array('2', $request->selectedRatings), function($q) {
+                            $q->where('rating', '=', 2);
                         })
-                        ->when($request->rating2, function($q)use($request){
-                            $q->where('rating', '<', 3);
+                        ->when(in_array('1', $request->selectedRatings), function($q) {
+                            $q->where('rating', '=', 1);
                         })
-                        ->when($request->rating1, function($q)use($request){
-                            $q->where('rating', '<', 2);
+                        ->when(in_array('0', $request->selectedRatings), function($q) {
+                            return $q;
                         })
-                        ->when($request->rating0, function($q)use($request){
-                            $q->where('rating', '<', 1);
-                        })
+                        
+                        
                         ->paginate(12);
 
             return view('search-grid', ['products' => $products, 'categoryList' => $categoryList])->render();
@@ -168,8 +168,6 @@ class ProductController extends Controller
         return view('search', ['products' => $products, 'categoryList' => $categoryList]);
 
     }
-
-    
 
     public function sortProducts(Request $request)
     {
@@ -181,63 +179,6 @@ class ProductController extends Controller
 
         return view('partials.products', compact('products'))->render();
     }
-
-    // public function search(Request $request) {
-    //     // $search = $request->input('search');
-
-    //     $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
-    //         ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
-    //         ->leftJoin('ratings', 'products.id', '=', 'ratings.product_id')
-    //         ->select(
-    //             'products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
-    //             'products.stock',
-    //             'products.status',
-    //             DB::raw('ROUND(AVG(ratings.rating_score), 2) as avg_rating')
-    //         )
-    //         ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 
-    //         'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
-    //         'products.stock',
-    //         'products.status')
-    //         ->paginate(12);
-
-        
-    //         // if ($search) {
-    //     //     $products = $products->where('products.name', 'LIKE', '%' . $search . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($search) . '%']);
-    //     // }
-        
-    //     $categoryList = ProductCategory::select('id', 'category')->get();
-    //     if($request->ajax()){
-    //         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
-    //         ->leftJoin('inventories', 'products.id', '=', 'inventories.product_id')
-    //         ->leftJoin('ratings', 'products.id', '=', 'ratings.product_id')
-    //         ->select(
-    //             'products.id', 'products.image', 'products.sku', 'products.name', 'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
-    //             'products.stock',
-    //             'products.status',
-    //             DB::raw('ROUND(AVG(ratings.rating_score), 2) as avg_rating')
-    //         )
-    //         ->groupBy('products.id', 'products.image', 'products.sku', 'products.name', 
-    //         'products.price', 'product_categories.category', 'products.desc', 'products.min_qty', 'products.max_qty', 'products.reorder_pt',
-    //         'products.stock','products.status')
-    //         ->when($request->search_term, function($q) use ($request){
-    //                         $q->where('products.name', 'LIKE', '%' . $request->search_term . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->search_term) . '%']);
-    //                     })
-    //                     ->when($request->rating, function($q) use ($request){
-    //                         $q->where('avg_rating',$request->rating);
-    //                     })
-    //                     ->when($request->stock, function($q) use ($request){
-    //                         $q->where('stock',$request->stock);
-    //                     })
-    //                     ->when($request->categories, function ($q) use ($request) {
-    //                         $q->whereIn('category', $request->categories);
-    //                     })
-    //                     ->paginate(12);
-
-    //         return view('search-grid', ['products' => $products, 'categoryList' => $categoryList])->render();
-    //     }
-
-    //     return view('search', ['products' => $products, 'categoryList' => $categoryList]);
-    // }
 
     public function index(Request $request) {   
         $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')

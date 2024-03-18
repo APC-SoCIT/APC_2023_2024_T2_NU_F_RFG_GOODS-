@@ -133,7 +133,7 @@
                         <div id="accordion-collapse-rating-body" class="hidden transition-all" aria-labelledby="accordion-collapse-heading-3">
                             <div class="p-2">
                             <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating5')">
-                                    <input id="filter.rating5" type="radio" name="rating" value="5" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating5')">
+                                    <input id="filter.rating5" type="radio" name="rating" value="5" class="rating_checkbox text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating5')">
                                     <label for="filter.rating5" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating5')">5</label>
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 5; $i++)
@@ -145,7 +145,7 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating4')">
-                                <input id="filter.rating4" type="radio" name="rating" value="4" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating4')">
+                                <input id="filter.rating4" type="radio" name="rating" value="4" class="rating_checkbox text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating4')">
                                     <label for="filter.rating4" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating4')">4</label>
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 4; $i++)
@@ -162,7 +162,7 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating3')">
-                                <input id="filter.rating3" type="radio" name="rating" value="3" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating3')">
+                                <input id="filter.rating3" type="radio" name="rating" value="3" class="rating_checkbox text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating3')">
                                     <label for="filter.rating3" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating3')">3</label>
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 3; $i++)
@@ -179,7 +179,7 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating2')">
-                                    <input id="filter.rating2" type="radio" name="rating" value="2" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating2')">
+                                    <input id="filter.rating2" type="radio" name="rating" value="2" class="rating_checkbox text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating2')">
                                     <label for="filter.rating2" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating2')">2</label>
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 2; $i++)
@@ -196,7 +196,7 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating1')">
-                                    <input id="filter.rating1" type="radio" name="rating" value="1" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating1')">
+                                    <input id="filter.rating1" type="radio" name="rating" value="1" class="rating_checkbox text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating1')">
                                     <label for="filter.rating1" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating1')">1</label>
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 1; $i++)
@@ -213,7 +213,7 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating0')">
-                                <input id="filter.rating1" type="radio" name="rating" value="0" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating0')" checked>
+                                <input id="filter.rating0" type="radio" name="rating" value="0" class="rating_checkbox text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating0')" checked>
                                     <label for="filter.rating0" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating0')">No reviews</label>
                                 </div>
                             </div>
@@ -255,13 +255,6 @@
                                     @include('search-grid')
                                     <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
                             </div>
-                            {{-- <div id="loadingScreen"role="status" class="z-100 hidden items-center justify-center absolute">
-                                <svg aria-hidden="true" class="w-1/2 h-1/2 text-gray-200 animate-spin  fill-rfg-accent" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                                </svg>
-                                <span class="sr-only">Loading...</span>
-                            </div> --}}
                         </div>
                         {{-- search container end --}}
                         
@@ -377,10 +370,10 @@
                     selectedRatings.push($(this).val());
                 });
 
-                var stock = $('#filter_stock').val();
+                var stock = $(this).is(':checked');
                 var search_term = "{{ request('search') }}";
                 var sort_by = $('#sort_by').val();
-                
+
                 fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
             });
 
@@ -407,28 +400,10 @@
                 fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
 
             });
-
-            // $('body').on('keyup', '#searchInput', function(){
-            //     var page = $('#hidden_page').val();
-            //     var selectedCategories = [];
-            //     $('.category_checkbox:checked').each(function () {
-            //         selectedCategories.push($(this).val().replace('category.', ''));
-            //     });
-
-            //     var selectedRatings = [];
-            //     $('.rating_checkbox:checked').each(function () {
-            //         selectedRatings.push($(this).val());
-            //     });
-
-            //     var stock = $('#instock').val();
-            //     var search_term = $('#searchInput').val();
-            //     var sort_by = $('#sort_by').val();
-                
-            //     fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
-            // });
             
         });
 
     </script>
+
 </body>
 </html>

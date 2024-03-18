@@ -47,13 +47,13 @@
 
                         
                     </div>
-                    <div id="map-container" class="ml-5 mr-1">
-                            <div id="map" class="h-96"></div>
+                    <div id="map-container" class="ml-5 mr-1 h-full">
+                            <div id="map" class="h-full"></div>
                                 <input type="hidden" name="longitude" id="longitude" value="">
                                 <input type="hidden" name="latitude" id="latitude" value="">
                                 <input type="submit" value="Save" id="addressSaveButton" class="w-full hover:bg-orange-600 bg-orange-500">
                                 </input>
-                        </div>
+                    </div>
                 </div>
 
             </form>
