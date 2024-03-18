@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('addressline')->nullable();
             $table->string('address_lat')->nullable();
             $table->string('address_long')->nullable();
-            $table->string('priority');
             $table->string('eta');
             $table->string('shipping_service');
             $table->string('shipping_reference_id')->nullable();

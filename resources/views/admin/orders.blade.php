@@ -14,7 +14,7 @@
     @include('admin.partials.admin-sidebar')
 
     <div id="toast-cancel" class="fixed hidden items-center w-full max-w-xs p-4 space-x-4 text-white bg-orange-500 divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow right-5 bottom-5" role="alert">
-        <div class="text-sm font-bold">Press the button again to cancel the order.</div>
+        <div class="text-sm font-bold" id="toast-text"></div>
     </div>
 
     <div class="p-4 sm:ml-64">
@@ -210,8 +210,6 @@
                                 function updateStatusAndFetch(orderId, oldStatus, newStatus) {
                                     var statusText = $('span[data-order-id="' + orderId + '"]');
                                     fetchforupdate(orderId, newStatus, statusText);
-                                    1111
-                                    // Update the data-status attribute of nextButton and backButton
                                     nextButtonArray.filter(function(button) {
                                         return $(button).data('order-id') === orderId;
                                     }).forEach(function(button) {
@@ -244,7 +242,20 @@
                                     const orderId = $(this).data('order-id');
                                     const oldStatus = $(this).data('status');
                                     const newStatus = statusMapNext[oldStatus] || 'completed';
-                                    updateStatusAndFetch(orderId, oldStatus, newStatus);
+
+                                    if (newStatus == 'scheduled') {
+                                        if (tries == 0) {
+                                            showToast('Press the button again to add a delivery entry.');
+                                            tries = 1;
+                                        } else if (tries == 1) {
+                                            updateStatusAndFetch(orderId, oldStatus, newStatus);
+                                            tries = 0;
+                                        } else {
+                                            tries = 0;
+                                        }
+                                    } else {
+                                        updateStatusAndFetch(orderId, oldStatus, newStatus);
+                                    }
                                 });
 
                                 $('#datatable').on('click', '#status-back', function() {
@@ -267,7 +278,7 @@
 
                                     if (newStatus == 'canceled') {
                                         if (tries == 0) {
-                                            showDeleteToast();
+                                            showToast('Press the button again to cancel the order.');
                                             tries = 1;
                                         } else if (tries == 1) {
                                             updateStatusAndFetch(orderId, oldStatus, newStatus);
@@ -275,15 +286,16 @@
                                         } else {
                                             tries = 0;
                                         }
-                                    } else if () {
-
                                     } else {
                                         updateStatusAndFetch(orderId, oldStatus, newStatus);
                                     }
                                 });
 
-                                function showDeleteToast() {
+                                function showToast(message) {
                                     var toast = document.getElementById('toast-cancel');
+                                    var toastText = document.getElementById('toast-text');
+
+                                    toastText.textContent = message;
                                     toast.classList.remove('hidden');
                                     toast.classList.add('flex');
 
@@ -421,8 +433,11 @@
         $('tr').css('opacity', 1);
     };
 
-    function showDeleteToast() {
+    function showToast(message) {
         var toast = document.getElementById('toast-cancel');
+        var toastText = document.getElementById('toast-text');
+
+        toastText.textContent = message;
         toast.classList.remove('hidden');
         toast.classList.add('flex');
 
@@ -551,28 +566,28 @@
                     };
 
                     fetchforupdate = (orderId, newStatus, statusText) => {
-                            $.ajax({
-                                url:"/admin/orders/statusupdate?",
-                                method: "PATCH",
-                                data: {
-                                    orderid: orderId,
-                                    newstatus: newStatus,
-                                    type: 'update',
-                                    _token: '{{ csrf_token() }}'
-                                },
-                                beforeSend: function() {
-                                },
-                                success:function(data){
-                                    statusText.text(newStatus);
-                                },
-                                complete: function(){
-                                },
-                                error: function (xhr, status, error) {
-                                    console.error(xhr.responseText);
-                                    console.error(error);
-                                }
-                            });
-                        }
+                        $.ajax({
+                            url:"/admin/orders/statusupdate?",
+                            method: "PATCH",
+                            data: {
+                                orderid: orderId,
+                                newstatus: newStatus,
+                                type: 'update',
+                                _token: '{{ csrf_token() }}'
+                            },
+                            beforeSend: function() {
+                            },
+                            success:function(data){
+                                statusText.text(newStatus);
+                            },
+                            complete: function(){
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(xhr.responseText);
+                                console.error(error);
+                            }
+                        });
+                    }
 
                     var nextButtonArray = Array.from(nextButton);
                     var backButtonArray = Array.from(backButton);
@@ -758,6 +773,29 @@
             });
         }
 
+        const adddelivery = (orderId) => {
+            $.ajax({
+                url:"/admin/orders/deliveryadd",
+                method: "POST",
+                data: {
+                    orderid: orderId,
+                    type: 'deliveryadd',
+                    _token: '{{ csrf_token() }}'
+                },
+                beforeSend: function() {
+                },
+                success:function(data){
+                },
+                complete: function(){
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    console.error(error);
+                }
+            });
+        }
+
+
         var tries = 0;
 
         nextButtonArray.forEach(function (button) {
@@ -766,7 +804,21 @@
                 var oldStatus = $(this).data('status');
                 var newStatus = statusMapNext[oldStatus] || 'completed';
                 console.log(orderId, oldStatus, newStatus);
-                updateStatusAndFetch(orderId, oldStatus, newStatus);
+                if (newStatus == 'scheduled') {
+                    if (tries == 0) {
+                        showToast('Press the button again to add a delivery entry.');
+                        tries = 1;
+                    } else if (tries == 1) {
+                        updateStatusAndFetch(orderId, oldStatus, newStatus);
+                        adddelivery(orderId);
+                        showToast('Successfully added a delivery entry.');
+                        tries = 0;
+                    } else {
+                        tries = 0;
+                    }
+                } else {
+                    updateStatusAndFetch(orderId, oldStatus, newStatus);
+                }
             });
         });
 
@@ -778,7 +830,17 @@
                 console.log(tries);
                 if (newStatus == 'canceled') {
                     if (tries == 0) {
-                        showDeleteToast();
+                        showToast('Press the button again to cancel the order.');
+                        tries = 1;
+                    } else if (tries == 1) {
+                        updateStatusAndFetch(orderId, oldStatus, newStatus);
+                        tries = 0;
+                    } else {
+                        tries = 0;
+                    }
+                } else if (newStatus == 'preparing') {
+                    if (tries == 0) {
+                        showToast('Press the button again to cancel the delivery for this order.');
                         tries = 1;
                     } else if (tries == 1) {
                         updateStatusAndFetch(orderId, oldStatus, newStatus);

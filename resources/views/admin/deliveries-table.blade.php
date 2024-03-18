@@ -38,7 +38,11 @@
                         <tr class="hover:bg-gray-100">
                             <td class="p-4 whitespace-nowrap text-base font-medium">{{$delivery->order_id}}</td>
                             <td class="p-4 whitespace-nowrap text-base font-medium">{{$delivery->phone_number}}</td>
-                            <td class="p-4 whitespace-nowrap text-base font-medium">{{$delivery->address_lat}}, {{$delivery->long}}</td>
+                            <td class="p-4 whitespace-nowrap text-base font-medium">
+                                <a class="p-2 rounded-lg bg-cyan-400 text-sm"href="https://www.waze.com/live-map/directions?navigate=yes&to=ll.{{$delivery->address_lat}}%2C{{$delivery->address_long}}&from=place.w.79298707.793249218.3247728">
+                                OPEN IN WAZE</a>
+                                {{-- {{$delivery->address_lat}}, {{$delivery->address_long}} --}}
+                            </td>
                             <td class="p-4 whitespace-nowrap text-base font-medium">{{$delivery->addressline}}, {{$delivery->barangay}}, {{$delivery['city/municipality']}}, {{$delivery['state/province']}}, {{$delivery->region}}</td>
                             <td class="p-4 whitespace-nowrap text-base font-medium">{{$delivery->priority}}</td>
                             <td class="p-4 whitespace-nowrap text-base font-medium">{{$delivery->eta}}</td>

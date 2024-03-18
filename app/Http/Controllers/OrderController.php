@@ -8,8 +8,11 @@ use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\Cart;
 use App\Models\Inventory;
+use App\Models\User;
+use App\Models\Delivery;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -91,14 +94,16 @@ class OrderController extends Controller
     public function ordersadd(Request $request) {
         $userId = $request->input('user_id');
         $status = $request->input('status');
-        $paymentMethod = $request->input('payment_method');
+        $paymentMethod = $request->input('input_payment');
         $cartItems = $request->input('cartItems');
+        
     
         $order = new Order;
         $order->user_id = $userId;
         $order->status = $status;
         $order->payment_method = $paymentMethod;
-        $order->order_reference_id = strtoupper(Str::random(20)); // Generate random ID
+        $order->order_reference_id = strtoupper(Str::random(20));
+        $order->priority = $request->input('input_deliv');
         $order->save();
     
         foreach($cartItems as $cartItem) {
@@ -320,6 +325,34 @@ class OrderController extends Controller
         $order = Order::where('id', $order->id)->first();
         $order->delete();
         return redirect(route('inventory.index'))->with('success', 'Inventory Deleted Successfully');
+    }
+
+    public function adddelivery(Request $request) {
+        $order = Order::find($request->orderid);
+        $user = User::find($order->user_id);
+        $delivery = new Delivery;
+        $delivery->order_id = $order->id;
+        $delivery->phone_number = $user->phone_number;
+        $delivery->region = $user->region;
+        $delivery['state/province'] = $user['state/province'];
+        $delivery['city/municipality'] = $user['city/municipality'];
+        $delivery->barangay = $user->barangay;
+        $delivery->addressline = $user->addressline;
+        $delivery->address_lat = $user->address_lat;
+        $delivery->address_long = $user->address_long;
+        if($order->priority == 'sameday') {
+            $delivery->eta = Carbon::now()->endOfDay();
+            $delivery->shipping_service = 'rfg';
+        } else if ($order->priority == 'nextday') {
+            $delivery->eta = Carbon::now()->addDay()->endOfDay();
+            $delivery->shipping_service = 'rfg';
+        } else if ($order->priority == 'express') {
+            $delivery->eta = Carbon::now()->addDays(3);
+            $delivery->shipping_service = '3rdparty';
+        }
+        $delivery->save();
+
+        return "done";
     }
 
 }
