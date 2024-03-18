@@ -90,6 +90,7 @@ class ProductController extends Controller
                             'products.created_at'
                         )
                         ->whereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->search_term) . '%'])
+                        ->where('products.status','!=','archived')
                         ->when($request->sort_by, function($q)use($request){
                             if ($request->sort_by != "default") {
                                 if ($request->sort_by == 'sort_by_name_asc') {
@@ -140,7 +141,10 @@ class ProductController extends Controller
                             }
                         })
                         ->when($request->inStock, function($q)use($request){
-                            $q->where('stock', '>', 0);
+                            if ($request->inStock=="true") {
+                                $q->where('stock', '>', 0);
+                            } else {
+                            }
                         })
                         ->when($request->rating5, function($q)use($request){
                             $q->where('rating', '==', 5);

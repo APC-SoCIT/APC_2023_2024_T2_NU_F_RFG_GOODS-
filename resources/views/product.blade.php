@@ -203,13 +203,16 @@
                         </script>
 
                         <div class="flex flex-wrap items-center -mx-4 ">
-                            <div class="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
+                            <div class="w-full px-4 mb-4 lg:w-full lg:mb-0">
                                 <form id="addToCartForm{{ $product->id }}" action="{{ route('product.addtocart')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="user_id" value="@if(Auth::user() != null) {{ Auth::user()->id }} @else @endif">
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                     @if($product->stock == 0 || $product->stock < 1 ) 
-                                        <button id="" class="bg-gray-400 w-28 text-black font-semibold rounded-xl" >Out of Stock</button>
+                                        <button
+                                        id="" class="flex items-center justify-center w-full p-4 text-black border font-bold border-orange-400 rounded-md dark:text-black dark:border-orange-400 hover:bg-orange-600 hover:border-orange-600 hover:text-gray-100 dark:bg-orange-400 dark:hover:bg-orange-700 dark:hover:border-orange-700 dark:hover:text-gray-300">
+                                        Out of Stock
+                                        </button>
                                     @else
                                         <button id="addtocartsubmit{{ $product->id }}" type="submit" class="flex items-center justify-center w-full p-4 text-black border font-bold border-orange-500 rounded-md dark:text-black dark:border-amber-200 hover:bg-orange-600 hover:border-orange-600 hover:text-gray-100 dark:bg-amber-200 dark:hover:bg-amber-200 dark:hover:border-orange-700 dark:hover:text-black">
                                             Add to Cart
@@ -244,12 +247,12 @@
                                     });
                                 </script>
                             </div>
-                            <div class="w-full px-4 mb-4 lg:mb-0 lg:w-1/2">
+                            {{-- <div class="w-full px-4 mb-4 lg:mb-0 lg:w-1/2">
                                 <button
                                     class="flex items-center justify-center w-full p-4 text-black border font-bold border-orange-400 rounded-md dark:text-black dark:border-orange-400 hover:bg-orange-600 hover:border-orange-600 hover:text-gray-100 dark:bg-orange-400 dark:hover:bg-orange-700 dark:hover:border-orange-700 dark:hover:text-gray-300">
                                     Buy Now
                                 </button>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
