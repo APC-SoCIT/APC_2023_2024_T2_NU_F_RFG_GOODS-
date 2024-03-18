@@ -355,6 +355,26 @@
                 fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
             });
 
+            $('body').on('change', '#instock', function(){
+                var page = $('#hidden_page').val();
+                var selectedCategories = [];
+                $('[name="category_checkbox"]:checked').each(function () {
+                    selectedCategories.push($(this).val());
+                });
+
+                var selectedRatings = [];
+                $('.rating_checkbox:checked').each(function () {
+                    selectedRatings.push($(this).val());
+                });
+
+                var stock = $(this).is(':checked');
+                console.log(stock);
+                var search_term = "{{ request('search') }}";
+                var sort_by = $('#sort_by').val();
+
+                fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
+            });
+
             $('body').on('change', '.rating_checkbox', function(){
                 var page = $('#hidden_page').val();
                 var selectedCategories = [];

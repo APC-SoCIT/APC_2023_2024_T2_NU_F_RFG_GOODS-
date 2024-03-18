@@ -140,7 +140,12 @@ class ProductController extends Controller
                                 }
                             }
                         })
-                        
+                        ->when($request->inStock, function($q)use($request){
+                            if ($request->inStock=="true") {
+                                $q->where('stock', '>', 0);
+                            } else {
+                            }
+                        })
                         ->when(in_array('5', $request->selectedRatings), function($q) {
                             $q->where('rating', '=', 5);
                         })
