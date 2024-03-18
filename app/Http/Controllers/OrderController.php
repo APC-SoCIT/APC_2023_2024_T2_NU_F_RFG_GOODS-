@@ -9,6 +9,7 @@ use App\Models\OrderItem;
 use App\Models\Cart;
 use App\Models\Inventory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -92,13 +93,14 @@ class OrderController extends Controller
         $status = $request->input('status');
         $paymentMethod = $request->input('payment_method');
         $cartItems = $request->input('cartItems');
-
+    
         $order = new Order;
         $order->user_id = $userId;
         $order->status = $status;
         $order->payment_method = $paymentMethod;
+        $order->order_reference_id = strtoupper(Str::random(20)); // Generate random ID
         $order->save();
-
+    
         foreach($cartItems as $cartItem) {
             //create new order item
             $orderItem = new OrderItem;
@@ -122,9 +124,7 @@ class OrderController extends Controller
             $product->stock -= $cartItem['quantity'];
             $product->save();
         }
-
         return back()->with('success', 'Order successfully placed.');
-
     }
 
     public function orderssuccess(Request $request) {

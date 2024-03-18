@@ -14,7 +14,7 @@
                 @foreach ($orders as $order)
                     <div class="w-full py-2 flex justify-between items-center bg-gray-100 p-10 rounded-lg mb-4">
                         <div>
-                            <p>Reference Number: {{$order->id}}</p>
+                            <p>Reference Number: {{$order->order_reference_id}}</p>
                             @php
                                 $totalPrice = 0;
                                 $itemsCount = count($orderItems[$order->id]); // Count the number of items

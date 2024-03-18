@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('order_reference_id');
             $table->string('status');
             $table->string('payment_method');
             $table->string('payment_reference_id')->nullable();

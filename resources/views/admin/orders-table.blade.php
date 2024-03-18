@@ -36,7 +36,7 @@
                     @foreach ($orders as $order)
                         <tr class="hover:bg-gray-100">
 
-                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $order->order_id_alias }}</td>
+                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $order->order_reference_id }}</td>
                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $order->last_name }}</td>
                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $order->first_name }}</td>
                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900 justify-center flex">
