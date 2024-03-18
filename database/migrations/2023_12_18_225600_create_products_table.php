@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('desc');
             $table->integer('stock');
             $table->string('status');
+            $table->integer('totalusersRating');
             $table->decimal('rating');
             $table->integer('min_qty');
             $table->integer('max_qty');

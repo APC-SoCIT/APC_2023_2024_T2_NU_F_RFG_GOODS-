@@ -11,6 +11,7 @@ use Illuminate\View\View;
 use App\Http\Requests\AddRatingRequest;
 use App\Models\Rating;
 use Illuminate\Validation\ValidationException;
+use App\Models\Product;
 
 class RatingController extends Controller
 {
@@ -25,15 +26,28 @@ class RatingController extends Controller
                         ->exists();
 
         if ($existingRating) {
-            throw ValidationException::withMessages(['order_id' => 'testNO']);
+            throw ValidationException::withMessages(['order_id' => 'test']);
         }
 
         $rating = new Rating();
         $rating->product_id = $request->product_id;
         $rating->order_id = $request->order_id;
-
         $rating->user_id = $user->id;
-
+        $rating->rating_score = $request->ratingStar;
+        $rating->rating_comment = $request->reviewText;
+        $rating->save();
+        $product = Product::find($request->product_id);
+        $product->totalusersRating += 1;
+        $product->save();
+        $currentAverageRating = $product->rating;
+        $totalNumberOfRatings = $product->totalusersRating;
+        $yourRating = $request->ratingStar;
+        $sumOfRatings = $currentAverageRating * $totalNumberOfRatings;
+        $newSumOfRatings = $sumOfRatings + $yourRating;
+        $newTotalNumberOfRatings = $totalNumberOfRatings + 1;
+        $newAverageRating = $newSumOfRatings / $newTotalNumberOfRatings;
+        $product->rating = $newAverageRating;
+        $product->save();
         $rating->rating_score = $request->ratingStar;
         $rating->rating_comment = $request->reviewText;
         $rating->save();
