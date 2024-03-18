@@ -130,16 +130,15 @@
                     </ol>
                 </div>
             </div>
-            <div class="mx-auto border-b-2 border-dotted border-slate-100 p-2 bg-amber-50 drop-shadow-md">
+            @if($order->status == 'completed')
+            <div class="mx-auto border-b-2 my-2 border-dotted border-slate-100 p-2 bg-amber-50 drop-shadow-md">
                 <header class="mx-3 flex justify-between item-center">
                     <div class="pt-2">
                         <h3>Thank you for shopping!</h3>
                     </div>
-                    <div>
-                        <button class="w-48 h-18 bg-orange-600 p-2 text-white">View Product</button>
-                    </div>
                 </header>
             </div> 
+            @endif
             <div class="border-b-2 border-dotted border-slate-100 bg-white drop-shadow-md ">
                 <header class="flex justify-between mx-4 p-2 border-b-2">
                     <div class="text-xl my-4 font-bold">
@@ -231,6 +230,7 @@
                     <div class="mx-4">
                         <img class="h-24 w-24" src="{{ asset('./products/'.$orderItem->image )}}" alt="{{ $orderItem->sku }} avatar">
                     </div>
+                    
                     <div>
                         <h3 class="mb-2">{{$orderItem->name}}</h3>
                         <h1 class="text-xs mb-2">{{$orderItem->category}}</h1>
@@ -286,6 +286,9 @@
                         <p class="ml-6 my-2">You have already rated this product in this order.</p>
                     @endif
                 @endif
+                <div class="p-6 flex justify-end">
+                    <a href="" class="w-28 h-18 bg-orange-600 p-2 text-white text-xs flex items-center justify-center">View Product</a>
+                </div>
             @endforeach
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <tbody class="">

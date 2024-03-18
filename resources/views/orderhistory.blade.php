@@ -30,9 +30,6 @@
                         <div class="text-right">
                             <p class="text-right">Date Ordered: {{$order->created_at}}</p>
                             <a href="/profile/orders/history/{{$order->id}}" class="text-orange-600 text-right">More Details</a>
-                            @if($order->status=='completed')
-                                <a href="/profile/orders/history/{{$order->id}}">Rate Now!</a>
-                            @endif
                         </div>
                     </div>
                 @endforeach

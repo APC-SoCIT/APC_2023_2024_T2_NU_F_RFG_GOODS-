@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Delivery;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -33,6 +34,9 @@ class HomeController extends Controller
                 } else {
                     $percentageOrders = 0;
                 }
+                
+                $products = Product::all();
+                $totalRating = Product::sum('totalusersRating');
 
                 $orders = Order::join('users', 'users.id', '=', 'orders.user_id')
                 ->select('users.id','users.last_name','users.first_name','orders.status','orders.payment_method','orders.payment_reference_id')
@@ -62,6 +66,13 @@ class HomeController extends Controller
                 ->groupBy('orders.id', 'orders.user_id', 'orders.status')
                 ->get();
 
+                $deliveries = Delivery::with(['order.user'])
+                ->select('deliveries.*')
+                ->join('orders', 'orders.id', '=', 'deliveries.order_id')
+                ->join('users', 'users.id', '=', 'orders.user_id')
+                ->select('users.id', 'users.last_name', 'users.first_name', 'orders.status', 'orders.payment_method', 'orders.payment_reference_id')
+                ->get();
+
                 $orderItems = OrderItem::
                 select('order_items.*', 'orders.*')
                 ->leftJoin('orders', 'orders.id', '=', 'order_items.order_id')
@@ -85,8 +96,20 @@ class HomeController extends Controller
                     $percentageRevenue = 0;
                 }
 
-                return view('admin', ['orderItems' => $orders, 'products' => $products, 'percentageOrders' => $percentageOrders, 'todayOrders' => $todayOrders, 
-                'percentageRevenue'=> $percentageRevenue]);
+
+
+
+
+
+
+                return view('admin', [
+                    'orderItems' => $orders,
+                    'deliveries' => $deliveries, 
+                    'products' => $products, 
+                    'percentageOrders' => $percentageOrders, 
+                    'todayOrders' => $todayOrders, 
+                    'percentageRevenue'=> $percentageRevenue,
+                    'totalRating' => $totalRating,]);
             }
             else
             {
