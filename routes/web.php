@@ -12,6 +12,7 @@ use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,6 +138,9 @@ Route::get('/product', function () {
 });
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
+
+Route::post('/ratings/add', [RatingController::class, 'add'])->name('ratings.add');
+Route::post('/profile/orders/history/addrating/{id}', [RatingController::class, 'save'])->name('rating.save');
 
 
 

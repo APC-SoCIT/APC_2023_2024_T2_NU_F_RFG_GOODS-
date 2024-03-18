@@ -201,6 +201,47 @@
                 @php
                     $totalPrice += $orderItem->price * $orderItem->quantity;
                 @endphp
+                
+                @php
+                    $existingRating = \App\Models\Rating::where('product_id', $orderItem->product_id)
+                                                        ->where('order_id', $orderItem->order_id)
+                                                        ->where('user_id', auth()->id())
+                                                        ->first();
+                @endphp
+                @if(!$existingRating)
+                    <form method="POST" action="{{ route('ratings.add') }}">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{$orderItem->product_id}}">
+                        <input type="hidden" name="order_id" value="{{$orderItem->order_id}}">
+                        <div class="overflow-x-auto">
+                            <div class="mx-auto border-slate-100 p-2 bg-amber-50 drop-shadow-md">
+                                <header class="mx-3 flex flex-col lg:flex-row justify-between items-center">
+                                    <div class="mb-4 lg:mb-0">
+                                        <div class="flex items-center whitespace-nowrap">
+                                            <h3 class="inline-block mr-2">Review This Product</h3>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange" class="bi bi-star-fill mr-2" viewBox="0 0 16 16" style="width: 32px; height: 32px;">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                            </svg>
+                                            <select name="ratingStar" id="ratingStar" class="w-1/2 lg:w-1/6 appearance-none bg-transparent border-none outline-none mr-2 focus:border-none">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                            <input type="text" name="reviewText" id="reviewText" class="w-full lg:w-auto border border-gray-300 rounded-md px-3 py-2 focus:outline-none">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="w-full lg:w-48 h-18 bg-orange-600 p-2 text-white">Confirm Rating</button>
+                                    </div>
+                                </header>
+                            </div>
+                        </div>
+                    </form>
+                @else
+                    <p class="ml-6 my-2">You have already rated this product in this order.</p>
+                @endif
             @endforeach
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <tbody class="">
@@ -271,31 +312,6 @@
                             <td class="px-6 py-4 text-black">
                                 <p class="flex justify-end">Gcash/COD</p>
                             </td>
-                            <div class="overflow-x-auto hidden">
-                                <div class="mx-auto border-slate-100 p-2 bg-amber-50 drop-shadow-md">
-                                    <header class="mx-3 flex flex-col lg:flex-row justify-between items-center">
-                                        <div class="mb-4 lg:mb-0">
-                                            <div class="flex items-center whitespace-nowrap">
-                                                <h3 class="inline-block mr-2">Review This Product</h3>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange" class="bi bi-star-fill mr-2" viewBox="0 0 16 16" style="width: 32px; height: 32px;">
-                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                </svg>
-                                                <select name="ratingStar" id="ratingStar" class="w-1/2 lg:w-1/6 appearance-none bg-transparent border-none outline-none mr-2 focus:border-none">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select>
-                                                <input type="text" name="reviewText" id="reviewText" class="w-full lg:w-auto border border-gray-300 rounded-md px-3 py-2 focus:outline-none">
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <button class="w-full lg:w-48 h-18 bg-orange-600 p-2 text-white">Confirm Rating</button>
-                                        </div>
-                                    </header>
-                                </div>
-                            </div>
                         </tr>
                     </tbody>
                 </table>

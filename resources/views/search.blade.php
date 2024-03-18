@@ -231,15 +231,21 @@
                             <p id="hidden_search" class="font-bold ml-1"> '{{ request('search') }}' </p>
                         </div>
                         <div class="pb-2">
-                                <select name="sort" id="sort" class="rounded-lg pl-2 focus:ring-0 border-1 border-gray-200" onchange="sortProducts()">
+                                <select name="sort_by" id="sort_by" class="rounded-lg pl-2 focus:ring-0 border-1 border-gray-200" onchange="sortProducts()">
                                     <option value="" disable selected>
                                         SORT BY:
                                     </option>
-                                    <option value="price_asc">
+                                    <option value="sort_by_price_asc">
                                         Price: Low to High
                                     </option>
-                                    <option value="price_desc">
+                                    <option value="sort_by_price_desc">
                                         Price: High to Low
+                                    </option>
+                                    <option value="sort_by_rating_asc">
+                                        Rating: Low to High
+                                    </option>
+                                    <option value="sort_by_rating_desc">
+                                        Rating: High to Low
                                     </option>
                                 </select>
                         </div>
@@ -351,6 +357,25 @@
                 var stock = $(this).is(':checked');
                 var search_term = "{{ request('search') }}";
                 var sort_by = $('#sort_by').val();
+
+                fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
+            });
+
+            $('body').on('change', '#sort_by', function(){
+                var page = $('#hidden_page').val();
+                var selectedCategories = [];
+                $('[name="category_checkbox"]:checked').each(function () {
+                    selectedCategories.push($(this).val());
+                });
+
+                var selectedRatings = [];
+                $('.rating_checkbox:checked').each(function () {
+                    selectedRatings.push($(this).val());
+                });
+
+                var stock = $('#instock').val();
+                var search_term = "{{ request('search') }}";
+                var sort_by = $(this).val();
 
                 fetch_data(page, selectedCategories, selectedRatings, stock, search_term, sort_by);
             });
