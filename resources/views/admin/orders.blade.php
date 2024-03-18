@@ -196,29 +196,6 @@
                                     });
                                 });
 
-                                var statusMapNext = {
-                                    'canceled': 'processing',
-                                    'processing': 'confirmed',
-                                    'confirmed': 'preparing',
-                                    'preparing': 'scheduled',
-                                    'scheduled': 'intransit',
-                                    'intransit': 'received',
-                                    'received': 'torate',
-                                    'torate': 'completed',
-                                    'completed': 'completed'
-                                };
-                                var statusMapBack = {
-                                    'canceled': 'canceled', 
-                                    'canceled': 'processing', 
-                                    'confirmed': 'processing',
-                                    'preparing': 'confirmed',   
-                                    'scheduled': 'preparing',   
-                                    'intransit': 'scheduled',   
-                                    'received': 'intransit', 
-                                    'torate': 'received',
-                                    'completed': 'torate'
-                                };
-
                                 const showLoadingScreen = () => {
                                     $('tr').css('opacity', 0.5);
                                 };
@@ -251,6 +228,19 @@
                                 var tries = 0;
 
                                 $('#datatable').on('click', '#status-next', function() {
+
+                                    var statusMapNext = {
+                                        'canceled': 'processing',
+                                        'processing': 'confirmed',
+                                        'confirmed': 'preparing',
+                                        'preparing': 'scheduled',
+                                        'scheduled': 'intransit',
+                                        'intransit': 'received',
+                                        'received': 'torate',
+                                        'torate': 'completed',
+                                        'completed': 'completed'
+                                    };
+
                                     const orderId = $(this).data('order-id');
                                     const oldStatus = $(this).data('status');
                                     const newStatus = statusMapNext[oldStatus] || 'completed';
@@ -258,11 +248,22 @@
                                 });
 
                                 $('#datatable').on('click', '#status-back', function() {
+
+                                    var statusMapBack = {
+                                        'canceled': 'canceled', 
+                                        'processing': 'canceled', 
+                                        'confirmed': 'processing',
+                                        'preparing': 'confirmed',   
+                                        'scheduled': 'preparing',   
+                                        'intransit': 'scheduled',   
+                                        'received': 'intransit', 
+                                        'torate': 'received',
+                                        'completed': 'torate'
+                                    };
+
                                     const orderId = $(this).data('order-id');
                                     const oldStatus = $(this).data('status');
                                     const newStatus = statusMapBack[oldStatus] || 'processing';
-
-                                    alert(orderId);
 
                                     if (newStatus == 'canceled') {
                                         if (tries == 0) {
@@ -274,6 +275,8 @@
                                         } else {
                                             tries = 0;
                                         }
+                                    } else if () {
+
                                     } else {
                                         updateStatusAndFetch(orderId, oldStatus, newStatus);
                                     }

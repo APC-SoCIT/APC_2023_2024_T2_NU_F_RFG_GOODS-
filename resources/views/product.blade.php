@@ -131,17 +131,27 @@
                             <div class="relative flex flex-row w-full h-10 mt-4 bg-transparent rounded-lg">
                                 <button
                                     id="decrement"
-                                    class="w-20 h-full text-black bg-stone-300 rounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-black hover:text-gray-700 dark:bg-stone-300 hover:bg-gray-400">
+                                    class="w-20 h-full rounded-l outline-none cursor-pointer hover:bg-gray-700 text-black bg-stone-300 hover:text-gray-300"
+                                    @if($product->stock == 0 || $product->stock < 1 ) 
+                                    disabled
+                                    @endif>
                                     <span class="m-auto text-2xl font-thin">-</span>
                                 </button>
                                 <input 
                                     id="quantity"
                                     type="number"
-                                    class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none flex items-center w-full font-semibold text-center text-black placeholder-black bg-gray-300 outline-none dark:text-black dark:placeholder-black dark:bg-stone-400 focus:outline-none text-md hover:text-black"
-                                    placeholder="1">
+                                    class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none flex items-center w-full font-semibold text-center outline-none text-black placeholder-black bg-stone-400 focus:outline-none text-md hover:text-black"
+                                    placeholder="1"
+                                    @if($product->stock == 0 || $product->stock < 1 ) 
+                                    disabled
+                                    @endif
+                                    >
                                 <button
                                     id="increment"
-                                    class="w-20 h-full text-black bg-stone-300 rounded-r outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-black dark:bg-stone-300 hover:text-gray-700 hover:bg-gray-400">
+                                    class="w-20 h-full rounded-r outline-none cursor-pointer hover:bg-gray-700 text-black bg-stone-300 hover:text-gray-300"
+                                    @if($product->stock == 0 || $product->stock < 1 ) 
+                                    disabled
+                                    @endif>
                                     <span class="m-auto text-2xl font-thin">+</span>
                                 </button>
                             </div>
@@ -210,7 +220,7 @@
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                     @if($product->stock == 0 || $product->stock < 1 ) 
                                         <button
-                                        id="" class="flex items-center justify-center w-full p-4 text-black border font-bold border-orange-400 rounded-md dark:text-black dark:border-orange-400 hover:bg-orange-600 hover:border-orange-600 hover:text-gray-100 dark:bg-orange-400 dark:hover:bg-orange-700 dark:hover:border-orange-700 dark:hover:text-gray-300">
+                                        id="" class="flex items-center justify-center w-full p-4 text-black font-bold bg-gray-300 rounded-mdbg-orange-400">
                                         Out of Stock
                                         </button>
                                     @else
@@ -270,33 +280,61 @@
 
                     <article class="sm:ml-20 bg-orange-400 px-4 rounded-xl">
                         <h1 class="font-bold flex items-center text-xl py-1">Reviews</h1>
-                        <div class="bg-white rounded-xl">
-                            <div class="flex mb-1">
-                                <img class="w-12 h-12 me-2 pl-1 pt-1 rounded-full" src="./Img/white npc.jpg" alt="">
-                                <div class="font-medium dark:text-black">
-                                    <p>Chefsky</p>
-                                    <div class="flex mb-1 space-x-1 rtl:space-x-reverse">
-                                        <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                                        </svg>
-                                        <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                                        </svg>
-                                        <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                                        </svg>
-                                        <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                                        </svg>
-                                        <svg class="w-4 h-4 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                                        </svg>
+                        @forelse($ratings as $rating)
+                            <div class="bg-white rounded-xl">
+                                <div class="flex mb-1">
+                                    <img class="w-12 h-12 me-2 pl-1 pt-1 rounded-full" alt="">
+                                    <div class="font-medium dark:text-black">
+                                        <p>{{$rating->last_name}}</p>
+                                        @php
+                                            $avgRating = $product->avg_rating;
+                                            $maxRating = 5;
+                
+                                            $filledStars = min(round($avgRating), $maxRating);
+                                            $emptyStars = $maxRating - $filledStars;
+                                        @endphp
+                                        <ul class="flex mr-2 place-items-center">
+                                            @for ($i = 0; $i < $filledStars; $i++)
+                                                <li>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star-fill " viewBox="0 0 16 16">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                    </svg>
+                                                </li>
+                                            @endfor
+                                            @for ($i = 0; $i < $emptyStars; $i++)
+                                                <li>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-red-500 dark:text-black bi bi-star" viewBox="0 0 16 16">
+                                                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                    </svg>
+                                                </li>
+                                            @endfor
+                                        </ul>
+                                        {{-- <div class="flex mb-1 space-x-1 rtl:space-x-reverse">
+                                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                            </svg>
+                                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                            </svg>
+                                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                            </svg>
+                                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                            </svg>
+                                            <svg class="w-4 h-4 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                            </svg>
+                                        </div> --}}
+                                        <h3 class=" text-sm font-semibold text-gray-900 dark:text-black">{{$rating->rating_comment}}</h3>
                                     </div>
-                                    <h3 class=" text-sm font-semibold text-gray-900 dark:text-black">Thinking to buy another one!</h3>
                                 </div>
                             </div>
-                        </div>
-                        <div class="bg-white rounded-xl">
+
+                        @empty
+                            <p class="text-black text-center"> No Reviews as of now.</p>
+                        @endforelse
+                        {{-- <div class="bg-white rounded-xl">
                             <div class="flex mb-1">
                                 <img class="w-12 h-12 me-2 pl-1 pt-1 rounded-full" src="./Img/ladybron.jpg" alt="">
                                 <div class="font-medium dark:text-black">
@@ -373,8 +411,8 @@
                                     <h3 class=" text-sm font-semibold text-gray-900 dark:text-black">Perfect Movie Night Snack</h3>
                                 </div>
                             </div>
-                        </div>
-                </article>
+                        </div> --}}
+                    </article>
                 </div>
             </div>
         </div>

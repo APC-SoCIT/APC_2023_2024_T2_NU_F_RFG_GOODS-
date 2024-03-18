@@ -426,8 +426,11 @@ class ProductController extends Controller
         )
         ->first();
 
-        return view('product', ['product' => $productInfo]);
+        $ratings = Rating::leftJoin('users','ratings.user_id','=','users.id')
+        ->where('product_id','=','products.id')
+        ->get();
+
+        return view('product', ['product' => $productInfo, 'ratings' => $ratings]);
     }
 
-    
 }

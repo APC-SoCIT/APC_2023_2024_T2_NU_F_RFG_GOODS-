@@ -39,7 +39,6 @@
                                     </svg>
                                 </li>
                             @endfor
-
                         </ul>
                         <p class="relative pl-4">
                             @if ($product->avg_rating == null) 
