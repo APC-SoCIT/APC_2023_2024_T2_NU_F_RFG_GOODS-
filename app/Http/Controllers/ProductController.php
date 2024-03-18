@@ -62,6 +62,7 @@ class ProductController extends Controller
             'products.status',
             'products.rating'
         )
+        ->where('products.status','!=','archived')
         ->when($request->input('search'), function($q)use($request){
             $q->where('products.name', 'LIKE', '%' . $request->input('search') . '%')->orWhereRaw('LOWER(products.name) LIKE ?', ['%' . strtolower($request->input('search')) . '%']);
         })

@@ -58,14 +58,14 @@
 
                         <div id="accordion-collapse-availability-body" class="hidden" aria-labelledby="accordion-collapse-availability">
                             <div class="p-2">
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.availabilityInstock')">
-                                    <input id="filter.availabilityInstock" type="checkbox" 
+                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter_stock')">
+                                    <input id="filter_stock" type="checkbox" 
                                     class="text-black focus:ring-transparent focus:outline-none" 
-                                    onclick="toggleCheckboxInDiv(this.parentNode, 'filter.availabilityInstock')"
+                                    onclick="toggleCheckboxInDiv(this.parentNode, 'filter_stock')"
                                     onclick="">
-                                    <label for="filter.availabilityInstock" 
+                                    <label for="filter_stock" 
                                     class="select-none" 
-                                    onclick="toggleCheckboxInDiv(this.parentNode, 'filter.availabilityInstock')">In Stock</label>
+                                    onclick="toggleCheckboxInDiv(this.parentNode, 'filter_stock')">In Stock</label>
                                 </div>
                             </div>
                         </div>
@@ -307,7 +307,7 @@
                         page: page,
                         selectedCategories: selectedCategories,
                         selectedRatings: selectedRatings,
-                        stock: stock,
+                        filter_stock: stock,
                         search_term: search_term,
                         sort_by: sort_by
                     },
@@ -352,7 +352,7 @@
                     selectedRatings.push($(this).val());
                 });
 
-                var stock = $('#instock').val();
+                var stock = $('#filter_stock').val();
                 var search_term = "{{ request('search') }}";
                 var sort_by = $('#sort_by').val();
 
@@ -371,7 +371,7 @@
                     selectedRatings.push($(this).val());
                 });
 
-                var stock = $('#instock').val();
+                var stock = $('#filter_stock').val();
                 var search_term = "{{ request('search') }}";
                 var sort_by = $('#sort_by').val();
                 
