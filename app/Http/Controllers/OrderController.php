@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Inventory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -17,11 +18,29 @@ class OrderController extends Controller
         $orderInfo = Order::where('orders.id', $order->id)
                         ->where('user_id','=', Auth::user()->id)
                         ->first();
+                        
         $orderItems = OrderItem::leftjoin('orders', 'order_items.order_id', '=', 'orders.id')
         ->leftjoin('products', 'products.id', '=', 'order_items.product_id')
         ->join('product_categories', 'product_categories.id', '=', 'products.category_id')
         ->where('order_id','=',$order->id)
         ->get();
+
+        $user = Auth::user();
+        $userAddress = $user->addressline . ', ' . $user->{'city/municipality'} . ', ' . $user->{'state/province'} . ', ' . $user->barangay . ', ' . $user->region;
+
+        $orderReferenceId = $orderInfo->order_reference_id;
+        $orderStatus = $orderInfo->status;
+
+        return view('order-page', [
+            'order' => $orderInfo,
+            'orderItems' => $orderItems,
+            'userFirstName' => $user->first_name,
+            'userLastName' => $user->last_name,
+            'userPhoneNumber' => $user->phone_number,
+            'userAddress' => $userAddress, 
+            'orderReferenceId' => $orderReferenceId,
+            'orderStatus' => $orderStatus,
+        ]);
 
         return view('order-page', ['order' => $orderInfo, 'orderItems' => $orderItems]);
     }
