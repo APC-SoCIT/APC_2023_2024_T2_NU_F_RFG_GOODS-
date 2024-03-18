@@ -1,5 +1,9 @@
 <div class="drop-shadow-md overflow-x-auto">
-    <button id="backbutton">back</button>
+
+<div class=" relative w-12 h-8 flex justify-center items-center cursor-pointer my-4 rounded-lg bg-orange-400">
+    <button id="backbutton" class="text-white">BACK</button>
+</div>
+
     <div class="align-middle inline-block min-w-full overflow-x-auto">
         <div class="overflow-hidden">
 

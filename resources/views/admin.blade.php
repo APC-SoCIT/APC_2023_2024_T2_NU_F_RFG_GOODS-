@@ -297,8 +297,8 @@
                      </div>
                   </div>
                </div>
-               <div class="flex flex-col w-full h-full bg-gray-200 text-rfg-text p-4 gap-2 rounded-2xl overflow-hidden overflow-x-auto">
-                  <table class="table-fixed min-w-full divide-y divide-gray-200">
+               <div class="flex flex-col w-full h-full bg-gray-200 text-rfg-text p-4 gap-2 rounded-2xl overflow-x-auto">
+                  <table class="table-fixed min-w-full divide-y divide-gray-200 overflow-y-auto">
                      <thead class="">
                         <tr>
                            <th scope="col" class="p-4 text-left text-xs font-medium text-black uppercase">
