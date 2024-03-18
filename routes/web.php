@@ -98,6 +98,7 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/orders/{orders}/update', [OrderController::class, 'update'])->name('orders.update');
     Route::get('/admin/orders/{orders}/destroy', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::patch('/admin/orders/statusupdate', [OrderController::class, 'updateStatus'])->name('orders.updatestatus');
+    Route::post('/admin/orders/deliveryadd', [OrderController::class, 'adddelivery'])->name('orders.deliveryadd');
 
     Route::get('/admin/deliveries', [DeliveryController::class, 'adminIndex'])->name('deliveries.admin.index');
 });

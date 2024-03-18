@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('order_reference_id');
             $table->string('status');
+            $table->string('priority');
             $table->string('payment_method');
             $table->string('payment_reference_id')->nullable();
             $table->timestamps();

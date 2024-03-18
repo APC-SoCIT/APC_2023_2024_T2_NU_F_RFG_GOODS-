@@ -47,15 +47,6 @@
           @php
             $inStockCount = 0;
           @endphp
-
-          <script>
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-          </script>
-
           {{-- product loop start --}}
           {{-- in stock layout start --}}
           @foreach ($usercart as $cartItem)
@@ -138,7 +129,13 @@
               </script>
 
               <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-              
+              <script>
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+              </script>
               <script>
                 console.log("changed");
                 var quantityInput = document.getElementById("quantity{{$cartItem->id}}");
@@ -321,17 +318,21 @@
               <form id="deliveryForm" action="PLACEHOLDERDELIVER.php" method="post">
                 <div class="flex w-full rounded-lg select-none bg-white">
                     <label class="radio flex w-full items-center justify-center rounded-lg cursor-pointer">
-                        <input type="radio" name="deliveryMethod" value="Express" class="peer hidden" checked="">
+                        <input type="radio" name="deliveryMethod" value="express" class="peer hidden" checked="">
                         <span class="font-bold tracking-widest text-center peer-checked:bg-orange-500 w-full peer-checked:text-white text-black p-2 rounded-lg transition duration-150 ease-in-out">Express</span>
                     </label>
                     <label class="radio flex flex-grow w-full items-center justify-center rounded-lg cursor-pointer">
-                        <input type="radio" name="deliveryMethod" value="SameDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
+                        <input type="radio" name="deliveryMethod" value="sameday" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
                         <span class="font-bold tracking-widest text-center peer-checked:bg-orange-500 w-full  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Same Day</span>
                     </label>
                     <label class="radio flex flex-grow w-full items-center justify-center rounded-lg cursor-pointer">
-                        <input type="radio" name="deliveryMethod" value="NextDay" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
+                        <input type="radio" name="deliveryMethod" value="nextday" class="peer hidden" @if ($user->region!='National Capital Region (NCR)') disabled @endif>
                         <span class="font-bold tracking-widest text-center peer-checked:bg-orange-500 w-full  peer-checked:text-white text-black p-2 ml-2 rounded-lg transition duration-150 ease-in-out"><span style="color: blue">*</span>Next Day</span>
                     </label>
+
+                    <script>
+                        var deliveryMethodRadios = document.querySelectorAll('input[name="deliveryMethod"]');
+                    </script>
                     
                 </div>
               </form>
@@ -352,6 +353,10 @@
             </div>
             <p class="text-xs mt-2 text-white"><span style="color: blue">*</span>only available for deliveries within metro manila</p>
           </div>
+
+          <script>
+            var paymentMethod = document.getElementById('paymentMethod');
+          </script>
 
           <div class="flex justify-between mt-4 ">
             <span class="font-bold text-sm uppercase text-white">Subtotal</span>
@@ -434,8 +439,11 @@
                 });
               </script>
 
-              <button id="confirmOrderButton" class="@if ($inStockCount!= 0) cursor-pointer bg-stone-100 hover:bg-stone-500 @else bg-stone-500 @endif font-bold py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4" @if ($inStockCount== 0) disabled @endif>
-                @if ($inStockCount== 0) No items in cart @else Confirm Order @endif
+              <button id="confirmOrderButton" class="@if ($inStockCount != 0 || isset($user->region)) cursor-pointer bg-stone-100 hover:bg-stone-500 @else bg-stone-500 @endif font-bold py-3 text-sm text-slate-950 uppercase w-full rounded-2xl my-4" @if ($inStockCount == 0 || !isset($user->region)) disabled @endif>
+                @if ($inStockCount== 0) No items in cart 
+                @elseif (!isset($user->region)) Address Not Set 
+                @else Confirm Order 
+                @endif
               </button>
 
               <div id="confirmOrderModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
@@ -458,7 +466,30 @@
                                   @csrf
                                   <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
                                   <input type="hidden" id="status" name="status" value="processing">
-                                  <input type="hidden" id="payment_method" name="payment_method" value="cod">
+                                  <input type="hidden" id="input_payment" name="input_payment" value="">
+                                  <input type="hidden" id="input_deliv" name="input_deliv" value="">
+                                  <script>
+
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                      var inputDeliveryMethod = document.getElementById('input_deliv');
+
+                                      deliveryMethodRadios.forEach(function(radio) {
+                                          radio.addEventListener('change', function() {
+                                              if (this.checked) {
+                                                  inputDeliveryMethod.value = this.value;
+                                                  console.log('Selected Delivery Method:', inputDeliveryMethod.value);
+                                              }
+                                          });
+                                      });
+                                      paymentMethod.addEventListener('change', function () {
+                                        document.getElementById('input_payment').value = paymentMethod.value;
+                                        console.log(paymentMethod.value);
+                                      });
+
+                                    });
+
+                                      
+                                  </script>
                                   @foreach ($usercart as $index => $cartItem)
                                       <input type="hidden" name="cartItems[{{ $index }}][id]" value="{{ $cartItem->id }}">
                                       <input type="hidden" name="cartItems[{{ $index }}][product_id]" value="{{ $cartItem->product_id }}">
