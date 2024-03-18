@@ -194,6 +194,7 @@ class ProductController extends Controller
             'products.sku',
             'products.name',
             'products.price',
+            'products.totalusersRating',
             'product_categories.category',
             'products.desc',
             'products.min_qty',
@@ -205,7 +206,7 @@ class ProductController extends Controller
         )
         ->paginate(12);
         $categoryList = ProductCategory::select('id', 'category')->get();
-
+        
         if($request->ajax()){
             $products = Product::join('product_categories', 'products.category_id', '=', 'product_categories.id')
                         ->select(
@@ -214,6 +215,7 @@ class ProductController extends Controller
                             'products.sku',
                             'products.name',
                             'products.price',
+                            'products.totalusersRating',
                             'product_categories.category',
                             'products.desc',
                             'products.min_qty',
@@ -276,6 +278,7 @@ class ProductController extends Controller
                                     $q->where('stock', '>', DB::raw('max_qty'));
                                 }
                             }
+                            
                         })
                         ->when($request->rating5, function($q)use($request){
                             $q->where('rating', '==', 5);
@@ -300,11 +303,15 @@ class ProductController extends Controller
                         })
                         ->paginate(12);
 
-            return view('admin.products-table', ['products' => $products, 'categoryList' => $categoryList])->render();
+            return view('admin.products-table', [
+                'products' => $products, 
+                'categoryList' => $categoryList])->render();
         }
+        
 
         return view('admin.products', ['products' => $products, 'categoryList' => $categoryList]);
     }
+    
 
 
     public function save(Request $request){
@@ -432,5 +439,6 @@ class ProductController extends Controller
 
         return view('product', ['product' => $productInfo, 'ratings' => $ratings]);
     }
+    
 
 }

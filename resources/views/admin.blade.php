@@ -87,7 +87,7 @@
                </div>
                <div class="flex flex-col text-center gap-1 w-full">
                   <div class="h-3"></div>
-                  <p class="font-mono text-black text-5xl font-bold">1</p>
+                  <p class="font-mono text-black text-5xl font-bold">{{$totalRating}}</p>
                   <p class="text-black text-lg">NEW RATINGS</p>
                   <div class="flex justify-center text-center items-center gap-1">
                      @if ($percentageOrders < 0)
@@ -152,10 +152,6 @@
                            </div>
                         </div>
                         <div id="container.date" class="rounded-lg px-1 hover:bg-white" onmouseover="changeBackgroundColor('container.list.usernamest')" onmouseout="resetBackgroundColor('container.list.usernamest')">
-                           <a href="">
-                              <p class="font-bold w-full text-center text-black">Feb</p>
-                              <p class="font-bold text-5xl text-black text-center flex item-center pt-[-1rem]">02</p>
-                           </a>
                         </div>
                      </div>
                   </div>
@@ -185,10 +181,6 @@
                            </div>
                         </div>
                         <div id="container.date" class="rounded-lg px-1 hover:bg-white" onmouseover="changeBackgroundColor('container.list.usernamesb')" onmouseout="resetBackgroundColor('container.list.usernamesb')">
-                           <a href="">
-                              <p class="font-bold w-full text-center text-black">Feb</p>
-                              <p class="font-bold text-5xl text-center flex item-center pt-[-1rem] text-black">06</p>
-                           </a>
                         </div>
                      </div>
                   </div>
