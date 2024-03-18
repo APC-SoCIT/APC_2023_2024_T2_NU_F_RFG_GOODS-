@@ -120,6 +120,10 @@
                 </div>
             </div>
 
+            <a href="">
+                
+            </a>
+
             <div class="flex flex-col">
                 <div id="datatable">
                     @include('admin.orders-table')
@@ -182,42 +186,12 @@
                                                 $('tr').css('opacity', 0.5);
                                             };
 
-                                            const hideLoadingScreen = () => {
-                                                $('tr').css('opacity', 1);
-                                            };
+                                        const hideLoadingScreen = () => {
+                                            $('tr').css('opacity', 1);
+                                        };
 
-                                        const fetch_data = (page, orderid) => {
-                                            $.ajax({
-                                                url:"/admin/orders/?",
-                                                data: {
-                                                    page: page,
-                                                    orderid: orderid,
-                                                    type: 'view',
-                                                },
-                                                beforeSend: function(){
-                                                    showLoadingScreen();
-                                                },
-                                                success:function(data){
-
-                                                    const tempContainer = document.createElement('div');
-                                                    tempContainer.innerHTML = data;
-
-                                                    $('#datatable').empty();
-                                                    $('#datatable').html(tempContainer);
-
-                                                },
-                                                complete: function(){
-                                                hideLoadingScreen();
-                                                },
-                                                error: function (xhr, status, error) {
-                                                    console.error(xhr.responseText);
-                                                    console.error(error);
-                                                }
-                                            });
-                                        }
-                                        
                                         console.log(orderData);
-                                        fetch_data(page, orderData)
+                                        gotoorderitem(page, orderData)
 
                                     });
                                 });
@@ -287,6 +261,9 @@
                                     const orderId = $(this).data('order-id');
                                     const oldStatus = $(this).data('status');
                                     const newStatus = statusMapBack[oldStatus] || 'processing';
+
+                                    alert(orderId);
+
                                     if (newStatus == 'canceled') {
                                         if (tries == 0) {
                                             showDeleteToast();
@@ -301,6 +278,17 @@
                                         updateStatusAndFetch(orderId, oldStatus, newStatus);
                                     }
                                 });
+
+                                function showDeleteToast() {
+                                    var toast = document.getElementById('toast-cancel');
+                                    toast.classList.remove('hidden');
+                                    toast.classList.add('flex');
+
+                                    setTimeout(function() {
+                                        toast.classList.add('hidden');
+                                        toast.classList.remove('flex');
+                                    }, 5000); // 5000 milliseconds = 5 seconds
+                                }
 
                                 $('#datatable').empty();
                                 $('#datatable').html(tempContainer);
@@ -558,6 +546,7 @@
                         'torate': 'received',
                         'completed': 'torate'
                     };
+
                     fetchforupdate = (orderId, newStatus, statusText) => {
                             $.ajax({
                                 url:"/admin/orders/statusupdate?",
@@ -584,6 +573,26 @@
 
                     var nextButtonArray = Array.from(nextButton);
                     var backButtonArray = Array.from(backButton);
+
+                    function updateStatusAndFetch(orderId, oldStatus, newStatus) {
+                        var statusText = $('span[data-order-id="' + orderId + '"]');
+                        fetchforupdate(orderId, newStatus, statusText);
+                        
+                        // Update the data-status attribute of nextButton and backButton
+                        nextButtonArray.filter(function(button) {
+                            return $(button).data('order-id') === orderId;
+                        }).forEach(function(button) {
+                            $(button).data('status', newStatus);
+                        });
+
+                        backButtonArray.filter(function(button) {
+                            return $(button).data('order-id') === orderId;
+                        }).forEach(function(button) {
+                            $(button).data('status', newStatus);
+                        });
+                    }
+
+                    var tries = 0;
 
                     $('#datatable').on('click', '#status-next', function() {
                         var orderId = $(this).data('order-id');
@@ -784,8 +793,38 @@
     });
 </script>
 
+<script>
+    //View Button Ajax
+    const gotoorderitem = (page, orderid) => {
+        $.ajax({
+            url:"/admin/orders/?",
+            data: {
+                page: page,
+                orderid: orderid,
+                type: 'view',
+            },
+            beforeSend: function(){
+                showLoadingScreen();
+            },
+            success:function(data){
 
+                const tempContainer = document.createElement('div');
+                tempContainer.innerHTML = data;
 
+                $('#datatable').empty();
+                $('#datatable').html(tempContainer);
+
+            },
+            complete: function(){
+            hideLoadingScreen();
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                console.error(error);
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
