@@ -10,9 +10,11 @@ use App\Models\Cart;
 use App\Models\Inventory;
 use App\Models\User;
 use App\Models\Delivery;
+use App\Models\DeliveryUpdate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+
 
 class OrderController extends Controller
 {
@@ -274,8 +276,11 @@ class OrderController extends Controller
                 $order = Order::find($request->orderid);
                 $order->status = $request->newstatus;
                 $order->save();
-
                 return $request->newstatus;
+
+                $deliveryupdate = new DeliveryUpdate;
+                $deliveryupdate->order_id = $request->orderid;
+                $deliveryupdate->title = $request->newstatus;
             }
         }
     }

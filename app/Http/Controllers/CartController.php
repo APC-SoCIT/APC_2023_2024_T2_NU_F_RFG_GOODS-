@@ -137,43 +137,8 @@ class CartController extends Controller
         }
     }
 
-    public function indexStripe() {
-        return view('index');
-    }
-
-    public function checkoutStripe() {
-        \Stripe\Stripe::setApiKey(config('stripe.sk'));
-
-        $session = \Stripe\Checkout\Session::create([
-            'line_items'    => [
-                [
-                    'price_data'    => [
-                        'currency'      => 'php',
-                        'product_data'  => [
-                            'name'  => 'name test',
-                        ],
-                        'unit_amount'   => 500, //php5.00
-                    ],
-                    'quantity'  => 1,
-                ],
-            ],
-            'mode'          => 'payment',
-            'success_url' => route('success'),
-            'cancel_url' => route('index'),
-        ]);
-
-        return redirect()->away($session->url);
-    }
-
-    public function successStripe() {
-        return view ('index');
-    }
 
     public function paywithMaya() {
         $url = 'https://pg-sandbox.paymaya.com/payby/v2/paymaya/payments';
-    }
-
-    public function checkout() {
-        
     }
 }

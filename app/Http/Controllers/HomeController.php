@@ -66,8 +66,8 @@ class HomeController extends Controller
                 ->groupBy('orders.id', 'orders.user_id', 'orders.status')
                 ->get();
 
-                $deliveries = Delivery::with(['order.user'])
-                ->select('deliveries.*')
+                $deliveries = Delivery::
+                select('deliveries.*')
                 ->join('orders', 'orders.id', '=', 'deliveries.order_id')
                 ->join('users', 'users.id', '=', 'orders.user_id')
                 ->select('users.id', 'users.last_name', 'users.first_name', 'orders.status', 'orders.payment_method', 'orders.payment_reference_id')
