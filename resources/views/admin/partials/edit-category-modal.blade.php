@@ -1,8 +1,8 @@
 <!-- Edit Category Modal -->
-<div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="category-modal-{{ $category->id }}">
-    <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
+<div class="hidden overflow-x-hidden overflow-y-auto top-4 left-0 right-0 md:inset-0 z-auto justify-center items-center h-modal sm:h-full" id="category-modal-{{ $category->id }}">
+    <div class=" w-full max-w-2xl px-4 h-full md:h-auto">
         <!-- Modal content -->
-        <div class="bg-white rounded-lg shadow relative">
+        <div class="bg-white rounded-lg shadow">
             <!-- Modal header -->
             <div class="flex items-start justify-between p-5 border-b rounded-t">
                 <h3 class="text-xl font-semibold">
