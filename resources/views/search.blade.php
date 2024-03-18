@@ -132,9 +132,9 @@
                         </h2>
                         <div id="accordion-collapse-rating-body" class="hidden transition-all" aria-labelledby="accordion-collapse-heading-3">
                             <div class="p-2">
-                                <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating5')">
-                                    <input id="filter.rating5" type="checkbox" value="rating5" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating5')">
-                                    <label for="filter.rating5" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating5')">5
+                            <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating5')">
+                                    <input id="filter.rating5" type="radio" name="rating" value="5" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating5')">
+                                    <label for="filter.rating5" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating5')">5</label>
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 5; $i++)
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
@@ -145,8 +145,8 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating4')">
-                                    <input id="filter.rating4" type="checkbox" value="rating4" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating4')">
-                                    <label for="filter.rating4" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating4')">4
+                                <input id="filter.rating4" type="radio" name="rating" value="4" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating4')">
+                                    <label for="filter.rating4" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating4')">4</label>
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 4; $i++)
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
@@ -162,8 +162,8 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating3')">
-                                    <input id="filter.rating3" type="checkbox" value="rating3" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating3')">
-                                    <label for="filter.rating3" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating3')">3
+                                <input id="filter.rating3" type="radio" name="rating" value="3" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating3')">
+                                    <label for="filter.rating3" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating3')">3</label>
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 3; $i++)
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
@@ -179,8 +179,8 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating2')">
-                                    <input id="filter.rating2" type="checkbox" value="rating2" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating2')">
-                                    <label for="filter.rating2" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating2')">2
+                                    <input id="filter.rating2" type="radio" name="rating" value="2" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating2')">
+                                    <label for="filter.rating2" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating2')">2</label>
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 2; $i++)
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
@@ -196,8 +196,8 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating1')">
-                                    <input id="filter.rating1" type="checkbox" value="rating1" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating1')">
-                                    <label for="filter.rating1" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating1')">1
+                                    <input id="filter.rating1" type="radio" name="rating" value="1" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating1')">
+                                    <label for="filter.rating1" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating1')">1</label>
                                         <div class="flex pl-2 items-center">
                                             @for ($i = 0; $i < 1; $i++)
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 mr-1 text-rfg-accent bi bi-star-fill " viewBox="0 0 16 16">
@@ -213,7 +213,7 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center gap-2 cursor-pointer hover:bg-gray-400 pl-2" onclick="toggleCheckboxInDiv(this, 'filter.rating0')">
-                                    <input id="filter.rating0" type="checkbox" value="rating0" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating0')">
+                                <input id="filter.rating1" type="radio" name="rating" value="0" class="text-black focus:ring-transparent focus:outline-none"  onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating0')" checked>
                                     <label for="filter.rating0" class="flex cursor-pointer select-none" onclick="toggleCheckboxInDiv(this.parentNode, 'filter.rating0')">No reviews</label>
                                 </div>
                             </div>
@@ -232,9 +232,15 @@
                             <p id="hidden_search" class="font-bold ml-1"> '{{ request('search') }}' </p>
                         </div>
                         <div class="pb-2">
-                                <select name="" id="" class="rounded-lg pl-2 focus:ring-0 border-1 border-gray-200">
-                                    <option value="">
+                                <select name="sort" id="sort" class="rounded-lg pl-2 focus:ring-0 border-1 border-gray-200" onchange="sortProducts()">
+                                    <option value="" disable selected>
                                         SORT BY:
+                                    </option>
+                                    <option value="price_asc">
+                                        Price: Low to High
+                                    </option>
+                                    <option value="price_desc">
+                                        Price: High to Low
                                     </option>
                                 </select>
                         </div>

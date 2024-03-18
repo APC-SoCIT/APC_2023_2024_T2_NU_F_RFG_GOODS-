@@ -29,6 +29,7 @@ class HomeController extends Controller
 
                 if ($yesterdayOrders > 0) {
                     $percentageOrders = (($todayOrders - $yesterdayOrders) / $yesterdayOrders) * 100;
+                    $percentageOrders = number_format($percentageOrders, 2);
                 } else {
                     $percentageOrders = 0;
                 }
