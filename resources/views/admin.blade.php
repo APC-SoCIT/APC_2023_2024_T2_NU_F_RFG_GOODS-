@@ -151,6 +151,7 @@
 
                   <div class="flex flex-col w-full bg-gray-200 p-4 gap-2 rounded-2xl">
                      <p class="w-full text-center text-xs font-bold text-black">UPCOMING</p>
+                     <hr class="border-black">
                                                 @foreach ($deliveries as $delivery)
                            <div class="flex justify-between gap-2 rounded-lg">
                               <div class="flex flex-col w-full justify-between text-lg">

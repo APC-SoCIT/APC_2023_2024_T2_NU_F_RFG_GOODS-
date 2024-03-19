@@ -42,7 +42,7 @@
                         </div>
                         <div class="w-full">
                             <div class="flex justify-center items-center">
-                            @if($order->status == 'confirmed' || $order->status == 'intransit' || $order->status == 'received' || $order->status == 'completed')
+                            @if($order->status == 'confirmed' || $order->status == 'intransit' || $order->status == 'received' || $order->status == 'completed' || $order->status == 'scheduled')
                                 <li class="flex mb-6 w-full items-center justify-center">
                                         <span class="flex items-center justify-center w-10 h-10 text-white rounded-full lg:h-12 lg:w-12 dark:bg-orange-400 shrink-0">
                                         <svg class="w-3.5 h-3.5 text-white lg:w-4 lg:h-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
